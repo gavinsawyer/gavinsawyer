@@ -1,4 +1,4 @@
-### Hi there 👋
+### Hi there 👋 I'm Gavin, a software developer and business student living in Boston.
 
 <!--
 **gavinsawyer/gavinsawyer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
