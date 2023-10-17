@@ -1,4 +1,5 @@
-### I'm Gavin, a software developer and BSBA graduate living in Boston.
+I'm Gavin, a software developer and BSBA graduate living in Boston.
+===
 
 For hire, connect via [LinkedIn](https://www.linkedin.com/in/gavinsawyer-dev/).
 
