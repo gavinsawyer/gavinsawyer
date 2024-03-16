@@ -1,0 +1,24 @@
+{
+  "name":         "@gavinsawyer/cloud-functions",
+  "homepage":     "https://gavinsawyer.dev",
+  "license":      "MIT",
+  "author":       {
+    "name":  "Gavin Sawyer",
+    "email": "g@vinsawyer.dev",
+    "url":   "https://github.com/gavinsawyer"
+  },
+  "repository":   {
+    "type":      "git",
+    "url":       "git+https://github.com/gavinsawyer/gavinsawyer.git",
+    "directory": "libs/cloud functions"
+  },
+  "private":      true,
+  "engines":      {
+    "node": "20"
+  },
+  "main":         "./main.js",
+  "type":         "module",
+  "dependencies": {
+    "@gavinsawyer/shortcuts-api": "^2.0.1"
+  }
+}

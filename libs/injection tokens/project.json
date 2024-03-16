@@ -1,0 +1,16 @@
+{
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "name":        "injection-tokens",
+  "projectType": "library",
+  "sourceRoot":  "libs/injection tokens/src",
+  "targets":     {
+    "eslint": {
+      "executor": "@nx/linter:eslint",
+      "options":  {
+        "lintFilePatterns": [
+          "libs/injection tokens/**/*.ts"
+        ]
+      }
+    }
+  }
+}

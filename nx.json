@@ -1,0 +1,68 @@
+{
+  "affected": {
+    "defaultBase": "main"
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "production": [
+      "default"
+    ],
+    "sharedGlobals": []
+  },
+  "npmScope": "gavinsawyer",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
+    },
+    "serve": {
+      "dependsOn": [
+        "^serve"
+      ],
+      "inputs": [
+        "development",
+        "^development"
+      ]
+    },
+    "deploy": {
+      "dependsOn": [
+        "^deploy"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
+    },
+    "eslint": {
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore"
+      ]
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "accessToken":         "${NX_CLOUD_ACCESS_TOKEN}",
+        "cacheableOperations": [
+          "angular-browser",
+          "angular-prerender",
+          "angular-server",
+          "esbuild",
+          "eslint",
+          "tsc"
+        ]
+      },
+      "runner":  "nx-cloud"
+    }
+  }
+}

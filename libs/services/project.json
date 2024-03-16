@@ -1,0 +1,17 @@
+{
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "name":        "services",
+  "prefix":      "portfolio",
+  "projectType": "library",
+  "sourceRoot":  "libs/services/src",
+  "targets":     {
+    "eslint": {
+      "executor": "@nx/linter:eslint",
+      "options":  {
+        "lintFilePatterns": [
+          "libs/services/**/*.ts"
+        ]
+      }
+    }
+  }
+}

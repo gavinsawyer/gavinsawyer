@@ -1,0 +1,50 @@
+@import '../../../../../colors'
+
+\:host
+  align-content: flex-start
+  align-items: flex-start
+  border-radius: calc(1.5rem + (14.28125px / 2))
+  box-shadow: $shadow 0 0.25rem 0.5rem -0.25rem
+  display: flex
+  flex: 1 1 0
+  flex-direction: row
+  gap: 0.75rem
+  justify-content: flex-start
+  padding: 0.75rem 1.5rem 0.75rem 0.75rem
+  user-select: none
+
+  #indicator
+    border-radius: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    padding: 0.75rem
+    background: transparentize($body-light, 0.125)
+
+  #description
+    padding: 0.5rem 0
+
+    h3
+      margin: 0
+
+    p
+      font-size: 0.85rem
+      margin-bottom: 0
+      max-width: 206px
+
+      @media (max-width: 52.25rem)
+        max-width: 100%
+
+  #indicator,
+  #description
+    display: flex
+    flex-direction: column
+
+  @mixin colors($body-foreground, $body-background, $footer-foreground, $footer-background, $degrade-foreground-function, $degrade-background-function)
+    &
+      background: transparentize(call(get-function($degrade-background-function), $body-background, 10%), 0.5)
+
+  @include colors($body-dark, $body-light, $footer-dark, $footer-light, lighten, darken)
+
+  @media (prefers-color-scheme: dark)
+    @include colors($body-light, $body-dark, $footer-light, $footer-dark, darken, lighten)

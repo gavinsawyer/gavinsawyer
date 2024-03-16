@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "gavinsawyer-44c46"
+  },
+  "targets": {
+    "gavinsawyer-44c46": {
+      "hosting": {
+        "website": [
+          "website-b1a8c"
+        ]
+      }
+    }
+  }
+}
