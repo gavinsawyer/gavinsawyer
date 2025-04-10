@@ -1,0 +1,47 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+@use "../container/ContainerDirective"
+
+
+$namespace: "flexbox-container"
+
+$align-content: functions.get-input-reference($namespace, "align-content", normal)
+$align-items: functions.get-input-reference($namespace, "align-items", normal)
+$flex-direction: functions.get-input-reference($namespace, "flex-direction", column)
+$flex-wrap: functions.get-input-reference($namespace, "flex-wrap", nowrap)
+$gap-column: functions.get-input-reference($namespace, "gap-column", 0)
+$gap-row: functions.get-input-reference($namespace, "gap-row", 0)
+$justify-content: functions.get-input-reference($namespace, "justify-content", normal)
+
+@function get-color($theme, $type, $shade)
+
+
+@mixin color-scheme($theme)
+
+@mixin children
+  @include ContainerDirective.children
+
+  @include mixins.reset-colors($namespace, ())
+  @include mixins.reset-inputs($namespace, ("align-content", "align-items", "flex-direction", "flex-wrap", "gap-column", "gap-row", "justify-content", "scroll-left", "scroll-top"))
+  @include mixins.reset-values($namespace, ("scroll-left", "scroll-top"))
+
+@mixin host
+  @include ContainerDirective.host
+
+  @include color-scheme("light")
+
+  @media (prefers-color-scheme: dark)
+    @include color-scheme("dark")
+
+  > .harness > .between
+    align-content: $align-content
+    align-items: $align-items
+    display: flex
+    flex-direction: $flex-direction
+    flex-wrap: $flex-wrap
+    gap: $gap-row $gap-column
+    justify-content: $justify-content

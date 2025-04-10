@@ -1,0 +1,12 @@
+{
+  "name":        "colors",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot":  "libs/colors/src",
+  "targets":     {
+    "eslint": {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/colors/src/**/*.ts" ] }
+    }
+  }
+}

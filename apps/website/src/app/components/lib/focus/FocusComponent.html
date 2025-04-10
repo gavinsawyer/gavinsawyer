@@ -1,0 +1,92 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<div class="harness" #htmlDivElement
+  (click)="$event.stopPropagation();"
+  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+  tabindex="-1">
+  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+</div>
+
+<svg
+  viewBox="0 0 1 1"
+  xmlns="http://www.w3.org/2000/svg">
+  <clipPath
+    [attr.id]="wellRoundedDirective.clipPathId$()"
+    clipPathUnits="objectBoundingBox">
+    <path
+      [attr.d]="wellRoundedDirective.pathDefinition$()"
+      fill="transparent" />
+  </clipPath>
+</svg>
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  <div id="flexbox-container">
+    <div class="harness">
+      <div class="between">
+        @if (focusSymbol$(); as symbol) {<div id="symbol" bowstringWellRoundedDirective #symbolWellRoundedDirective="wellRoundedDirective"
+          level="2">
+          <span class="harness" #symbolHtmlSpanElement><span class="between"><svg
+            [attr.viewBox]="'0 0 ' + symbol.viewBoxWidth + ' ' + symbol.viewBoxHeight + ''"
+            xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <rect
+                [attr.height]="symbol.viewBoxHeight"
+                [attr.width]="symbol.viewBoxWidth"
+                opacity="0"
+                x="0"
+                y="0" />
+              @for (path of symbol.paths; track $index) {<path
+                [attr.d]="path.definition"
+                [attr.fill]="focusSymbolFillColor$() || 'currentColor'"
+                [attr.fill-opacity]="path.opacity" />}
+            </g>
+          </svg></span></span>
+
+          <svg
+            viewBox="0 0 1 1"
+            xmlns="http://www.w3.org/2000/svg">
+            <clipPath
+              [attr.id]="symbolWellRoundedDirective.clipPathId$()"
+              clipPathUnits="objectBoundingBox">
+              <path
+                [attr.d]="symbolWellRoundedDirective.pathDefinition$()"
+                fill="transparent" />
+            </clipPath>
+          </svg>
+        </div>}
+        <div id="header">
+          <header class="harness">
+            <div class="between">
+              <h5>{{ inputSignal$() + (inputSignal$() === "Do Not Disturb" ? "" : " Focus") }}</h5>
+            </div>
+          </header>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="divider">
+    <div class="harness"
+      (click)="$event.stopPropagation();"
+      (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+      tabindex="-1">
+      <div class="between">
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <div id="heading-group">
+    <hgroup class="harness">
+      <div class="between">
+        <p i18n="@@apps--Website--Components--Focus--Paragraph">Gavin has message notifications turned @if (inputSignal$() === "Personal") {on} @else {off}.</p>
+      </div>
+    </hgroup>
+  </div>
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

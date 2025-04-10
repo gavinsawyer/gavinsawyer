@@ -1,24 +1,21 @@
 {
-  "name":         "@gavinsawyer/cloud-functions",
-  "homepage":     "https://gavinsawyer.dev",
-  "license":      "MIT",
+  "name":         "@bowstring/cloud-functions",
   "author":       {
     "name":  "Gavin Sawyer",
-    "email": "g@vinsawyer.dev",
-    "url":   "https://github.com/gavinsawyer"
+    "email": "g@vinsawyer.us",
+    "url":   "https://gavinsawyer.us"
   },
   "repository":   {
     "type":      "git",
-    "url":       "git+https://github.com/gavinsawyer/gavinsawyer.git",
+    "url":       "github:gavinsawyer/gavinsawyer",
     "directory": "libs/cloud functions"
   },
   "private":      true,
-  "engines":      {
-    "node": "20"
-  },
+  "engines":      { "node": "20" },
   "main":         "./main.js",
   "type":         "module",
   "dependencies": {
-    "@gavinsawyer/shortcuts-api": "^2.0.1"
+    "@gavinsawyer/shortcuts-api": "3",
+    "firebase-functions":         "6"
   }
 }

@@ -1,16 +1,26 @@
 {
-  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
   "name":        "types",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot":  "libs/types/src",
   "targets":     {
-    "eslint": {
-      "executor": "@nx/linter:eslint",
-      "options":  {
-        "lintFilePatterns": [
-          "libs/types/src/**/*.ts"
-        ]
-      }
+    "eslint":  {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/types/src/**/*.ts" ] }
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":       "libs/types/src/lib/main.ts",
+        "outputPath": "dist/libs/types",
+        "tsConfig":   "libs/types/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
     }
   }
 }

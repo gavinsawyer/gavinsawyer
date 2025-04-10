@@ -1,8 +1,10 @@
-<section>
-  <h2>
-    Page not found.
-  </h2>
-  <p>
-    Please make sure the URL ("{{ pathService.path$() }}") is correct or report any issue to Gavin.
-  </p>
-</section>
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<bowstring--heading-group styleFirstParagraph>
+  <bowstring--header>
+    <h2>@if (bowstringRoutes | bowstringFindRouteByPath:'**'; as route) {{{ route.data?.["title"] }}}</h2>
+  </bowstring--header>
+  <p i18n="@@libs--Components--Routes--Otherwise--Paragraph">Make sure the URL &lpar;&ldquo;{{ 'https:\/\/' + environment.domain }}<span style="word-break: break-all;">{{ pathService.path$() }}</span>&rdquo;&rpar; is correct.</p>
+</bowstring--heading-group>

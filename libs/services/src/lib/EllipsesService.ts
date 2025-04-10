@@ -1,25 +1,24 @@
-import { isPlatformBrowser }                               from "@angular/common";
-import { inject, Injectable, PLATFORM_ID, signal, Signal } from "@angular/core";
-import { toSignal }                                        from "@angular/core/rxjs-interop";
-import { Ellipses }                                        from "@gavinsawyer/types";
-import { interval, map, startWith }                        from "rxjs";
+/*
+ * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ */
+
+import { isPlatformBrowser }                                    from "@angular/common";
+import { inject, Injectable, PLATFORM_ID, signal, type Signal } from "@angular/core";
+import { toSignal }                                             from "@angular/core/rxjs-interop";
+import { interval, map, startWith }                             from "rxjs";
 
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable({ providedIn: "root" })
 export class EllipsesService {
 
-  public readonly ellipses$: Signal<Ellipses> = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<Ellipses>(
-    interval(800).pipe<Ellipses, Ellipses>(
-      map<number, Ellipses>(
-        (n: number): Ellipses => ".".repeat(((n + 1) % 3) + 1) as Ellipses,
+  public readonly ellipses$: Signal<string> = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<string>(
+    interval(800).pipe<string, string>(
+      map<number, string>(
+        (n: number): string => ".".repeat(((n + 1) % 3) + 1),
       ),
-      startWith<Ellipses>("."),
+      startWith<string, [ "." ]>("."),
     ),
-    {
-      requireSync: true,
-    },
-  ) : signal<Ellipses>(".");
+    { requireSync: true },
+  ) : signal<string>(".");
 
 }

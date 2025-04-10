@@ -1,0 +1,77 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<div class="harness">
+  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+</div>
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  @if (labelInput$()) {<!--suppress XmlInvalidId -->
+  <label
+    [attr.for]="inputName$()"
+    [innerHTML]="explicitAutocompleteInput$() ? (labelInput$() | bowstringInsertZwnjs) : labelInput$()"></label>}
+  <div>
+    <div class="harness" #htmlDivElement>
+      <div class="between">
+        @if (htmlInputElement.value) {<div>
+          <button class="harness"
+            (click)="$event.stopPropagation(); htmlInputElement.focus(); writeValue('');"
+            (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+            (pointerdown)="$event.stopPropagation();"
+            tabindex="-1"
+            type="button">
+            <div class="between">
+              @if (xmarkCircleFillSymbol$(); as symbol) {<svg
+                [attr.viewBox]="'0 0 ' + symbol.viewBoxWidth + ' ' + symbol.viewBoxHeight + ''"
+                xmlns="http://www.w3.org/2000/svg">
+                <g>
+                  <rect
+                    [attr.height]="symbol.viewBoxHeight"
+                    [attr.width]="symbol.viewBoxWidth"
+                    opacity="0"
+                    x="0"
+                    y="0" />
+                  @for (path of symbol.paths; track $index) {<path
+                    [attr.d]="path.definition"
+                    [attr.fill-opacity]="path.opacity"
+                    fill="currentColor" />}
+                </g>
+              </svg>}
+            </div>
+          </button>
+        </div>}
+        <input #htmlInputElement
+          [attr.disabled]="disabledModel$() || undefined"
+          [attr.name]="inputName$()"
+          [attr.placeholder]="placeholderInput$()"
+          [attr.tabindex]="disabledModel$() ? -1 : 0"
+          autocomplete="tel-national"
+          (blur)="onBlur(); onTouched?.();"
+          (change)="onChange?.();"
+          (click)="$event.stopPropagation();"
+          (input)="onInput();"
+          (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+          type="tel">
+      </div>
+    </div>
+
+    <svg
+      viewBox="0 0 1 1"
+      xmlns="http://www.w3.org/2000/svg">
+      <clipPath
+        [attr.id]="wellRoundedDirective.clipPathId$()"
+        clipPathUnits="objectBoundingBox">
+        <path
+          [attr.d]="wellRoundedDirective.pathDefinition$()"
+          fill="transparent" />
+      </clipPath>
+    </svg>
+  </div>
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

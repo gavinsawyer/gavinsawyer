@@ -1,0 +1,64 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+
+
+$namespace: "glass"
+
+$background: functions.get-color-reference($namespace, "background")
+$foreground: functions.get-color-reference($namespace, "foreground")
+$pseudoelement-background: functions.get-color-reference($namespace, "pseudoelement-background")
+
+$material-opacity: functions.get-input-reference($namespace, "material-opacity", 0.8)
+
+@function get-color($theme, $type, $shade)
+  @if ($theme == "light")
+    @if ($type == "background")
+      @return transparentize(darken(hsl(0, 0%, 100% - $shade), 0%), 0.5)
+    @else if ($type == "foreground")
+      @return transparentize(darken(hsl(0, 0%, 20%  - $shade), 6.25%), 0.125)
+    @else if ($type == "pseudoelement-background")
+      @return transparentize(darken(hsl(0, 0%, 100% - $shade), 12.5%), 0.375)
+  @else if ($theme == "dark")
+    @if ($type == "background")
+      @return transparentize(lighten(hsl(0, 0%, 0%  + $shade), 0%), 0.5)
+    @else if ($type == "foreground")
+      @return transparentize(lighten(hsl(0, 0%, 80% + $shade), 6.25%), 0.125)
+    @else if ($type == "pseudoelement-background")
+      @return transparentize(lighten(hsl(0, 0%, 0%  + $shade), 12.5%), 0.375)
+
+
+@mixin color-scheme($theme, $shade)
+  --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background", $shade) }
+  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground", $shade) }
+  --bowstring--#{ $namespace }-directive--colors--pseudoelement-background: #{ get-color($theme, "pseudoelement-background", $shade) }
+
+@mixin children
+  @include mixins.reset-colors($namespace, ("background", "foreground", "pseudoelement-background"))
+  @include mixins.reset-inputs($namespace, ("material-opacity"))
+  @include mixins.reset-values($namespace, ())
+
+@mixin host($shade)
+  @include color-scheme("light", $shade)
+
+  @media (prefers-color-scheme: dark)
+    @include color-scheme("dark", $shade)
+
+  > .harness
+    > .between
+      background: $background
+      color: $foreground
+
+    &:after
+      backdrop-filter: blur(calc(1rem * pow(var(--phi), $material-opacity))) saturate(calc(1 + max(-0.5, var(--color-scheme-dark) - var(--color-scheme-light)) * pow($material-opacity, 2))) brightness(calc(1 + pow($material-opacity, 2)))
+      background: $pseudoelement-background
+      content: ""
+      height: calc(100% + 2.5px)
+      left: -1.25px
+      position: absolute
+      top: -1.25px
+      width: calc(100% + 2.5px)
+      z-index: 0

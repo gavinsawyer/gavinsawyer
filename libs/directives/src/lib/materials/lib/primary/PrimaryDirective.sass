@@ -1,0 +1,49 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+
+
+$namespace: "primary"
+
+$background: functions.get-color-reference($namespace, "background")
+$foreground: functions.get-color-reference($namespace, "foreground")
+
+$brand-primary-background-dark: functions.get-value-reference($namespace, "brand-primary-background-dark")
+$brand-primary-background-light: functions.get-value-reference($namespace, "brand-primary-background-light")
+$brand-primary-foreground-dark: functions.get-value-reference($namespace, "brand-primary-foreground-dark")
+$brand-primary-foreground-light: functions.get-value-reference($namespace, "brand-primary-foreground-light")
+
+@function get-color($theme, $type)
+  @if ($theme == "light")
+    @if ($type == "background")
+      @return $brand-primary-background-light
+    @else if ($type == "foreground")
+      @return $brand-primary-foreground-light
+  @else if ($theme == "dark")
+    @if ($type == "background")
+      @return $brand-primary-background-dark
+    @else if ($type == "foreground")
+      @return $brand-primary-foreground-dark
+
+
+@mixin color-scheme($theme)
+  --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background") }
+  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground") }
+
+@mixin children
+  @include mixins.reset-colors($namespace, ("background", "foreground"))
+  @include mixins.reset-inputs($namespace, ())
+  @include mixins.reset-values($namespace, ("brand-primary-background-dark", "brand-primary-background-light", "brand-primary-foreground-dark", "brand-primary-foreground-light"))
+
+@mixin host
+  @include color-scheme("light")
+
+  @media (prefers-color-scheme: dark)
+    @include color-scheme("dark")
+
+  > .harness > .between
+    background: $background
+    color: $foreground

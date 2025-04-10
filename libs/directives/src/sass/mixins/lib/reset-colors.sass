@@ -1,0 +1,7 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@mixin reset-colors($namespace, $colors)
+  @each $color in $colors
+    --bowstring--#{ $namespace }-directive--colors--#{ $color }: initial

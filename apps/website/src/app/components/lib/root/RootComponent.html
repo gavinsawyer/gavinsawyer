@@ -1,22 +1,167 @@
-<div>
-  <components-header [ngClass]="{'raised': (responsivityService.scrollPosition$() || 0) > 16}" />
-  <components-banner [ngClass]="{'shown': pathService.path$() === '/'}" />
-  <main>
-    <website-aside [ngClass]="{'always-shown': pathService.path$() === '/'}" />
-    <div>
-      <router-outlet />
-    </div>
-  </main>
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<div
+  class="harness"
+  (click)="$event.stopPropagation();"
+  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+  tabindex="-1">
+  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
 </div>
-<footer>
-  <ul>
-    <li>
-      <a routerLink="privacy">Privacy</a>
-    </li>
-  </ul>
-  <ul>
-    <li>
-      v{{ packageVersion + (gitInfo.dirty ? "-next" : "") }}+<a [href]="'https://github.com/gavinsawyer/gavinsawyer/commit/' + gitInfo.hash">{{ gitInfo.hash }}</a>
-    </li>
-  </ul>
-</footer>
+
+<bowstring--sheet #localeSheetComponent>
+  @defer {<bowstring--header>
+    <h6 i18n="@@apps--Website--Components--Root--Sheets--Locale--Header">Select your locale.</h6>
+  </bowstring--header>
+  <bowstring--divider />
+  <bowstring--section>
+    @for (_localeId of projectLocaleIds; track $index) {<bowstring--button
+      [disabled]="projectLocaleIds[$index] === projectLocaleId"
+      level="2"
+      (output)="projectLocaleIds[$index] === projectLocaleId || changeLocale(projectLocaleIds[$index]);">
+      <bowstring--symbol input="Globe" />
+      <bowstring--label [input]="localeDisplayNames[projectLocaleIds[$index]]" />
+    </bowstring--button>}
+  </bowstring--section>}
+</bowstring--sheet>
+
+<ng-template #contentTemplate>
+  <bowstring--main>
+    @if (bannerTemplateRef$(); as bannerTemplateRef) {<ng-container *ngTemplateOutlet="bannerTemplateRef" />}
+    <bowstring--flexbox-container
+      alignItems="last baseline"
+      flexDirection="row"
+      flexWrap="wrap"
+      gapColumn="calc(var(--bowstring--root--gap-column) * pow(var(--phi), -1))"
+      gapRow="calc(var(--bowstring--root--gap-row) * pow(var(--phi), -1))"
+      justifyContent="space-between">
+      <bowstring--header fontSizeExponent="-3">
+        <h1 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-title-font), var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
+          <bowstring--link
+            exact
+            url="/">
+            <bowstring--label [input]="brandLib.title" />
+          </bowstring--link>
+        </h1>
+      </bowstring--header>
+      @if (bowstringRoutes.slice(0, -3).length || projectRoutes.slice(1).length) {<bowstring--nav>
+        @if (bowstringRoutes | bowstringFindRouteByPath:'gallery'; as route) {<bowstring--link [url]="'/' + route.path">
+          <bowstring--label [input]="route.data?.['title']" />
+        </bowstring--link>}
+        @if (bowstringRoutes | bowstringFindRouteByPath:'shop'; as route) {<bowstring--link [url]="'/' + route.path">
+          <bowstring--label [input]="route.data?.['title']" />
+        </bowstring--link>}
+        @for (route of projectRoutes.slice(1); track $index) {<bowstring--link [url]="'/' + route.path">
+          <bowstring--label [input]="route.data?.['title']" />
+        </bowstring--link>}
+        @if (bowstringRoutes | bowstringFindRouteByPath:'account'; as route) {<bowstring--link [url]="'/' + route.path">
+          <bowstring--label [input]="route.data?.['title']" />
+        </bowstring--link>}
+      </bowstring--nav>}
+    </bowstring--flexbox-container>
+    <router-outlet />
+    @if (aboveTemplateRef$(); as aboveTemplateRef) {<bowstring--above>
+      <ng-container *ngTemplateOutlet="aboveTemplateRef" />
+    </bowstring--above>}
+  </bowstring--main>
+  @defer {@if (belowTemplateRef$(); as belowTemplateRef) {<bowstring--below>
+    <ng-container *ngTemplateOutlet="belowTemplateRef" />
+  </bowstring--below>}}
+  <bowstring--footer>
+    <bowstring--header>
+      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-title-font), var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
+        <bowstring--link
+          exact
+          url="/">
+          <bowstring--label [input]="brandLib.title" />
+        </bowstring--link>
+      </h6>
+    </bowstring--header>
+    <bowstring--section
+      flexDirection="row"
+      flexWrap="wrap"
+      justifyContent="space-between">
+      <bowstring--flexbox-container flexDirection="row">
+        @if (bowstringRoutes.slice(0, -3).length || projectRoutes.slice(1).length) {<bowstring--flexbox-container alignItems="flex-start">
+          @for (route of projectRoutes.slice(1); track $index) {<bowstring--link [url]="'/' + route.path">
+            <bowstring--label [input]="route.data?.['title']" />
+          </bowstring--link>}
+        </bowstring--flexbox-container>}
+        <bowstring--flexbox-container alignItems="flex-start">
+          @if (bowstringRoutes | bowstringFindRouteByPath:'privacy'; as route) {<bowstring--link [url]="'/' + route.path">
+            <bowstring--label [input]="route.data?.['title']" />
+          </bowstring--link>}
+          @if (bowstringRoutes | bowstringFindRouteByPath:'terms'; as route) {<bowstring--link [url]="'/' + route.path">
+            <bowstring--label [input]="route.data?.['title']" />
+          </bowstring--link>}
+        </bowstring--flexbox-container>
+      </bowstring--flexbox-container>
+      <bowstring--flexbox-container flexDirection="row">
+        <bowstring--flexbox-container alignItems="flex-start">
+          <bowstring--link url="https://github.com/gavinsawyer">
+            <bowstring--symbol input="ArrowUpForwardAppFill" />
+            <bowstring--label input="GitHub" />
+          </bowstring--link>
+          <bowstring--link url="https://www.linkedin.com/in/gavinsawyer-us">
+            <bowstring--symbol input="ArrowUpForwardAppFill" />
+            <bowstring--label input="LinkedIn" />
+          </bowstring--link>
+        </bowstring--flexbox-container>
+      </bowstring--flexbox-container>
+    </bowstring--section>
+    <bowstring--divider />
+    <bowstring--section
+      flexDirection="row"
+      flexWrap="wrap"
+      [justifyContent]="responsivityService.pastMediumBreakpoint$() ? 'flex-start' : 'center'">
+      <bowstring--link
+        disabled>
+        @if (connectivityService.connected$()) {<bowstring--symbol input="Network" />
+        <bowstring--label
+          i18n-input
+          input="Connected" />} @else {<bowstring--symbol input="NetworkSlash" />
+        <bowstring--label
+          i18n-input
+          input="Disconnected" />}
+      </bowstring--link>
+    </bowstring--section>
+    <bowstring--section
+      flexDirection="row"
+      flexWrap="wrap"
+      justifyContent="center">
+      <bowstring--flexbox-container
+        flexDirection="row"
+        flexGrow="1"
+        flexWrap="wrap"
+        [justifyContent]="responsivityService.pastMediumBreakpoint$() ? 'flex-start' : 'center'">
+        <span style="white-space: nowrap;">&copy;&nbsp;@if (responsivityService.pastMediumBreakpoint$()) {2025&nbsp;}<bowstring--link
+          inline
+          [url]="brandLib.copyrightHolderUrl">
+          <bowstring--label [input]="brandLib.copyrightHolder" />
+        </bowstring--link></span>
+        <span style="white-space: nowrap;">{{ packageVersion }}&dash;{{ projectName }}&nbsp;&lpar;<bowstring--link
+          inline
+          [url]="'https://github.com/gavinsawyer/gavinsawyer/commit/' + gitInfoPartial.hash">
+          <bowstring--label [input]="gitInfoPartial.hash || ''" />
+        </bowstring--link>&rpar;</span>
+      </bowstring--flexbox-container>
+      <bowstring--flexbox-container
+        [flexBasis]="responsivityService.pastMediumBreakpoint$() ? 'auto' : '100%'"
+        flexDirection="row"
+        justifyContent="center">
+        <bowstring--link
+          [disabled]="localeSheetComponent.openModelWithTransform$()"
+          (output)="localeSheetComponent.openModel$.set(true);">
+          <bowstring--symbol input="Globe" />
+          <bowstring--label [input]="localeDisplayNames[projectLocaleId]" />
+        </bowstring--link>
+      </bowstring--flexbox-container>
+    </bowstring--section>
+  </bowstring--footer>
+  @if (errorsService.errors$(); as errors) {<bowstring--errors-container>
+    @for (error of errors; track $index) {<bowstring--error
+      level="2"
+      open>{{ error }}</bowstring--error>}
+  </bowstring--errors-container>}
+</ng-template>

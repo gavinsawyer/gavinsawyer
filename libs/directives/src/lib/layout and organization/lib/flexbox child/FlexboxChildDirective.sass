@@ -1,0 +1,32 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+
+
+$namespace: "flexbox-child"
+
+$flex-basis: functions.get-input-reference($namespace, "flex-basis", auto)
+$flex-grow: functions.get-input-reference($namespace, "flex-grow", 0)
+$flex-shrink: functions.get-input-reference($namespace, "flex-shrink", 1)
+
+@function get-color($theme, $type, $shade)
+
+
+@mixin color-scheme($theme)
+
+@mixin children
+  @include mixins.reset-colors($namespace, ())
+  @include mixins.reset-inputs($namespace, ("flex-basis" "flex-grow" "flex-shrink"))
+  @include mixins.reset-values($namespace, ())
+
+@mixin host
+  @include color-scheme("light")
+
+  @media (prefers-color-scheme: dark)
+    @include color-scheme("dark")
+
+  > .harness
+    flex: $flex-grow $flex-shrink $flex-basis

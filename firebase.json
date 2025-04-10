@@ -1,64 +1,66 @@
 {
-  "firestore": [
+  "firestore":  [
     {
       "database": "(default)",
-      "indexes": "firestore.indexes.json",
-      "rules": "firestore.rules"
+      "indexes":  "firestore.indexes.json",
+      "rules":    "firestore.rules"
     },
     {
       "database": "shortcuts-api",
-      "indexes": "node_modules/@gavinsawyer/shortcuts-api/firestore.shortcuts-api.indexes.json",
-      "rules": "node_modules/@gavinsawyer/shortcuts-api/firestore.shortcuts-api.rules"
+      "indexes":  "node_modules/@gavinsawyer/shortcuts-api/firestore.shortcuts-api.indexes.json",
+      "rules":    "node_modules/@gavinsawyer/shortcuts-api/firestore.shortcuts-api.rules"
     }
   ],
-  "functions": [
+  "functions":  [
     {
       "codebase": "default",
-      "ignore": [
+      "ignore":   [
         "node_modules",
         ".git",
         "firebase-debug.log",
         "firebase-debug.*.log"
       ],
-      "source": "dist/libs/cloud functions"
+      "source":   "dist/libs/cloud functions"
     }
   ],
-  "hosting": [
-    {
-      "headers": [
-        {
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "public,max-age=31536000,immutable"
-            }
-          ],
-          "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)"
+  "hosting":    {
+    "headers":  [
+      {
+        "headers": [
+          {
+            "key":   "Cache-Control",
+            "value": "public,max-age=31536000,immutable"
+          }
+        ],
+        "source":  "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)"
+      },
+      {
+        "headers": [
+          {
+            "key":   "Cache-Control",
+            "value": "no-cache"
+          }
+        ],
+        "source":  "/@(ngsw-worker.js|ngsw.json)"
+      }
+    ],
+    "ignore":   [ "**/.*" ],
+    "public":   "dist/apps/website/browser",
+    "rewrites": [
+      {
+        "source":   "/firebase-web-authn-api",
+        "function": "ext-firebase-web-authn-api"
+      },
+      {
+        "run":    {
+          "pinTag":    true,
+          "serviceId": "ssr-website"
         },
-        {
-          "headers": [
-            {
-              "key": "Cache-Control",
-              "value": "no-cache"
-            }
-          ],
-          "source": "/@(ngsw-worker.js|ngsw.json)"
-        }
-      ],
-      "ignore": [
-        "**/.*"
-      ],
-      "public": "dist/apps/website/browser",
-      "rewrites": [
-        {
-          "run": {
-            "pinTag": true,
-            "serviceId": "ssr-website"
-          },
-          "source": "**"
-        }
-      ],
-      "target": "website"
-    }
-  ]
+        "source": "**"
+      }
+    ],
+    "target":   "website"
+  },
+  "extensions": { "firebase-web-authn": "./node_modules/@firebase-web-authn/extension" },
+  "storage":    { "rules": "storage.rules" }
 }

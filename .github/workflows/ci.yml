@@ -26,6 +26,7 @@ jobs:
           token_format:     access_token
       - run: npx nx run-many --target deploy --all
         env:
+          NODE_OPTIONS:            --max_old_space_size=4096
           APP_CHECK_TOKEN_WEBSITE: ${{ secrets.APP_CHECK_TOKEN_WEBSITE }}
           FIREBASE_TOKEN:          ${{ steps.auth.outputs.access_token }}
           NX_CLOUD_ACCESS_TOKEN:   ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}

@@ -1,0 +1,26 @@
+{
+  "name":        "firebase-interop",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot":  "libs/firebase interop/src",
+  "targets":     {
+    "eslint":  {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/firebase interop/src/**/*.ts" ] }
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":       "libs/firebase interop/src/lib/main.ts",
+        "outputPath": "dist/libs/firebase interop",
+        "tsConfig":   "libs/firebase interop/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
+    }
+  }
+}

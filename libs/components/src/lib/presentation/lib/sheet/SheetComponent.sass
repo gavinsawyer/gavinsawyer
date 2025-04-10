@@ -1,0 +1,180 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+\:host
+  display: contents
+
+  --bowstring--sheet--font-size-exponent: 0
+  --bowstring--sheet--gap-column: calc(var(--bowstring--root--gap-column) * pow(var(--phi), 1))
+  --bowstring--sheet--gap-row: calc(var(--bowstring--root--gap-row) * pow(var(--phi), 1))
+
+  @include FlexboxContainerDirective.host
+
+  --bowstring--container-directive--padding-bottom: calc(var(--bowstring--root--gap-row) * pow(var(--phi), 1)) !important
+  --bowstring--container-directive--padding-sides: calc(var(--bowstring--root--gap-column) * pow(var(--phi), 1)) !important
+  --bowstring--container-directive--padding-top: calc(var(--bowstring--root--gap-row) * pow(var(--phi), 1)) !important
+  --bowstring--container-directive--position: fixed !important
+  --bowstring--container-directive--position-left: 0 !important
+  --bowstring--container-directive--position-top: 0 !important
+  --bowstring--flexbox-container-directive--align-items: center !important
+  --bowstring--flexbox-container-directive--flex-direction: row !important
+  --bowstring--flexbox-container-directive--justify-content: center !important
+
+  > .harness
+    background: none
+    border: none
+    max-height: 100dvh
+    min-height: 100dvh
+    max-width: 100dvw
+    min-width: 100dvw
+    overflow: scroll
+    padding: 0
+    visibility: collapse
+
+    @mixin keyframes--hide-harness
+      opacity: 0
+
+    @mixin keyframes--show-harness
+      opacity: 1
+
+    @include keyframes--hide-harness
+
+    @keyframes hide-harness
+      0%
+        @include keyframes--show-harness
+
+      100%
+        @include keyframes--hide-harness
+
+    @keyframes show-harness
+      0%
+        @include keyframes--hide-harness
+
+      100%
+        @include keyframes--show-harness
+
+    &::backdrop
+      @mixin keyframes--hide-backdrop
+        backdrop-filter: blur(0) brightness(1.125)
+        opacity: 0
+
+      @mixin keyframes--show-backdrop
+        backdrop-filter: blur(calc(1rem * pow(var(--phi), -3))) brightness(1.125)
+        opacity: 1
+
+      @include keyframes--hide-backdrop
+
+      @keyframes hide-backdrop
+        0%
+          @include keyframes--show-backdrop
+
+        100%
+          @include keyframes--hide-backdrop
+
+      @keyframes show-backdrop
+        0%
+          @include keyframes--hide-backdrop
+
+        100%
+          @include keyframes--show-backdrop
+
+    > .between
+      //noinspection CssNoGenericFontName
+      font-family: var(--bowstring--root--brand-font-family)
+      font-optical-sizing: auto
+      font-style: normal
+      letter-spacing: -0.03444185375em
+      line-height: 1.1458980338
+      padding: calc(max(var(--bowstring--root--safe-area-inset-top), var(--bowstring--container-directive--padding-top-input, var(--bowstring--container-directive--padding-top, 0)))) calc(max(var(--bowstring--root--safe-area-inset-right), var(--bowstring--container-directive--padding-sides-input, var(--bowstring--container-directive--padding-sides, 0)))) calc(max(var(--bowstring--root--safe-area-inset-bottom), var(--bowstring--container-directive--padding-bottom-input, var(--bowstring--container-directive--padding-bottom, 0)))) calc(max(var(--bowstring--root--safe-area-inset-left), var(--bowstring--container-directive--padding-sides-input, var(--bowstring--container-directive--padding-sides, 0)))) !important
+
+      > div
+        display: contents
+
+        @include FlexboxContainerDirective.children
+
+        --bowstring--sheet--gap-column: var(--bowstring--sheet--padding-sides)
+        --bowstring--sheet--gap-row: var(--bowstring--sheet--padding-bottom)
+        --bowstring--sheet--material-opacity: 0.625
+        --bowstring--sheet--padding-bottom: calc(1rem * pow(var(--phi), -1))
+        --bowstring--sheet--padding-sides: calc(1rem * pow(var(--phi), 0))
+        --bowstring--sheet--padding-top: calc(1rem * pow(var(--phi), -1))
+
+        @media (min-width: 48rem)
+          --bowstring--sheet--padding-bottom: calc(1rem * pow(var(--phi), 0))
+          --bowstring--sheet--padding-sides: calc(1rem * pow(var(--phi), 1))
+          --bowstring--sheet--padding-top: calc(1rem * pow(var(--phi), 0))
+
+        @include ElevatedDirective.host
+        @include FlexboxContainerDirective.host
+        @include GlassDirective.host(12%)
+        @include WellRoundedDirective.host
+
+        --bowstring--container-directive--padding-bottom: var(--bowstring--sheet--padding-bottom) !important
+        --bowstring--container-directive--padding-sides: var(--bowstring--sheet--padding-sides) !important
+        --bowstring--container-directive--padding-top: var(--bowstring--sheet--padding-top) !important
+        --bowstring--elevated-directive--material-opacity: var(--bowstring--sheet--material-opacity) !important
+        --bowstring--flexbox-child-directive--flex-basis: calc(1rem * pow(var(--phi), 6)) !important
+        --bowstring--flexbox-container-directive--gap-column: var(--bowstring--sheet--gap-column) !important
+        --bowstring--flexbox-container-directive--gap-row: var(--bowstring--sheet--gap-row) !important
+        --bowstring--glass-directive--material-opacity: var(--bowstring--sheet--material-opacity) !important
+
+        > .harness > .between::ng-deep > *
+          --bowstring--sheet--material-opacity: initial
+
+          @include ElevatedDirective.children
+          @include FlexboxContainerDirective.children
+          @include GlassDirective.children
+          @include WellRoundedDirective.children
+
+        @media (min-width: 48rem)
+          --bowstring--flexbox-child-directive--flex-basis: calc(1rem * pow(var(--phi), 6.5)) !important
+
+  &.openOrClosing
+    > .harness
+      animation: show-harness 180ms ease-in forwards
+      visibility: visible
+
+      &::backdrop
+        animation: show-backdrop 180ms ease-in forwards
+
+    &:not(.open) > .harness
+      animation: hide-harness 180ms ease-in forwards
+
+      &::backdrop
+        animation: hide-backdrop 180ms ease-in forwards
+
+  #dragControl
+    @include ElevatedDirective.children
+    @include FlexboxContainerDirective.children
+    @include GlassDirective.children
+    @include WellRoundedDirective.children
+
+    @include CanvasDirective.host(18%)
+    @include FlexboxContainerDirective.host
+
+    --bowstring--flexbox-container-directive--align-items: center !important
+    --bowstring--flexbox-container-directive--flex-direction: row !important
+    --bowstring--flexbox-container-directive--justify-content: center !important
+
+    > .harness
+      cursor: grab
+
+      > .between
+        background: none !important
+        font-size: calc(1rem * pow(var(--phi), 0.5))
+        opacity: 0.75
+
+        > svg
+          display: grid
+          height: 1em
+          max-width: 1em
+          overflow: visible
+          transform: translateZ(0)

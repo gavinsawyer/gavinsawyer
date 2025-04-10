@@ -1,68 +1,42 @@
 {
-  "affected": {
-    "defaultBase": "main"
-  },
-  "namedInputs": {
-    "default": [
+  "defaultBase":        "main",
+  "namedInputs":        {
+    "default":       [
       "{projectRoot}/**/*",
       "sharedGlobals"
     ],
-    "production": [
-      "default"
-    ],
-    "sharedGlobals": []
+    "production":    [ "default" ],
+    "sharedGlobals": [ ]
   },
-  "npmScope": "gavinsawyer",
-  "targetDefaults": {
-    "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
+  "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
+  "nxCloudId":          "${NX_CLOUD_ID}",
+  "targetDefaults":     {
+    "angular-browser":     { "cache": true },
+    "angular-prerender":   { "cache": true },
+    "angular-server":      { "cache": true },
+    "build":               {
+      "dependsOn": [ "^build" ],
+      "inputs":    [
         "production",
         "^production"
       ]
     },
-    "serve": {
-      "dependsOn": [
-        "^serve"
-      ],
-      "inputs": [
-        "development",
-        "^development"
-      ]
-    },
-    "deploy": {
-      "dependsOn": [
-        "^deploy"
-      ],
-      "inputs": [
+    "deploy":              {
+      "dependsOn": [ "^deploy" ],
+      "inputs":    [
         "production",
         "^production"
       ]
     },
-    "eslint": {
+    "esbuild":             { "cache": true },
+    "esbuild-intl-server": { "cache": true },
+    "eslint":              {
+      "cache":  true,
       "inputs": [
         "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore"
+        "{workspaceRoot}/eslint.config.js"
       ]
-    }
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "options": {
-        "accessToken":         "${NX_CLOUD_ACCESS_TOKEN}",
-        "cacheableOperations": [
-          "angular-browser",
-          "angular-prerender",
-          "angular-server",
-          "esbuild",
-          "eslint",
-          "tsc"
-        ]
-      },
-      "runner":  "nx-cloud"
-    }
+    },
+    "tsc":                 { "cache": true }
   }
 }

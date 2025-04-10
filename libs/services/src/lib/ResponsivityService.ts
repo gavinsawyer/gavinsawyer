@@ -1,53 +1,37 @@
-import { DOCUMENT, isPlatformBrowser }                     from "@angular/common";
-import { inject, Injectable, PLATFORM_ID, signal, Signal } from "@angular/core";
-import { toSignal }                                        from "@angular/core/rxjs-interop";
-import { fromEvent, map, startWith }                       from "rxjs";
+/*
+ * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ */
+
+import { BreakpointObserver, type BreakpointState }             from "@angular/cdk/layout";
+import { isPlatformBrowser }                                    from "@angular/common";
+import { inject, Injectable, PLATFORM_ID, signal, type Signal } from "@angular/core";
+import { toSignal }                                             from "@angular/core/rxjs-interop";
+import { map, startWith }                                       from "rxjs";
 
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable({ providedIn: "root" })
 export class ResponsivityService {
 
-  private readonly document: Document = inject<Document>(DOCUMENT);
+  private readonly breakpointObserver: BreakpointObserver = inject<BreakpointObserver>(BreakpointObserver);
+  private readonly platformId: NonNullable<unknown>       = inject<NonNullable<unknown>>(PLATFORM_ID);
 
-  public readonly scrollPosition$:    Signal<number>                                                                                                                            = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<number>(
-    fromEvent<Event>(
-      this.document,
-      "scroll",
-    ).pipe<number, number>(
-      map<Event, number>(
-        (): number => this.document.defaultView?.scrollY || 0,
+  public readonly pastMediumBreakpoint$: Signal<boolean> = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
+    this.breakpointObserver.observe(`(min-width: 48rem)`).pipe<boolean, boolean>(
+      map<BreakpointState, boolean>(
+        ({ matches }: BreakpointState): boolean => matches,
       ),
-      startWith<number, [ number ]>(this.document.defaultView?.scrollY || 0),
+      startWith<boolean, [ boolean ]>(this.breakpointObserver.isMatched(`(min-width: 48rem)`)),
     ),
-    {
-      requireSync: true,
-    },
-  ) : signal<number>(0);
-  public readonly adjustTextAreaRows: (messageTextAreaElement: HTMLTextAreaElement, options: { fontSize?: number, lineHeight?: number, min?: number, max?: number, }) => void   = (textAreaElement: HTMLTextAreaElement, options: { fontSize?: number, lineHeight?: number, min?: number, max?: number, }): void => {
-    textAreaElement
-      .style
-      .height = "0";
-    textAreaElement
-      .rows = this
-      .getTextAreaRows(
-        textAreaElement,
-        options,
-      );
-    textAreaElement
-      .style
-      .height = "auto";
-  };
-  public readonly getTextAreaRows:    (messageTextAreaElement: HTMLTextAreaElement, options: { fontSize?: number, lineHeight?: number, min?: number, max?: number, }) => number = (textAreaElement: HTMLTextAreaElement, options: { fontSize?: number, lineHeight?: number, min?: number, max?: number, }): number => Math
-    .min(
-      Math.max(
-        Math.round(
-          textAreaElement.scrollHeight / ((options.lineHeight || 1.15) * (options.fontSize || 1) * 16),
-        ),
-        options.min || 1,
+    { requireSync: true },
+  ) : signal<boolean>(this.breakpointObserver.isMatched(`(min-width: 48rem)`));
+  public readonly pastSmallBreakpoint$: Signal<boolean>  = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
+    this.breakpointObserver.observe(`(min-width: 32rem)`).pipe<boolean, boolean>(
+      map<BreakpointState, boolean>(
+        ({ matches }: BreakpointState): boolean => matches,
       ),
-      options.max || 256,
-    );
+      startWith<boolean, [ boolean ]>(this.breakpointObserver.isMatched(`(min-width: 32rem)`)),
+    ),
+    { requireSync: true },
+  ) : signal<boolean>(this.breakpointObserver.isMatched(`(min-width: 32rem)`));
 
 }

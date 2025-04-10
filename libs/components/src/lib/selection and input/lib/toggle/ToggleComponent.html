@@ -1,0 +1,45 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<div class="harness">
+  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+</div>
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  @if (labelInput$()) {<!--suppress XmlInvalidId -->
+  <label
+    [attr.for]="inputName$()"
+    [innerHTML]="labelInput$()"></label>}
+  <div>
+    <div class="harness"
+      (click)="$event.stopPropagation();"
+      (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+      tabindex="-1">
+      <label class="between">
+        <input #htmlInputElement
+          [attr.disabled]="disabledModel$() || undefined"
+          [attr.name]="inputName$()"
+          [attr.tabindex]="disabledModel$() ? -1 : 0"
+          (blur)="onChange?.(); onTouched?.();"
+          (change)="onChange?.();"
+          (click)="$event.stopPropagation();"
+          (input)="onInput();"
+          (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+          role="switch"
+          type="checkbox">
+        <div>
+          <div class="harness">
+            <div class="between">@if (symbolTemplateRef$(); as symbolTemplateRef) {<div><ng-container *ngTemplateOutlet="symbolTemplateRef" /></div>}</div>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

@@ -1,0 +1,56 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../directives/src/lib/interaction/lib/hover transforming/HoverTransformingDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+\:host
+  display: contents
+
+  @include ContainerDirective.host
+
+  > .harness > .between
+    display: flex
+
+    > img
+      aspect-ratio: var(--bowstring--image--aspect-ratio)
+      height: auto
+      max-width: calc(100% - 2 * var(--bowstring--container-directive--margin-sides-input, 0px) - 2 * var(--bowstring--container-directive--padding-sides-input, 0px))
+      width: 100%
+
+  &:not(.appearance-transparent)
+    @include CanvasDirective.host(18%)
+    @include ElevatedDirective.host
+    @include WellRoundedDirective.host
+
+    --bowstring--container-directive--aspect-ratio: var(--bowstring--image--aspect-ratio) !important
+
+  &.appearance-circular > .harness
+    &:before,
+    > .between
+      border-radius: 50% !important
+
+    > .between
+      clip-path: circle() !important
+
+      > img
+        aspect-ratio: 1
+
+  &.appearance-transparent
+    --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
+    --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
+    --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
+
+    > svg
+      display: none
+
+  &.outputObservedOrHasUrlInput
+    @include HoverTransformingDirective.host
+
+    > .harness > .between > img
+      cursor: pointer

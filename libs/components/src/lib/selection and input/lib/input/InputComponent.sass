@@ -1,0 +1,132 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/interaction/lib/hover transforming/HoverTransformingDirective"
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+@mixin host
+  @include ElevatedDirective.host('.harness > .between > div')
+  @include FlexboxContainerDirective.host
+  @include HoverTransformingDirective.host('.harness > .between > div')
+
+  --bowstring--flexbox-container-directive--gap-column: calc(1rem * pow(var(--phi), -2)) !important
+  --bowstring--flexbox-container-directive--gap-row: calc(1rem * pow(var(--phi), -3)) !important
+
+  > .harness > .between
+    &::ng-deep > *
+      @include FlexboxContainerDirective.children
+
+    > label
+      font-size: calc(1rem * pow(var(--phi), -0.5))
+
+    > div
+      display: contents
+
+      @include CanvasDirective.host(0%)
+      @include FlexboxContainerDirective.host
+      @include WellRoundedDirective.host
+
+      --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -2)) !important
+      --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), -1)) !important
+      --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -2)) !important
+      --bowstring--flexbox-container-directive--align-items: center !important
+      --bowstring--flexbox-container-directive--flex-direction: row !important
+      --bowstring--flexbox-container-directive--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1)) !important
+      --bowstring--flexbox-container-directive--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1)) !important
+
+      > .harness
+        cursor: default
+        user-select: none
+
+        > .between
+          &::ng-deep > *
+            @include CanvasDirective.children
+            @include ElevatedDirective.children
+            @include FlexboxContainerDirective.children
+            @include HoverTransformingDirective.children
+            @include WellRoundedDirective.children
+
+          > div
+            display: contents
+
+            @include CanvasDirective.host(18%)
+            @include FlexboxContainerDirective.host
+
+            --bowstring--flexbox-container-directive--align-items: center !important
+            --bowstring--flexbox-container-directive--flex-direction: row !important
+            --bowstring--flexbox-container-directive--gap-column: calc(1rem * pow(var(--phi), -2)) !important
+            --bowstring--flexbox-container-directive--gap-row: calc(1rem * pow(var(--phi), -3)) !important
+            --bowstring--flexbox-container-directive--justify-content: center !important
+
+            > .harness
+              background: none
+              border: 0
+              color: inherit
+              cursor: pointer
+              display: none
+              font: inherit
+              letter-spacing: inherit
+              line-height: inherit
+              order: 1
+              padding: 0
+              text-align: start
+              text-decoration: none
+
+              > .between
+                background: none !important
+                opacity: 1
+                transition: opacity 200ms ease-in-out
+
+                &::ng-deep > *
+                  @include CanvasDirective.children
+                  @include FlexboxContainerDirective.children
+
+                > svg
+                  display: grid
+                  height: 1em
+                  max-width: 1em
+                  overflow: visible
+                  transform: translateZ(0)
+
+          > input
+            @include CanvasDirective.host(0%)
+
+            background: none
+            border: 0
+            box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background) inset
+            caret-color: currentColor
+            color: black
+            flex: 1 1 0
+            font: inherit
+            height: 18px
+            letter-spacing: inherit
+            line-height: inherit
+            outline: 0
+            padding: 0
+            width: 0
+            -webkit-tap-highlight-color: transparent
+            -webkit-text-fill-color: black
+
+            &::placeholder
+              color: hsl(0, 0%, 50%)
+              -webkit-text-fill-color: hsl(0, 0%, 50%)
+
+            @media (prefers-color-scheme: dark)
+              box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background-inverse) inset
+              filter: invert(1) hue-rotate(180deg)
+              transform: translateZ(0)
+
+              @supports (-webkit-touch-callout: none)
+                caret-color: white
+
+          &:focus-within > div > .harness
+            display: grid
+
+  &.disabled > .harness > .between > div > .harness > .between > input
+    color: hsl(0, 0%, 50%)
+    -webkit-text-fill-color: hsl(0, 0%, 50%)

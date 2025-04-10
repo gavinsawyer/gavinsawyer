@@ -2,7 +2,6 @@
 *-debug.log
 .DS_Store
 .angular
-.idea
 .nx
 .run
 dist
@@ -15,5 +14,5 @@ tmp
 gha-creds-*.json
 
 # Version side-effect files
-apps/*/src/.git-info.ts
-apps/*/src/.package-version.ts
+apps/*/src/.gitInfoPartial.ts
+apps/*/src/.packageVersion.ts

@@ -1,78 +1,86 @@
-import { APP_BASE_HREF }       from "@angular/common";
-import { enableProdMode }      from "@angular/core";
-import { CommonEngine }        from "@angular/ssr";
-import * as express            from "express";
-import { existsSync }          from "fs";
-import { join }                from "path";
+/*
+ * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ */
+
+import { APP_BASE_HREF }         from "@angular/common";
+import { LOCALE_ID }             from "@angular/core";
+import { CommonEngine }          from "@angular/ssr";
+import compression               from "compression";
+import express                   from "express";
+import { existsSync }            from "fs";
+import { environment }           from "../environment";
+import { ProjectServerModule }   from "./modules";
+import { getI18nRequestHandler } from "./request handlers";
+import { type ProjectLocaleId }  from "./types";
 import "zone.js/node";
-import { environment }         from "../environment";
-import { WebsiteServerModule } from "./modules";
 
 
-environment
-  .production && enableProdMode();
-
-export const app: () => express.Express = (): express.Express => ((distFolder: string): express.Express => ((indexHtml: "index.original.html" | "index.html"): express.Express => express().set(
-  "view engine",
-  "html",
-).set(
-  "views",
-  distFolder,
-).get(
-  "*.*",
-  express.static(
-    distFolder,
+function getRequestHandler(projectLocaleId: ProjectLocaleId): express.RequestHandler {
+  return (
+    request: express.Request,
+    response: express.Response,
+    nextFunction: express.NextFunction,
+  ): Promise<void> => new CommonEngine(
     {
-      maxAge: "1y",
-    },
-  ),
-).get(
-  "*",
-  (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => new CommonEngine().render(
-    {
-      bootstrap:        WebsiteServerModule,
-      documentFilePath: join(
-        distFolder,
-        indexHtml,
-      ),
-      url:              `${req.protocol}://${req.headers.host}${req.originalUrl}`,
-      publicPath:       distFolder,
-      providers:        [
+      bootstrap:                 ProjectServerModule,
+      enablePerformanceProfiler: !environment.production,
+      providers:                 [
         {
           provide:  APP_BASE_HREF,
-          useValue: req.baseUrl,
+          useValue: `/${ String(projectLocaleId) }`,
+        },
+        {
+          provide:  LOCALE_ID,
+          useValue: String(projectLocaleId),
         },
       ],
     },
-  ).then<void>(
-    (html: string): void => res.send(html) && void (0),
-  ).catch<void>(
-    (err): void => next(err),
-  ),
-))(
-  existsSync(
-    join(
-      distFolder,
-      "index.original.html",
-    ),
-  ) ? "index.original.html" : "index.html",
-))(
-  join(
-    process.cwd(),
-    "dist/apps/website/browser",
-  ),
-);
+  ).render(
+    {
+      documentFilePath: `${ process.cwd() }/dist/apps/website/browser/${ String(projectLocaleId) }/${ existsSync(`${ process.cwd() }/dist/apps/website/browser/${ String(projectLocaleId) }/index.original.html`) ? "index.original.html" : "index.html" }`,
+      publicPath:       `${ process.cwd() }/dist/apps/website/browser/${ String(projectLocaleId) }`,
+      url:              `${ request.protocol }://${ request.headers.host }${ request.originalUrl }`,
+    },
+  ).then<void, never>(
+    (html: string): void => response.send(html) && void (0),
+    (error: unknown): never => {
+      nextFunction(error);
 
-declare const __non_webpack_require__: NodeRequire;
-const mainModule: NodeJS.Module | undefined = __non_webpack_require__
-  .main;
-const moduleFilename: string = mainModule && mainModule
-  .filename || "";
-(moduleFilename === __filename || moduleFilename.includes("iisnode")) && app()
-  .listen(
-    process.env["PORT"] || 4000,
-    (): void => console.log(`Node Express server listening on http://localhost:${process.env["PORT"] || 4000}`),
+      throw error;
+    },
   );
+}
 
-// noinspection JSUnusedGlobalSymbols
-export { WebsiteServerModule as AppServerModule };
+
+export {
+  getRequestHandler,
+  ProjectServerModule as AppServerModule,
+};
+
+
+declare const __non_webpack_require__: NodeJS.Require;
+
+if (((moduleFilename: string): boolean => moduleFilename === __filename || moduleFilename.includes("iisnode"))(((mainModule?: NodeJS.Module): string => mainModule?.filename || "")(__non_webpack_require__.main)))
+  express().use(compression()).set(
+    "view engine",
+    "html",
+  ).set(
+    "views",
+    `${ process.cwd() }/dist/apps/website/browser`,
+  ).get(
+    "*.*",
+    getI18nRequestHandler(
+      ({ staticRoot }: { staticRoot: string }): express.RequestHandler => express.static(
+        staticRoot,
+        { maxAge: "1y" },
+      ),
+    ),
+  ).get(
+    "*",
+    getI18nRequestHandler(
+      ({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => getRequestHandler(projectLocaleId),
+    ),
+  ).listen(
+    process.env["PORT"] || 4000,
+    (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),
+  );

@@ -1,0 +1,133 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../../libs/directives/src/lib/content/lib/typography/TypographyDirective"
+@use "../../../../../../../libs/directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../../libs/directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../../libs/directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../../libs/directives/src/lib/materials/lib/glass/GlassDirective"
+@use "../../../../../../../libs/directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../../libs/directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+\:host
+  display: contents
+
+  --bowstring--focus--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1))
+  --bowstring--focus--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1))
+  --bowstring--focus--material-opacity: 0.625
+  --bowstring--focus--padding-sides: calc(1rem * pow(var(--phi), 0))
+
+  @include ElevatedDirective.host
+  @include FlexboxContainerDirective.host
+  @include GlassDirective.host(9%)
+  @include TypographyDirective.host("> .harness > .between > div#flexbox-container > .harness > .between > div#header")
+  @include WellRoundedDirective.host
+
+  --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
+  --bowstring--container-directive--padding-sides: var(--bowstring--focus--padding-sides) !important
+  --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
+  --bowstring--elevated-directive--material-opacity: var(--bowstring--focus--material-opacity) !important
+  --bowstring--flexbox-container-directive--gap-column: var(--bowstring--focus--gap-column) !important
+  --bowstring--flexbox-container-directive--gap-row: var(--bowstring--focus--gap-row) !important
+  --bowstring--glass-directive--material-opacity: var(--bowstring--focus--material-opacity) !important
+
+  @media (min-width: 48rem)
+    --bowstring--focus--padding-sides: calc(1rem * pow(var(--phi), 1))
+
+    --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), 0)) !important
+    --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), 0)) !important
+
+  > .harness > .between
+    &::ng-deep > *
+      --bowstring--box--material-opacity: initial
+
+      @include ElevatedDirective.children
+      @include FlexboxContainerDirective.children
+      @include WellRoundedDirective.children
+
+    > div#divider
+      display: contents
+
+      @include CanvasDirective.host(60%)
+      @include ContainerDirective.host
+
+      --bowstring--container-directive--margin-sides: calc(-1 * var(--bowstring--focus--padding-sides)) !important
+
+      > .harness > .between
+        display: flex
+        flex-direction: column
+        opacity: 0.25
+
+        > div
+          flex: 0 0 1px
+
+    > div#flexbox-container
+      display: contents
+
+      @include FlexboxContainerDirective.host
+
+      --bowstring--flexbox-container-directive--align-items: center !important
+      --bowstring--flexbox-container-directive--flex-direction: row !important
+      --bowstring--flexbox-container-directive--gap-column: var(--bowstring--focus--gap-column) !important
+      --bowstring--flexbox-container-directive--gap-row: var(--bowstring--focus--gap-row) !important
+
+      > .harness > .between
+        &::ng-deep > *
+          @include FlexboxContainerDirective.children
+
+        > div#symbol
+          display: contents
+
+          @include CanvasDirective.host(0%)
+          @include FlexboxContainerDirective.host
+          @include WellRoundedDirective.host
+
+          --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -0.5)) !important
+          --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), -0.5)) !important
+          --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -0.5)) !important
+          --bowstring--flexbox-container-directive--align-items: center !important
+          --bowstring--flexbox-container-directive--justify-content: center !important
+
+          > .harness > .between
+            font-size: calc(1rem * pow(var(--phi), 1))
+
+            > svg
+              display: grid
+              height: 1em
+              max-width: 1em
+              overflow: visible
+              transform: translateZ(0)
+
+            @media (prefers-color-scheme: dark)
+              @include CanvasDirective.color-scheme("light", 18%)
+
+        > div#header
+          @include FlexboxContainerDirective.host
+
+          --bowstring--flexbox-container-directive--gap-column: calc(var(--bowstring--focus--gap-column) * pow(var(--phi), -1)) !important
+          --bowstring--flexbox-container-directive--gap-row: calc(var(--bowstring--focus--gap-row) * pow(var(--phi), -1)) !important
+
+          > .harness
+            cursor: default
+            user-select: none
+
+            > .between::ng-deep > h5
+              font-size: calc(1em * pow(var(--phi), 2))
+              margin: 0
+
+    > div#heading-group
+      display: contents
+
+      @include FlexboxContainerDirective.host
+
+      --bowstring--flexbox-container-directive--gap-column: calc(var(--bowstring--focus--gap-column) * pow(var(--phi), -1)) !important
+      --bowstring--flexbox-container-directive--gap-row: calc(var(--bowstring--focus--gap-row) * pow(var(--phi), -1)) !important
+
+      > .harness > .between::ng-deep
+        > *
+          @include FlexboxContainerDirective.children
+
+        > p
+          margin: 0

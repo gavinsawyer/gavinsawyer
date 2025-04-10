@@ -1,0 +1,8 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@mixin reset-inputs($namespace, $inputs)
+  @each $input in $inputs
+    --bowstring--#{ $namespace }-directive--#{ $input }: initial
+    --bowstring--#{ $namespace }-directive--#{ $input }-input: initial

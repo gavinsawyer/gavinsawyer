@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gavinsawyer.dev/sitemap.xml
+Sitemap: https://gavinsawyer.us/sitemap.xml

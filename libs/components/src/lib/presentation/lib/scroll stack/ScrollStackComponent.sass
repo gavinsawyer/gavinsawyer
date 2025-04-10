@@ -1,0 +1,74 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+
+
+\:host
+  display: contents
+
+  --bowstring--scroll-stack--current-image-index: calc(1 + var(--bowstring--scroll-stack--scroll-left, 0) / var(--bowstring--scroll-stack--width, 0))
+
+  @include ContainerDirective.host
+
+  --bowstring--container-directive--overflow-x: scroll !important
+  --bowstring--container-directive--scroll-snap-type: x mandatory !important
+
+  > .harness
+    transform: translateZ(0)
+
+    > .between
+      display: flex
+      flex-direction: row
+      z-index: auto !important
+
+      > div
+        --bowstring--scroll-stack--item--relative-transformation: var(--bowstring--scroll-stack--item--index) - var(--bowstring--scroll-stack--current-image-index)
+        --bowstring--scroll-stack--item--relative-transformation--absolute-value: pow(pow(var(--bowstring--scroll-stack--item--relative-transformation), 2), 0.5)
+        --bowstring--scroll-stack--item--transformation: log(var(--bowstring--scroll-stack--item--relative-transformation--absolute-value) + 1) * (var(--bowstring--scroll-stack--item--relative-transformation)) / pow(pow(var(--bowstring--scroll-stack--item--relative-transformation) + 1 / 65536, 2), 0.5)
+        --bowstring--scroll-stack--item--transformation--dulled-absolute-value: max(0, pow(pow(var(--bowstring--scroll-stack--item--transformation), 2), 0.5) - 0.015625)
+        --bowstring--scroll-stack--item--transformation--dulled: var(--bowstring--scroll-stack--item--transformation) / pow(pow(var(--bowstring--scroll-stack--item--transformation), 2), 0.5) * var(--bowstring--scroll-stack--item--transformation--dulled-absolute-value)
+
+        display: flex
+        flex: 0 0 100%
+        flex-direction: row
+
+        &:before
+          aspect-ratio: var(--bowstring--scroll-stack--minimum-aspect-ratio-input)
+          content: ""
+          flex: 0 0 100%
+          scroll-snap-align: start
+          z-index: calc(2 - round(1 * var(--bowstring--scroll-stack--item--relative-transformation--absolute-value), 1))
+
+        > div
+          display: flex
+          filter: blur(calc(0.125rem * var(--bowstring--scroll-stack--item--transformation--dulled-absolute-value)))
+          flex-direction: column
+          height: 100%
+          justify-content: flex-end
+          left: 0
+          position: fixed
+          // noinspection CssInvalidFunction
+          transform: rotate(calc(5.625deg * var(--bowstring--scroll-stack--item--transformation--dulled))) scale(calc(1 - 0.1875 * var(--bowstring--scroll-stack--item--transformation--dulled-absolute-value))) translate3d(calc(15.625% * var(--bowstring--scroll-stack--item--transformation--dulled)), calc(-12.5% * var(--bowstring--scroll-stack--item--transformation--dulled-absolute-value) - 0.0625px * var(--bowstring--scroll-stack--item--transformation--dulled-absolute-value) * var(--bowstring--scroll-stack--viewport-vertical-offset, 0)), 0)
+          transform-origin: 50% 100% 0
+          width: 100%
+          z-index: calc(1 - round(1 * var(--bowstring--scroll-stack--item--relative-transformation--absolute-value), 1))
+
+          &::ng-deep > *
+            @include ContainerDirective.children
+
+            --bowstring--scroll-stack--minimum-aspect-ratio-input: initial
+            --bowstring--scroll-stack--scroll-left: initial
+            --bowstring--scroll-stack--viewport-vertical-offset: initial
+            --bowstring--scroll-stack--width: initial
+
+            --bowstring--scroll-stack--current-image-index: initial
+            --bowstring--scroll-stack--item--relative-transformation: initial
+            --bowstring--scroll-stack--item--relative-transformation--absolute-value: initial
+            --bowstring--scroll-stack--item--transformation: initial
+            --bowstring--scroll-stack--item--transformation--dulled-absolute-value: initial
+            --bowstring--scroll-stack--item--transformation--dulled: initial
+
+      &::-webkit-scrollbar
+        display: none

@@ -1,0 +1,25 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+
+
+$namespace: "typography"
+
+$font-size-exponent: functions.get-input-reference($namespace, "font-size-exponent", 0)
+
+@function get-color($theme, $type, $shade)
+
+
+@mixin color-scheme($theme)
+
+@mixin children
+  @include mixins.reset-colors($namespace, ())
+  @include mixins.reset-inputs($namespace, ("font-size-exponent"))
+  @include mixins.reset-values($namespace, ())
+
+@mixin host($child-selector: '')
+  #{ $child-selector } > .harness > .between
+    font-size: calc(1rem * pow(var(--phi), $font-size-exponent))

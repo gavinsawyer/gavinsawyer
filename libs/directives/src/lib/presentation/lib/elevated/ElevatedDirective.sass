@@ -1,0 +1,89 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+
+
+$namespace: "elevated"
+
+$level: functions.get-input-reference($namespace, "level", 1)
+$material-opacity: functions.get-input-reference($namespace, "material-opacity", 1)
+
+@function get-color($theme, $type, $shade)
+
+
+@mixin color-scheme($theme)
+
+@mixin children
+  @include mixins.reset-colors($namespace, ())
+  @include mixins.reset-inputs($namespace, ("level", "material-opacity"))
+  @include mixins.reset-values($namespace, ())
+
+@mixin host($child-selector: '')
+  @include color-scheme("light")
+
+  @media (prefers-color-scheme: dark)
+    @include color-scheme("dark")
+
+  #{ $child-selector } > .harness:before
+    content: ""
+    left: 2px
+    height: calc(100% - 4px)
+    opacity: calc(pow($material-opacity, 2))
+    position: absolute
+    top: 2px
+    width: calc(100% - 4px)
+    transition: box-shadow 200ms var(--bounce)
+    z-index: 0
+
+    @keyframes lower-shadow
+      0%
+        @include shadow($level / 1.6180339887)
+
+      100%
+        @include shadow($level)
+
+    @keyframes press-shadow
+      0%
+        @include shadow($level)
+
+      100%
+        @include shadow(calc($level + 1))
+
+    @keyframes pressWhenRaised-shadow
+      0%
+        @include shadow($level / 1.6180339887)
+
+      100%
+        @include shadow(calc($level + 1))
+
+    @keyframes raise-shadow
+      0%
+        @include shadow($level)
+
+      100%
+        @include shadow($level / 1.6180339887)
+
+    @keyframes unpress-shadow
+      0%
+        @include shadow(calc($level + 1))
+
+      100%
+        @include shadow($level)
+
+    @keyframes unpressWhenRaised-shadow
+      0%
+        @include shadow(calc($level + 1))
+
+      100%
+        @include shadow($level / 1.6180339887)
+
+  &:not(.disabled)
+    #{ $child-selector } > .harness:before
+      @include shadow($level)
+
+
+@mixin shadow($level)
+  box-shadow: transparentize(black, 0.25) 0 calc(0.25rem * pow(var(--phi), 0 - $level)) calc(1rem * pow(var(--phi), 0 - $level) * pow(var(--phi), 1)) calc(-1rem * pow(var(--phi), 0 - $level) * pow(var(--phi), -1))

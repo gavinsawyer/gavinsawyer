@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<button class="harness" #htmlButtonElement
+  [attr.aria-checked]="segmentedControlValueAccessor.value === valueInput$()"
+  [attr.disabled]="disabledInput$() || undefined"
+  [attr.tabindex]="disabledInput$() ? -1 : 0"
+  (click)="$event.stopPropagation(); segmentedControlValueAccessor && segmentedControlValueAccessor.writeValue(valueInput$()); segmentedControlValueAccessor.onChange?.(); segmentedControlValueAccessor.onTouched?.();"
+  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+  role="radio"
+  type="button">
+  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+</button>
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  <ng-content />
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

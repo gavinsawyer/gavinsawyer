@@ -1,0 +1,26 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+
+
+\:host
+  display: contents
+
+  @include CanvasDirective.host(60%)
+  @include ContainerDirective.host
+
+  > .harness > .between
+    display: flex
+    flex-direction: column
+    opacity: 0.25
+
+    > div
+      flex: 0 0 1px
+
+
+@each $host-context-namespace in ("footer", "sheet", "inspector", "box")
+  \:host-context(bowstring--#{ $host-context-namespace })
+    --bowstring--container-directive--margin-sides: calc(-1 * var(--bowstring--#{ $host-context-namespace }--gap-column)) !important

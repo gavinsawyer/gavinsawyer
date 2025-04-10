@@ -1,0 +1,175 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/interaction/lib/hover transforming/HoverTransformingDirective"
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
+@use "../../../../../../directives/src/lib/materials/lib/inverse/InverseDirective"
+@use "../../../../../../directives/src/lib/materials/lib/primary/PrimaryDirective"
+@use "../../../../../../directives/src/lib/materials/lib/secondary/SecondaryDirective"
+@use "../../../../../../directives/src/lib/materials/lib/warning/WarningDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+\:host
+  display: contents
+
+  @include FlexboxContainerDirective.host
+
+  --bowstring--flexbox-container-directive--align-items: center !important
+  --bowstring--flexbox-container-directive--flex-direction: row !important
+  --bowstring--flexbox-container-directive--justify-content: center !important
+
+  > .harness
+    cursor: default
+    user-select: none
+
+    > .between
+      &::ng-deep > *
+        @include FlexboxContainerDirective.children
+
+      > div
+        display: contents
+
+        --bowstring--button--gap-column: calc(1rem * pow(var(--phi), -2))
+        --bowstring--button--gap-row: calc(1rem * pow(var(--phi), -3))
+
+        @include FlexboxContainerDirective.host
+
+        --bowstring--flexbox-child-directive--flex-basis: 100% !important
+        --bowstring--flexbox-container-directive--align-items: center !important
+        --bowstring--flexbox-container-directive--flex-direction: row !important
+        --bowstring--flexbox-container-directive--gap-column: var(--bowstring--button--gap-column) !important
+        --bowstring--flexbox-container-directive--gap-row: var(--bowstring--button--gap-row) !important
+        --bowstring--flexbox-container-directive--justify-content: center !important
+
+        > .harness
+          background: none
+          border: 0
+          color: inherit
+          cursor: pointer
+          font: inherit
+          letter-spacing: inherit
+          line-height: inherit
+          padding: 0
+          text-align: start
+          text-decoration: none
+
+          > .between
+            font-size: calc(1rem * pow(var(--phi), 0.25))
+            opacity: 1
+            transition: opacity 200ms ease-in-out
+
+            &::ng-deep > *
+              @include FlexboxContainerDirective.children
+
+  &:not(.appearance-raised)
+    &:not(.material-primary):not(.material-secondary):not(.material-warning)
+      @include CanvasDirective.host(18%)
+
+      > .harness > .between::ng-deep > *
+        @include CanvasDirective.children
+
+    &.material-primary
+      @include PrimaryDirective.host
+
+      > .harness > .between
+        color: var(--bowstring--primary-directive--colors--background) !important
+
+        &::ng-deep > *
+          @include PrimaryDirective.children
+
+    &.material-secondary
+      @include SecondaryDirective.host
+
+      > .harness > .between
+        color: var(--bowstring--secondary-directive--colors--background) !important
+
+        &::ng-deep > *
+          @include SecondaryDirective.children
+
+    &.material-warning
+      @include WarningDirective.host
+
+      > .harness > .between
+        color: var(--bowstring--warning-directive--colors--background) !important
+
+        &::ng-deep > *
+          @include WarningDirective.children
+
+    > .harness > .between
+      background: none !important
+
+  &.appearance-raised
+    @include ElevatedDirective.host
+    @include HoverTransformingDirective.host
+    @include WellRoundedDirective.host
+
+    &:not(.material-glass):not(.material-inverse):not(.material-primary):not(.material-secondary):not(.material-warning)
+      @include CanvasDirective.host(0%)
+
+      > .harness > .between::ng-deep > *
+        @include CanvasDirective.children
+
+    &.material-glass
+      --bowstring--button--material-opacity: 0.625
+
+      @include GlassDirective.host(12%)
+
+      --bowstring--elevated-directive--material-opacity: var(--bowstring--button--material-opacity) !important
+      --bowstring--glass-directive--material-opacity: var(--bowstring--button--material-opacity) !important
+
+      > .harness > .between::ng-deep > *
+        --bowstring--button--material-opacity: initial
+
+        @include GlassDirective.children
+
+    &.material-inverse
+      @include InverseDirective.host(0%)
+
+      > .harness > .between::ng-deep > *
+        @include InverseDirective.children
+
+    &.material-primary
+      @include PrimaryDirective.host
+
+      > .harness > .between::ng-deep > *
+        @include PrimaryDirective.children
+
+    &.material-secondary
+      @include SecondaryDirective.host
+
+      > .harness > .between::ng-deep > *
+        @include SecondaryDirective.children
+
+    &.material-warning
+      @include WarningDirective.host
+
+      > .harness > .between::ng-deep > *
+        @include WarningDirective.children
+
+    > .harness > .between
+      &::ng-deep > *
+        @include ElevatedDirective.children
+        @include HoverTransformingDirective.children
+        @include WellRoundedDirective.children
+
+      > div
+        --bowstring--button--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1))
+        --bowstring--button--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1))
+
+        --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
+        --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
+        --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
+
+  &.appearance-symbol > .harness > .between > div > .harness > .between
+    font-size: calc(1rem * pow(var(--phi), 1))
+
+  &.disabled > .harness
+    pointer-events: none
+
+    > .between
+      opacity: 0.5

@@ -1,0 +1,58 @@
+{
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters":       true,
+    "strictInputAccessModifiers":      true,
+    "strictTemplates":                 true
+  },
+  "compileOnSave":          false,
+  "compilerOptions":        {
+    "allowSyntheticDefaultImports":       true,
+    "baseUrl":                            ".",
+    "declaration":                        true,
+    "emitDecoratorMetadata":              true,
+    "experimentalDecorators":             true,
+    "forceConsistentCasingInFileNames":   true,
+    "importHelpers":                      true,
+    "lib":                                [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module":                             "ESNext",
+    "moduleResolution":                   "Node",
+    "noFallthroughCasesInSwitch":         true,
+    "noImplicitOverride":                 true,
+    "noImplicitReturns":                  true,
+    "noPropertyAccessFromIndexSignature": true,
+    "outDir":                             "dist/out-tsc",
+    "paths":                              {
+      "@bowstring/brand":            [ "libs/brand/src/index.ts" ],
+      "@bowstring/cloud-functions":  [ "libs/cloud functions/src/index.ts" ],
+      "@bowstring/colors":           [ "libs/colors/src/index.ts" ],
+      "@bowstring/components":       [ "libs/components/src/index.ts" ],
+      "@bowstring/currencies":       [ "libs/currencies/src/index.ts" ],
+      "@bowstring/directives":       [ "libs/directives/src/index.ts" ],
+      "@bowstring/firebase-interop": [ "libs/firebase interop/src/index.ts" ],
+      "@bowstring/injection-tokens": [ "libs/injection tokens/src/index.ts" ],
+      "@bowstring/interfaces":       [ "libs/interfaces/src/index.ts" ],
+      "@bowstring/pipes":            [ "libs/pipes/src/index.ts" ],
+      "@bowstring/services":         [ "libs/services/src/index.ts" ],
+      "@bowstring/symbols":          [ "libs/symbols/src/index.ts" ],
+      "@bowstring/types":            [ "libs/types/src/index.ts" ]
+    },
+    "resolveJsonModule":                  true,
+    "rootDir":                            ".",
+    "skipDefaultLibCheck":                true,
+    "skipLibCheck":                       true,
+    "sourceMap":                          true,
+    "strict":                             true,
+    "target":                             "ESNext"
+  },
+  "exclude":                [
+    "node_modules",
+    "tmp",
+    "**/README.md"
+  ],
+  "include":                [ "!**/*.ts" ]
+}

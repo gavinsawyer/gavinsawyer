@@ -1,0 +1,53 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
+@use "../../../../../../directives/src/lib/materials/lib/primary/PrimaryDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+\:host
+  display: contents
+
+  --bowstring--box--gap-column: var(--bowstring--container-directive--padding-sides)
+  --bowstring--box--gap-row: var(--bowstring--container-directive--padding-bottom)
+  --bowstring--box--material-opacity: 0.625
+
+  @include ElevatedDirective.host
+  @include FlexboxContainerDirective.host
+  @include WellRoundedDirective.host
+
+  &:not(.material-primary)
+    @include GlassDirective.host(9%)
+
+    > .harness > .between::ng-deep > *
+      @include GlassDirective.children
+
+  &.material-primary
+    @include PrimaryDirective.host
+
+    > .harness > .between::ng-deep > *
+      @include PrimaryDirective.children
+
+  --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
+  --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
+  --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
+  --bowstring--elevated-directive--material-opacity: var(--bowstring--box--material-opacity) !important
+  --bowstring--flexbox-container-directive--gap-column: var(--bowstring--box--gap-column) !important
+  --bowstring--flexbox-container-directive--gap-row: var(--bowstring--box--gap-row) !important
+  --bowstring--glass-directive--material-opacity: var(--bowstring--box--material-opacity) !important
+
+  @media (min-width: 48rem)
+    --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), 0)) !important
+    --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 1)) !important
+    --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), 0)) !important
+
+  > .harness > .between::ng-deep > *
+    --bowstring--box--material-opacity: initial
+
+    @include ElevatedDirective.children
+    @include FlexboxContainerDirective.children
+    @include WellRoundedDirective.children

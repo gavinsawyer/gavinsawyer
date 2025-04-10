@@ -1,0 +1,37 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src/lib/layout and organization/lib/inlinable/InlinableDirective"
+
+
+\:host
+  display: contents
+
+  @include FlexboxContainerDirective.host
+  @include InlinableDirective.host
+
+  --bowstring--flexbox-container-directive--align-items: center !important
+  --bowstring--flexbox-container-directive--justify-content: center !important
+
+  > .harness > .between > svg
+    display: grid
+    height: 1em
+    max-width: 1em
+    overflow: visible
+    transform: translateZ(0)
+
+  &.fixedWidth > .harness > .between > svg
+    width: 1em
+
+  &.inline > .harness
+    top: 0.1875em
+
+\:host-context(#badgeSymbol)
+  --bowstring--container-directive--position: absolute !important
+  --bowstring--container-directive--position-right: 0 !important
+  --bowstring--container-directive--position-top: 0 !important
+
+  > .harness > .between
+    font-size: calc(1rem * pow(var(--phi), 0.25))

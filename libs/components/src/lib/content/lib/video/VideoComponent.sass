@@ -1,0 +1,25 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
+@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+
+
+\:host
+  display: contents
+
+  @include CanvasDirective.host(18%)
+  @include ContainerDirective.host
+  @include ElevatedDirective.host
+  @include WellRoundedDirective.host
+
+  > .harness > .between
+    display: flex
+
+    > video
+      height: auto
+      max-width: calc(100% - 2 * var(--bowstring--container-directive--margin-sides-input, 0px) - 2 * var(--bowstring--container-directive--padding-sides-input, 0px))
+      width: 100%

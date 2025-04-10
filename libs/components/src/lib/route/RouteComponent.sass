@@ -1,0 +1,19 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@mixin host
+  > bowstring--flexbox-container
+    --bowstring--flexbox-child-directive--flex-grow: 1 !important
+
+    &::ng-deep > .harness > .between > bowstring--flexbox-container > .harness > .between > router-outlet
+      display: none
+
+    @media (min-width: 48rem)
+      --bowstring--flexbox-container-directive--flex-direction: row !important
+      --bowstring--flexbox-container-directive--flex-wrap: wrap !important
+
+      &::ng-deep > .harness > .between > bowstring--flexbox-container
+        --bowstring--flexbox-child-directive--flex-basis: calc(1rem * pow(var(--phi), 6)) !important
+        --bowstring--flexbox-child-directive--flex-grow: 1 !important
+        --bowstring--flexbox-child-directive--flex-shrink: 0 !important

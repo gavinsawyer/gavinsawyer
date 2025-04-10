@@ -1,11 +1,24 @@
-ul
-  display: flex
-  flex-direction: row
-  flex-wrap: wrap
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
 
-  li
-    display: flex
-    flex-basis: calc(29rem / 2)
-    flex-direction: column
-    flex-grow: 1
-    min-width: calc(29rem / 2)
+\:host
+  display: contents
+
+  > bowstring--flexbox-container
+    --bowstring--flexbox-child-directive--flex-grow: 1 !important
+
+    &::ng-deep > .harness > .between > bowstring--section > .harness > .between > bowstring--masonry-container
+      --bowstring--masonry-container-directive--columns: 1 !important
+
+    @media (min-width: 48rem)
+      --bowstring--flexbox-container-directive--flex-direction: row !important
+      --bowstring--flexbox-container-directive--flex-wrap: wrap !important
+
+      &::ng-deep > .harness > .between > bowstring--section
+        --bowstring--flexbox-child-directive--flex-basis: calc(1rem * pow(var(--phi), 6)) !important
+        --bowstring--flexbox-child-directive--flex-grow: 1 !important
+        --bowstring--flexbox-child-directive--flex-shrink: 0 !important
+
+        > .harness > .between > bowstring--masonry-container
+          --bowstring--masonry-container-directive--columns: 2 !important

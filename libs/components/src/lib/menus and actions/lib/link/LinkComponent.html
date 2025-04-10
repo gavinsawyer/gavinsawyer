@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+@if (urlInput$(); as url) {@if (url.includes(":")) {<a class="harness"
+  [attr.href]="url"
+  [attr.tabindex]="disabledInput$() ? -1 : 0"
+  (click)="$event.stopPropagation(); output.emit();"
+  (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || output.emit();"
+  role="link"
+  target="_blank"><span class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></span></a>} @else {<a class="harness"
+  [attr.tabindex]="disabledInput$() || routerLinkActive.isActive ? -1 : 0"
+  (click)="$event.stopPropagation(); output.emit();"
+  (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || output.emit();"
+  role="link"
+  [routerLink]="url"
+  routerLinkActive
+  #routerLinkActive="routerLinkActive"
+  [routerLinkActiveOptions]="{ exact: exactInput$() || false }"><span class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></span></a>}} @else {<button class="harness"
+  [attr.disabled]="disabledInput$() || undefined"
+  [attr.tabindex]="disabledInput$() ? -1 : 0"
+  [attr.type]="typeInput$() || 'button'"
+  (click)="$event.stopPropagation(); output.emit();"
+  (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || output.emit();"
+  role="link"><span class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></span></button>}
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  <ng-content />
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

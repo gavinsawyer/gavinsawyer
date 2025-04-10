@@ -1,0 +1,32 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<div class="harness" #htmlDivElement
+  (click)="$event.stopPropagation();"
+  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+  tabindex="-1">
+  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+</div>
+
+<svg
+  viewBox="0 0 1 1"
+  xmlns="http://www.w3.org/2000/svg">
+  <clipPath
+    [attr.id]="wellRoundedDirective.clipPathId$()"
+    clipPathUnits="objectBoundingBox">
+    <path
+      [attr.d]="wellRoundedDirective.pathDefinition$()"
+      fill="transparent" />
+  </clipPath>
+</svg>
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  <ng-content />
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

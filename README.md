@@ -1,7 +1,7 @@
 I'm Gavin, a software developer and BSBA graduate living in Boston.
 ===
 
-For hire, connect via [LinkedIn](https://www.linkedin.com/in/gavinsawyer-dev/).
+For hire, connect via [LinkedIn](https://www.linkedin.com/in/gavinsawyer-us/).
 
 <!--
 **gavinsawyer/gavinsawyer** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.

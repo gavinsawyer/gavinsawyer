@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="NxAngularConfigService" workspaceLocation="file://$PROJECT_DIR$/nx.json">
+    <projects>
+      <project name="brand" file="file://$PROJECT_DIR$/libs/brand/project.json" />
+      <project name="cloud-functions" file="file://$PROJECT_DIR$/libs/cloud functions/project.json" />
+      <project name="colors" file="file://$PROJECT_DIR$/libs/colors/project.json" />
+      <project name="components" file="file://$PROJECT_DIR$/libs/components/project.json" />
+      <project name="directives" file="file://$PROJECT_DIR$/libs/directives/project.json" />
+      <project name="firebase-interop" file="file://$PROJECT_DIR$/libs/firebase interop/project.json" />
+      <project name="injection-tokens" file="file://$PROJECT_DIR$/libs/injection tokens/project.json" />
+      <project name="interfaces" file="file://$PROJECT_DIR$/libs/interfaces/project.json" />
+      <project name="pipes" file="file://$PROJECT_DIR$/libs/pipes/project.json" />
+      <project name="services" file="file://$PROJECT_DIR$/libs/services/project.json" />
+      <project name="symbols" file="file://$PROJECT_DIR$/libs/symbols/project.json" />
+      <project name="types" file="file://$PROJECT_DIR$/libs/types/project.json" />
+      <project name="website" file="file://$PROJECT_DIR$/apps/website/project.json" />
+    </projects>
+  </component>
+</project>

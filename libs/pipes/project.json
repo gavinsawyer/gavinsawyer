@@ -1,0 +1,12 @@
+{
+  "name":        "pipes",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot":  "libs/pipes/src",
+  "targets":     {
+    "eslint": {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/pipes/src/**/*.ts" ] }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src/lib/layout and organization/lib/inlinable/InlinableDirective"
+
+
+\:host
+  display: contents
+
+  --bowstring--segmented-control--gap-column: calc(1rem * pow(var(--phi), -2))
+  --bowstring--segmented-control--gap-row: calc(1rem * pow(var(--phi), -3))
+
+  @include FlexboxContainerDirective.host
+
+  --bowstring--flexbox-child-directive--flex-basis: 100% !important
+  --bowstring--flexbox-container-directive--align-items: center !important
+  --bowstring--flexbox-container-directive--flex-direction: row !important
+  --bowstring--flexbox-container-directive--gap-column: var(--bowstring--segmented-control--gap-column) !important
+  --bowstring--flexbox-container-directive--gap-row: var(--bowstring--segmented-control--gap-row) !important
+  --bowstring--flexbox-container-directive--justify-content: center !important
+
+  > .harness
+    background: none
+    border: 0
+    color: inherit
+    cursor: pointer
+    font: inherit
+    letter-spacing: inherit
+    line-height: inherit
+    padding: 0
+    text-align: start
+    text-decoration: none
+
+    > .between
+      font-size: calc(1rem * pow(var(--phi), 0.25))
+      opacity: 1
+      transition: color 72ms ease-in-out, opacity 200ms ease-in-out
+
+      &::ng-deep > *
+        @include FlexboxContainerDirective.children
+
+      > .symbol
+        display: contents
+
+        @include FlexboxContainerDirective.host
+
+        --bowstring--flexbox-container-directive--align-items: center !important
+        --bowstring--flexbox-container-directive--justify-content: center !important
+
+        > .harness > .between > svg
+          display: grid
+          height: 1em
+          max-width: 1em
+          overflow: visible
+          transform: translateZ(0)
+
+      > .label
+        display: contents
+
+        @include ContainerDirective.host
+
+        --bowstring--container-directive--align-self: baseline !important
+
+  &.disabled > .harness
+    pointer-events: none
+
+    > .between
+      opacity: 0.5
+
+  @media (prefers-color-scheme: dark)
+    &.selected
+      color: var(--bowstring--canvas-directive--colors--foreground-inverse)

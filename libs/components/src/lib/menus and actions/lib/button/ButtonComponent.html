@@ -1,0 +1,62 @@
+<!--
+  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  -->
+
+<div class="harness" #htmlDivElement
+  (click)="$event.stopPropagation();"
+  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+  tabindex="-1">
+  <div class="between">
+    <div>
+      @if (urlInput$(); as url) {@if (url.includes(":") || url.includes(".")) {<a class="harness"
+        [attr.href]="url"
+        [attr.tabindex]="disabledInput$() ? -1 : 0"
+        (click)="$event.stopPropagation(); output.emit();"
+        (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+        target="_blank"
+        role="button">
+        <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+      </a>} @else {<a class="harness"
+        [attr.tabindex]="disabledInput$() || routerLinkActive.isActive ? -1 : 0"
+        (click)="$event.stopPropagation(); output.emit();"
+        (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+        [routerLink]="url"
+        routerLinkActive
+        #routerLinkActive="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: url === '/' }"
+        role="button">
+        <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+      </a>}} @else {<button class="harness"
+        [attr.disabled]="disabledInput$() || undefined"
+        [attr.tabindex]="disabledInput$() ? -1 : 0"
+        [attr.type]="typeInput$() || 'button'"
+        (click)="$event.stopPropagation(); output.emit();"
+        (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+        role="button">
+        <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
+      </button>}
+    </div>
+  </div>
+</div>
+
+@if (appearanceInput$() === "raised") {<svg
+  viewBox="0 0 1 1"
+  xmlns="http://www.w3.org/2000/svg">
+  <clipPath
+    [attr.id]="wellRoundedDirective.clipPathId$()"
+    clipPathUnits="objectBoundingBox">
+    <path
+      [attr.d]="wellRoundedDirective.pathDefinition$()"
+      fill="transparent" />
+  </clipPath>
+</svg>}
+
+<ng-template #badgeSymbolTemplate>
+  @if (containerDirective.badgeSymbolTemplateRef$(); as badgeSymbolTemplateRef) {<div id="badgeSymbol">
+    <ng-container *ngTemplateOutlet="badgeSymbolTemplateRef" />
+  </div>}
+</ng-template>
+<ng-template #contentTemplate>
+  <ng-content />
+  <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
+</ng-template>

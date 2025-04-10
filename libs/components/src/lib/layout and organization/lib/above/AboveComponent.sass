@@ -1,0 +1,22 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+
+
+\:host
+  display: contents
+
+  --bowstring--above--font-size-exponent: -2
+  --bowstring--above--gap-column: calc(var(--bowstring--root--gap-column) * pow(var(--phi), -1))
+  --bowstring--above--gap-row: calc(var(--bowstring--root--gap-row) * pow(var(--phi), -1))
+
+  @include FlexboxContainerDirective.host
+
+  --bowstring--flexbox-child-directive--flex-grow: 1 !important
+  --bowstring--flexbox-container-directive--gap-column: var(--bowstring--above--gap-column) !important
+  --bowstring--flexbox-container-directive--gap-row: var(--bowstring--above--gap-row) !important
+
+  > .harness > .between::ng-deep > *
+    @include FlexboxContainerDirective.children

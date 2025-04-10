@@ -1,0 +1,54 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../sass/functions"
+@use "../../../../sass/mixins"
+
+
+$namespace: "well-rounded"
+
+$brand-roundness: functions.get-value-reference($namespace, "brand-roundness")
+$clip-path-source: functions.get-value-reference($namespace, "clip-path-source")
+
+$level: functions.get-input-reference($namespace, "level", 1)
+
+@function get-color($theme, $type, $shade)
+
+
+@mixin color-scheme($theme)
+
+@mixin children
+  @include mixins.reset-colors($namespace, ())
+  @include mixins.reset-inputs($namespace, ("level"))
+  @include mixins.reset-values($namespace, ("brand-roundness", "clip-path-source"))
+
+@mixin host($child-selector: '&')
+  @include color-scheme("light")
+
+  @media (prefers-color-scheme: dark)
+    @include color-scheme("dark")
+
+  #{ $child-selector } > .harness
+    &:before
+      border-radius: calc($brand-roundness * 1.75rem * pow(var(--phi), 1) / $level)
+
+    > .between,
+    &:after
+      clip-path: $clip-path-source
+
+    &:after
+      overflow: hidden
+
+  #{ $child-selector } > svg
+    height: 1px
+    left: 0
+    position: absolute
+    top: 0
+    width: 1px
+
+  &.uninitialized
+    #{ $child-selector } > .harness
+      > .between,
+      &:after
+        border-radius: calc($brand-roundness * 1.75rem / $level)
