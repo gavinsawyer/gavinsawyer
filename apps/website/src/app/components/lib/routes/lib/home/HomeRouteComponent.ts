@@ -2,12 +2,20 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { ChangeDetectionStrategy, Component, inject }                                                                                                                                                                                                   from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators }                                                                                                                                                                                      from "@angular/forms";
-import { AsideComponent, BoxComponent, ButtonComponent, FlexboxContainerComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, LinkComponent, ListComponent, MasonryContainerComponent, RouteComponent, SectionComponent, SymbolComponent } from "@bowstring/components";
-import { ListItemDirective, MasonryChildDirective }                                                                                                                                                                                                     from "@bowstring/directives";
-import { FocusService }                                                                                                                                                                                                                                 from "../../../../../services";
-import { FocusComponent }                                                                                                                                                                                                                               from "../../../focus/FocusComponent";
+import { ChangeDetectionStrategy, Component, effect, inject, signal, type WritableSignal }                                                                                                                                                                                                                                                                                                              from "@angular/core";
+import { Analytics, logEvent }                                                                                                                                                                                                                                                                                                                                                                          from "@angular/fire/analytics";
+import { Auth }                                                                                                                                                                                                                                                                                                                                                                                         from "@angular/fire/auth";
+import { addDoc, collection, type CollectionReference, Firestore, FirestoreError, serverTimestamp }                                                                                                                                                                                                                                                                                                     from "@angular/fire/firestore";
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, type ValidationErrors, Validators }                                                                                                                                                                                                                                                                                              from "@angular/forms";
+import { AsideComponent, BoxComponent, ButtonComponent, ComboboxInputComponent, ComboboxInputOptionComponent, DividerComponent, FlexboxContainerComponent, FormComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, LinkComponent, ListComponent, MasonryContainerComponent, PhoneNumberFieldInputComponent, RouteComponent, SectionComponent, SymbolComponent, TextFieldInputComponent } from "@bowstring/components";
+import { ListItemDirective, MasonryChildDirective }                                                                                                                                                                                                                                                                                                                                                     from "@bowstring/directives";
+import { getFirestoreErrorMessage }                                                                                                                                                                                                                                                                                                                                                                     from "@bowstring/firebase-interop";
+import { type ComboboxInputOption }                                                                                                                                                                                                                                                                                                                                                                     from "@bowstring/interfaces";
+import { AuthenticationService, ErrorsService }                                                                                                                                                                                                                                                                                                                                                         from "@bowstring/services";
+import { type CountryCode, getCountries, getCountryCallingCode, isPossiblePhoneNumber, parsePhoneNumberWithError, type PhoneNumber }                                                                                                                                                                                                                                                                    from "libphonenumber-js";
+import { type MessageDocument }                                                                                                                                                                                                                                                                                                                                                                         from "../../../../../interfaces";
+import { FocusService, MessagesService }                                                                                                                                                                                                                                                                                                                                                                from "../../../../../services";
+import { FocusComponent }                                                                                                                                                                                                                                                                                                                                                                               from "../../../focus/FocusComponent";
 
 
 @Component(
@@ -17,8 +25,12 @@ import { FocusComponent }                                                       
       AsideComponent,
       BoxComponent,
       ButtonComponent,
+      ComboboxInputComponent,
+      ComboboxInputOptionComponent,
+      DividerComponent,
       FlexboxContainerComponent,
       FocusComponent,
+      FormComponent,
       HeaderComponent,
       HeadingGroupComponent,
       LabelComponent,
@@ -27,9 +39,11 @@ import { FocusComponent }                                                       
       ListItemDirective,
       MasonryChildDirective,
       MasonryContainerComponent,
+      PhoneNumberFieldInputComponent,
       ReactiveFormsModule,
       SectionComponent,
       SymbolComponent,
+      TextFieldInputComponent,
     ],
     styleUrl:        "HomeRouteComponent.sass",
     templateUrl:     "HomeRouteComponent.html",
@@ -40,24 +54,185 @@ import { FocusComponent }                                                       
 export class HomeRouteComponent
   extends RouteComponent {
 
-  protected readonly contactFormGroup: FormGroup<{ "name": FormControl<string> }> = new FormGroup<{ "name": FormControl<string> }>(
+  constructor() {
+    super();
+
+    effect(
+      (): void => {
+        const messageDocument: MessageDocument | undefined = this.messagesService.messageDocuments$()?.[0];
+
+        if (messageDocument)
+          this.messageFormGroup.reset(
+            ((
+              {
+                created,
+                email,
+                message,
+                name,
+                phone,
+                userId,
+              }: MessageDocument,
+            ): typeof this.messageFormGroup.value => ({
+              email,
+              message,
+              name,
+              notCreated: !created,
+              noUserId:   !userId,
+              ...(phone ? {
+                phone: ((
+                  {
+                    countryCallingCode,
+                    nationalNumber,
+                  }: PhoneNumber,
+                ): typeof this.messageFormGroup.controls.phone.value => ({
+                  countryCallingCode: `+${ countryCallingCode }`,
+                  nationalNumber,
+                }))(parsePhoneNumberWithError(phone)),
+              } : {}),
+            }))(messageDocument),
+          );
+      },
+    );
+  }
+
+  private readonly analytics: Analytics         = inject<Analytics>(Analytics);
+  private readonly auth: Auth                   = inject<Auth>(Auth);
+  private readonly errorsService: ErrorsService = inject<ErrorsService>(ErrorsService);
+  private readonly firestore: Firestore         = inject<Firestore>(Firestore);
+
+  protected readonly authenticationService: AuthenticationService                                                                                                                                                                                                                                                                            = inject<AuthenticationService>(AuthenticationService);
+  protected readonly focusService: FocusService                                                                                                                                                                                                                                                                                              = inject<FocusService>(FocusService);
+  protected readonly phoneCountryCallingCodeOptions: Array<ComboboxInputOption>                                                                                                                                                                                                                                                              = getCountries().map<ComboboxInputOption>(
+    (countryCode: CountryCode): ComboboxInputOption => ({
+      label: countryCode,
+      value: `+${ getCountryCallingCode(countryCode) }`,
+    }),
+  );
+  protected readonly messageFormGroup: FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "noUserId": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }> }> = new FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "noUserId": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }> }>(
     {
-      name: new FormControl<string>(
+      email:      new FormControl<string>(
+        "",
+        {
+          nonNullable: true,
+          validators:  [ Validators.email ],
+        },
+      ),
+      message:    new FormControl<string>(
         "",
         {
           nonNullable: true,
           validators:  [ Validators.required ],
         },
       ),
+      name:       new FormControl<string>(
+        "",
+        {
+          nonNullable: true,
+          validators:  [ Validators.required ],
+        },
+      ),
+      notCreated: new FormControl<boolean>(
+        true,
+        {
+          nonNullable: true,
+          validators:  [ Validators.requiredTrue ],
+        },
+      ),
+      noUserId:   new FormControl<boolean>(
+        true,
+        {
+          nonNullable: true,
+          validators:  [ Validators.requiredTrue ],
+        },
+      ),
+      phone:      new FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }>(
+        {
+          countryCallingCode: new FormControl<"" | `+${ string }`>(
+            "",
+            {
+              nonNullable: true,
+              validators:  [
+                (
+                  {
+                    parent,
+                    value,
+                  }: AbstractControl<string, string>,
+                ): ValidationErrors => {
+                  if (parent && "nationalNumber" in parent.controls && parent.controls["nationalNumber"])
+                    parent.controls["nationalNumber"].updateValueAndValidity();
+
+                  return value && !this.phoneCountryCallingCodeOptions.map<string>(
+                    ({ value }: ComboboxInputOption): string => value,
+                  ).includes(value) ? { "optionSelected": true } : {};
+                },
+              ],
+            },
+          ),
+          nationalNumber:     new FormControl<string>(
+            "",
+            {
+              nonNullable: true,
+              validators:  [
+                (
+                  {
+                    parent,
+                    value,
+                  }: AbstractControl<string, string>,
+                ): ValidationErrors => value && !isPossiblePhoneNumber((parent && "countryCallingCode" in parent.controls ? parent.controls["countryCallingCode"].value : "") + value) ? { "possiblePhoneNumber": true } : {},
+              ],
+            },
+          ),
+        },
+      ),
     },
   );
-  protected readonly focusService: FocusService                                   = inject<FocusService>(FocusService);
-  protected readonly yearsSinceSummer2014: number                                 = new Date(
+  protected readonly messagesFormWorking$: WritableSignal<boolean>                                                                                                                                                                                                                                                                           = signal<boolean>(false);
+  protected readonly messagesService: MessagesService                                                                                                                                                                                                                                                                                        = inject<MessagesService>(MessagesService);
+  protected readonly yearsSinceSummer2014: number                                                                                                                                                                                                                                                                                            = new Date(
     new Date().getTime() - new Date("2014-06-21T16:00:00.000Z").getTime(),
   ).getFullYear() - 1970;
 
-  protected contactFormSubmit(): void {
-    console.log(this.contactFormGroup.value);
+  protected logClickAddToContactsEvent(): void {
+    logEvent<"click_addToContacts">(
+      this.analytics,
+      "click_addToContacts",
+    );
+  };
+  protected logClickOpenResumeEvent(): void {
+    logEvent<"click_openResume">(
+      this.analytics,
+      "click_openResume",
+    );
+  };
+  protected messageFormSubmit(): void {
+    const userId: string | undefined = this.auth.currentUser?.uid;
+
+    if ((this.messageFormGroup.value.email || (this.messageFormGroup.value.phone?.countryCallingCode && this.messageFormGroup.value.phone.nationalNumber)) && this.messageFormGroup.value.message && this.messageFormGroup.value.name && userId) {
+      this.messagesFormWorking$.set(true);
+
+      addDoc<MessageDocument, MessageDocument>(
+        collection(
+          this.firestore,
+          "messages",
+        ) as CollectionReference<MessageDocument, MessageDocument>,
+        {
+          created: serverTimestamp(),
+          ...(this.messageFormGroup.value.email ? { email: this.messageFormGroup.value.email } : {}),
+          message: this.messageFormGroup.value.message,
+          name:    this.messageFormGroup.value.name,
+          ...(this.messageFormGroup.value.phone?.countryCallingCode && this.messageFormGroup.value.phone.nationalNumber ? { phone: this.messageFormGroup.value.phone.countryCallingCode + this.messageFormGroup.value.phone.nationalNumber } : {}),
+          userId,
+        },
+      ).catch<never>(
+        (firestoreError: FirestoreError): never => {
+          this.errorsService.createError(getFirestoreErrorMessage(firestoreError));
+
+          throw firestoreError;
+        },
+      ).finally(
+        (): void => this.messagesFormWorking$.set(false),
+      );
+    }
   };
 
 }

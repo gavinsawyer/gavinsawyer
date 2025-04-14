@@ -8,9 +8,9 @@ import { toObservable, toSignal }                                               
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, TypographyDirective, WellRoundedDirective }                    from "@bowstring/directives";
 import { type Symbol }                                                                                                                                    from "@bowstring/interfaces";
 import loadSymbol                                                                                                                                         from "@bowstring/symbols";
-import { type Focus }                                 from "@gavinsawyer/shortcuts-api";
-import { map, type Observable, startWith, switchMap } from "rxjs";
-import { fromPromise }                                from "rxjs/internal/observable/innerFrom";
+import { type Focus }                                                                                                                                     from "@gavinsawyer/shortcuts-api";
+import { map, type Observable, startWith, switchMap }                                                                                                     from "rxjs";
+import { fromPromise }                                                                                                                                    from "rxjs/internal/observable/innerFrom";
 
 
 @Component(
@@ -49,7 +49,7 @@ import { fromPromise }                                from "rxjs/internal/observ
         inputs:    [ "level" ],
       },
     ],
-    imports:         [ NgTemplateOutlet, WellRoundedDirective ],
+    imports:         [ NgTemplateOutlet ],
     selector:        "bowstring-website--focus",
     styleUrl:        "FocusComponent.sass",
     templateUrl:     "FocusComponent.html",
@@ -61,23 +61,18 @@ export class FocusComponent {
 
   constructor() {
     afterRender(
-      (): void => {
-        this.symbolWellRoundedDirective$()?.htmlElementRef$.set(this.symbolHtmlSpanElementRef$());
-        this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$());
-      },
+      (): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()),
     );
   }
 
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>                     = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
-  private readonly platformId: NonNullable<unknown>                                           = inject<NonNullable<unknown>>(PLATFORM_ID);
-  private readonly symbolHtmlSpanElementRef$: Signal<ElementRef<HTMLSpanElement> | undefined> = viewChild<ElementRef<HTMLSpanElement>>("symbolHtmlSpanElement");
-  private readonly symbolWellRoundedDirective$: Signal<WellRoundedDirective | undefined>      = viewChild<WellRoundedDirective>("symbolWellRoundedDirective");
+  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
+  private readonly platformId: NonNullable<unknown>                       = inject<NonNullable<unknown>>(PLATFORM_ID);
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
   public readonly inputSignal$: InputSignal<Focus> = input.required<Focus>({ alias: "input" });
 
-  protected readonly focusSymbol$: Signal<Symbol | undefined>   = isPlatformBrowser(this.platformId) ? toSignal<Symbol | undefined>(
+  protected readonly focusSymbol$: Signal<Symbol | undefined>          = isPlatformBrowser(this.platformId) ? toSignal<Symbol | undefined>(
     toObservable<Focus>(this.inputSignal$).pipe<Symbol, Symbol | undefined>(
       switchMap<Focus, Observable<Symbol>>(
         (focus: Focus): Observable<Symbol> => {
@@ -104,7 +99,7 @@ export class FocusComponent {
       startWith<Symbol, [ undefined ]>(undefined),
     ),
   ) : signal<undefined>(undefined);
-  protected readonly focusSymbolFillColor$: Signal<string | undefined>   = isPlatformBrowser(this.platformId) ? toSignal<string | undefined>(
+  protected readonly focusSymbolFillColor$: Signal<string | undefined> = isPlatformBrowser(this.platformId) ? toSignal<string | undefined>(
     toObservable<Focus>(this.inputSignal$).pipe<string, string | undefined>(
       map<Focus, string>(
         (focus: Focus): string => {
@@ -131,6 +126,6 @@ export class FocusComponent {
       startWith<string, [ undefined ]>(undefined),
     ),
   ) : signal<undefined>(undefined);
-  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly wellRoundedDirective: WellRoundedDirective        = inject<WellRoundedDirective>(WellRoundedDirective);
 
 }

@@ -77,32 +77,6 @@
         &::ng-deep > *
           @include FlexboxContainerDirective.children
 
-        > div#symbol
-          display: contents
-
-          @include CanvasDirective.host(0%)
-          @include FlexboxContainerDirective.host
-          @include WellRoundedDirective.host
-
-          --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -0.5)) !important
-          --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), -0.5)) !important
-          --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -0.5)) !important
-          --bowstring--flexbox-container-directive--align-items: center !important
-          --bowstring--flexbox-container-directive--justify-content: center !important
-
-          > .harness > .between
-            font-size: calc(1rem * pow(var(--phi), 1))
-
-            > svg
-              display: grid
-              height: 1em
-              max-width: 1em
-              overflow: visible
-              transform: translateZ(0)
-
-            @media (prefers-color-scheme: dark)
-              @include CanvasDirective.color-scheme("light", 18%)
-
         > div#header
           @include FlexboxContainerDirective.host
 
@@ -116,6 +90,36 @@
             > .between::ng-deep > h5
               font-size: calc(1em * pow(var(--phi), 2))
               margin: 0
+
+        > div#symbol
+          display: contents
+
+          @include CanvasDirective.host(0%)
+          @include FlexboxContainerDirective.host
+
+          --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -0.375)) !important
+          --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), -0.375)) !important
+          --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -0.375)) !important
+          --bowstring--flexbox-container-directive--align-items: center !important
+          --bowstring--flexbox-container-directive--justify-content: center !important
+
+          > .harness
+            > .between,
+            &:after
+              clip-path: circle()
+
+            > .between
+              font-size: calc(1rem * pow(var(--phi), 0.875))
+
+              > svg
+                display: grid
+                height: 1em
+                max-width: 1em
+                overflow: visible
+                transform: translateZ(0)
+
+            @media (prefers-color-scheme: dark)
+              @include CanvasDirective.color-scheme("light", 18%)
 
     > div#heading-group
       display: contents

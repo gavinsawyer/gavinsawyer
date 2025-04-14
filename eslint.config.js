@@ -114,7 +114,6 @@ module.exports = [
       ],
     },
   },
-
   {
     files: [ "libs/components/src/lib/**/*.ts" ],
     rules: {

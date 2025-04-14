@@ -13,6 +13,7 @@
   display: contents
 
   @include FlexboxContainerDirective.host
+  @include WellRoundedDirective.host("> .harness > .between > div")
 
   --bowstring--flexbox-container-directive--gap-column: calc(1rem * pow(var(--phi), -2)) !important
   --bowstring--flexbox-container-directive--gap-row: calc(1rem * pow(var(--phi), -3)) !important
@@ -29,7 +30,6 @@
 
       @include CanvasDirective.host(24%)
       @include FlexboxContainerDirective.host
-      @include WellRoundedDirective.host
 
       --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
       --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important

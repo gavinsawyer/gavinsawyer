@@ -83,11 +83,17 @@ export class ComboboxInputComponent
 
   public readonly optionsId$: Signal<`bowstring--input-directive--options-${ string }`> = signal<`bowstring--input-directive--options-${ string }`>(`bowstring--input-directive--options-${ uuidV7() }`);
 
-  protected onBlur(): void {
-    if (!this.value || (typeof this.value === "string" && this.optionComponents$().map<string>(
-      ({ valueInput$ }: ComboboxInputOptionComponent): string => valueInput$(),
-    ).includes(this.value)))
-      this.onChange?.();
+  protected override onBlur(): void {
+    setTimeout(
+      (): void => {
+        this.focused = this.document.activeElement === this.htmlButtonElementRef$()?.nativeElement;
+
+        if (!this.focused && !this.value || (typeof this.value === "string" && this.optionComponents$().map<string>(
+          ({ valueInput$ }: ComboboxInputOptionComponent): string => valueInput$(),
+        ).includes(this.value)))
+          this.onChange?.();
+      },
+    );
   }
 
 }

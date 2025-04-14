@@ -53,7 +53,7 @@ export class WellRoundedDirective {
           (pathDefinitionObserver: Observer<`M ${ number },0 L ${ number },0 C 1,0 1,0 1,${ number } L 1,${ number } C 1,1 1,1 ${ number },1 L ${ number },1 C 0,1 0,1 0,${ number } L 0,${ number } C 0,0 0,0 ${ number },0 Z`>): TeardownLogic => {
             const resizeObserver: ResizeObserver = new ResizeObserver(
               ([ { target: element } ]: Array<ResizeObserverEntry>): void => {
-                const positionDividend: number = this.brandLib.roundness * 72 / (this.levelInput$() || 1);
+                const positionDividend: number = this.brandLib.roundness * 48 / (this.levelInput$() || 1);
                 const radiusX: number          = Math.min(
                   positionDividend / (element.clientWidth || 1),
                   0.75,

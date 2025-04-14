@@ -30,9 +30,8 @@
   <div id="flexbox-container">
     <div class="harness">
       <div class="between">
-        @if (focusSymbol$(); as symbol) {<div id="symbol" bowstringWellRoundedDirective #symbolWellRoundedDirective="wellRoundedDirective"
-          level="2">
-          <span class="harness" #symbolHtmlSpanElement><span class="between"><svg
+        @if (focusSymbol$(); as symbol) {<div id="symbol">
+          <span class="harness"><span class="between"><svg
             [attr.viewBox]="'0 0 ' + symbol.viewBoxWidth + ' ' + symbol.viewBoxHeight + ''"
             xmlns="http://www.w3.org/2000/svg">
             <g>
@@ -48,18 +47,6 @@
                 [attr.fill-opacity]="path.opacity" />}
             </g>
           </svg></span></span>
-
-          <svg
-            viewBox="0 0 1 1"
-            xmlns="http://www.w3.org/2000/svg">
-            <clipPath
-              [attr.id]="symbolWellRoundedDirective.clipPathId$()"
-              clipPathUnits="objectBoundingBox">
-              <path
-                [attr.d]="symbolWellRoundedDirective.pathDefinition$()"
-                fill="transparent" />
-            </clipPath>
-          </svg>
         </div>}
         <div id="header">
           <header class="harness">

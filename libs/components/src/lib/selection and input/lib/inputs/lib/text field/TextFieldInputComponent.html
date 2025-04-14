@@ -20,8 +20,8 @@
     <div class="harness" #htmlDivElement>
       <div class="between">
         @if (htmlInputElement.value) {<div>
-          <button class="harness"
-            (click)="$event.stopPropagation(); htmlInputElement.focus(); writeValue('');"
+          <button class="harness" #htmlButtonElement
+            (click)="$event.stopPropagation(); this.focused && writeValue(); this.focused && onChange?.(); htmlInputElement.focus();"
             (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
             (pointerdown)="$event.stopPropagation();"
             tabindex="-1"
@@ -53,11 +53,12 @@
           [attr.placeholder]="placeholderInput$()"
           [attr.tabindex]="disabledModel$() ? -1 : 0"
           [attr.type]="typeInput$()"
-          (blur)="onChange?.(); onTouched?.();"
+          (blur)="onBlur();"
           (change)="onChange?.();"
           (click)="$event.stopPropagation();"
+          (focus)="onFocus();"
           (input)="onInput();"
-          (keydown)="$event.key === 'Escape' || $event.stopPropagation();">
+          (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || onSubmit?.();">
       </div>
     </div>
 

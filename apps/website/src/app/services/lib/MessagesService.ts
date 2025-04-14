@@ -2,22 +2,20 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser }                                                                                                                                   from "@angular/common";
-import { inject, Injectable, PLATFORM_ID, signal, type Signal }                                                                                                from "@angular/core";
-import { toSignal }                                                                                                                                            from "@angular/core/rxjs-interop";
-import { Auth, onIdTokenChanged, type User }                                                                                                                   from "@angular/fire/auth";
-import { collection, type CollectionReference, collectionSnapshots, doc, type DocumentReference, Firestore, query, type QueryDocumentSnapshot, setDoc, where } from "@angular/fire/firestore";
-import { AuthenticationService }                                                                                                                               from "@bowstring/services";
-import { filter, map, Observable, type Observer, startWith, switchMap, type TeardownLogic }                                                                    from "rxjs";
-import { type MessageDocument }                                                                                                                                from "../../interfaces";
+import { isPlatformBrowser }                                                                                              from "@angular/common";
+import { inject, Injectable, PLATFORM_ID, signal, type Signal }                                                           from "@angular/core";
+import { toSignal }                                                                                                       from "@angular/core/rxjs-interop";
+import { Auth, onIdTokenChanged, type User }                                                                              from "@angular/fire/auth";
+import { collection, type CollectionReference, collectionSnapshots, Firestore, query, type QueryDocumentSnapshot, where } from "@angular/fire/firestore";
+import { filter, map, Observable, type Observer, startWith, switchMap, type TeardownLogic }                               from "rxjs";
+import { type MessageDocument }                                                                                           from "../../interfaces";
 
 
 @Injectable({ providedIn: "root" })
 export class MessagesService {
 
-  private readonly auth: Auth                                   = inject<Auth>(Auth);
-  private readonly authenticationService: AuthenticationService = inject<AuthenticationService>(AuthenticationService);
-  private readonly firestore: Firestore                         = inject<Firestore>(Firestore);
+  private readonly auth: Auth           = inject<Auth>(Auth);
+  private readonly firestore: Firestore = inject<Firestore>(Firestore);
 
   public readonly messageDocuments$: Signal<Array<MessageDocument> | undefined> = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<Array<MessageDocument> | undefined>(
     new Observable<User | null>(
@@ -47,7 +45,7 @@ export class MessagesService {
               "messages",
             ) as CollectionReference<MessageDocument, MessageDocument>,
             where(
-              "__name__",
+              "userId",
               "==",
               userId,
             ),
@@ -66,15 +64,5 @@ export class MessagesService {
       requireSync: true,
     },
   ) : signal<undefined>(undefined);
-
-  public createMessageDocument(messageDocument: MessageDocument): Promise<void> {
-    return setDoc<MessageDocument, MessageDocument>(
-      doc(
-        this.firestore,
-        "/messages/" + this.authenticationService.user$()?.uid,
-      ) as DocumentReference<MessageDocument, MessageDocument>,
-      messageDocument,
-    );
-  };
 
 }

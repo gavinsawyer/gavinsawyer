@@ -192,9 +192,15 @@ export class PhoneNumberFieldInputComponent
     );
   }
 
-  protected onBlur(): void {
-    if (!this.value || isPossiblePhoneNumber(this.countryCallingCodeInput$() + this.value))
-      this.onChange?.();
+  protected override onBlur(): void {
+    setTimeout(
+      (): void => {
+        this.focused = this.document.activeElement === this.htmlButtonElementRef$()?.nativeElement;
+
+        if (!this.focused && !this.value || (typeof this.value === "string" && isPossiblePhoneNumber(this.countryCallingCodeInput$() + this.value)))
+          this.onChange?.();
+      },
+    );
   }
 
 }

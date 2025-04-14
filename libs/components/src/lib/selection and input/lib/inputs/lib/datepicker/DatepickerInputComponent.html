@@ -17,14 +17,11 @@
     [attr.for]="inputName$()"
     [innerHTML]="explicitAutocompleteInput$() ? (labelInput$() | bowstringInsertZwnjs) : labelInput$()"></label>}
   <div>
-    <div class="harness" #htmlDivElement
-      (click)="$event.stopPropagation();"
-      (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
-      tabindex="-1">
+    <div class="harness" #htmlDivElement>
       <div class="between">
         @if (htmlInputElement.value) {<div>
-          <button class="harness"
-            (click)="$event.stopPropagation(); htmlInputElement.focus(); writeValue();"
+          <button class="harness" #htmlButtonElement
+            (click)="$event.stopPropagation(); this.focused && writeValue(); this.focused && onChange?.(); htmlInputElement.focus();"
             (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
             (pointerdown)="$event.stopPropagation();"
             tabindex="-1"
@@ -55,11 +52,12 @@
           [attr.name]="inputName$()"
           [attr.placeholder]="placeholderInput$()"
           [attr.tabindex]="disabledModel$() ? -1 : 0"
-          (blur)="onChange?.(); onTouched?.();"
+          (blur)="onBlur();"
           (change)="onChange?.();"
           (click)="$event.stopPropagation();"
+          (focus)="onFocus();"
           (input)="onInput();"
-          (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+          (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || onSubmit?.();"
           type="date">
       </div>
     </div>

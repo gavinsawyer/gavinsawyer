@@ -8,7 +8,7 @@
   tabindex="-1">
   <div class="between">
     <div>
-      @if (urlInput$(); as url) {@if (url.includes(":") || url.includes(".")) {<a class="harness"
+      @if (urlInput$(); as url) {@if (url.includes(":") || url.match("\\.[a-z]")) {<a class="harness"
         [attr.href]="url"
         [attr.tabindex]="disabledInput$() ? -1 : 0"
         (click)="$event.stopPropagation(); output.emit();"

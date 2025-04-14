@@ -12,9 +12,64 @@
     <bowstring--flexbox-container
       position="sticky"
       positionTop="var(--bowstring--main--gap-row)">
-      <bowstring--header fontSizeExponent="-2">
-        <h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header">Want to connect?</h3>
-      </bowstring--header>
+      <bowstring--box>
+        <bowstring--header fontSizeExponent="-2">
+          <h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header">Want to connect?</h3>
+        </bowstring--header>
+        <bowstring--form (output)="messageFormSubmit()">
+          <bowstring--text-field-input
+            [formControl]="messageFormGroup.controls.name"
+            i18n-label
+            label="name"
+            level="2" />
+          <bowstring--text-field-input
+            [formControl]="messageFormGroup.controls.message"
+            i18n-label
+            label="message"
+            level="2" />
+          <bowstring--text-field-input
+            autocomplete="email"
+            [formControl]="messageFormGroup.controls.email"
+            i18n-label
+            label="email"
+            level="2"
+            type="email" />
+          <bowstring--flexbox-container
+            alignItems="flex-end"
+            flexDirection="row">
+            <bowstring--combobox-input
+              autocomplete="tel-country-code"
+              explicitAutocomplete
+              [formControl]="messageFormGroup.controls.phone.controls.countryCallingCode"
+              flexBasis="calc(1rem * pow(var(--phi), 4))"
+              flexGrow="1"
+              i18n-label
+              label="country code"
+              level="2">
+              @for (option of phoneCountryCallingCodeOptions; track $index) {<bowstring--combobox-input-option [label]="option.label" [value]="option.value" />}
+            </bowstring--combobox-input>
+            <bowstring--phone-number-field-input
+              [countryCallingCode]="messageFormGroup.controls.phone.controls.countryCallingCode.value"
+              [formControl]="messageFormGroup.controls.phone.controls.nationalNumber"
+              flexBasis="calc(1rem * pow(var(--phi), 5))"
+              flexGrow="1.6180339887"
+              i18n-label
+              label="phone number"
+              level="2" />
+          </bowstring--flexbox-container>
+          <bowstring--divider />
+          <bowstring--flexbox-container
+            flexDirection="row"
+            justifyContent="flex-end">
+            <bowstring--button
+              appearance="symbol"
+              [disabled]="!authenticationService.user$() || messageFormGroup.invalid || messagesFormWorking$()"
+              type="submit">
+              <bowstring--symbol input="ArrowUpCircleFill" />
+            </bowstring--button>
+          </bowstring--flexbox-container>
+        </bowstring--form>
+      </bowstring--box>
       <bowstring--flexbox-container
         flexDirection="row"
         flexWrap="wrap">
@@ -42,6 +97,7 @@
       <bowstring--button
         appearance="raised"
         material="glass"
+        (output)="logClickOpenResumeEvent();"
         url="/assets/Gavin Sawyer - Resume.pdf">
         <bowstring--symbol input="DocumentFill" />
         <bowstring--label
@@ -51,6 +107,7 @@
       <bowstring--button
         appearance="raised"
         material="glass"
+        (output)="logClickAddToContactsEvent();"
         url="/assets/Gavin Sawyer - Contact.vcf">
         <bowstring--symbol input="PersonFillBadgePlus" />
         <bowstring--label
@@ -114,7 +171,7 @@
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
-              <h4>Shortcuts API</h4>
+              <h4>ShortcutsAPI</h4>
               <h5 i18n="@@apps--website--Components--Routes--Home--Section_1--Box_3--Subheader"><bowstring--link
                 inline
                 material="primary"
@@ -169,30 +226,32 @@
           <h3 i18n="@@apps--website--Components--Routes--Home--Section_3--Header">Proficiencies</h3>
         </bowstring--header>
         <bowstring--box>
-          <bowstring--header fontSizeExponent="-2.5">
-            <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_1">HTML, CSS, JavaScript</h4>
-            <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 }} years</h5>
-          </bowstring--header>
-          <bowstring--header fontSizeExponent="-2.5">
-            <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_2">AWS, RESTful APIs, Node.js, MongoDB, SQL, Git</h4>
-            <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 2 }} years</h5>
-          </bowstring--header>
-          <bowstring--header fontSizeExponent="-2.5">
-            <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_3">TypeScript, Angular, RxJS, Sass (SCSS)</h4>
-            <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 3 }} years</h5>
-          </bowstring--header>
-          <bowstring--header fontSizeExponent="-2.5">
-            <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_4">Google Cloud Platform, Firebase, Amplify</h4>
-            <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 5 }} years</h5>
-          </bowstring--header>
-          <bowstring--header fontSizeExponent="-2.5">
-            <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_5">Nx, R, Adobe Illustrator &amp; Photoshop</h4>
-            <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 6 }} years</h5>
-          </bowstring--header>
-          <bowstring--header fontSizeExponent="-2.5">
-            <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_6">Cybernetics, information theory</h4>
-            <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 7 }} years</h5>
-          </bowstring--header>
+          <bowstring--heading-group>
+            <bowstring--header fontSizeExponent="-2.5">
+              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_1">HTML, CSS, JavaScript</h4>
+              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 }} years</h5>
+            </bowstring--header>
+            <bowstring--header fontSizeExponent="-2.5">
+              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_2">AWS, RESTful APIs, Node.js, MongoDB, SQL, Git</h4>
+              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 2 }} years</h5>
+            </bowstring--header>
+            <bowstring--header fontSizeExponent="-2.5">
+              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_3">TypeScript, Angular, RxJS, Sass (SCSS)</h4>
+              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 3 }} years</h5>
+            </bowstring--header>
+            <bowstring--header fontSizeExponent="-2.5">
+              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_4">Google Cloud Platform, Firebase, Amplify</h4>
+              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 5 }} years</h5>
+            </bowstring--header>
+            <bowstring--header fontSizeExponent="-2.5">
+              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_5">Nx, R, Adobe Illustrator &amp; Photoshop</h4>
+              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 6 }} years</h5>
+            </bowstring--header>
+            <bowstring--header fontSizeExponent="-2.5">
+              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_6">Cybernetics, information theory</h4>
+              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 7 }} years</h5>
+            </bowstring--header>
+          </bowstring--heading-group>
         </bowstring--box>
       </bowstring--section>
     </bowstring--masonry-container>
