@@ -14,21 +14,25 @@
       positionTop="var(--bowstring--main--gap-row)">
       <bowstring--box>
         <bowstring--header fontSizeExponent="-2">
-          <h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header">Want to connect?</h3>
+          @if (messageFormGroup.value.notCreated) {<h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header_1">Want to connect?</h3>} @else {<h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header_2">We'll be in touch{{ ellipsesService.ellipses$() }}</h3>}
         </bowstring--header>
         <bowstring--form (output)="messageFormSubmit()">
           <bowstring--text-field-input
+            autocomplete="name"
+            [disabled]="!messageFormGroup.value.notCreated"
             [formControl]="messageFormGroup.controls.name"
             i18n-label
             label="name"
             level="2" />
           <bowstring--text-field-input
+            [disabled]="!messageFormGroup.value.notCreated"
             [formControl]="messageFormGroup.controls.message"
             i18n-label
             label="message"
             level="2" />
           <bowstring--text-field-input
             autocomplete="email"
+            [disabled]="!messageFormGroup.value.notCreated"
             [formControl]="messageFormGroup.controls.email"
             i18n-label
             label="email"
@@ -38,7 +42,7 @@
             alignItems="flex-end"
             flexDirection="row">
             <bowstring--combobox-input
-              autocomplete="tel-country-code"
+              [disabled]="!messageFormGroup.value.notCreated"
               explicitAutocomplete
               [formControl]="messageFormGroup.controls.phone.controls.countryCallingCode"
               flexBasis="calc(1rem * pow(var(--phi), 4))"
@@ -50,6 +54,7 @@
             </bowstring--combobox-input>
             <bowstring--phone-number-field-input
               [countryCallingCode]="messageFormGroup.controls.phone.controls.countryCallingCode.value"
+              [disabled]="!messageFormGroup.value.notCreated"
               [formControl]="messageFormGroup.controls.phone.controls.nationalNumber"
               flexBasis="calc(1rem * pow(var(--phi), 5))"
               flexGrow="1.6180339887"

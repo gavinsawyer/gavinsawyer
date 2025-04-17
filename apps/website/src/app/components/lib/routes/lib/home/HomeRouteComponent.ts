@@ -11,7 +11,7 @@ import { AsideComponent, BoxComponent, ButtonComponent, ComboboxInputComponent, 
 import { ListItemDirective, MasonryChildDirective }                                                                                                                                                                                                                                                                                                                                                     from "@bowstring/directives";
 import { getFirestoreErrorMessage }                                                                                                                                                                                                                                                                                                                                                                     from "@bowstring/firebase-interop";
 import { type ComboboxInputOption }                                                                                                                                                                                                                                                                                                                                                                     from "@bowstring/interfaces";
-import { AuthenticationService, ErrorsService }                                                                                                                                                                                                                                                                                                                                                         from "@bowstring/services";
+import { AuthenticationService, EllipsesService, ErrorsService }                                                                                                                                                                                                                                                                                                                                        from "@bowstring/services";
 import { type CountryCode, getCountries, getCountryCallingCode, isPossiblePhoneNumber, parsePhoneNumberWithError, type PhoneNumber }                                                                                                                                                                                                                                                                    from "libphonenumber-js";
 import { type MessageDocument }                                                                                                                                                                                                                                                                                                                                                                         from "../../../../../interfaces";
 import { FocusService, MessagesService }                                                                                                                                                                                                                                                                                                                                                                from "../../../../../services";
@@ -70,14 +70,12 @@ export class HomeRouteComponent
                 message,
                 name,
                 phone,
-                userId,
               }: MessageDocument,
             ): typeof this.messageFormGroup.value => ({
               email,
               message,
               name,
               notCreated: !created,
-              noUserId:   !userId,
               ...(phone ? {
                 phone: ((
                   {
@@ -100,15 +98,16 @@ export class HomeRouteComponent
   private readonly errorsService: ErrorsService = inject<ErrorsService>(ErrorsService);
   private readonly firestore: Firestore         = inject<Firestore>(Firestore);
 
-  protected readonly authenticationService: AuthenticationService                                                                                                                                                                                                                                                                            = inject<AuthenticationService>(AuthenticationService);
-  protected readonly focusService: FocusService                                                                                                                                                                                                                                                                                              = inject<FocusService>(FocusService);
-  protected readonly phoneCountryCallingCodeOptions: Array<ComboboxInputOption>                                                                                                                                                                                                                                                              = getCountries().map<ComboboxInputOption>(
+  protected readonly authenticationService: AuthenticationService                                                                                                                                                                                                                                          = inject<AuthenticationService>(AuthenticationService);
+  protected readonly ellipsesService: EllipsesService                                                                                                                                                                                                                                                      = inject<EllipsesService>(EllipsesService);
+  protected readonly focusService: FocusService                                                                                                                                                                                                                                                            = inject<FocusService>(FocusService);
+  protected readonly phoneCountryCallingCodeOptions: Array<ComboboxInputOption>                                                                                                                                                                                                                            = getCountries().map<ComboboxInputOption>(
     (countryCode: CountryCode): ComboboxInputOption => ({
       label: countryCode,
       value: `+${ getCountryCallingCode(countryCode) }`,
     }),
   );
-  protected readonly messageFormGroup: FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "noUserId": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }> }> = new FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "noUserId": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }> }>(
+  protected readonly messageFormGroup: FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }> }> = new FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<"" | `+${ string }`>, "nationalNumber": FormControl<string> }> }>(
     {
       email:      new FormControl<string>(
         "",
@@ -132,13 +131,6 @@ export class HomeRouteComponent
         },
       ),
       notCreated: new FormControl<boolean>(
-        true,
-        {
-          nonNullable: true,
-          validators:  [ Validators.requiredTrue ],
-        },
-      ),
-      noUserId:   new FormControl<boolean>(
         true,
         {
           nonNullable: true,
@@ -186,9 +178,9 @@ export class HomeRouteComponent
       ),
     },
   );
-  protected readonly messagesFormWorking$: WritableSignal<boolean>                                                                                                                                                                                                                                                                           = signal<boolean>(false);
-  protected readonly messagesService: MessagesService                                                                                                                                                                                                                                                                                        = inject<MessagesService>(MessagesService);
-  protected readonly yearsSinceSummer2014: number                                                                                                                                                                                                                                                                                            = new Date(
+  protected readonly messagesFormWorking$: WritableSignal<boolean>                                                                                                                                                                                                                                         = signal<boolean>(false);
+  protected readonly messagesService: MessagesService                                                                                                                                                                                                                                                      = inject<MessagesService>(MessagesService);
+  protected readonly yearsSinceSummer2014: number                                                                                                                                                                                                                                                          = new Date(
     new Date().getTime() - new Date("2014-06-21T16:00:00.000Z").getTime(),
   ).getFullYear() - 1970;
 

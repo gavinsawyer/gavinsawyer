@@ -5,8 +5,8 @@
 import { provideHttpClient, withFetch }                                                                                                                                                                                                                                                                                                                                                                                                                             from "@angular/common/http";
 import { Injector, NgModule }                                                                                                                                                                                                                                                                                                                                                                                                                                       from "@angular/core";
 import { type Analytics, getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService }                                                                                                                                                                                                                                                                                                                                                               from "@angular/fire/analytics";
-import { type FirebaseApp, initializeApp, provideFirebaseApp }                                                                                                                                                                                                                                                                                                                                                                                                      from "@angular/fire/app";
-import { type AppCheck, initializeAppCheck, provideAppCheck }                                                                                                                                                                                                                                                                                                                                                                                                       from "@angular/fire/app-check";
+import { type FirebaseApp, provideFirebaseApp }                                                                                                                                                                                                                                                                                                                                                                                                                     from "@angular/fire/app";
+import { type AppCheck, provideAppCheck }                                                                                                                                                                                                                                                                                                                                                                                                                           from "@angular/fire/app-check";
 import { type Auth, getAuth, provideAuth }                                                                                                                                                                                                                                                                                                                                                                                                                          from "@angular/fire/auth";
 import { AngularFirestoreModule }                                                                                                                                                                                                                                                                                                                                                                                                                                   from "@angular/fire/compat/firestore";
 import { type Database, getDatabase, provideDatabase }                                                                                                                                                                                                                                                                                                                                                                                                              from "@angular/fire/database";
@@ -21,7 +21,7 @@ import { AboveComponent, BelowComponent, BoxComponent, ButtonComponent, CaptionC
 import { ListItemDirective }                                                                                                                                                                                                                                                                                                                                                                                                                                        from "@bowstring/directives";
 import { BOWSTRING_ROUTES, BRAND, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES }                                                                                                                                                                                                                                                                                                                                                    from "@bowstring/injection-tokens";
 import { FindRouteByPathPipe }                                                                                                                                                                                                                                                                                                                                                                                                                                      from "@bowstring/pipes";
-import { AppCheckOptionsService }                                                                                                                                                                                                                                                                                                                                                                                                                                   from "@bowstring/services";
+import { AppCheckService, FirebaseAppService }                                                                                                                                                                                                                                                                                                                                                                                                                      from "@bowstring/services";
 import project                                                                                                                                                                                                                                                                                                                                                                                                                                                      from "../../../../project.json";
 import { gitInfoPartial }                                                                                                                                                                                                                                                                                                                                                                                                                                           from "../../../.gitInfoPartial";
 import { packageVersion }                                                                                                                                                                                                                                                                                                                                                                                                                                           from "../../../.packageVersion";
@@ -103,28 +103,25 @@ import { PROJECT_LOCALE_IDS }                                                   
         useValue: bowstringRoutes,
       },
       provideAnalytics(
-        (): Analytics => getAnalytics(),
+        (injector: Injector): Analytics => getAnalytics(injector.get(FirebaseAppService).firebaseApp),
       ),
       provideAppCheck(
-        (injector: Injector): AppCheck => initializeAppCheck(
-          undefined,
-          injector.get(AppCheckOptionsService).appCheckOptions,
-        ),
+        (injector: Injector): AppCheck => injector.get(AppCheckService).appCheck,
       ),
       provideAuth(
-        (): Auth => getAuth(),
+        (injector: Injector): Auth => getAuth(injector.get(FirebaseAppService).firebaseApp),
       ),
       provideDatabase(
-        (): Database => getDatabase(),
+        (injector: Injector): Database => getDatabase(injector.get(FirebaseAppService).firebaseApp),
       ),
       provideFirebaseApp(
-        (): FirebaseApp => initializeApp(environment.apis.firebase),
+        (injector: Injector): FirebaseApp => injector.get(FirebaseAppService).firebaseApp,
       ),
       provideFirestore(
-        (): Firestore => getFirestore(),
+        (injector: Injector): Firestore => getFirestore(injector.get(FirebaseAppService).firebaseApp),
       ),
       provideFunctions(
-        (): Functions => getFunctions(),
+        (injector: Injector): Functions => getFunctions(injector.get(FirebaseAppService).firebaseApp),
       ),
       provideHttpClient(withFetch()),
       provideRouter(

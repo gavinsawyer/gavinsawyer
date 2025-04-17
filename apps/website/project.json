@@ -52,6 +52,8 @@
       "executor":             "@angular-devkit/build-angular:browser",
       "options":              {
         "allowedCommonJsDependencies": [
+          "lodash",
+          "masonry-layout",
           "url",
           "xhr2"
         ],
