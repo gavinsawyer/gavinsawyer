@@ -8,6 +8,7 @@ import { toObservable, toSignal }                                               
 import { combineLatestWith, delayWhen, filter, fromEvent, map, merge, type Observable, startWith, switchMap, takeUntil, timer } from "rxjs";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host: {

@@ -9,6 +9,7 @@ import { ContainerDirective, FlexboxContainerDirective }                        
 import { Observable, type Observer, switchMap, type TeardownLogic }                                                 from "rxjs";
 
 
+// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,

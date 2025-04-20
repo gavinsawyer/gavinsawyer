@@ -13,6 +13,7 @@ import { combineLatestWith, delayWhen, filter, map, Observable, type Observer, s
 import { fromPromise }                                                                                                                                                                                                 from "rxjs/internal/observable/innerFrom";
 
 
+// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,

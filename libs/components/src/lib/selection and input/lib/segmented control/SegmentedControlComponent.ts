@@ -14,6 +14,7 @@ import { v7 as uuidV7 }                                                         
 import { SegmentedControlOptionComponent }                                                                                                                                                                                      from "../segmented control option/SegmentedControlOptionComponent";
 
 
+// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,

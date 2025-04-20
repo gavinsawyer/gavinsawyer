@@ -5,6 +5,7 @@
 import { Directive, input, type InputSignal } from "@angular/core";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host: {

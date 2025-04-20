@@ -12,6 +12,7 @@ import { delayWhen, map, Observable, type Observer, switchMap, type TeardownLogi
 import { fromPromise }                                                                                                                                              from "rxjs/internal/observable/innerFrom";
 
 
+// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,

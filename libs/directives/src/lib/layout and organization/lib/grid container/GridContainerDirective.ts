@@ -7,6 +7,7 @@ import { type DistributedAlignment, type GridAutoFlow, type GridPositionalAlignm
 import { ContainerDirective }                                                                                                                from "../container/ContainerDirective";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {

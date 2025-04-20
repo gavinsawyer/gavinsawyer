@@ -11,6 +11,7 @@ import { filter, Observable, type Observer, startWith, switchMap, type TeardownL
 import { v7 as uuidV7 }                                                                                                                                               from "uuid";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     exportAs: "wellRoundedDirective",

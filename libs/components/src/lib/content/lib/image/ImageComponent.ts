@@ -12,6 +12,7 @@ import { type Observable, startWith, Subject, switchMap }                       
 import { fromPromise }                                                                                                                                                                               from "rxjs/internal/observable/innerFrom";
 
 
+// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -129,9 +130,7 @@ export class ImageComponent {
       transform: numberAttribute,
     },
   );
-  public readonly input$: InputSignal<string | URL>                                                       = input.required<string | URL>(
-    { alias: "input" },
-  );
+  public readonly input$: InputSignal<string | URL>                                                       = input.required<string | URL>({ alias: "input" });
   public readonly output: OutputRef<void>                                                                 = outputFromObservable<void>(
     this.outputSubject.asObservable(),
     { alias: "output" },

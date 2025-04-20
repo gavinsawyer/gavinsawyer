@@ -6,6 +6,7 @@ import { Directive, input, type InputSignal, type InputSignalWithTransform, numb
 import { type Auto, type Inherit, type ScalarString }                                         from "@bowstring/types";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host: {

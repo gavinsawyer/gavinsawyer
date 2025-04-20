@@ -7,6 +7,7 @@ import { type BaselineAlignment, type DistributedAlignment, type FlexDirection, 
 import { ContainerDirective }                                                                                                                                                        from "../container/ContainerDirective";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {

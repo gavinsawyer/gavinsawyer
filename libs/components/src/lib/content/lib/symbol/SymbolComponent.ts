@@ -71,9 +71,7 @@ export class SymbolComponent {
       transform: booleanAttribute,
     },
   );
-  public readonly input$: InputSignal<SymbolName>                                                                            = input.required<SymbolName>(
-    { alias: "input" },
-  );
+  public readonly input$: InputSignal<SymbolName>                                                                            = input.required<SymbolName>({ alias: "input" });
   public readonly symbol$: Signal<Symbol | undefined>                                                                        = toSignal<Symbol>(
     toObservable<SymbolName>(this.input$).pipe<Symbol>(
       switchMap<SymbolName, Observable<Symbol>>(

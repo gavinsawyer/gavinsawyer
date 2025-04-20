@@ -8,6 +8,7 @@ import { BRAND }                                  from "@bowstring/injection-tok
 import { type Color }                             from "@bowstring/interfaces";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host: {

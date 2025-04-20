@@ -9,6 +9,7 @@ import { FlexboxChildDirective }                                                
 import { GridChildDirective }                                                                                                                                                                                                                   from "../grid child/GridChildDirective";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {

@@ -51,8 +51,6 @@ export class LabelComponent {
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
-  public readonly input$: InputSignal<string> = input.required<string>(
-    { alias: "input" },
-  );
+  public readonly input$: InputSignal<string> = input.required<string>({ alias: "input" });
 
 }

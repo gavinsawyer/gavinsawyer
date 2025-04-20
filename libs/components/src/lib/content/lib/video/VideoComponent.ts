@@ -124,9 +124,7 @@ export class VideoComponent {
       transform: booleanAttribute,
     },
   );
-  public readonly srcInput$: InputSignal<string>                                                                              = input.required<string>(
-    { alias: "src" },
-  );
+  public readonly srcInput$: InputSignal<string>                                                                              = input.required<string>({ alias: "src" });
   public readonly widthInput$: InputSignalWithTransform<number, number | `${ number }`>                                       = input.required<number, number | `${ number }`>(
     {
       alias:     "width",

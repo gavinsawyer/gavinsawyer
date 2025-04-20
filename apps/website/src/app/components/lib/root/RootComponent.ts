@@ -19,6 +19,7 @@ import { PROJECT_LOCALE_IDS }                                                   
 import { type ProjectLocaleId }                                                                                                   from "../../../types";
 
 
+// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,

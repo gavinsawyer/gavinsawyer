@@ -27,8 +27,6 @@ export class ComboboxInputOptionComponent {
     undefined,
     { alias: "label" },
   );
-  public readonly valueInput$: InputSignal<string>                                                                         = input.required<string>(
-    { alias: "value" },
-  );
+  public readonly valueInput$: InputSignal<string>                                                                         = input.required<string>({ alias: "value" });
 
 }

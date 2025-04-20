@@ -5,6 +5,7 @@
 import { Directive, input, type InputSignalWithTransform, numberAttribute } from "@angular/core";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host: { "[style.--bowstring--glass-directive--material-opacity-input]": "materialOpacityInput$()" },

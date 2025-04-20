@@ -66,9 +66,7 @@ export class SegmentedControlOptionComponent {
       transform: booleanAttribute,
     },
   );
-  public readonly valueInput$: InputSignal<string>                                                                         = input.required<string>(
-    { alias: "value" },
-  );
+  public readonly valueInput$: InputSignal<string>                                                                         = input.required<string>({ alias: "value" });
   public readonly width$: Signal<number | undefined>                                                                       = isPlatformBrowser(this.platformId) ? toSignal<number>(
     toObservable<ElementRef<HTMLButtonElement>>(this.htmlButtonElementRef$).pipe<number>(
       switchMap<ElementRef<HTMLButtonElement>, Observable<number>>(

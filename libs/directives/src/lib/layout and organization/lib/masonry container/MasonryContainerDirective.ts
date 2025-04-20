@@ -11,6 +11,7 @@ import { filter, Observable, type Observer, switchMap, type TeardownLogic }     
 import { ContainerDirective }                                                                                                                                                                                   from "../container/ContainerDirective";
 
 
+// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {
