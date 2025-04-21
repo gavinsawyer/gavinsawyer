@@ -26,7 +26,7 @@ export class AuthenticationService {
   public readonly hasWebAuthn$: WritableSignal<boolean | undefined>                           = signal<undefined>(undefined);
   public readonly hasWebAuthnConditionalMediation$: Signal<boolean | undefined>               = isPlatformBrowser(this.platformId) ? toSignal<boolean>(fromPromise<boolean>(PublicKeyCredential.isConditionalMediationAvailable())) : signal<undefined>(undefined);
   public readonly hasWebAuthnUserVerifyingPlatformAuthenticator$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean>(fromPromise<boolean>(PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())) : signal<undefined>(undefined);
-  public readonly user$: Signal<User | undefined>                                             = isPlatformBrowser(this.platformId) ? toSignal<User>(
+  public readonly user$: Signal<User | undefined>                                             = toSignal<User>(
     new Observable<User | null>(
       (userObserver: Observer<User | null>): TeardownLogic => onIdTokenChanged(
         this.auth,
@@ -41,7 +41,7 @@ export class AuthenticationService {
     ).pipe<User | null, User>(
       tap<User | null>(
         async (user: User | null): Promise<void> => {
-          if (!user)
+          if (!user && isPlatformBrowser(this.platformId))
             return signInAnonymously(this.auth).then<void, never>(
               (): void => void (0),
               (firebaseError: FirebaseError): never => {
@@ -56,6 +56,6 @@ export class AuthenticationService {
         (user: User | null): user is User => !!user,
       ),
     ),
-  ) : signal<undefined>(undefined);
+  );
 
 }

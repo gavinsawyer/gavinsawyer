@@ -12,11 +12,11 @@
 
 <bowstring--sheet #localeSheetComponent>
   @defer {<bowstring--header>
-    <h6 i18n="@@apps--Website--Components--Root--Sheets--Locale--Header">Select your locale.</h6>
+    <h6 i18n>Select your locale.</h6>
   </bowstring--header>
   <bowstring--divider />
   <bowstring--section>
-    @for (_localeId of projectLocaleIds; track $index) {<bowstring--button
+    @for (_projectLocaleId of projectLocaleIds; track $index) {<bowstring--button
       [disabled]="projectLocaleIds[$index] === projectLocaleId"
       level="2"
       (output)="projectLocaleIds[$index] === projectLocaleId || changeLocale(projectLocaleIds[$index]);">

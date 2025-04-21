@@ -14,11 +14,11 @@ export class EllipsesService {
   public readonly ellipses$: Signal<string> = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<string>(
     interval(800).pipe<string, string>(
       map<number, string>(
-        (n: number): string => ".".repeat(((n + 1) % 3) + 1),
+        (n: number): string => ".".repeat((n % 3) + 1),
       ),
-      startWith<string, [ "." ]>("."),
+      startWith<string, [ "..." ]>("..."),
     ),
     { requireSync: true },
-  ) : signal<string>(".");
+  ) : signal<string>("...");
 
 }

@@ -58,7 +58,7 @@ export class RootComponent {
   private readonly routerOutlet$: Signal<RouterOutlet> = viewChild.required<RouterOutlet>(RouterOutlet);
 
   protected readonly aboveTemplateRef$: Signal<TemplateRef<never> | undefined>  = toSignal<TemplateRef<never> | undefined>(
-    toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
+    toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<never> | undefined>>(
         (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
           switchMap<RouteComponent, Observable<TemplateRef<never> | undefined>>(
@@ -70,12 +70,10 @@ export class RootComponent {
           startWith<TemplateRef<never> | undefined, [ TemplateRef<never> | undefined ]>((routerOutlet.component as RouteComponent).aboveTemplateRef$()),
         ),
       ),
-      startWith<TemplateRef<never> | undefined, [ undefined ]>(undefined),
     ),
-    { requireSync: true },
   );
   protected readonly bannerTemplateRef$: Signal<TemplateRef<never> | undefined> = toSignal<TemplateRef<never> | undefined>(
-    toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
+    toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<never> | undefined>>(
         (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
           switchMap<RouteComponent, Observable<TemplateRef<never> | undefined>>(
@@ -87,12 +85,10 @@ export class RootComponent {
           startWith<TemplateRef<never> | undefined, [ TemplateRef<never> | undefined ]>((routerOutlet.component as RouteComponent).bannerTemplateRef$()),
         ),
       ),
-      startWith<TemplateRef<never> | undefined, [ undefined ]>(undefined),
     ),
-    { requireSync: true },
   );
   protected readonly belowTemplateRef$: Signal<TemplateRef<never> | undefined>  = toSignal<TemplateRef<never> | undefined>(
-    toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
+    toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<never> | undefined>>(
         (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
           switchMap<RouteComponent, Observable<TemplateRef<never> | undefined>>(
@@ -104,9 +100,7 @@ export class RootComponent {
           startWith<TemplateRef<never> | undefined, [ TemplateRef<never> | undefined ]>((routerOutlet.component as RouteComponent).belowTemplateRef$()),
         ),
       ),
-      startWith<TemplateRef<never> | undefined, [ undefined ]>(undefined),
     ),
-    { requireSync: true },
   );
   protected readonly bowstringRoutes: Routes                                    = inject<Routes>(BOWSTRING_ROUTES);
   protected readonly brandLib: typeof brandLib                                  = inject<typeof brandLib>(BRAND);

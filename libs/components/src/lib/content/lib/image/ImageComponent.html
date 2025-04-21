@@ -32,6 +32,9 @@
     [height]="heightInput$() || imageDimensions$()?.height || 'auto'"
     [ngSrc]="input$()"
     [routerLink]="urlInput$()"
+    routerLinkActive
+    #routerLinkActive="routerLinkActive"
+    [routerLinkActiveOptions]="{ exact: exactInput$() || false }"
     [width]="widthInput$() || imageDimensions$()?.width || 'auto'" />
   <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
 </ng-template>
