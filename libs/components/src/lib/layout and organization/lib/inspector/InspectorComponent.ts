@@ -2,22 +2,15 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                       from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, inject, type Signal, viewChild }       from "@angular/core";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective } from "@bowstring/directives";
+import { NgTemplateOutlet }                              from "@angular/common";
+import { ChangeDetectionStrategy, Component, inject }    from "@angular/core";
+import { ContainerDirective, FlexboxContainerDirective } from "@bowstring/directives";
 
 
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     hostDirectives:  [
-      {
-        directive: ElevatedDirective,
-        inputs:    [
-          "level",
-          "materialOpacity",
-        ],
-      },
       {
         directive: FlexboxContainerDirective,
         inputs:    [
@@ -30,14 +23,6 @@ import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, Glass
           "justifyContent",
         ],
       },
-      {
-        directive: GlassDirective,
-        inputs:    [ "materialOpacity" ],
-      },
-      {
-        directive: WellRoundedDirective,
-        inputs:    [ "level" ],
-      },
     ],
     imports:         [ NgTemplateOutlet ],
     selector:        "bowstring--inspector",
@@ -49,15 +34,6 @@ import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, Glass
 )
 export class InspectorComponent {
 
-  constructor() {
-    afterRender(
-      (): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()),
-    );
-  }
-
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
-
-  protected readonly containerDirective: ContainerDirective     = inject<ContainerDirective>(ContainerDirective);
-  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
 }

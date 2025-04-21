@@ -3,9 +3,6 @@
  /
 
 @use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
 
 
 \:host
@@ -16,7 +13,6 @@
   --bowstring--inspector--gap-row: calc(var(--bowstring--root--gap-row) * pow(var(--phi), -1))
 
   @include FlexboxContainerDirective.host
-  @include WellRoundedDirective.host("> .harness > .between > div")
 
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--inspector--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--inspector--gap-row) !important
@@ -28,43 +24,8 @@
   > .harness
     z-index: 2
 
-    > .between
-      &::ng-deep > *
-        @include FlexboxContainerDirective.children
-
-      > div
-        display: contents
-
-        --bowstring--inspector--gap-column: var(--bowstring--container-directive--padding-sides)
-        --bowstring--inspector--gap-row: var(--bowstring--container-directive--padding-bottom)
-        --bowstring--inspector--material-opacity: 0.625
-
-        @include ElevatedDirective.host
-        @include FlexboxContainerDirective.host
-        @include GlassDirective.host(9%)
-
-        --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
-        --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
-        --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
-        --bowstring--container-directive--position: sticky !important
-        --bowstring--container-directive--position-top: var(--bowstring--root--padding-bottom) !important
-        --bowstring--elevated-directive--material-opacity: var(--bowstring--inspector--material-opacity) !important
-        --bowstring--flexbox-container-directive--gap-column: var(--bowstring--inspector--gap-column) !important
-        --bowstring--flexbox-container-directive--gap-row: var(--bowstring--inspector--gap-row) !important
-        --bowstring--glass-directive--material-opacity: var(--bowstring--inspector--material-opacity) !important
-
-        @media (min-width: 48rem)
-          --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), 0)) !important
-          --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 1)) !important
-          --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), 0)) !important
-
-        > .harness > .between::ng-deep > *
-          --bowstring--inspector--material-opacity: initial
-
-          @include ElevatedDirective.children
-          @include FlexboxContainerDirective.children
-          @include GlassDirective.children
-          @include WellRoundedDirective.children
+    > .between::ng-deep > *
+      @include FlexboxContainerDirective.children
 
 
 @each $host-context-namespace in ("main", "above", "below", "sheet", "box")
