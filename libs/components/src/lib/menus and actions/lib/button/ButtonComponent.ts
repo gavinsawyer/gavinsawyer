@@ -79,8 +79,8 @@ export class ButtonComponent {
     );
   }
 
-  private readonly hoverTransformingDirective: HoverTransformingDirective             = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement> | undefined> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
+  private readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
+  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
 
   protected readonly containerDirective: ContainerDirective                  = inject<ContainerDirective>(ContainerDirective);
   protected readonly routerLinkActive$: Signal<RouterLinkActive | undefined> = viewChild<RouterLinkActive>(RouterLinkActive);
@@ -97,13 +97,11 @@ export class ButtonComponent {
       transform: booleanAttribute,
     },
   );
-  public readonly materialInput$: InputSignal<"glass" | "inverse" | "primary" | "secondary" | "warning" | undefined> = input<"glass" | "inverse" | "primary" | "secondary" | "warning" | undefined>(
+  public readonly materialInput$: InputSignal<"appleMusic" | "glass" | "inverse" | "primary" | "secondary" | "spotify" | "warning" | undefined> = input<"appleMusic" | "glass" | "inverse" | "primary" | "secondary" | "spotify" | "warning" | undefined>(
     undefined,
     { alias: "material" },
   );
-  public readonly output: OutputEmitterRef<void>                                                                                                = output<void>(
-    { alias: "output" },
-  );
+  public readonly output: OutputEmitterRef<void>                                                                                                = output<void>({ alias: "output" });
   public readonly typeInput$: InputSignal<"reset" | "submit" | undefined>                                                                       = input<"reset" | "submit" | undefined>(
     undefined,
     { alias: "type" },

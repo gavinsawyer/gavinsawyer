@@ -10,10 +10,10 @@
 
 
 @mixin host
-  @include ElevatedDirective.host('.harness > .between > div')
+  @include ElevatedDirective.host("> .harness > .between > div")
   @include FlexboxContainerDirective.host
-  @include HoverTransformingDirective.host('.harness > .between > div')
-  @include WellRoundedDirective.host('.harness > .between > div')
+  @include HoverTransformingDirective.host("> .harness > .between > div")
+  @include WellRoundedDirective.host("> .harness > .between > div")
 
   --bowstring--flexbox-container-directive--gap-column: calc(1rem * pow(var(--phi), -2)) !important
   --bowstring--flexbox-container-directive--gap-row: calc(1rem * pow(var(--phi), -3)) !important
@@ -28,6 +28,9 @@
     > div
       display: contents
 
+      --bowstring--input--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1))
+      --bowstring--input--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1))
+
       @include CanvasDirective.host(0%)
       @include FlexboxContainerDirective.host
 
@@ -36,8 +39,8 @@
       --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -2)) !important
       --bowstring--flexbox-container-directive--align-items: center !important
       --bowstring--flexbox-container-directive--flex-direction: row !important
-      --bowstring--flexbox-container-directive--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1)) !important
-      --bowstring--flexbox-container-directive--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1)) !important
+      --bowstring--flexbox-container-directive--gap-column: var(--bowstring--input--gap-column) !important
+      --bowstring--flexbox-container-directive--gap-row: var(--bowstring--input--gap-row) !important
 
       > .harness
         cursor: text
@@ -51,16 +54,13 @@
             @include HoverTransformingDirective.children
             @include WellRoundedDirective.children
 
-          > div
+          > div#clearButton
             display: contents
 
             @include CanvasDirective.host(18%)
             @include FlexboxContainerDirective.host
 
             --bowstring--flexbox-container-directive--align-items: center !important
-            --bowstring--flexbox-container-directive--flex-direction: row !important
-            --bowstring--flexbox-container-directive--gap-column: calc(1rem * pow(var(--phi), -2)) !important
-            --bowstring--flexbox-container-directive--gap-row: calc(1rem * pow(var(--phi), -3)) !important
             --bowstring--flexbox-container-directive--justify-content: center !important
 
             > .harness
@@ -93,13 +93,10 @@
                   overflow: visible
                   transform: translateZ(0)
 
-          > input
-            @include CanvasDirective.host(0%)
-
+          > input,
+          > select
             background: none
             border: 0
-            box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background) inset
-            caret-color: currentColor
             color: black
             flex: 1 1 0
             font: inherit
@@ -112,22 +109,30 @@
             -webkit-tap-highlight-color: transparent
             -webkit-text-fill-color: black
 
-            &::placeholder
-              color: hsl(0, 0%, 50%)
-              -webkit-text-fill-color: hsl(0, 0%, 50%)
+            @media (prefers-color-scheme: dark)
+              filter: invert(1) hue-rotate(180deg)
+              transform: translateZ(0)
+
+          > input
+            @include CanvasDirective.host(0%)
+
+            box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background) inset
+            caret-color: currentColor
 
             @media (prefers-color-scheme: dark)
               box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background-inverse) inset
-              filter: invert(1) hue-rotate(180deg)
-              transform: translateZ(0)
 
               @supports (-webkit-touch-callout: none)
                 caret-color: white
 
+          > input::placeholder
+            color: hsl(0, 0%, 50%)
+            -webkit-text-fill-color: hsl(0, 0%, 50%)
+
           &:not(:focus-within)
             column-gap: 0
 
-            > div > .harness
+            > div#clearButton > .harness
               cursor: text
               opacity: 0
               width: 0
@@ -135,6 +140,11 @@
   &.disabled > .harness > .between > div > .harness
     cursor: default
 
-    > .between > input
-      color: hsl(0, 0%, 50%)
-      -webkit-text-fill-color: hsl(0, 0%, 50%)
+    > .between
+      > div#clearButton
+        display: none
+
+      > input,
+      > select
+        color: hsl(0, 0%, 50%)
+        -webkit-text-fill-color: hsl(0, 0%, 50%)

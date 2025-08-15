@@ -2,7 +2,7 @@
  / Copyright © 2025 Gavin Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
 @use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
 
 
@@ -10,11 +10,9 @@
   display: contents
 
   @include CanvasDirective.host(60%)
-  @include ContainerDirective.host
+  @include FlexboxContainerDirective.host
 
   > .harness > .between
-    display: flex
-    flex-direction: column
     opacity: 0.25
 
     > div

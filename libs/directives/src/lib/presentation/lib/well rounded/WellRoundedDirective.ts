@@ -2,13 +2,13 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser }                                                                                                                                          from "@angular/common";
-import { computed, Directive, type ElementRef, inject, input, type InputSignalWithTransform, numberAttribute, PLATFORM_ID, type Signal, signal, type WritableSignal } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                     from "@angular/core/rxjs-interop";
-import type * as brandLib                                                                                                                                             from "@bowstring/brand";
-import { BRAND }                                                                                                                                                      from "@bowstring/injection-tokens";
-import { filter, Observable, type Observer, startWith, switchMap, type TeardownLogic }                                                                                from "rxjs";
-import { v7 as uuidV7 }                                                                                                                                               from "uuid";
+import { isPlatformBrowser }                                                                                                                                from "@angular/common";
+import { Directive, type ElementRef, inject, input, type InputSignalWithTransform, numberAttribute, PLATFORM_ID, type Signal, signal, type WritableSignal } from "@angular/core";
+import { toObservable, toSignal }                                                                                                                           from "@angular/core/rxjs-interop";
+import type * as brandLib                                                                                                                                   from "@bowstring/brand";
+import { BRAND }                                                                                                                                            from "@bowstring/injection-tokens";
+import { filter, map, Observable, type Observer, startWith, switchMap, type TeardownLogic }                                                                 from "rxjs";
+import { v7 as uuidV7 }                                                                                                                                     from "uuid";
 
 
 // noinspection CssUnknownProperty
@@ -30,9 +30,18 @@ export class WellRoundedDirective {
 
   private readonly platformId: NonNullable<unknown> = inject<NonNullable<unknown>>(PLATFORM_ID);
 
-  protected readonly brandLib: typeof brandLib                                                                 = inject<typeof brandLib>(BRAND);
-  protected readonly clipPathSource$: Signal<`url(#bowstring--well-rounded-directive--clip-path-${ string })`> = computed<`url(#bowstring--well-rounded-directive--clip-path-${ string })`>(
-    (): `url(#bowstring--well-rounded-directive--clip-path-${ string })` => `url(#${ this.clipPathId$() })`,
+  protected readonly brandLib: typeof brandLib = inject<typeof brandLib>(BRAND);
+
+  public readonly clipPathId$: Signal<`bowstring--well-rounded-directive--clip-path-${ string }`> = signal<`bowstring--well-rounded-directive--clip-path-${ string }`>(`bowstring--well-rounded-directive--clip-path-${ uuidV7() }`);
+
+  protected readonly clipPathSource$: Signal<`url(#bowstring--well-rounded-directive--clip-path-${ string })`> = toSignal<`url(#bowstring--well-rounded-directive--clip-path-${ string })`>(
+    toObservable<`bowstring--well-rounded-directive--clip-path-${ string }`>(this.clipPathId$).pipe<`bowstring--well-rounded-directive--clip-path-${ string }`, `url(#bowstring--well-rounded-directive--clip-path-${ string })`>(
+      startWith<`bowstring--well-rounded-directive--clip-path-${ string }`>(this.clipPathId$()),
+      map<`bowstring--well-rounded-directive--clip-path-${ string }`, `url(#bowstring--well-rounded-directive--clip-path-${ string })`>(
+        (clipPathId: `bowstring--well-rounded-directive--clip-path-${ string }`): `url(#bowstring--well-rounded-directive--clip-path-${ string })` => `url(#${ clipPathId })`,
+      ),
+    ),
+    { requireSync: true },
   );
 
   public readonly htmlElementRef$: WritableSignal<ElementRef<HTMLElement> | undefined>                                                                                                                                         = signal<undefined>(undefined);
@@ -43,7 +52,6 @@ export class WellRoundedDirective {
       transform: numberAttribute,
     },
   );
-  public readonly clipPathId$: Signal<`bowstring--well-rounded-directive--clip-path-${ string }`>                                                                                                                              = signal<`bowstring--well-rounded-directive--clip-path-${ string }`>(`bowstring--well-rounded-directive--clip-path-${ uuidV7() }`);
   public readonly pathDefinition$: Signal<`M ${ number },0 L ${ number },0 C 1,0 1,0 1,${ number } L 1,${ number } C 1,1 1,1 ${ number },1 L ${ number },1 C 0,1 0,1 0,${ number } L 0,${ number } C 0,0 0,0 ${ number },0 Z`> = isPlatformBrowser(this.platformId) ? toSignal<`M ${ number },0 L ${ number },0 C 1,0 1,0 1,${ number } L 1,${ number } C 1,1 1,1 ${ number },1 L ${ number },1 C 0,1 0,1 0,${ number } L 0,${ number } C 0,0 0,0 ${ number },0 Z`>(
     toObservable<ElementRef<HTMLElement> | undefined>(this.htmlElementRef$).pipe<ElementRef<HTMLElement>, `M ${ number },0 L ${ number },0 C 1,0 1,0 1,${ number } L 1,${ number } C 1,1 1,1 ${ number },1 L ${ number },1 C 0,1 0,1 0,${ number } L 0,${ number } C 0,0 0,0 ${ number },0 Z`, `M ${ number },0 L ${ number },0 C 1,0 1,0 1,${ number } L 1,${ number } C 1,1 1,1 ${ number },1 L ${ number },1 C 0,1 0,1 0,${ number } L 0,${ number } C 0,0 0,0 ${ number },0 Z`>(
       filter<ElementRef<HTMLElement> | undefined, ElementRef<HTMLElement>>(

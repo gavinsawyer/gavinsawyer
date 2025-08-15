@@ -16,13 +16,37 @@
   </bowstring--header>
   <bowstring--divider />
   <bowstring--section>
-    @for (_projectLocaleId of projectLocaleIds; track $index) {<bowstring--button
+    @for (_projectLocaleId of projectLocaleIds //noinspection UnusedLocalSymbols; track $index) {<bowstring--button
       [disabled]="projectLocaleIds[$index] === projectLocaleId"
       level="2"
       (output)="projectLocaleIds[$index] === projectLocaleId || changeLocale(projectLocaleIds[$index]);">
       <bowstring--symbol input="Globe" />
       <bowstring--label [input]="localeDisplayNames[projectLocaleIds[$index]]" />
     </bowstring--button>}
+  </bowstring--section>}
+</bowstring--sheet>
+<bowstring--sheet #versionSheetComponent>
+  @defer {<bowstring--heading-group>
+    <bowstring--header>
+      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: Anybody, var(--bowstring--root--brand-font-family); font-weight: 300; font-variation-settings: 'wdth' 125;"><bowstring--logo inline /> {{ packageVersion.split(" Beta ")[0] }}</h6>
+    </bowstring--header>
+    <bowstring--flexbox-container flexDirection="row">
+      @if (packageVersion.split(" Beta ")[1]; as beta) {<span>Beta&nbsp;{{ beta }}</span>}
+      <span>Commit&nbsp;&num;<bowstring--link
+        inline
+        [url]="'https://github.com/gavinsawyer/gavinsawyer/commit/' + gitInfoPartial.hash">{{ gitInfoPartial.hash }}</bowstring--link></span>
+    </bowstring--flexbox-container>
+  </bowstring--heading-group>
+  <bowstring--divider />
+  <bowstring--section>
+    <bowstring--button
+      level="2"
+      url="https://github.com/gavinsawyer/gavinsawyer/issues/new">
+      <bowstring--symbol input="ExclamationmarkBubbleFill" />
+      <bowstring--label
+        i18n-input
+        input="Submit feedback" />
+    </bowstring--button>
   </bowstring--section>}
 </bowstring--sheet>
 
@@ -37,7 +61,7 @@
       gapRow="calc(var(--bowstring--root--gap-row) * pow(var(--phi), -1))"
       justifyContent="space-between">
       <bowstring--header fontSizeExponent="-3">
-        <h1 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-title-font), var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
+        <h1 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
           <bowstring--link
             exact
             url="/">
@@ -45,17 +69,17 @@
           </bowstring--link>
         </h1>
       </bowstring--header>
-      @if (bowstringRoutes.slice(0, -3).length || projectRoutes.slice(1).length) {<bowstring--nav>
-        @if (bowstringRoutes | bowstringFindRouteByPath:'gallery'; as route) {<bowstring--link [url]="'/' + route.path">
+      @if ((projectRoutes | bowstringFindRouteByPath:'gallery') || (projectRoutes | bowstringFindRouteByPath:'shop') || (projectRoutes | bowstringFindRouteByPath:'account') || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--nav>
+        @if (projectRoutes | bowstringFindRouteByPath:'gallery'; as route) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
-        @if (bowstringRoutes | bowstringFindRouteByPath:'shop'; as route) {<bowstring--link [url]="'/' + route.path">
+        @if (projectRoutes | bowstringFindRouteByPath:'shop'; as route) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
-        @for (route of projectRoutes.slice(1); track $index) {<bowstring--link [url]="'/' + route.path">
+        @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
-        @if (bowstringRoutes | bowstringFindRouteByPath:'account'; as route) {<bowstring--link [url]="'/' + route.path">
+        @if (projectRoutes | bowstringFindRouteByPath:'account'; as route) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
       </bowstring--nav>}
@@ -70,7 +94,7 @@
   </bowstring--below>}}
   <bowstring--footer>
     <bowstring--header>
-      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-title-font), var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
+      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
         <bowstring--link
           exact
           url="/">
@@ -83,16 +107,22 @@
       flexWrap="wrap"
       justifyContent="space-between">
       <bowstring--flexbox-container flexDirection="row">
-        @if (bowstringRoutes.slice(0, -3).length || projectRoutes.slice(1).length) {<bowstring--flexbox-container alignItems="flex-start">
-          @for (route of projectRoutes.slice(1); track $index) {<bowstring--link [url]="'/' + route.path">
+        @if ((projectRoutes | bowstringFindRouteByPath:'gallery') || (projectRoutes | bowstringFindRouteByPath:'shop') || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--flexbox-container alignItems="flex-start">
+          @if (projectRoutes | bowstringFindRouteByPath:'gallery'; as route) {<bowstring--link [url]="'/' + route.path">
+            <bowstring--label [input]="route.data?.['title']" />
+          </bowstring--link>}
+          @if (projectRoutes | bowstringFindRouteByPath:'shop'; as route) {<bowstring--link [url]="'/' + route.path">
+            <bowstring--label [input]="route.data?.['title']" />
+          </bowstring--link>}
+          @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
         </bowstring--flexbox-container>}
         <bowstring--flexbox-container alignItems="flex-start">
-          @if (bowstringRoutes | bowstringFindRouteByPath:'privacy'; as route) {<bowstring--link [url]="'/' + route.path">
+          @if (projectRoutes | bowstringFindRouteByPath:'privacy'; as route) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
-          @if (bowstringRoutes | bowstringFindRouteByPath:'terms'; as route) {<bowstring--link [url]="'/' + route.path">
+          @if (projectRoutes | bowstringFindRouteByPath:'terms'; as route) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
         </bowstring--flexbox-container>
@@ -111,43 +141,47 @@
       </bowstring--flexbox-container>
     </bowstring--section>
     <bowstring--divider />
-    <bowstring--section
+    <bowstring--section id="connectivitySection"
       flexDirection="row"
-      flexWrap="wrap"
-      [justifyContent]="responsivityService.pastMediumBreakpoint$() ? 'flex-start' : 'center'">
-      <bowstring--link
-        disabled>
-        @if (connectivityService.connected$()) {<bowstring--symbol input="Network" />
-        <bowstring--label
-          i18n-input
-          input="Connected" />} @else {<bowstring--symbol input="NetworkSlash" />
-        <bowstring--label
-          i18n-input
-          input="Disconnected" />}
-      </bowstring--link>
+      flexWrap="wrap">
+      <div [hidden]="connectivityService.connected$()">
+        <bowstring--link disabled>
+          <bowstring--symbol input="NetworkSlash" />
+          <bowstring--label
+            i18n-input
+            input="Disconnected" />
+        </bowstring--link>
+      </div>
+      <div [hidden]="!connectivityService.connected$()">
+        <bowstring--link disabled>
+          <bowstring--symbol input="Network" />
+          <bowstring--label
+            i18n-input
+            input="Connected" />
+        </bowstring--link>
+      </div>
     </bowstring--section>
-    <bowstring--section
+    <bowstring--section id="informationAndOptionsSection"
       flexDirection="row"
       flexWrap="wrap"
       justifyContent="center">
       <bowstring--flexbox-container
         flexDirection="row"
         flexGrow="1"
-        flexWrap="wrap"
-        [justifyContent]="responsivityService.pastMediumBreakpoint$() ? 'flex-start' : 'center'">
-        <span style="white-space: nowrap;">&copy;&nbsp;@if (responsivityService.pastMediumBreakpoint$()) {2025&nbsp;}<bowstring--link
+        flexWrap="wrap">
+        <span style="white-space: nowrap;">&copy;&nbsp;<div id="copyrightYear">2025&nbsp;</div><bowstring--link
           inline
           [url]="brandLib.copyrightHolderUrl">
           <bowstring--label [input]="brandLib.copyrightHolder" />
         </bowstring--link></span>
-        <span style="white-space: nowrap;">{{ packageVersion }}&dash;{{ projectName }}&nbsp;&lpar;<bowstring--link
+        <span style="white-space: nowrap;">&num;<bowstring--link
+          [disabled]="versionSheetComponent.openModelWithTransform$()"
           inline
-          [url]="'https://github.com/gavinsawyer/gavinsawyer/commit/' + gitInfoPartial.hash">
+          (output)="versionSheetComponent.openModel$.set(true);">
           <bowstring--label [input]="gitInfoPartial.hash || ''" />
-        </bowstring--link>&rpar;</span>
+        </bowstring--link></span>
       </bowstring--flexbox-container>
       <bowstring--flexbox-container
-        [flexBasis]="responsivityService.pastMediumBreakpoint$() ? 'auto' : '100%'"
         flexDirection="row"
         justifyContent="center">
         <bowstring--link

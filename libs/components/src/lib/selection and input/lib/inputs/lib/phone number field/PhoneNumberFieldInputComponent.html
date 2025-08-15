@@ -19,9 +19,9 @@
   <div>
     <div class="harness" #htmlDivElement>
       <div class="between">
-        @if (htmlInputElement.value) {<div>
+        @if (htmlInputElement.value) {<div id="clearButton">
           <button class="harness" #htmlButtonElement
-            (click)="$event.stopPropagation(); this.focused && writeValue(); this.focused && onChange?.(); htmlInputElement.focus();"
+            (click)="$event.stopPropagation(); this.focused$() && writeValue(); this.focused$() && onChange?.(); htmlInputElement.focus();"
             (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
             (pointerdown)="$event.stopPropagation();"
             tabindex="-1"
@@ -47,6 +47,7 @@
           </button>
         </div>}
         <input #htmlInputElement
+          [attr.enterkeyhint]="enterKeyHintInput$()"
           [attr.disabled]="disabledModel$() || undefined"
           [attr.name]="inputName$()"
           [attr.placeholder]="placeholderInput$()"
@@ -57,7 +58,7 @@
           (click)="$event.stopPropagation();"
           (focus)="onFocus();"
           (input)="onInput();"
-          (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || onSubmit?.();"
+          (keydown)="$event.key === 'Escape' || $event.key !== 'Enter' || $event.stopPropagation(); $event.key === 'Escape' || $event.key !== 'Enter' || (enterKeyHintInput$() !== 'next' ? enterKeyHintInput$() !== 'previous' : false) || $event.preventDefault(); $event.key !== 'Enter' || (enterKeyHintInput$() !== 'next' ? enterKeyHintInput$() !== 'previous' ? onSubmit?.() : focusPrevious() : focusNext());"
           type="tel">
       </div>
     </div>

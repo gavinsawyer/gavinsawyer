@@ -2,7 +2,7 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { contentChild, Directive, input, type InputSignal, type InputSignalWithTransform, numberAttribute, type Signal, TemplateRef }                                                                                                           from "@angular/core";
+import { booleanAttribute, contentChild, Directive, input, type InputSignal, type InputSignalWithTransform, numberAttribute, type Signal, TemplateRef }                                                                                         from "@angular/core";
 import { type BaselineAlignment, type DistributedAlignment, type FlexPositionalAlignment, type Inherit, type NormalAlignment, type Overflow, type Position, type ScalarString, type ScrollSnapAlign, type ScrollSnapStop, type ScrollSnapType } from "@bowstring/types";
 import { ContainerBadgeSymbolDirective }                                                                                                                                                                                                        from "../../../structural";
 import { FlexboxChildDirective }                                                                                                                                                                                                                from "../flexbox child/FlexboxChildDirective";
@@ -13,6 +13,7 @@ import { GridChildDirective }                                                   
 @Directive(
   {
     host:           {
+      "[class.hideScrollbar]":                                             "hideScrollbarInput$()",
       "[style.--bowstring--container-directive--align-self-input]":        "alignSelfInput$()",
       "[style.--bowstring--container-directive--aspect-ratio-input]":      "aspectRatioInput$()",
       "[style.--bowstring--container-directive--margin-bottom-input]":     "marginBottomInput$()",
@@ -73,6 +74,13 @@ export class ContainerDirective {
     {
       descendants: false,
       read:        TemplateRef,
+    },
+  );
+  public readonly hideScrollbarInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }`>                                        = input<boolean | undefined, "" | boolean | `${ boolean }`>(
+    undefined,
+    {
+      alias:     "hideScrollbar",
+      transform: booleanAttribute,
     },
   );
   public readonly marginBottomInput$: InputSignal<ScalarString | Inherit | undefined>                                                                      = input<ScalarString | Inherit | undefined>(

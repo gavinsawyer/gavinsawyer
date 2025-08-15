@@ -3,7 +3,7 @@
  */
 
 import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, forwardRef, inject }                                                from "@angular/core";
+import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, forwardRef, inject, signal, untracked, type WritableSignal }        from "@angular/core";
 import { toObservable }                                                                                                                        from "@angular/core/rxjs-interop";
 import { NG_VALUE_ACCESSOR }                                                                                                                   from "@angular/forms";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "@bowstring/directives";
@@ -76,18 +76,24 @@ export class DatepickerInputComponent
     );
   }
 
+  protected override readonly value$: WritableSignal<Date | ""> = signal<Date | "">(new Date());
+
   protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
   protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
   protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
 
-  protected override value: Date | "" = new Date();
-
   protected override onInput(): void {
-    this.value = ((value: string): Date | "" => value && new Date(value))(this.htmlInputElementRef$().nativeElement.value);
+    const value: string = this.htmlInputElementRef$().nativeElement.value;
+
+    this.value$.set(value && new Date(value));
+
+    this.onChange?.();
   }
 
   public override writeValue(value?: Date): void {
-    this.value = value || "";
+    untracked<void>(
+      (): void => this.value$.set(value || ""),
+    );
 
     firstValueFrom<ElementRef<HTMLInputElement> | undefined>(
       toObservable<ElementRef<HTMLInputElement> | undefined>(
@@ -97,10 +103,17 @@ export class DatepickerInputComponent
     ).then<void>(
       (htmlInputElementRef?: ElementRef<HTMLInputElement>): void => {
         if (htmlInputElementRef)
-          this.renderer2.setProperty(
-            htmlInputElementRef.nativeElement,
-            "value",
-            this.value && ((date: Date): string => `${ date.getFullYear() }-${ ((date.getMonth() + 1).toString().length === 1 ? "0" : "") + (date.getMonth() + 1) }-${ (date.getDate().toString().length === 1 ? "0" : "") + date.getDate() }`)(new Date(this.value.getTime() + this.value.getTimezoneOffset() * 60000)),
+          firstValueFrom<Date | "">(
+            toObservable<Date | "">(
+              this.value$,
+              { injector: this.injector },
+            ),
+          ).then<void>(
+            (value: Date | ""): void => this.renderer2.setProperty(
+              htmlInputElementRef.nativeElement,
+              "value",
+              value && ((date: Date): string => `${ date.getFullYear() }-${ ((date.getMonth() + 1).toString().length === 1 ? "0" : "") + (date.getMonth() + 1) }-${ (date.getDate().toString().length === 1 ? "0" : "") + date.getDate() }`)(new Date(value.getTime() + value.getTimezoneOffset() * 60000)),
+            ),
           );
       },
     );

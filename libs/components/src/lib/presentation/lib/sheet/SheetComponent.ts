@@ -2,15 +2,16 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, computed, effect, type EffectCleanupRegisterFn, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild } from "@angular/core";
-import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                                       from "@angular/core/rxjs-interop";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                           from "@bowstring/directives";
-import { type Symbol }                                                                                                                                                                                                      from "@bowstring/interfaces";
-import loadSymbol                                                                                                                                                                                                           from "@bowstring/symbols";
-import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                                     from "body-scroll-lock";
-import { delayWhen, fromEvent, map, type Observable, timer }                                                                                                                                                                from "rxjs";
-import { fromPromise }                                                                                                                                                                                                      from "rxjs/internal/observable/innerFrom";
+import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                          from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, effect, type EffectCleanupRegisterFn, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild } from "@angular/core";
+import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                             from "@angular/core/rxjs-interop";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                 from "@bowstring/directives";
+import { type Symbol }                                                                                                                                                                                            from "@bowstring/interfaces";
+import { RxSsrService }                                                                                                                                                                                           from "@bowstring/services";
+import loadSymbol                                                                                                                                                                                                 from "@bowstring/symbols";
+import { type SymbolName }                                                                                                                                                                                        from "@bowstring/types";
+import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                           from "body-scroll-lock";
+import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switchMap, timer }                                                                                                                      from "rxjs";
 
 
 @Component(
@@ -108,23 +109,32 @@ export class SheetComponent {
   private readonly htmlDialogElementRef$: Signal<ElementRef<HTMLDialogElement>> = viewChild.required<ElementRef<HTMLDialogElement>>("htmlDialogElement");
   private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>       = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
   private readonly platformId: NonNullable<unknown>                             = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly rxSsrService: RxSsrService                                   = inject<RxSsrService>(RxSsrService);
 
   protected readonly arrowUpAndDownAndArrowLeftAndRightSymbol$: Signal<Symbol | undefined> = toSignal<Symbol>(
-    fromPromise<Symbol>(
-      loadSymbol("ArrowUpAndDownAndArrowLeftAndRight"),
+    of<SymbolName>("ArrowUpAndDownAndArrowLeftAndRight").pipe<Symbol>(
+      this.rxSsrService.wrap<SymbolName, Symbol>(
+        switchMap<SymbolName, Observable<Symbol>>(
+          (symbolName: SymbolName): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(symbolName)),
+        ),
+        "Symbol:ArrowUpAndDownAndArrowLeftAndRight",
+      ),
     ),
   );
   protected readonly containerDirective: ContainerDirective                                = inject<ContainerDirective>(ContainerDirective);
 
-  public readonly openModelWithTransform$: Signal<boolean | undefined> = computed<boolean | undefined>(
-    (): boolean | undefined => {
-      const open: "" | boolean | `${ boolean }` | undefined = this.openModel$();
-
-      if (open === undefined)
-        return undefined;
-
-      return open === "" || open === true || open === "true" || open !== "false" && false;
-    },
+  public readonly openModel$: ModelSignal<"" | boolean | `${ boolean }`> = model<"" | boolean | `${ boolean }`>(
+    false,
+    { alias: "open" },
+  );
+  public readonly openModelWithTransform$: Signal<boolean>               = toSignal<boolean>(
+    toObservable<"" | boolean | `${ boolean }`>(this.openModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
+      startWith<"" | boolean | `${ boolean }`>(this.openModel$()),
+      map<"" | boolean | `${ boolean }`, boolean>(
+        (open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true",
+      ),
+    ),
+    { requireSync: true },
   );
 
   protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
@@ -139,11 +149,7 @@ export class SheetComponent {
   ) : signal<undefined>(undefined);
   protected readonly wellRoundedDirective: WellRoundedDirective  = inject<WellRoundedDirective>(WellRoundedDirective);
 
-  public readonly dragControlTemplateRef$: Signal<TemplateRef<never>>                = viewChild.required<TemplateRef<never>>("dragControlTemplate");
-  public readonly openModel$: ModelSignal<"" | boolean | `${ boolean }` | undefined> = model<"" | boolean | `${ boolean }` | undefined>(
-    false,
-    { alias: "open" },
-  );
+  public readonly dragControlTemplateRef$: Signal<TemplateRef<never>> = viewChild.required<TemplateRef<never>>("dragControlTemplate");
 
   protected keydown(keyboardEvent: KeyboardEvent): true | void {
     if (keyboardEvent.key !== "Escape")

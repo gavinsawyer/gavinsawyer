@@ -1,0 +1,48 @@
+/*!
+ / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ /
+
+@use "../../../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../input with options/InputWithOptionsComponent"
+
+
+\:host
+  display: contents
+
+  @include InputWithOptionsComponent.host
+
+  > .harness > .between > div > .harness > .between
+    > div#symbol
+      display: contents
+
+      @include FlexboxContainerDirective.host
+
+      --bowstring--flexbox-container-directive--align-items: center !important
+      --bowstring--flexbox-container-directive--justify-content: center !important
+
+      > .harness
+        cursor: text
+        order: 1
+        z-index: -1
+
+        > .between
+          font-size: calc(1em * pow(var(--phi), -1))
+
+          > svg
+            display: grid
+            height: 1em
+            max-width: 1em
+            overflow: visible
+            transform: translateZ(0)
+
+    > select
+      appearance: none
+      cursor: text
+      margin-right: calc(-7px - var(--bowstring--input--gap-column))
+
+    &:not(:focus-within) > select
+      margin-right: -7px
+
+  &.placeholder > .harness > .between > div > .harness > .between > select
+    color: hsl(0, 0%, 50%)
+    -webkit-text-fill-color: hsl(0, 0%, 50%)

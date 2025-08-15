@@ -11,32 +11,32 @@
   "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
   "nxCloudId":          "${NX_CLOUD_ID}",
   "targetDefaults":     {
-    "angular-browser":     { "cache": true },
-    "angular-prerender":   { "cache": true },
-    "angular-server":      { "cache": true },
-    "build":               {
+    "angular-browser":        { "cache": true },
+    "angular-server":         { "cache": true },
+    "build":                  {
       "dependsOn": [ "^build" ],
       "inputs":    [
         "production",
         "^production"
       ]
     },
-    "deploy":              {
+    "deploy":                 {
       "dependsOn": [ "^deploy" ],
       "inputs":    [
         "production",
         "^production"
       ]
     },
-    "esbuild":             { "cache": true },
-    "esbuild-intl-server": { "cache": true },
-    "eslint":              {
+    "esbuild":                { "cache": true },
+    "esbuild-intl-server":    { "cache": true },
+    "esbuild-service-worker": { "cache": true },
+    "eslint":                 {
       "cache":  true,
       "inputs": [
         "default",
         "{workspaceRoot}/eslint.config.js"
       ]
     },
-    "tsc":                 { "cache": true }
+    "tsc":                    { "cache": true }
   }
 }

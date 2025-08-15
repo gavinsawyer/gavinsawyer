@@ -11,10 +11,11 @@
   @include ContainerDirective.host
 
   > .harness > .between
+    font-size: calc(1em * pow(var(--phi), -0.5))
+
     &::ng-deep > *
       @include ContainerDirective.children
 
     > p
-      font-size: calc(1em * pow(var(--phi), -0.5))
       margin: 0
       opacity: 0.75

@@ -3,7 +3,7 @@
  */
 
 export interface Environment {
-  "app": "website";
+  "app": "console" | "website";
   "apis": {
     "firebase": {
       "apiKey": string;

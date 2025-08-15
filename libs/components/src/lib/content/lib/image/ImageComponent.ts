@@ -8,8 +8,7 @@ import { outputFromObservable, toObservable, toSignal }                         
 import { RouterLink, RouterLinkActive }                                                                                                                                                                                from "@angular/router";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, HoverTransformingDirective, WellRoundedDirective }                                                                                                    from "@bowstring/directives";
 import { type Dimensions }                                                                                                                                                                                             from "@bowstring/interfaces";
-import { type Observable, Subject, switchMap }                                                                                                                                                                         from "rxjs";
-import { fromPromise }                                                                                                                                                                                                 from "rxjs/internal/observable/innerFrom";
+import { from, type Observable, Subject, switchMap }                                                                                                                                                                   from "rxjs";
 
 
 // noinspection CssUnknownProperty
@@ -30,6 +29,7 @@ import { fromPromise }                                                          
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",
@@ -93,7 +93,7 @@ export class ImageComponent {
   protected readonly imageDimensions$: Signal<Dimensions | undefined>        = toSignal<Dimensions | undefined>(
     toObservable<ElementRef<HTMLImageElement>>(this.htmlImageElementRef$).pipe<Dimensions>(
       switchMap<ElementRef<HTMLImageElement>, Observable<Dimensions>>(
-        ({ nativeElement: htmlImageElement }: ElementRef<HTMLImageElement>): Observable<Dimensions> => fromPromise<Dimensions>(
+        ({ nativeElement: htmlImageElement }: ElementRef<HTMLImageElement>): Observable<Dimensions> => from<Promise<Dimensions>>(
           new Promise(
             (
               resolve: (imageDimensions: Dimensions) => void,
@@ -146,6 +146,10 @@ export class ImageComponent {
     },
   );
   public readonly input$: InputSignal<string | URL>                                                                        = input.required<string | URL>({ alias: "input" });
+  public readonly loadingInput$: InputSignal<"auto" | "eager" | "lazy" | undefined>                                        = input<"auto" | "eager" | "lazy" | undefined>(
+    undefined,
+    { alias: "loading" },
+  );
   public readonly output: OutputRef<void>                                                                                  = outputFromObservable<void>(
     this.outputSubject.asObservable(),
     { alias: "output" },

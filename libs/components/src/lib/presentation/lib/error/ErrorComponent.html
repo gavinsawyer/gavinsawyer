@@ -38,7 +38,7 @@
   <div id="closeControl">
     <button class="harness"
       (click)="$event.stopPropagation(); openModel$.set(false);"
-      (keydown)="($event.key === 'Escape' || $event.key !== 'Enter') || $event.stopPropagation(); $event.key !== 'Enter' || openModel$.set(false);"
+      (keydown)="$event.key === 'Escape' || $event.key !== 'Enter' || $event.stopPropagation(); $event.key !== 'Enter' || openModel$.set(false);"
       role="button"
       tabindex="0"
       type="button">

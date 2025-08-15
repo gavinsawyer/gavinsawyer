@@ -12,7 +12,6 @@
 \:host
   display: contents
 
-  --bowstring--error--font-size-exponent: 0
   --bowstring--error--gap-column: var(--bowstring--container-directive--padding-sides)
   --bowstring--error--gap-row: var(--bowstring--container-directive--padding-bottom)
 
@@ -121,11 +120,11 @@
     position: relative
 
     &:before
-      bottom: calc(-1 * var(--bowstring--errors-container--gap-row))
+      bottom: calc(-1 * var(--phi) * var(--bowstring--errors-container--gap-row))
       content: ''
-      height: calc(1px * var(--bowstring--error--height) + 3 * var(--bowstring--errors-container--gap-row))
-      left: calc(-1rem * pow(var(--phi), 0))
-      mask-image: linear-gradient(to bottom, transparent, red calc(0px + 1.5 * var(--bowstring--errors-container--gap-row)), red calc(1px * var(--bowstring--error--height) + 2.5 * var(--bowstring--errors-container--gap-row)), transparent calc(1px * var(--bowstring--error--height) + 3 * var(--bowstring--errors-container--gap-row)))
+      height: calc(1px * var(--bowstring--error--height) + (1 + 2 * var(--phi)) * var(--bowstring--errors-container--gap-row))
+      left: calc(-1rem)
+      mask-image: linear-gradient(to bottom, transparent, red calc(0px + var(--phi) * var(--bowstring--errors-container--gap-row)), red calc(1px * var(--bowstring--error--height) + (1 + var(--phi)) * var(--bowstring--errors-container--gap-row)), transparent calc(1px * var(--bowstring--error--height) + (1 + 2 * var(--phi)) * var(--bowstring--errors-container--gap-row)))
       position: absolute
       width: 100vw
 
@@ -133,7 +132,7 @@
         backdrop-filter: blur(0)
 
       @mixin keyframes--show-backdrop
-        backdrop-filter: blur(0.25rem)
+        backdrop-filter: blur(calc(1rem * pow(var(--phi), -3)))
 
       @include keyframes--hide-backdrop
 

@@ -4,7 +4,7 @@
 
 <bowstring--box material="primary">
   <bowstring--header fontSizeExponent="-3">
-    <h2 i18n="@@apps--website--Components--Routes--Home--Header">Gavin is an American entrepreneur and software engineer. He has been creating software since age 13.</h2>
+    <h2 i18n="@@apps--Website--Components--Routes--Home--Header">Gavin is an American entrepreneur and software engineer. He has been creating software since age 13.</h2>
   </bowstring--header>
 </bowstring--box>
 <bowstring--flexbox-container>
@@ -14,7 +14,7 @@
       positionTop="var(--bowstring--main--gap-row)">
       <bowstring--box>
         <bowstring--header fontSizeExponent="-2">
-          @if (messageFormGroup.value.notCreated) {<h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header_1">Want to connect?</h3>} @else {<h3 i18n="@@apps--website--Components--Routes--Home--Aside--Header_2">We'll be in touch{{ ellipsesService.ellipses$() }}</h3>}
+          @if (messageFormGroup.value.notCreated) {<h3 i18n="@@apps--Website--Components--Routes--Home--Aside--Header_1">Want to connect?</h3>} @else {<h3 i18n="@@apps--Website--Components--Routes--Home--Aside--Header_2">We'll be in touch{{ ellipsesService.ellipses$() }}</h3>}
         </bowstring--header>
         <bowstring--form (output)="messageFormSubmit()">
           <bowstring--text-field-input
@@ -41,18 +41,21 @@
           <bowstring--flexbox-container
             alignItems="flex-end"
             flexDirection="row">
-            <bowstring--combobox-input
+            <bowstring--picker-input
+              autocomplete="tel-country-code"
               [disabled]="!messageFormGroup.value.notCreated"
+              enterKeyHint="next"
               explicitAutocomplete
               [formControl]="messageFormGroup.controls.phone.controls.countryCallingCode"
               flexBasis="calc(1rem * pow(var(--phi), 4))"
               flexGrow="1"
               i18n-label
               label="country code"
-              level="2">
-              @for (option of phoneCountryCallingCodeOptions; track $index) {<bowstring--combobox-input-option [label]="option.label" [value]="option.value" />}
-            </bowstring--combobox-input>
-            <bowstring--phone-number-field-input
+              level="2"
+              (nextFocused)="phoneNumberFieldInputComponent.focus();">
+              @for (countryCallingCode of countryCallingCodes; track $index) {<bowstring--option [label]="'+' + countryCallingCode" [value]="countryCallingCode" />}
+            </bowstring--picker-input>
+            <bowstring--phone-number-field-input #phoneNumberFieldInputComponent
               [countryCallingCode]="messageFormGroup.controls.phone.controls.countryCallingCode.value"
               [disabled]="!messageFormGroup.value.notCreated"
               [formControl]="messageFormGroup.controls.phone.controls.nationalNumber"
@@ -128,22 +131,22 @@
     <bowstring--masonry-container>
       <bowstring--section *bowstringMasonryChild>
         <bowstring--header fontSizeExponent="-2">
-          <h3 i18n="@@apps--website--Components--Routes--Home--Section_1--Header">Projects</h3>
+          <h3 i18n="@@apps--Website--Components--Routes--Home--Section_1--Header">Projects</h3>
         </bowstring--header>
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
               <h4>Bowstring</h4>
             </bowstring--header>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_1--Paragraph_1">A full-stack web infrastructure package for brands, artists, and music curators. This site is made using Bowstring.</p>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_1--Paragraph_2">Bowstring is in development and nearing early access by invitation.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_1--Paragraph_1">A full-stack web infrastructure package for brands, artists, and music curators. This site is made using Bowstring.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_1--Paragraph_2">Bowstring is in development and nearing early access by invitation.</p>
           </bowstring--heading-group>
         </bowstring--box>
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
               <h4>Firebase<wbr />WebAuthn</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_1--Box_2--Subheader"><bowstring--list
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_2--Subheader"><bowstring--list
                 inline
                 type="unordered"><bowstring--link
                 *bowstringListItem
@@ -155,8 +158,8 @@
                 material="primary"
                 url="https://firebase-web-authn.dev">demo</bowstring--link></bowstring--list></h5>
             </bowstring--header>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_2--Paragraph_1">FirebaseWebAuthn has been used in over 100 apps via NPM and the official Extensions Hub.</p>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_2--Paragraph_2">A free and open-source Firebase Extension and TypeScript SDK for authentication with WebAuthn passkeys, a new web standard for passwordless authentication. Allows websites built on Google’s app development and cloud platform to use biometric authentication in place of passwords while changing only one line of app code.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_2--Paragraph_1">FirebaseWebAuthn has been used in over 100 apps via NPM and the official Extensions Hub.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_2--Paragraph_2">A free and open-source Firebase Extension and TypeScript SDK for authentication with WebAuthn passkeys, a new web standard for passwordless authentication. Allows websites built on Google’s app development and cloud platform to use biometric authentication in place of passwords while changing only one line of app code.</p>
           </bowstring--heading-group>
           <bowstring--flexbox-container
             flexDirection="row"
@@ -177,84 +180,84 @@
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
               <h4>ShortcutsAPI</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_1--Box_3--Subheader"><bowstring--link
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_3--Subheader"><bowstring--link
                 inline
                 material="primary"
                 url="https://github.com/gavinsawyer/shortcuts-api">repository</bowstring--link></h5>
             </bowstring--header>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_3--Paragraph_1">A free and open-source API and library of iOS shortcuts used to create highly detailed home automations.</p>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_3--Paragraph_2">Automations in Apple’s HomeKit system run on tvOS devices such as Apple TV and HomePod. This makes it impossible to reference the user's Focus mode and therefore to do things such as disable motion-activated lights when in Sleep focus.</p>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_1--Box_3--Paragraph_3">This project addresses that limitation and allows for much more.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_3--Paragraph_1">A free and open-source API and library of iOS shortcuts used to create highly detailed home automations.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_3--Paragraph_2">Automations in Apple’s HomeKit system run on tvOS devices such as Apple TV and HomePod. This makes it impossible to reference the user's Focus mode and therefore to do things such as disable motion-activated lights when in Sleep focus.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_1--Box_3--Paragraph_3">This project addresses that limitation and allows for much more.</p>
           </bowstring--heading-group>
         </bowstring--box>
       </bowstring--section>
       <bowstring--section *bowstringMasonryChild>
         <bowstring--header fontSizeExponent="-2">
-          <h3 i18n="@@apps--website--Components--Routes--Home--Section_2--Header">Education</h3>
+          <h3 i18n="@@apps--Website--Components--Routes--Home--Section_2--Header">Education</h3>
         </bowstring--header>
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
               <h4>Suffolk University</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_2--Box_1--Subheader">Sawyer Business School is <bowstring--link
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_2--Box_1--Subheader">Sawyer Business School is <bowstring--link
                 inline
                 material="primary"
                 url="https://www.aacsb.edu/accredited/s/suffolk-university">accredited</bowstring--link> by the AACSB.</h5>
             </bowstring--header>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_2--Box_1--Paragraph">Gavin is a BSBA graduate who double-majored in Global Business and Analytics and minored in Cybersecurity.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_2--Box_1--Paragraph">Gavin is a BSBA graduate who double-majored in Global Business and Analytics and minored in Cybersecurity.</p>
           </bowstring--heading-group>
         </bowstring--box>
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
               <h4>don Quijote Madrid</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_2--Box_2--Subheader">don Quijote is <bowstring--link
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_2--Box_2--Subheader">don Quijote is <bowstring--link
                 inline
                 material="primary"
                 url="https://acreditacion.cervantes.es/centros_espana.htm#madrid">accredited</bowstring--link> by the Cervantes Institute.</h5>
             </bowstring--header>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_2--Box_2--Paragraph">Gavin earned a B1-level certification for intermediate Spanish proficiency in Madrid during a semester of online classes.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_2--Box_2--Paragraph">Gavin earned a B1-level certification for intermediate Spanish proficiency in Madrid during a semester of online classes.</p>
           </bowstring--heading-group>
         </bowstring--box>
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2">
               <h4>Saint Joseph Prep</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_2--Box_3--Subheader">Saint Joseph Prep was accredited by the NEASC before closing in 2023.</h5>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_2--Box_3--Subheader">Saint Joseph Prep was accredited by the NEASC before closing in 2023.</h5>
             </bowstring--header>
-            <p i18n="@@apps--website--Components--Routes--Home--Section_2--Box_3--Paragraph">In high school, Gavin was involved in art and robotics and became interested in his major from taking AP Statistics.</p>
+            <p i18n="@@apps--Website--Components--Routes--Home--Section_2--Box_3--Paragraph">In high school, Gavin was involved in art and robotics and became interested in his major from taking AP Statistics.</p>
           </bowstring--heading-group>
         </bowstring--box>
       </bowstring--section>
       <bowstring--section *bowstringMasonryChild>
         <bowstring--header fontSizeExponent="-2">
-          <h3 i18n="@@apps--website--Components--Routes--Home--Section_3--Header">Proficiencies</h3>
+          <h3 i18n="@@apps--Website--Components--Routes--Home--Section_3--Header">Proficiencies</h3>
         </bowstring--header>
         <bowstring--box>
           <bowstring--heading-group>
             <bowstring--header fontSizeExponent="-2.5">
-              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_1">HTML, CSS, JavaScript</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 }} years</h5>
+              <h4 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Header_1">HTML, CSS, JavaScript</h4>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 }} years</h5>
             </bowstring--header>
             <bowstring--header fontSizeExponent="-2.5">
-              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_2">AWS, RESTful APIs, Node.js, MongoDB, SQL, Git</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 2 }} years</h5>
+              <h4 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Header_2">AWS, RESTful APIs, Node.js, MongoDB, SQL, Git</h4>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 2 }} years</h5>
             </bowstring--header>
             <bowstring--header fontSizeExponent="-2.5">
-              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_3">TypeScript, Angular, RxJS, Sass (SCSS)</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 3 }} years</h5>
+              <h4 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Header_3">TypeScript, Angular, RxJS, Sass (SCSS)</h4>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 3 }} years</h5>
             </bowstring--header>
             <bowstring--header fontSizeExponent="-2.5">
-              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_4">Google Cloud Platform, Firebase, Amplify</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 5 }} years</h5>
+              <h4 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Header_4">Google Cloud Platform, Firebase, Amplify</h4>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 5 }} years</h5>
             </bowstring--header>
             <bowstring--header fontSizeExponent="-2.5">
-              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_5">Nx, R, Adobe Illustrator &amp; Photoshop</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 6 }} years</h5>
+              <h4 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Header_5">Nx, R, Adobe Illustrator &amp; Photoshop</h4>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 6 }} years</h5>
             </bowstring--header>
             <bowstring--header fontSizeExponent="-2.5">
-              <h4 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Header_6">Cybernetics, information theory</h4>
-              <h5 i18n="@@apps--website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 7 }} years</h5>
+              <h4 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Header_6">Cybernetics, information theory</h4>
+              <h5 i18n="@@apps--Website--Components--Routes--Home--Section_3--Box--Subheader">{{ yearsSinceSummer2014 - 7 }} years</h5>
             </bowstring--header>
           </bowstring--heading-group>
         </bowstring--box>

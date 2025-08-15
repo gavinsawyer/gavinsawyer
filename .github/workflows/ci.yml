@@ -20,13 +20,22 @@ jobs:
       - if:  steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
       - id:   auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GAVINSAWYER_44C46 }}
           token_format:     access_token
-      - run: npx nx run-many --target deploy --all
+      - run: npx nx run-many --target deploy --projects tag:cloud-functions
         env:
-          NODE_OPTIONS:            --max_old_space_size=4096
-          APP_CHECK_TOKEN_WEBSITE: ${{ secrets.APP_CHECK_TOKEN_WEBSITE }}
-          FIREBASE_TOKEN:          ${{ steps.auth.outputs.access_token }}
-          NX_CLOUD_ACCESS_TOKEN:   ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+          APP_CHECK_TOKEN_WEBSITE:       ${{ secrets.APP_CHECK_TOKEN_WEBSITE }}
+          FIREBASE_SERVICE_ACCOUNT_PATH: ${{ steps.auth.outputs.credentials_file_path }}
+          FIREBASE_TOKEN:                ${{ steps.auth.outputs.access_token }}
+          NODE_OPTIONS:                  --max_old_space_size=4096
+          NX_CLOUD_ACCESS_TOKEN:         ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      - run: rm -rf dist && npx nx run website:deploy
+        env:
+          APP_CHECK_TOKEN_WEBSITE:       ${{ secrets.APP_CHECK_TOKEN_WEBSITE }}
+          FIREBASE_SERVICE_ACCOUNT_PATH: ${{ steps.auth.outputs.credentials_file_path }}
+          FIREBASE_TOKEN:                ${{ steps.auth.outputs.access_token }}
+          NODE_OPTIONS:                  --max_old_space_size=4096
+          NX_CLOUD_ACCESS_TOKEN:         ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+

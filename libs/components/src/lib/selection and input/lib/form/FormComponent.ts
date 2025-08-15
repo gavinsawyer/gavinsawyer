@@ -40,8 +40,6 @@ export class FormComponent {
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
-  public readonly output: OutputEmitterRef<void> = output<void>(
-    { alias: "output" },
-  );
+  public readonly output: OutputEmitterRef<void> = output<void>({ alias: "output" });
 
 }

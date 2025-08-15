@@ -127,21 +127,28 @@ export class SegmentedControlComponent
   public value: string = "" as const;
 
   protected getOptionOffset(value: string): number | undefined {
-    return this.optionWidths$()?.slice(
-      0,
-      Math.max(
+    const optionWidths = this.optionWidths$();
+
+    if (optionWidths?.every<number>(
+      (optionWidth?: number): optionWidth is number => typeof optionWidth === "number",
+    ))
+      return optionWidths.slice(
         0,
-        this.options$().findIndex(
-          ({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value,
+        Math.max(
+          0,
+          this.options$().findIndex(
+            ({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value,
+          ),
         ),
-      ),
-    ).reduce(
-      (
-        accumulator?: number,
-        currentValue?: number,
-      ): number => (accumulator || 0) + (currentValue || 0),
-      0,
-    );
+      ).reduce(
+        (
+          accumulator: number,
+          currentValue: number,
+        ): number => accumulator + currentValue,
+        0,
+      );
+
+    return undefined;
   }
   protected getOptionWidth(value: string): number | undefined {
     return this.optionWidths$()?.[Math.max(

@@ -2,9 +2,7 @@
   ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
   -->
 
-<div class="harness">
-  <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
-</div>
+<span class="harness"><span class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></span></span>
 
 <ng-template #contentTemplate>
   @if (inlinableDirective.inlineInput$()) {<span>@for (itemTemplateRef of itemTemplateRefs$(); track $index) {<span><ng-container *ngTemplateOutlet="itemTemplateRef" /></span>}</span>} @else {@switch (typeInput$()) {

@@ -2,11 +2,13 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, computed, type ElementRef, inject, input, type InputSignal, type Signal, viewChild } from "@angular/core";
-import { GoogleMap }                                                                                                                           from "@angular/google-maps";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, WellRoundedDirective }                                                        from "@bowstring/directives";
-import { GoogleMapsApiLoaderService }                                                                                                          from "@bowstring/services";
+import { NgTemplateOutlet }                                                                                                          from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, inject, input, type InputSignal, type Signal, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                    from "@angular/core/rxjs-interop";
+import { GoogleMap }                                                                                                                 from "@angular/google-maps";
+import { CanvasDirective, ContainerDirective, ElevatedDirective, WellRoundedDirective }                                              from "@bowstring/directives";
+import { GoogleMapsApiLoaderService }                                                                                                from "@bowstring/services";
+import { map, startWith }                                                                                                            from "rxjs";
 
 
 @Component(
@@ -19,6 +21,7 @@ import { GoogleMapsApiLoaderService }                                           
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",
@@ -68,7 +71,7 @@ export class MapComponent {
     );
 
     this.googleMapsApiLoaderService.load("maps").catch<never>(
-      (error: unknown): never => {
+      (error: Error): never => {
         console.error("Something went wrong.");
 
         throw error;
@@ -76,25 +79,29 @@ export class MapComponent {
     );
   }
 
-  private readonly defaultOptions: google.maps.MapOptions                 = {
-    draggableCursor: "grab",
-    draggingCursor:  "grabbing",
-  };
   private readonly googleMapsApiLoaderService: GoogleMapsApiLoaderService = inject<GoogleMapsApiLoaderService>(GoogleMapsApiLoaderService);
   private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
 
-  protected readonly containerDirective: ContainerDirective     = inject<ContainerDirective>(ContainerDirective);
-  protected readonly options$: Signal<google.maps.MapOptions>   = computed<google.maps.MapOptions>(
-    (): google.maps.MapOptions => ({
-      ...this.defaultOptions,
-      ...this.optionsInput$(),
-    }),
-  );
-  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
   public readonly optionsInput$: InputSignal<google.maps.MapOptions | undefined> = input<google.maps.MapOptions | undefined>(
     undefined,
     { alias: "options" },
   );
+
+  protected readonly options$: Signal<google.maps.MapOptions>   = toSignal<google.maps.MapOptions>(
+    toObservable<google.maps.MapOptions | undefined>(this.optionsInput$).pipe<google.maps.MapOptions | undefined, google.maps.MapOptions>(
+      startWith<google.maps.MapOptions | undefined>(this.optionsInput$()),
+      map<google.maps.MapOptions | undefined, google.maps.MapOptions>(
+        (optionsInput?: google.maps.MapOptions): google.maps.MapOptions => ({
+          draggableCursor: "grab",
+          draggingCursor:  "grabbing",
+          ...optionsInput,
+        }),
+      ),
+    ),
+    { requireSync: true },
+  );
+  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
 
 }

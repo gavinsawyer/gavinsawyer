@@ -2,14 +2,15 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                      from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, computed, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, type Signal, signal, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                   from "@angular/core/rxjs-interop";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WarningDirective, WellRoundedDirective }                                                 from "@bowstring/directives";
-import { type Symbol }                                                                                                                                              from "@bowstring/interfaces";
-import loadSymbol                                                                                                                                                   from "@bowstring/symbols";
-import { delayWhen, map, Observable, type Observer, switchMap, type TeardownLogic, timer }                                                                          from "rxjs";
-import { fromPromise }                                                                                                                                              from "rxjs/internal/observable/innerFrom";
+import { isPlatformBrowser, NgTemplateOutlet }                                                                                                            from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, type Signal, signal, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                                         from "@angular/core/rxjs-interop";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WarningDirective, WellRoundedDirective }                                       from "@bowstring/directives";
+import { type Symbol }                                                                                                                                    from "@bowstring/interfaces";
+import { RxSsrService }                                                                                                                                   from "@bowstring/services";
+import loadSymbol                                                                                                                                         from "@bowstring/symbols";
+import { type SymbolName }                                                                                                                                from "@bowstring/types";
+import { delayWhen, from, map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic, timer }                                           from "rxjs";
 
 
 // noinspection CssUnknownProperty
@@ -63,8 +64,9 @@ export class ErrorComponent {
     );
   }
 
-  private readonly platformId: NonNullable<unknown>                       = inject<NonNullable<unknown>>(PLATFORM_ID);
   private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
+  private readonly platformId: NonNullable<unknown>                       = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly rxSsrService: RxSsrService                             = inject<RxSsrService>(RxSsrService);
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
   protected readonly height$: Signal<number | undefined>    = isPlatformBrowser(this.platformId) ? toSignal<number>(
@@ -85,15 +87,18 @@ export class ErrorComponent {
     ),
   ) : signal<undefined>(undefined);
 
-  public readonly openModelWithTransform$: Signal<boolean | undefined> = computed<boolean | undefined>(
-    (): boolean | undefined => {
-      const open: "" | boolean | `${ boolean }` | undefined = this.openModel$();
-
-      if (open === undefined)
-        return undefined;
-
-      return open === "" || open === true || open === "true" || open !== "false" && false;
-    },
+  public readonly openModel$: ModelSignal<"" | boolean | `${ boolean }`> = model<"" | boolean | `${ boolean }`>(
+    false,
+    { alias: "open" },
+  );
+  public readonly openModelWithTransform$: Signal<boolean>               = toSignal<boolean>(
+    toObservable<"" | boolean | `${ boolean }`>(this.openModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
+      startWith<"" | boolean | `${ boolean }`>(this.openModel$()),
+      map<"" | boolean | `${ boolean }`, boolean>(
+        (open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true",
+      ),
+    ),
+    { requireSync: true },
   );
 
   protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
@@ -108,14 +113,14 @@ export class ErrorComponent {
   ) : signal<undefined>(undefined);
   protected readonly wellRoundedDirective: WellRoundedDirective  = inject<WellRoundedDirective>(WellRoundedDirective);
   protected readonly xmarkSymbol$: Signal<Symbol | undefined>    = toSignal<Symbol>(
-    fromPromise<Symbol>(
-      loadSymbol("Xmark"),
+    of<SymbolName>("Xmark").pipe<Symbol>(
+      this.rxSsrService.wrap<SymbolName, Symbol>(
+        switchMap<SymbolName, Observable<Symbol>>(
+          (symbolName: SymbolName): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(symbolName)),
+        ),
+        "Symbol:Xmark",
+      ),
     ),
-  );
-
-  public readonly openModel$: ModelSignal<"" | boolean | `${ boolean }` | undefined> = model<"" | boolean | `${ boolean }` | undefined>(
-    false,
-    { alias: "open" },
   );
 
 }

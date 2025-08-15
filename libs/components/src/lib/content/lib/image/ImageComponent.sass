@@ -14,14 +14,11 @@
 
   @include ContainerDirective.host
 
-  > .harness > .between
-    display: flex
-
-    > img
-      aspect-ratio: var(--bowstring--image--aspect-ratio)
-      height: auto
-      max-width: calc(100% - 2 * var(--bowstring--container-directive--margin-sides-input, 0px) - 2 * var(--bowstring--container-directive--padding-sides-input, 0px))
-      width: 100%
+  > .harness > .between > img
+    aspect-ratio: var(--bowstring--image--aspect-ratio)
+    height: auto
+    max-width: calc(100% - 2 * var(--bowstring--container-directive--margin-sides-input, 0px) - 2 * var(--bowstring--container-directive--padding-sides-input, 0px))
+    width: 100%
 
   &:not(.appearance-transparent)
     @include CanvasDirective.host(18%)

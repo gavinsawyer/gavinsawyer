@@ -4,7 +4,7 @@
 
 import { NgTemplateOutlet }                                                                                                                                                                            from "@angular/common";
 import { afterRender, booleanAttribute, ChangeDetectionStrategy, Component, type ElementRef, inject, input, type InputSignal, type InputSignalWithTransform, numberAttribute, type Signal, viewChild } from "@angular/core";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, WellRoundedDirective }                                                                                                                from "@bowstring/directives";
+import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WellRoundedDirective }                                                                                     from "@bowstring/directives";
 
 
 @Component(
@@ -13,33 +13,22 @@ import { CanvasDirective, ContainerDirective, ElevatedDirective, WellRoundedDire
     hostDirectives:  [
       { directive: CanvasDirective },
       {
-        directive: ContainerDirective,
-        inputs:    [
-          "alignSelf",
-          "aspectRatio",
-          "marginBottom",
-          "marginSides",
-          "marginTop",
-          "overflowX",
-          "overflowY",
-          "paddingBottom",
-          "paddingSides",
-          "paddingTop",
-          "position",
-          "positionBottom",
-          "positionLeft",
-          "positionRight",
-          "positionTop",
-          "scrollSnapAlign",
-          "scrollSnapStop",
-          "scrollSnapType",
-        ],
-      },
-      {
         directive: ElevatedDirective,
         inputs:    [
           "level",
           "materialOpacity",
+        ],
+      },
+      {
+        directive: FlexboxContainerDirective,
+        inputs:    [
+          "alignContent",
+          "alignItems",
+          "flexDirection",
+          "flexWrap",
+          "gapColumn",
+          "gapRow",
+          "justifyContent",
         ],
       },
       {

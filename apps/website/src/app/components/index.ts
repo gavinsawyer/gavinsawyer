@@ -4,5 +4,7 @@
 
 export * from "./lib/focus/FocusComponent";
 export * from "./lib/root/RootComponent";
+export * from "./lib/route/RouteComponent";
 
 export * from "./lib/routes";
+

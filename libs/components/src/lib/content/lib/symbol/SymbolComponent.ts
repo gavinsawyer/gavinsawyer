@@ -7,10 +7,10 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, ty
 import { toObservable, toSignal }                                                                                                            from "@angular/core/rxjs-interop";
 import { ContainerDirective, FlexboxContainerDirective, InlinableDirective }                                                                 from "@bowstring/directives";
 import { type Symbol }                                                                                                                       from "@bowstring/interfaces";
+import { RxSsrService }                                                                                                                      from "@bowstring/services";
 import loadSymbol                                                                                                                            from "@bowstring/symbols";
 import { type SymbolName }                                                                                                                   from "@bowstring/types";
-import { type Observable, switchMap }                                                                                                        from "rxjs";
-import { fromPromise }                                                                                                                       from "rxjs/internal/observable/innerFrom";
+import { from, type Observable, of, switchMap }                                                                                              from "rxjs";
 
 
 @Component(
@@ -48,19 +48,31 @@ import { fromPromise }                                                          
 )
 export class SymbolComponent {
 
+  private readonly rxSsrService: RxSsrService = inject<RxSsrService>(RxSsrService);
+
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
+
+  public readonly input$: InputSignal<SymbolName> = input.required<SymbolName>({ alias: "input" });
+
+  protected readonly symbol$: Signal<Symbol | undefined> = toSignal<Symbol>(
+    toObservable<SymbolName>(this.input$).pipe<Symbol>(
+      switchMap<SymbolName, Observable<Symbol>>(
+        (input: SymbolName): Observable<Symbol> => of<SymbolName>(input).pipe<Symbol>(
+          this.rxSsrService.wrap<SymbolName, Symbol>(
+            switchMap<SymbolName, Observable<Symbol>>(
+              (symbolName: SymbolName): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(symbolName)),
+            ),
+            `Symbol:${ input }`,
+          ),
+        ),
+      ),
+    ),
+  );
 
   public readonly badgeInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined>      = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
     undefined,
     {
       alias:     "badge",
-      transform: booleanAttribute,
-    },
-  );
-  public readonly disabledInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined>   = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
-    undefined,
-    {
-      alias:     "disabled",
       transform: booleanAttribute,
     },
   );
@@ -70,16 +82,6 @@ export class SymbolComponent {
       alias:     "fixedWidth",
       transform: booleanAttribute,
     },
-  );
-  public readonly input$: InputSignal<SymbolName>                                                                            = input.required<SymbolName>({ alias: "input" });
-  public readonly symbol$: Signal<Symbol | undefined>                                                                        = toSignal<Symbol>(
-    toObservable<SymbolName>(this.input$).pipe<Symbol>(
-      switchMap<SymbolName, Observable<Symbol>>(
-        (symbolName: SymbolName): Observable<Symbol> => fromPromise<Symbol>(
-          loadSymbol(symbolName),
-        ),
-      ),
-    ),
   );
 
 }

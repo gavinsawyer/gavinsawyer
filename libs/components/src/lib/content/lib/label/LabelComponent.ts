@@ -16,6 +16,7 @@ import { ContainerDirective, InlinableDirective }                              f
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",
