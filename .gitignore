@@ -11,6 +11,7 @@ tmp
 # Sensitive Firebase files
 .firebase
 .runtimeconfig.json
+.service-account.json
 gha-creds-*.json
 
 # Version side-effect files

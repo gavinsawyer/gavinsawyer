@@ -22,6 +22,7 @@ import { ContainerDirective, ElevatedDirective, PrimaryDirective, SecondaryDirec
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",

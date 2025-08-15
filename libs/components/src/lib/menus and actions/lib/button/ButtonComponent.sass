@@ -67,7 +67,7 @@
               @include FlexboxContainerDirective.children
 
   &:not(.appearance-raised)
-    &:not(.material-primary):not(.material-secondary):not(.material-warning)
+    &:not(.material-appleMusic):not(.material-primary):not(.material-secondary):not(.material-spotify):not(.material-warning)
       @include CanvasDirective.host(18%)
 
       > .harness > .between::ng-deep > *
@@ -108,7 +108,7 @@
     @include HoverTransformingDirective.host
     @include WellRoundedDirective.host
 
-    &:not(.material-glass):not(.material-inverse):not(.material-primary):not(.material-secondary):not(.material-warning)
+    &:not(.material-appleMusic):not(.material-glass):not(.material-inverse):not(.material-primary):not(.material-secondary):not(.material-spotify):not(.material-warning)
       @include CanvasDirective.host(0%)
 
       > .harness > .between::ng-deep > *
@@ -166,7 +166,7 @@
         --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
 
   &.appearance-symbol > .harness > .between > div > .harness > .between
-    font-size: calc(1rem * pow(var(--phi), 1))
+    font-size: calc(1rem * var(--phi))
 
   &.disabled > .harness
     pointer-events: none

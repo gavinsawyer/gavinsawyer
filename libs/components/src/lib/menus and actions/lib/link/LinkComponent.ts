@@ -74,9 +74,7 @@ export class LinkComponent {
     undefined,
     { alias: "material" },
   );
-  public readonly output: OutputEmitterRef<void>                                                                           = output<void>(
-    { alias: "output" },
-  );
+  public readonly output: OutputEmitterRef<void>                                                                           = output<void>({ alias: "output" });
   public readonly typeInput$: InputSignal<"reset" | "submit" | undefined>                                                  = input<"reset" | "submit" | undefined>(
     undefined,
     { alias: "type" },

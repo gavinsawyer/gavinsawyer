@@ -66,6 +66,6 @@
     --bowstring--header--gap-column: calc(var(--bowstring--#{ $host-context-namespace }--gap-column) * pow(var(--phi), -1))
     --bowstring--header--gap-row: calc(var(--bowstring--#{ $host-context-namespace }--gap-row) * pow(var(--phi), -1))
 
-@each $host-context-namespace in ("main", "above", "below", "nav", "footer", "aside", "sheet")
+@each $host-context-namespace in ("main", "above", "below", "nav", "footer", "aside", "sheet", "inspector")
   \:host-context(bowstring--#{ $host-context-namespace })
     --bowstring--typography-directive--font-size-exponent: var(--bowstring--#{ $host-context-namespace }--font-size-exponent) !important

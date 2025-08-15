@@ -4,7 +4,7 @@
 
 <footer class="harness" #htmlElement
   (click)="$event.stopPropagation();"
-  (keydown)="$event.key === 'Escape' || $event.stopPropagation(); ($event.key === 'Escape' && pinnedOrUnpinning$() ? pinnedModel$.set(false) : true) || $event.preventDefault();"
+  (keydown)="$event.key === 'Escape' || $event.stopPropagation(); ($event.key === 'Escape' && pinnedModelWithTransform$() ? pinnedModel$.set(false) : true) || $event.preventDefault();"
   tabindex="-1">
   <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
 </footer>
@@ -34,13 +34,13 @@
 <ng-template #pinnedControlTemplate>
   <div id="pinnedControl">
     <button class="harness"
-      (click)="$event.stopPropagation(); pinnedModel$.set(pinnedModelWithTransform$() === false);"
+      (click)="$event.stopPropagation(); pinnedModel$.set(!pinnedModelWithTransform$());"
       (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
       role="button"
       tabindex="0"
       type="button">
       <div class="between">
-        @if (pinnedModelWithTransform$() === false ? pinFillSymbol$() : pinSlashFillSymbol$(); as symbol) {<svg
+        @if (!pinnedModelWithTransform$() ? pinFillSymbol$() : pinSlashFillSymbol$(); as symbol) {<svg
           [attr.viewBox]="'0 0 ' + symbol.viewBoxWidth + ' ' + symbol.viewBoxHeight + ''"
           xmlns="http://www.w3.org/2000/svg">
           <g>

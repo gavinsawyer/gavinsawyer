@@ -2,21 +2,21 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser }                                                                                            from "@angular/common";
-import { ChangeDetectionStrategy, Component, inject, Injector, LOCALE_ID, PLATFORM_ID, type Signal, type TemplateRef, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                 from "@angular/core/rxjs-interop";
-import { AppCheck, type AppCheckTokenResult, getLimitedUseToken }                                                                 from "@angular/fire/app-check";
-import { RouterOutlet, type Routes }                                                                                              from "@angular/router";
-import type * as brandLib                                                                                                         from "@bowstring/brand";
-import { type RouteComponent }                                                                                                    from "@bowstring/components";
-import { CanvasDirective, FlexboxContainerDirective }                                                                             from "@bowstring/directives";
-import { BOWSTRING_ROUTES, BRAND, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES }                  from "@bowstring/injection-tokens";
-import { Environment }                                                                                                            from "@bowstring/interfaces";
-import { ConnectivityService, ErrorsService, ResponsivityService }                                                                from "@bowstring/services";
-import { type GitInfo }                                                                                                           from "git-describe";
-import { type Observable, startWith, switchMap }                                                                                  from "rxjs";
-import { PROJECT_LOCALE_IDS }                                                                                                     from "../../../injection tokens";
-import { type ProjectLocaleId }                                                                                                   from "../../../types";
+import { DOCUMENT, isPlatformBrowser }                                                                                                    from "@angular/common";
+import { ChangeDetectionStrategy, Component, effect, inject, Injector, LOCALE_ID, PLATFORM_ID, type Signal, type TemplateRef, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                         from "@angular/core/rxjs-interop";
+import { AppCheck, type AppCheckTokenResult, getLimitedUseToken }                                                                         from "@angular/fire/app-check";
+import { RouterOutlet, type Routes }                                                                                                      from "@angular/router";
+import type * as brandLib                                                                                                                 from "@bowstring/brand";
+import { CanvasDirective, FlexboxContainerDirective }                                                                                     from "@bowstring/directives";
+import { BRAND, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES, SERVICE_WORKER_REGISTRATION }               from "@bowstring/injection-tokens";
+import { Environment }                                                                                                                    from "@bowstring/interfaces";
+import { AuthenticationService, ConnectivityService, ErrorsService, ResponsivityService }                                                 from "@bowstring/services";
+import { type GitInfo }                                                                                                                   from "git-describe";
+import { type Observable, startWith, switchMap }                                                                                          from "rxjs";
+import { type RouteComponent }                                                                                                            from "../../";
+import { PROJECT_LOCALE_IDS }                                                                                                             from "../../../injection tokens";
+import { type ProjectLocaleId }                                                                                                           from "../../../types";
 
 
 // noinspection CssUnknownProperty
@@ -24,8 +24,7 @@ import { type ProjectLocaleId }                                                 
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
-      "[style.--bowstring--root--brand-font-family]": "brandLib.fontFamily",
-      "[style.--bowstring--root--brand-title-font]":  "brandLib.titleFont",
+      "[style.--bowstring--root--brand--font-family]": "brandLib.fontFamily",
     },
     hostDirectives:  [
       { directive: CanvasDirective },
@@ -50,12 +49,33 @@ import { type ProjectLocaleId }                                                 
 )
 export class RootComponent {
 
-  private readonly appCheck: AppCheck                  = inject<AppCheck>(AppCheck);
-  private readonly document: Document                  = inject<Document>(DOCUMENT);
-  private readonly environment: Environment            = inject<Environment>(ENVIRONMENT);
-  private readonly injector: Injector                  = inject<Injector>(Injector);
-  private readonly platformId: NonNullable<unknown>    = inject<NonNullable<unknown>>(PLATFORM_ID);
-  private readonly routerOutlet$: Signal<RouterOutlet> = viewChild.required<RouterOutlet>(RouterOutlet);
+  constructor() {
+    effect(
+      (): void => {
+        const idToken: string | undefined = this.authenticationService.idToken$();
+
+        if (idToken)
+          this.serviceWorkerRegistration?.active?.postMessage(
+            {
+              data:      { idToken },
+              eventType: "idTokenChanged",
+            },
+          );
+      },
+    );
+  }
+
+  private readonly appCheck: AppCheck                                          = inject<AppCheck>(AppCheck);
+  private readonly authenticationService: AuthenticationService                = inject<AuthenticationService>(AuthenticationService);
+  private readonly document: Document                                          = inject<Document>(DOCUMENT);
+  private readonly environment: Environment                                    = inject<Environment>(ENVIRONMENT);
+  private readonly injector: Injector                                          = inject<Injector>(Injector);
+  private readonly platformId: NonNullable<unknown>                            = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly routerOutlet$: Signal<RouterOutlet>                         = viewChild.required<RouterOutlet>(RouterOutlet);
+  private readonly serviceWorkerRegistration: ServiceWorkerRegistration | null = inject<ServiceWorkerRegistration>(
+    SERVICE_WORKER_REGISTRATION,
+    { optional: true },
+  );
 
   protected readonly aboveTemplateRef$: Signal<TemplateRef<never> | undefined>  = toSignal<TemplateRef<never> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
@@ -102,7 +122,6 @@ export class RootComponent {
       ),
     ),
   );
-  protected readonly bowstringRoutes: Routes                                    = inject<Routes>(BOWSTRING_ROUTES);
   protected readonly brandLib: typeof brandLib                                  = inject<typeof brandLib>(BRAND);
   protected readonly connectivityService: ConnectivityService                   = inject<ConnectivityService>(ConnectivityService);
   protected readonly errorsService: ErrorsService                               = inject<ErrorsService>(ErrorsService);

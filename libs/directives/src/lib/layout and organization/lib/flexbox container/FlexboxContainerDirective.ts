@@ -25,6 +25,7 @@ import { ContainerDirective }                                                   
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",

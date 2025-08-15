@@ -30,6 +30,7 @@ module.exports = [
       "tmp",
       ".firebase",
       ".runtimeconfig.json",
+      ".service-account.json",
       "gha-creds-*.json",
     ],
   },

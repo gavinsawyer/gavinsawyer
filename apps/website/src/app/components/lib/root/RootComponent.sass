@@ -42,7 +42,7 @@
   > .harness > .between
     flex-direction: column
     //noinspection CssNoGenericFontName
-    font-family: var(--bowstring--root--brand-font-family)
+    font-family: var(--bowstring--root--brand--font-family)
     font-optical-sizing: auto
     font-style: normal
     letter-spacing: -0.03444185375em
@@ -52,3 +52,29 @@
     &::ng-deep > *
       @include CanvasDirective.children
       @include FlexboxContainerDirective.children
+
+    > bowstring--footer::ng-deep > .harness > .between
+      > bowstring--section#connectivitySection
+        --bowstring--flexbox-container-directive--justify-content: center !important
+
+        @media (min-width: 48rem)
+          --bowstring--flexbox-container-directive--justify-content: flex-start !important
+
+      > bowstring--section#informationAndOptionsSection > .harness > .between
+        > bowstring--flexbox-container:first-child
+          --bowstring--flexbox-container-directive--justify-content: center !important
+
+          > .harness > .between > span > div#copyrightYear
+            display: none
+
+            @media (min-width: 48rem)
+              display: contents !important
+
+          @media (min-width: 48rem)
+            --bowstring--flexbox-container-directive--justify-content: flex-start !important
+
+        > bowstring--flexbox-container:nth-child(2)
+          --bowstring--flexbox-child-directive--flex-basis: 100% !important
+
+          @media (min-width: 48rem)
+            --bowstring--flexbox-child-directive--flex-basis: auto !important

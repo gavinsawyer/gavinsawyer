@@ -16,6 +16,7 @@ import { ContainerDirective }                         from "@bowstring/directive
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",

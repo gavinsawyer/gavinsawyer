@@ -2,8 +2,6 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-/// <reference types="@angular/localize" />
-
 import { type FirestoreError } from "@angular/fire/firestore";
 
 

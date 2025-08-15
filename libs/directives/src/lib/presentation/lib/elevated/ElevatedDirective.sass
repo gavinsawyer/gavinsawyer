@@ -86,4 +86,4 @@ $material-opacity: functions.get-input-reference($namespace, "material-opacity",
 
 
 @mixin shadow($level)
-  box-shadow: transparentize(black, 0.25) 0 calc(0.25rem * pow(var(--phi), 0 - $level)) calc(1rem * pow(var(--phi), 0 - $level) * pow(var(--phi), 1)) calc(-1rem * pow(var(--phi), 0 - $level) * pow(var(--phi), -1))
+  box-shadow: transparentize(black, 0.25) 0 calc(0.25rem * pow(var(--phi), 0 - $level)) calc(1rem * pow(var(--phi), 0 - $level) * var(--phi)) calc(-1rem * pow(var(--phi), 0 - $level) * pow(var(--phi), -1))

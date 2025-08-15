@@ -15,6 +15,14 @@
   --bowstring--box--gap-column: var(--bowstring--container-directive--padding-sides)
   --bowstring--box--gap-row: var(--bowstring--container-directive--padding-bottom)
   --bowstring--box--material-opacity: 0.625
+  --bowstring--box--padding-bottom: calc(1rem * pow(var(--phi), -1))
+  --bowstring--box--padding-sides: calc(1rem * pow(var(--phi), 0))
+  --bowstring--box--padding-top: calc(1rem * pow(var(--phi), -1))
+
+  @media (min-width: 48rem)
+    --bowstring--box--padding-bottom: calc(1rem * pow(var(--phi), 0))
+    --bowstring--box--padding-sides: calc(1rem * pow(var(--phi), 1))
+    --bowstring--box--padding-top: calc(1rem * pow(var(--phi), 0))
 
   @include ElevatedDirective.host
   @include FlexboxContainerDirective.host
@@ -32,18 +40,13 @@
     > .harness > .between::ng-deep > *
       @include PrimaryDirective.children
 
-  --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
-  --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
-  --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
+  --bowstring--container-directive--padding-bottom: var(--bowstring--box--padding-bottom) !important
+  --bowstring--container-directive--padding-sides: var(--bowstring--box--padding-sides) !important
+  --bowstring--container-directive--padding-top: var(--bowstring--box--padding-top) !important
   --bowstring--elevated-directive--material-opacity: var(--bowstring--box--material-opacity) !important
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--box--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--box--gap-row) !important
   --bowstring--glass-directive--material-opacity: var(--bowstring--box--material-opacity) !important
-
-  @media (min-width: 48rem)
-    --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), 0)) !important
-    --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 1)) !important
-    --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), 0)) !important
 
   > .harness > .between::ng-deep > *
     --bowstring--box--material-opacity: initial

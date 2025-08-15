@@ -26,6 +26,7 @@ import { combineLatestWith, fromEvent, map, Observable, type Observer, startWith
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",

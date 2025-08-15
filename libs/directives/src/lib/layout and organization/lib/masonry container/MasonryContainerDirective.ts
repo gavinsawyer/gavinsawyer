@@ -26,6 +26,7 @@ import { ContainerDirective }                                                   
         inputs:    [
           "alignSelf",
           "aspectRatio",
+          "hideScrollbar",
           "marginBottom",
           "marginSides",
           "marginTop",
@@ -64,20 +65,20 @@ export class MasonryContainerDirective
       const gutterSizerHtmlDivElement: HTMLDivElement | undefined = this.gutterSizerHtmlDivElementRef$()?.nativeElement;
       const innerHtmlDivElement: HTMLDivElement | undefined       = this.innerHtmlDivElementRef$()?.nativeElement;
 
-      if (!columnSizerHtmlDivElement || !gutterSizerHtmlDivElement || !innerHtmlDivElement)
-        return undefined;
+      if (columnSizerHtmlDivElement && gutterSizerHtmlDivElement && innerHtmlDivElement)
+        return new (require("masonry-layout"))(
+          innerHtmlDivElement,
+          {
+            columnWidth:        columnSizerHtmlDivElement,
+            gutter:             gutterSizerHtmlDivElement,
+            initLayout:         false,
+            itemSelector:       ".bowstringMasonryChild",
+            percentPosition:    true,
+            transitionDuration: 0,
+          },
+        );
 
-      return new (require("masonry-layout"))(
-        innerHtmlDivElement,
-        {
-          columnWidth:        columnSizerHtmlDivElement,
-          gutter:             gutterSizerHtmlDivElement,
-          initLayout:         false,
-          itemSelector:       ".bowstringMasonryChild",
-          percentPosition:    true,
-          transitionDuration: 0,
-        },
-      );
+      return undefined;
     },
   );
   private readonly platformId: NonNullable<unknown>      = inject<NonNullable<unknown>>(PLATFORM_ID);

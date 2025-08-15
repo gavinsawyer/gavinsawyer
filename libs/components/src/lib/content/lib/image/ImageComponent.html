@@ -30,6 +30,7 @@
   <img #htmlImageElement
     [attr.alt]="altInput$()"
     [height]="heightInput$() || imageDimensions$()?.height || 'auto'"
+    [loading]="loadingInput$()"
     [ngSrc]="input$()"
     [routerLink]="urlInput$()"
     routerLinkActive

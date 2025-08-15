@@ -67,6 +67,7 @@ $scroll-snap-type: functions.get-input-reference($namespace, "scroll-snap-type",
     -webkit-tap-highlight-color: transparent
 
     > .between
+      display: grid
       overflow-x: $overflow-x
       overflow-y: $overflow-y
       padding: $padding-top $padding-sides $padding-bottom
@@ -74,5 +75,8 @@ $scroll-snap-type: functions.get-input-reference($namespace, "scroll-snap-type",
       scroll-snap-type: $scroll-snap-type
       z-index: 1
 
-      #badgeSymbol
+      > div#badgeSymbol
         display: contents
+
+  &.hideScrollbar > .harness > .between::-webkit-scrollbar
+    display: none

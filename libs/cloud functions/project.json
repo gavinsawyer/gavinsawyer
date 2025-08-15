@@ -2,6 +2,7 @@
   "name":        "cloud-functions",
   "$schema":     "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
+  "tags":        [ "cloud-functions" ],
   "sourceRoot":  "libs/cloud functions/src",
   "targets":     {
     "eslint":          {
@@ -21,7 +22,7 @@
     "firebase-deploy": {
       "dependsOn": [ "esbuild" ],
       "executor":  "nx:run-commands",
-      "options":   { "command": "firebase deploy --only functions" }
+      "options":   { "command": "firebase deploy --only functions:cloud-functions" }
     },
     "build":           {
       "dependsOn": [ "esbuild" ],

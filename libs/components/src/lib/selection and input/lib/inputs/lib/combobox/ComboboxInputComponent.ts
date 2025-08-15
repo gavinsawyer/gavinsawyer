@@ -3,13 +3,12 @@
  */
 
 import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, contentChildren, forwardRef, inject, signal, type Signal }                           from "@angular/core";
+import { afterRender, ChangeDetectionStrategy, Component, forwardRef, inject, signal, type Signal }                                            from "@angular/core";
 import { NG_VALUE_ACCESSOR }                                                                                                                   from "@angular/forms";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "@bowstring/directives";
 import { InsertZwnjsPipe }                                                                                                                     from "@bowstring/pipes";
 import { v7 as uuidV7 }                                                                                                                        from "uuid";
-import { InputComponent }                                                                                                                      from "../../../input/InputComponent";
-import { ComboboxInputOptionComponent }                                                                                                        from "../combobox option/ComboboxInputOptionComponent";
+import { InputWithOptionsComponent }                                                                                                           from "../../../../";
 
 
 @Component(
@@ -63,7 +62,7 @@ import { ComboboxInputOptionComponent }                                         
   },
 )
 export class ComboboxInputComponent
-  extends InputComponent {
+  extends InputWithOptionsComponent {
 
   constructor() {
     super();
@@ -76,24 +75,10 @@ export class ComboboxInputComponent
     );
   }
 
-  protected readonly containerDirective: ContainerDirective                                   = inject<ContainerDirective>(ContainerDirective);
-  protected readonly optionComponents$: Signal<Readonly<Array<ComboboxInputOptionComponent>>> = contentChildren<ComboboxInputOptionComponent>(ComboboxInputOptionComponent);
-  protected readonly hoverTransformingDirective: HoverTransformingDirective                   = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  protected readonly wellRoundedDirective: WellRoundedDirective                               = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
+  protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly optionsId$: Signal<`bowstring--input-directive--options-${ string }`> = signal<`bowstring--input-directive--options-${ string }`>(`bowstring--input-directive--options-${ uuidV7() }`);
-
-  protected override onBlur(): void {
-    setTimeout(
-      (): void => {
-        this.focused = this.document.activeElement === this.htmlButtonElementRef$()?.nativeElement;
-
-        if (!this.focused && !this.value || (typeof this.value === "string" && this.optionComponents$().map<string>(
-          ({ valueInput$ }: ComboboxInputOptionComponent): string => valueInput$(),
-        ).includes(this.value)))
-          this.onChange?.();
-      },
-    );
-  }
 
 }

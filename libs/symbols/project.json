@@ -4,9 +4,23 @@
   "projectType": "library",
   "sourceRoot":  "libs/symbols/src",
   "targets":     {
-    "eslint": {
+    "eslint":  {
       "executor": "@nx/eslint:lint",
       "options":  { "lintFilePatterns": [ "libs/symbols/src/**/*.ts" ] }
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":       "libs/symbols/src/lib/main.ts",
+        "outputPath": "dist/libs/symbols",
+        "tsConfig":   "libs/symbols/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
     }
   }
 }

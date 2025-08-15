@@ -8,7 +8,6 @@
 @use "../../../../../../directives/src/lib/materials/lib/inverse/InverseDirective"
 @use "../../../../../../directives/src/lib/materials/lib/primary/PrimaryDirective"
 @use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
 
 
 \:host
@@ -30,7 +29,6 @@
 
       @include CanvasDirective.host(0%)
       @include FlexboxContainerDirective.host
-      @include WellRoundedDirective.host
 
       --bowstring--flexbox-container-directive--align-items: center !important
       --bowstring--flexbox-container-directive--flex-direction: row !important
@@ -49,7 +47,6 @@
           &::ng-deep > *
             @include CanvasDirective.children
             @include FlexboxContainerDirective.children
-            @include WellRoundedDirective.children
 
           > input
             border: 0
@@ -71,7 +68,7 @@
             --bowstring--container-directive--position: absolute !important
 
             > .harness > .between
-              border-radius: calc(10px * pow(var(--phi), 0))
+              border-radius: calc(10px)
               cursor: pointer
               height: calc(18px * pow(var(--phi), 0) + 2px)
               transition: background-color 75ms ease-in-out
@@ -82,19 +79,19 @@
                 @include ContainerDirective.children
 
               &:before
-                @include CanvasDirective.host(6%)
+                @include CanvasDirective.host(0%)
                 @include ElevatedDirective.shadow(4)
 
                 background-color: var(--bowstring--canvas-directive--colors--background)
                 border-radius: 50%
                 content: ""
-                height: calc(18px * pow(var(--phi), 0))
+                height: calc(18px)
                 left: 1px
                 position: absolute
                 top: 1px
                 transition: translate 75ms ease-in-out
                 translate: var(--bowstring--toggle--translation-x, 0px) 0 0
-                width: calc(18px * pow(var(--phi), 0))
+                width: calc(18px)
 
                 @media (prefers-color-scheme: dark)
                   background-color: var(--bowstring--canvas-directive--colors--background-inverse)
@@ -106,7 +103,7 @@
                 position: relative
 
                 > bowstring--symbol
-                  @include CanvasDirective.host(6%)
+                  @include CanvasDirective.host(0%)
 
                   --bowstring--container-directive--position: absolute !important
                   --bowstring--container-directive--position-left: 50% !important

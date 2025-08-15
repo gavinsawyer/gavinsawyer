@@ -47,7 +47,11 @@
     "skipLibCheck":                       true,
     "sourceMap":                          true,
     "strict":                             true,
-    "target":                             "ESNext"
+    "target":                             "ESNext",
+    "types":                              [
+      "@angular/localize",
+      "@types/serviceworker"
+    ]
   },
   "exclude":                [
     "node_modules",

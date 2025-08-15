@@ -2,36 +2,46 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser }                                                                              from "@angular/common";
-import { inject, Injectable, PLATFORM_ID, signal, type Signal }                                           from "@angular/core";
-import { toSignal }                                                                                       from "@angular/core/rxjs-interop";
-import { FirebaseApp }                                                                                    from "@angular/fire/app";
-import { doc, docSnapshots, type DocumentReference, type DocumentSnapshot, type Firestore, getFirestore } from "@angular/fire/firestore";
-import { type Focus, type PublicDocument }                                                                from "@gavinsawyer/shortcuts-api";
-import { map, type Observable }                                                                           from "rxjs";
+import { inject, Injectable, type Signal }                                    from "@angular/core";
+import { toSignal }                                                           from "@angular/core/rxjs-interop";
+import { FirebaseApp }                                                        from "@angular/fire/app";
+import { doc, docData, type DocumentReference, type Firestore, getFirestore } from "@angular/fire/firestore";
+import { RxSsrService }                                                       from "@bowstring/services";
+import { type Focus, type PublicDocument }                                    from "@gavinsawyer/shortcuts-api";
+import { catchError, map, type Observable, of, switchMap }                    from "rxjs";
 
 
 @Injectable({ providedIn: "root" })
 export class FocusService {
 
-  private readonly firebaseApp: FirebaseApp         = inject<FirebaseApp>(FirebaseApp);
-  private readonly firestore: Firestore             = getFirestore(
+  private readonly firebaseApp: FirebaseApp   = inject<FirebaseApp>(FirebaseApp);
+  private readonly firestore: Firestore       = getFirestore(
     this.firebaseApp,
     "shortcuts-api",
   );
-  private readonly platformId: NonNullable<unknown> = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly rxSsrService: RxSsrService = inject<RxSsrService>(RxSsrService);
 
-  public readonly focus$: Signal<Focus | undefined> = isPlatformBrowser(this.platformId) ? toSignal<Focus | undefined>(
-    (docSnapshots<PublicDocument>(
-      doc(
-        this.firestore,
-        "environment/public",
-      ) as DocumentReference<PublicDocument, PublicDocument>,
-    ) as Observable<DocumentSnapshot<PublicDocument, PublicDocument>>).pipe<Focus | undefined>(
-      map<DocumentSnapshot<PublicDocument, PublicDocument>, Focus | undefined>(
-        (publicDocumentSnapshot: DocumentSnapshot<PublicDocument, PublicDocument>): Focus | undefined => publicDocumentSnapshot.data()?.users["gavin"]?.focus,
+  public readonly focus$: Signal<Focus | undefined> = toSignal<Focus | undefined>(
+    of<undefined>(undefined).pipe(
+      this.rxSsrService.wrap<undefined, Focus | undefined>(
+        switchMap<undefined, Observable<Focus | undefined>>(
+          (): Observable<Focus | undefined> => docData<PublicDocument>(
+            doc(
+              this.firestore,
+              "environment/public",
+            ) as DocumentReference<PublicDocument, PublicDocument>,
+          ).pipe<PublicDocument | undefined, Focus | undefined>(
+            catchError<PublicDocument | undefined, Observable<undefined>>(
+              (): Observable<undefined> => of<undefined>(undefined),
+            ),
+            map<PublicDocument | undefined, Focus | undefined>(
+              (publicDocument?: PublicDocument): Focus | undefined => publicDocument?.users["gavin"]?.focus,
+            ),
+          ),
+        ),
+        "0198a027-4c5f-71cc-a7ca-2e9aabaf5d87",
       ),
     ),
-  ) : signal<undefined>(undefined);
+  );
 
 }

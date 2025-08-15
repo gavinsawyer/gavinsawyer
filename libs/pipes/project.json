@@ -7,6 +7,20 @@
     "eslint": {
       "executor": "@nx/eslint:lint",
       "options":  { "lintFilePatterns": [ "libs/pipes/src/**/*.ts" ] }
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":       "libs/pipes/src/lib/main.ts",
+        "outputPath": "dist/libs/pipes",
+        "tsConfig":   "libs/pipes/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
     }
   }
 }
