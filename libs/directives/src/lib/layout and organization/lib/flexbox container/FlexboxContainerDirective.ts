@@ -59,10 +59,6 @@ export class FlexboxContainerDirective {
     undefined,
     { alias: "alignItems" },
   );
-  public readonly gapColumnInput$: InputSignal<ScalarString | Inherit | undefined>                                                                            = input<ScalarString | Inherit | undefined>(
-    undefined,
-    { alias: "gapColumn" },
-  );
   public readonly flexDirectionInput$: InputSignal<FlexDirection | Inherit | undefined>                                                                       = input<FlexDirection | Inherit | undefined>(
     undefined,
     { alias: "flexDirection" },
@@ -71,13 +67,17 @@ export class FlexboxContainerDirective {
     undefined,
     { alias: "flexWrap" },
   );
-  public readonly justifyContentInput$: InputSignal<DistributedAlignment | NormalAlignment | FlexPositionalAlignment | Inherit | undefined>                   = input<DistributedAlignment | NormalAlignment | FlexPositionalAlignment | Inherit | undefined>(
+  public readonly gapColumnInput$: InputSignal<ScalarString | Inherit | undefined>                                                                            = input<ScalarString | Inherit | undefined>(
     undefined,
-    { alias: "justifyContent" },
+    { alias: "gapColumn" },
   );
   public readonly gapRowInput$: InputSignal<ScalarString | Inherit | undefined>                                                                               = input<ScalarString | Inherit | undefined>(
     undefined,
     { alias: "gapRow" },
+  );
+  public readonly justifyContentInput$: InputSignal<DistributedAlignment | NormalAlignment | FlexPositionalAlignment | Inherit | undefined>                   = input<DistributedAlignment | NormalAlignment | FlexPositionalAlignment | Inherit | undefined>(
+    undefined,
+    { alias: "justifyContent" },
   );
 
 }
