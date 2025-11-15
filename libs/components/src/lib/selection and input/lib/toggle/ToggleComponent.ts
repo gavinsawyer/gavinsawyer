@@ -42,9 +42,7 @@ import { v7 as uuidV7 }                                                         
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof ToggleComponent => ToggleComponent,
-        ),
+        useExisting: forwardRef((): typeof ToggleComponent => ToggleComponent),
       },
     ],
     selector:        "bowstring--toggle",

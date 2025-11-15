@@ -39,6 +39,8 @@
       --bowstring--flexbox-container-directive--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1) + 1rem * pow(var(--phi), -1)) !important
 
       > .harness > .between
+        box-shadow: inset 0 calc(0.25rem * pow(var(--phi), -2)) calc(1rem * pow(var(--phi), -1)) calc(-1rem * pow(var(--phi), -3)) transparentize(black, 0.25)
+
         &::ng-deep > *
           @include FlexboxContainerDirective.children
           @include WellRoundedDirective.children

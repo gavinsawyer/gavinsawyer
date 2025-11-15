@@ -44,6 +44,11 @@ $brand-primary-foreground-light: functions.get-value-reference($namespace, "bran
   @media (prefers-color-scheme: dark)
     @include color-scheme("dark")
 
-  > .harness > .between
-    background: $background
-    color: $foreground
+  > .harness
+    &:before,
+    > .between
+      color: $background
+
+    > .between
+      color: $foreground
+      background: $background

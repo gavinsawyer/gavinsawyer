@@ -54,9 +54,7 @@ export class MasonryContainerDirective
   implements OnDestroy {
 
   constructor() {
-    afterRender(
-      (): void => this.masonry$()?.layout?.(),
-    );
+    afterRender((): void => this.masonry$()?.layout?.());
   }
 
   private readonly masonry$: Signal<Masonry | undefined> = computed<Masonry | undefined>(
@@ -87,15 +85,11 @@ export class MasonryContainerDirective
 
   protected readonly columnWidth$: Signal<number | undefined> = isPlatformBrowser(this.platformId) ? toSignal<number>(
     toObservable<ElementRef<HTMLDivElement> | undefined>(this.columnSizerHtmlDivElementRef$).pipe<ElementRef<HTMLDivElement>, number>(
-      filter<ElementRef<HTMLDivElement> | undefined, ElementRef<HTMLDivElement>>(
-        (columnSizerHtmlDivElementRef?: ElementRef<HTMLDivElement>): columnSizerHtmlDivElementRef is ElementRef<HTMLDivElement> => !!columnSizerHtmlDivElementRef,
-      ),
+      filter<ElementRef<HTMLDivElement> | undefined, ElementRef<HTMLDivElement>>((columnSizerHtmlDivElementRef?: ElementRef<HTMLDivElement>): columnSizerHtmlDivElementRef is ElementRef<HTMLDivElement> => !!columnSizerHtmlDivElementRef),
       switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
         ({ nativeElement: columnSizerHtmlDivElement }: ElementRef<HTMLDivElement>): Observable<number> => new Observable<number>(
           (columnWidthObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(
-              ([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => columnWidthObserver.next(clientWidth),
-            );
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => columnWidthObserver.next(clientWidth));
 
             resizeObserver.observe(columnSizerHtmlDivElement);
 

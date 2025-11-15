@@ -17,8 +17,10 @@
   @include WellRoundedDirective.host
 
   > .harness > .between > video
+    background: transparent !important
     flex-grow: 1
     height: auto
     max-width: calc(100% - 2 * var(--bowstring--container-directive--margin-sides-input, 0px) - 2 * var(--bowstring--container-directive--padding-sides-input, 0px))
-    object-fit: cover
-    width: auto
+    object-fit: cover !important
+    width: auto !important
+    z-index: auto !important

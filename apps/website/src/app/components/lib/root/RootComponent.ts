@@ -11,7 +11,7 @@ import type * as brandLib                                                       
 import { CanvasDirective, FlexboxContainerDirective }                                                                                     from "@bowstring/directives";
 import { BRAND, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES, SERVICE_WORKER_REGISTRATION }               from "@bowstring/injection-tokens";
 import { Environment }                                                                                                                    from "@bowstring/interfaces";
-import { AuthenticationService, ConnectivityService, ErrorsService, ResponsivityService }                                                 from "@bowstring/services";
+import { AuthenticationService, ConnectivityService, ErrorsService }                                                                      from "@bowstring/services";
 import { type GitInfo }                                                                                                                   from "git-describe";
 import { type Observable, startWith, switchMap }                                                                                          from "rxjs";
 import { type RouteComponent }                                                                                                            from "../../";
@@ -23,9 +23,7 @@ import { type ProjectLocaleId }                                                 
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host:            {
-      "[style.--bowstring--root--brand--font-family]": "brandLib.fontFamily",
-    },
+    host:            { "[style.--bowstring--root--brand--font-family]": "brandLib.fontFamily" },
     hostDirectives:  [
       { directive: CanvasDirective },
       {
@@ -130,7 +128,7 @@ export class RootComponent {
   protected readonly projectLocaleIds: Array<ProjectLocaleId>                   = inject<Array<ProjectLocaleId>>(PROJECT_LOCALE_IDS);
   protected readonly projectName: string                                        = inject<string>(PROJECT_NAME);
   protected readonly projectRoutes: Routes                                      = inject<Routes>(PROJECT_ROUTES);
-  protected readonly localeDisplayNames: { [key in ProjectLocaleId]: string }   = Object.fromEntries<string>(
+  protected readonly localeDisplayNames: Record<ProjectLocaleId, string>        = Object.fromEntries<string>(
     this.projectLocaleIds.map<[ ProjectLocaleId, string ]>(
       (projectLocaleId: ProjectLocaleId): [ ProjectLocaleId, string ] => [
         projectLocaleId,
@@ -140,9 +138,8 @@ export class RootComponent {
         ).of(String(projectLocaleId)) || String(projectLocaleId),
       ],
     ),
-  ) as { [key in ProjectLocaleId]: string };
+  ) as Record<ProjectLocaleId, string>;
   protected readonly packageVersion: string                                     = inject<string>(PACKAGE_VERSION);
-  protected readonly responsivityService: ResponsivityService                   = inject<ResponsivityService>(ResponsivityService);
 
   protected async changeLocale(projectLocaleId: ProjectLocaleId): Promise<void> {
     if (isPlatformBrowser(this.platformId))
@@ -150,7 +147,7 @@ export class RootComponent {
         ({ token }: AppCheckTokenResult): void => {
           this.document.location.href = `https://us-central1-${ this.environment.apis.firebase.projectId }.cloudfunctions.net/redirect?appCheckToken=${ encodeURI(token) }&url=${ encodeURI(`${ this.document.location.origin }/${ String(projectLocaleId) }/${ this.document.location.pathname.split("/").slice(2).join("/") }`) }`;
         },
-        (error: unknown): never => {
+        (error: Error): never => {
           console.error("Something went wrong.");
 
           throw error;

@@ -16,6 +16,6 @@
   "type":         "module",
   "dependencies": {
     "@gavinsawyer/shortcuts-api": "3",
-    "firebase-functions":         "6"
+    "firebase-functions":         "7"
   }
 }

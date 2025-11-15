@@ -59,9 +59,7 @@ express().use(compression()).use(cookieParser()).use(
   ),
 ).get(
   "*",
-  getI18nRequestHandler(
-    ({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => require(`${ process.cwd() }/dist/apps/website/server/${ String(projectLocaleId) }/main.js`)["getRequestHandler"](projectLocaleId),
-  ),
+  getI18nRequestHandler(({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => require(`${ process.cwd() }/dist/apps/website/server/${ String(projectLocaleId) }/main.js`)["getRequestHandler"](projectLocaleId)),
 ).listen(
   process.env["PORT"] || 4000,
   (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),

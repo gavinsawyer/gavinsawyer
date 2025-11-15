@@ -21,7 +21,7 @@ export const redirect: HttpsFunction = onRequest(
     { consume: true },
   ).then<void, never>(
     (): void => response.redirect(`${ request.query["url"] }`),
-    (error: unknown): never => {
+    (error: Error): never => {
       response.status(500).send(error).end();
 
       throw new Error("Something went wrong.");

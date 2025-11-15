@@ -51,9 +51,7 @@ import { InputComponent }                                                       
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof PhoneNumberFieldInputComponent => PhoneNumberFieldInputComponent,
-        ),
+        useExisting: forwardRef((): typeof PhoneNumberFieldInputComponent => PhoneNumberFieldInputComponent),
       },
     ],
     selector:        "bowstring--phone-number-field-input",

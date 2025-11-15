@@ -50,9 +50,7 @@ import { InputComponent }                                                       
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof DatepickerInputComponent => DatepickerInputComponent,
-        ),
+        useExisting: forwardRef((): typeof DatepickerInputComponent => DatepickerInputComponent),
       },
     ],
     selector:        "bowstring--datepicker-input",

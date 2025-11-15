@@ -10,6 +10,7 @@ $namespace: "well-rounded"
 
 $brand-roundness: functions.get-value-reference($namespace, "brand-roundness")
 $clip-path-source: functions.get-value-reference($namespace, "clip-path-source")
+$glass-mask-source: functions.get-value-reference($namespace, "glass-mask-source")
 
 $level: functions.get-input-reference($namespace, "level", 1)
 
@@ -21,7 +22,7 @@ $level: functions.get-input-reference($namespace, "level", 1)
 @mixin children
   @include mixins.reset-colors($namespace, ())
   @include mixins.reset-inputs($namespace, ("level"))
-  @include mixins.reset-values($namespace, ("brand-roundness", "clip-path-source"))
+  @include mixins.reset-values($namespace, ("brand-roundness", "clip-path-source", "glass-mask-source"))
 
 @mixin host($child-selector: '')
   @include color-scheme("light")
@@ -31,13 +32,14 @@ $level: functions.get-input-reference($namespace, "level", 1)
 
   #{ $child-selector } > .harness
     &:before
-      border-radius: calc($brand-roundness * 1.375rem * var(--phi) / $level)
+      border-radius: calc($brand-roundness * 1rem * var(--phi) / $level)
 
     > .between,
     &:after
       clip-path: $clip-path-source
 
     &:after
+      mask-image: $glass-mask-source
       overflow: hidden
 
   #{ $child-selector } > svg
@@ -47,8 +49,22 @@ $level: functions.get-input-reference($namespace, "level", 1)
     top: 0
     width: 1px
 
+    > clipPath,
+    > mask
+      > path
+        fill: transparent
+
+    > mask > path
+      stroke: red
+      stroke-linecap: round
+      stroke-linejoin: round
+      stroke-width: calc(functions.get-input-reference("glass", "material-opacity", 0.625) * 2rem * pow(var(--phi), -2))
+      transform: scaleX(var(--bowstring--well-rounded-directive--width)) scaleY(var(--bowstring--well-rounded-directive--height))
+      vector-effect: non-scaling-stroke
+
   &.uninitialized
     #{ $child-selector } > .harness
       > .between,
       &:after
         border-radius: calc($brand-roundness * 1.375rem / $level)
+        overflow: hidden

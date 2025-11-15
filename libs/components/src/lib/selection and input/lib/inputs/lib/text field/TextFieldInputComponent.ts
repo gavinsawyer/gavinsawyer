@@ -48,9 +48,7 @@ import { InputComponent }                                                       
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof TextFieldInputComponent => TextFieldInputComponent,
-        ),
+        useExisting: forwardRef((): typeof TextFieldInputComponent => TextFieldInputComponent),
       },
     ],
     selector:        "bowstring--text-field-input",

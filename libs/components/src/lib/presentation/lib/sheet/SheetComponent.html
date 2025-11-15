@@ -20,10 +20,14 @@
         <clipPath
           [attr.id]="wellRoundedDirective.clipPathId$()"
           clipPathUnits="objectBoundingBox">
-          <path
-            [attr.d]="wellRoundedDirective.pathDefinition$()"
-            fill="transparent" />
+          <path [attr.d]="wellRoundedDirective.pathDefinition$()" />
         </clipPath>
+        <mask
+          [attr.id]="wellRoundedDirective.glassMaskId$()"
+          maskContentUnits="userSpaceOnUse"
+          maskUnits="userSpaceOnUse">
+          <path [attr.d]="wellRoundedDirective.pathDefinition$()" />
+        </mask>
       </svg>
     </div>
   </div>

@@ -7,6 +7,20 @@
     "eslint": {
       "executor": "@nx/eslint:lint",
       "options":  { "lintFilePatterns": [ "libs/colors/src/**/*.ts" ] }
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":       "libs/colors/src/lib/main.ts",
+        "outputPath": "dist/libs/colors",
+        "tsConfig":   "libs/colors/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
     }
   }
 }

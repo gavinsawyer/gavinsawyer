@@ -77,9 +77,7 @@ export class ScrollStackComponent {
           "scroll",
         ).pipe<Event | null, number>(
           startWith<Event, [ null ]>(null),
-          map<Event | null, number>(
-            (): number => innerHtmlDivElement.scrollLeft,
-          ),
+          map<Event | null, number>((): number => innerHtmlDivElement.scrollLeft),
         ),
       ),
     ),
@@ -97,10 +95,7 @@ export class ScrollStackComponent {
             ),
             map<[ number | undefined, number | undefined, number | undefined ], number | undefined>(
               ([ viewportHeight ]: [ number | undefined, number | undefined, number | undefined ]): number | undefined => {
-                const domRect: DOMRect | undefined = htmlDivElement.getBoundingClientRect();
-
-                if (domRect === undefined)
-                  return undefined;
+                const domRect: DOMRect = htmlDivElement.getBoundingClientRect();
 
                 return domRect.top + domRect.height / 2 - (viewportHeight || 0) / 2;
               },

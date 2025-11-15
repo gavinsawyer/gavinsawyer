@@ -31,12 +31,8 @@ export class FocusService {
               "environment/public",
             ) as DocumentReference<PublicDocument, PublicDocument>,
           ).pipe<PublicDocument | undefined, Focus | undefined>(
-            catchError<PublicDocument | undefined, Observable<undefined>>(
-              (): Observable<undefined> => of<undefined>(undefined),
-            ),
-            map<PublicDocument | undefined, Focus | undefined>(
-              (publicDocument?: PublicDocument): Focus | undefined => publicDocument?.users["gavin"]?.focus,
-            ),
+            catchError<PublicDocument | undefined, Observable<undefined>>((): Observable<undefined> => of<undefined>(undefined)),
+            map<PublicDocument | undefined, Focus | undefined>((publicDocument?: PublicDocument): Focus | undefined => publicDocument?.users["gavin"]?.focus),
           ),
         ),
         "0198a027-4c5f-71cc-a7ca-2e9aabaf5d87",

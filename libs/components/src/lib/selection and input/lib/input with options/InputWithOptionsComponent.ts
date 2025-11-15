@@ -16,9 +16,7 @@ import { OptionComponent }                                                      
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof InputWithOptionsComponent => InputWithOptionsComponent,
-        ),
+        useExisting: forwardRef((): typeof InputWithOptionsComponent => InputWithOptionsComponent),
       },
     ],
     template:        "",
@@ -55,9 +53,7 @@ export class InputWithOptionsComponent
             (): void => {
               const value: Date | string = this.value$();
 
-              if (!value || (typeof value === "string" && this.optionComponents$().map<string>(
-                ({ valueInput$ }: OptionComponent): string => valueInput$(),
-              ).includes(value)))
+              if (!value || (typeof value === "string" && this.optionComponents$().map<string>(({ valueInput$ }: OptionComponent): string => valueInput$()).includes(value)))
                 handler(value);
             },
           );

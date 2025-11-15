@@ -36,7 +36,6 @@
     --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), 0)) !important
 
   > .harness
-    display: none
     transform-origin: bottom
     z-index: 1
 
@@ -114,18 +113,17 @@
             transform: translateZ(0)
 
   > .backdrop
-    display: none
+    display: grid
     grid-auto-rows: 1fr
     margin-bottom: calc(-1 * var(--bowstring--errors-container--gap-row))
-    position: relative
 
     &:before
       bottom: calc(-1 * var(--phi) * var(--bowstring--errors-container--gap-row))
-      content: ''
       height: calc(1px * var(--bowstring--error--height) + (1 + 2 * var(--phi)) * var(--bowstring--errors-container--gap-row))
-      left: calc(-1rem)
+      left: 0
       mask-image: linear-gradient(to bottom, transparent, red calc(0px + var(--phi) * var(--bowstring--errors-container--gap-row)), red calc(1px * var(--bowstring--error--height) + (1 + var(--phi)) * var(--bowstring--errors-container--gap-row)), transparent calc(1px * var(--bowstring--error--height) + (1 + 2 * var(--phi)) * var(--bowstring--errors-container--gap-row)))
-      position: absolute
+      position: fixed
+      transform: translateZ(0)
       width: 100vw
 
       @mixin keyframes--hide-backdrop
@@ -153,15 +151,14 @@
   &.openOrClosing
     > .harness
       animation: show-harness 180ms ease-in forwards
-      display: grid
       z-index: 2
 
     > .backdrop
-      display: grid
       z-index: 1
 
       &:before
         animation: show-backdrop 180ms ease-in forwards
+        content: ''
 
     &:not(.open)
       > .harness

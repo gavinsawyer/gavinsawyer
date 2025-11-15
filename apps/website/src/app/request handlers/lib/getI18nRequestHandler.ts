@@ -22,13 +22,7 @@ function getI18nRequestHandler(getRequestHandler: (
       "en-US",
       ...Object.keys(project.i18n.locales) as Array<Exclude<ProjectLocaleId, "en-US">>,
     ];
-    const projectLocaleId: ProjectLocaleId         = projectLocaleIds.filter(
-      (projectLocaleId: ProjectLocaleId): boolean => String(projectLocaleId) === request.path.split("/")[1] || String(projectLocaleId) === request.headers.referer?.split("://")?.[1]?.split("/")[1],
-    )[0] || request.acceptsLanguages(
-      projectLocaleIds.map<string>(
-        (projectLocaleId: ProjectLocaleId): string => String(projectLocaleId),
-      ),
-    ) || "en-US";
+    const projectLocaleId: ProjectLocaleId         = projectLocaleIds.filter((projectLocaleId: ProjectLocaleId): boolean => String(projectLocaleId) === request.path.split("/")[1] || String(projectLocaleId) === request.headers.referer?.split("://")?.[1]?.split("/")[1])[0] || request.acceptsLanguages(projectLocaleIds.map<string>((projectLocaleId: ProjectLocaleId): string => String(projectLocaleId))) || "en-US";
 
     getRequestHandler(
       {

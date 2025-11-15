@@ -11,59 +11,64 @@ $namespace: "glass"
 $background: functions.get-color-reference($namespace, "background")
 $foreground: functions.get-color-reference($namespace, "foreground")
 $pseudoelement-background: functions.get-color-reference($namespace, "pseudoelement-background")
+$pseudoelement-shadow: functions.get-color-reference($namespace, "pseudoelement-shadow")
 
 $material-opacity: functions.get-input-reference($namespace, "material-opacity", 0.8)
 
-@function get-color($theme, $type, $shade)
+@function get-color($theme, $type)
   @if ($theme == "light")
     @if ($type == "background")
-      @return hsla(0, 0%, 100% - $shade, calc(100% * $material-opacity))
+      @return hsla(0, 0%, 82%, calc(100% * pow($material-opacity, 2)))
     @else if ($type == "foreground")
-      @return transparentize(darken(hsl(0, 0%, 20%  - $shade), 3.125%), 0.125)
+      @return hsla(0, 0%, 10%, 87.5%)
     @else if ($type == "pseudoelement-background")
-      @return hsla(0, 0%, 64%  - $shade, calc(100% * pow($material-opacity, 3)))
+      @return hsla(0, 0%, 70%, calc(100% * pow($material-opacity, 2)))
+    @else if ($type == "pseudoelement-shadow")
+      @return hsla(0, 0%, 58%, calc(100% * pow($material-opacity, 2)))
   @else if ($theme == "dark")
     @if ($type == "background")
-      @return hsla(0, 0%, 12%  + $shade, calc(100% * $material-opacity))
+      @return hsla(0, 0%, 30%, calc(100% * pow($material-opacity, 2)))
     @else if ($type == "foreground")
-      @return transparentize(lighten(hsl(0, 0%, 80% + $shade), 3.125%), 0.125)
+      @return hsla(0, 0%, 90%, 87.5%)
     @else if ($type == "pseudoelement-background")
-      @return hsla(0, 0%, 24%  + $shade, calc(100% * pow($material-opacity, 3)))
+      @return hsla(0, 0%, 42%, calc(100% * pow($material-opacity, 2)))
+    @else if ($type == "pseudoelement-shadow")
+      @return hsla(0, 0%, 54%, calc(100% * pow($material-opacity, 2)))
 
 
-@mixin color-scheme($theme, $shade)
-  --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background", $shade) }
-  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground", $shade) }
-  --bowstring--#{ $namespace }-directive--colors--pseudoelement-background: #{ get-color($theme, "pseudoelement-background", $shade) }
+@mixin color-scheme($theme)
+  --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background") }
+  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground") }
+  --bowstring--#{ $namespace }-directive--colors--pseudoelement-background: #{ get-color($theme, "pseudoelement-background") }
+  --bowstring--#{ $namespace }-directive--colors--pseudoelement-shadow: #{ get-color($theme, "pseudoelement-shadow") }
 
 @mixin children
-  @include mixins.reset-colors($namespace, ("background", "foreground", "pseudoelement-background"))
+  @include mixins.reset-colors($namespace, ("background", "foreground", "pseudoelement-background", "pseudoelement-shadow"))
   @include mixins.reset-inputs($namespace, ("material-opacity"))
   @include mixins.reset-values($namespace, ())
 
-@mixin host($shade)
-  @include color-scheme("light", $shade)
+@mixin host
+  @include color-scheme("light")
 
   @media (prefers-color-scheme: dark)
-    @include color-scheme("dark", $shade)
+    @include color-scheme("dark")
 
   > .harness
     > .between
-      backdrop-filter: blur(calc($material-opacity * 2rem * pow(var(--phi), -4))) brightness(calc(1 + (var(--color-scheme-light) - var(--color-scheme-dark)) * pow($material-opacity, 6))) saturate(calc(1 + pow($material-opacity, 2)))
+      backdrop-filter: blur(calc($material-opacity * 2rem * pow(var(--phi), -4))) brightness(calc(1 + var(--color-scheme-dark) * pow($material-opacity, 4) + var(--color-scheme-light) * pow($material-opacity, 6))) saturate(calc(1 + $material-opacity))
       background: $background
       color: $foreground
-      mask-composite: intersect
-      mask-image: linear-gradient(to bottom, transparent, red calc($material-opacity * 2rem * pow(var(--phi), -6)), red calc(100% - $material-opacity * 2rem * pow(var(--phi), -6)), transparent), linear-gradient(to left, transparent, red calc($material-opacity * 2rem * pow(var(--phi), -6)), red calc(100% - $material-opacity * 2rem * pow(var(--phi), -6)), transparent)
 
     &:after
-      backdrop-filter: blur(calc($material-opacity * 2rem * var(--phi))) brightness(calc(1 + (var(--color-scheme-dark) - var(--color-scheme-light)) * pow($material-opacity, 6))) contrast(calc(1 + var(--color-scheme-light) * $material-opacity - var(--color-scheme-dark) * pow($material-opacity, 6))) saturate(calc(1 + $material-opacity))
+      backdrop-filter: blur(calc($material-opacity * 2rem * var(--phi))) brightness(calc(1 + var(--color-scheme-dark) * pow($material-opacity, 4) + var(--color-scheme-light) * pow($material-opacity, 6))) contrast(calc(1 + var(--color-scheme-dark) * $material-opacity + var(--color-scheme-light) * pow($material-opacity, 2))) saturate(calc(1 + pow($material-opacity, 2)))
       background: $pseudoelement-background
+      box-shadow: inset 0 0 calc($material-opacity * 2rem * pow(var(--phi), -4)) $pseudoelement-shadow
       content: ""
-      height: calc(100% + 1.5px)
-      left: -0.75px
+      height: calc(100% + 2px)
+      left: -1px
       mask-composite: add
-      mask-image: linear-gradient(to bottom, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -1))), linear-gradient(to left, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -1))), linear-gradient(to right, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -1))), linear-gradient(to top, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -1)))
+      mask-image: linear-gradient(to bottom, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -2))), linear-gradient(to left, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -2))), linear-gradient(to right, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -2))), linear-gradient(to top, red, transparent calc($material-opacity * 2rem * pow(var(--phi), -2)))
       position: absolute
-      top: -0.75px
-      width: calc(100% + 1.5px)
+      top: -1px
+      width: calc(100% + 2px)
       z-index: 0

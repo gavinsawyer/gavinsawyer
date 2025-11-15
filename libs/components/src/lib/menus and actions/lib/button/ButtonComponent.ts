@@ -73,14 +73,18 @@ export class ButtonComponent {
   constructor() {
     afterRender(
       (): void => {
-        this.hoverTransformingDirective.htmlElementRef$.set(this.htmlDivElementRef$());
-        this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$());
+        if (this.externalLinkHtmlAnchorElementRef$() || this.htmlButtonElementRef$() || this.routerLinkHtmlAnchorElementRef$()) {
+          this.hoverTransformingDirective.htmlElementRef$.set(this.externalLinkHtmlAnchorElementRef$() || this.htmlButtonElementRef$() || this.routerLinkHtmlAnchorElementRef$());
+          this.wellRoundedDirective.htmlElementRef$.set(this.externalLinkHtmlAnchorElementRef$() || this.htmlButtonElementRef$() || this.routerLinkHtmlAnchorElementRef$());
+        }
       },
     );
   }
 
-  private readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
+  private readonly hoverTransformingDirective: HoverTransformingDirective                               = inject<HoverTransformingDirective>(HoverTransformingDirective);
+  private readonly externalLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined> = viewChild<ElementRef<HTMLAnchorElement>>("externalLinkHtmlAnchorElement");
+  private readonly htmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement> | undefined>             = viewChild<ElementRef<HTMLButtonElement>>("htmlButtonElement");
+  private readonly routerLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined>   = viewChild<ElementRef<HTMLAnchorElement>>("routerLinkHtmlAnchorElement");
 
   protected readonly containerDirective: ContainerDirective                  = inject<ContainerDirective>(ContainerDirective);
   protected readonly routerLinkActive$: Signal<RouterLinkActive | undefined> = viewChild<RouterLinkActive>(RouterLinkActive);
@@ -110,5 +114,9 @@ export class ButtonComponent {
     undefined,
     { alias: "url" },
   );
+
+  public focus(): void {
+    (this.externalLinkHtmlAnchorElementRef$() || this.htmlButtonElementRef$() || this.routerLinkHtmlAnchorElementRef$())?.nativeElement.focus();
+  }
 
 }

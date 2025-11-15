@@ -31,12 +31,14 @@
       <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: Anybody, var(--bowstring--root--brand-font-family); font-weight: 300;"><bowstring--logo inline /> {{ packageVersion.split(" Beta ")[0] }}</h6>
     </bowstring--header>
     <bowstring--caption>
-      <bowstring--flexbox-container flexDirection="row">
+      <bowstring--flexbox-container
+        flexDirection="row"
+        flexWrap="wrap">
         @if (packageVersion.split(" Beta ")[1]; as beta) {<span>Beta&nbsp;{{ beta }}</span>}
         <span>Commit&nbsp;&num;<bowstring--link
           inline
           [url]="'https://github.com/gavinsawyer/gavinsawyer/commit/' + gitInfoPartial.hash">{{ gitInfoPartial.hash }}</bowstring--link></span>
-        <span>{{ projectName | titlecase }}</span>
+        <span i18n>Project &ldquo;{{ projectName | titlecase }}&rdquo;</span>
       </bowstring--flexbox-container>
     </bowstring--caption>
   </bowstring--heading-group>

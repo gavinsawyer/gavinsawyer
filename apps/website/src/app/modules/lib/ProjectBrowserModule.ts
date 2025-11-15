@@ -99,27 +99,13 @@ import { PROJECT_LOCALE_IDS }                                                   
         provide:  PROJECT_ROUTES,
         useValue: projectRoutes,
       },
-      provideAnalytics(
-        (injector: Injector): Analytics => injector.get(AnalyticsService).analytics,
-      ),
-      provideAppCheck(
-        (injector: Injector): AppCheck => injector.get(AppCheckService).appCheck,
-      ),
-      provideAuth(
-        (injector: Injector): Auth => injector.get(AuthService).auth,
-      ),
-      provideDatabase(
-        (injector: Injector): Database => injector.get(DatabaseService).database,
-      ),
-      provideFirebaseApp(
-        (injector: Injector): FirebaseApp => injector.get(FirebaseAppService).firebaseApp,
-      ),
-      provideFirestore(
-        (injector: Injector): Firestore => injector.get(FirestoreService).firestore,
-      ),
-      provideFunctions(
-        (injector: Injector): Functions => injector.get(FunctionsService).functions,
-      ),
+      provideAnalytics((injector: Injector): Analytics => injector.get(AnalyticsService).analytics),
+      provideAppCheck((injector: Injector): AppCheck => injector.get(AppCheckService).appCheck),
+      provideAuth((injector: Injector): Auth => injector.get(AuthService).auth),
+      provideDatabase((injector: Injector): Database => injector.get(DatabaseService).database),
+      provideFirebaseApp((injector: Injector): FirebaseApp => injector.get(FirebaseAppService).firebaseApp),
+      provideFirestore((injector: Injector): Firestore => injector.get(FirestoreService).firestore),
+      provideFunctions((injector: Injector): Functions => injector.get(FunctionsService).functions),
       provideHttpClient(withFetch()),
       provideRouter(
         projectRoutes,

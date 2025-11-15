@@ -107,27 +107,18 @@
             padding: 0
             width: 0
             -webkit-tap-highlight-color: transparent
-            -webkit-text-fill-color: black
+            -webkit-text-fill-color: currentColor
 
             @media (prefers-color-scheme: dark)
-              filter: invert(1) hue-rotate(180deg)
-              transform: translateZ(0)
+              color: white
 
           > input
             @include CanvasDirective.host(0%)
 
-            box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background) inset
             caret-color: currentColor
-
-            @media (prefers-color-scheme: dark)
-              box-shadow: 0 0 999px var(--bowstring--canvas-directive--colors--background-inverse) inset
-
-              @supports (-webkit-touch-callout: none)
-                caret-color: white
 
           > input::placeholder
             color: hsl(0, 0%, 50%)
-            -webkit-text-fill-color: hsl(0, 0%, 50%)
 
           &:not(:focus-within)
             column-gap: 0
@@ -147,4 +138,4 @@
       > input,
       > select
         color: hsl(0, 0%, 50%)
-        -webkit-text-fill-color: hsl(0, 0%, 50%)
+        cursor: default

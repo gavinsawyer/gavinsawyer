@@ -22,9 +22,7 @@ import { v7 as uuidV7 }                                                         
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof InputComponent => InputComponent,
-        ),
+        useExisting: forwardRef((): typeof InputComponent => InputComponent),
       },
     ],
     template:        "",

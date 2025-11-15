@@ -50,7 +50,13 @@
     "target":                             "ESNext",
     "types":                              [
       "@angular/localize",
-      "@types/serviceworker"
+      "@types/serviceworker",
+      "@types/body-scroll-lock",
+      "@types/compression",
+      "@types/cookie-parser",
+      "@types/google.maps",
+      "@types/lodash",
+      "@types/masonry-layout"
     ]
   },
   "exclude":                [

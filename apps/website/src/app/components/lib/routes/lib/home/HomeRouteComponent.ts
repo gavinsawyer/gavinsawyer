@@ -10,7 +10,6 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, type Vali
 import { AsideComponent, BoxComponent, ButtonComponent, DividerComponent, FlexboxContainerComponent, FormComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, LinkComponent, ListComponent, MasonryContainerComponent, OptionComponent, PhoneNumberFieldInputComponent, PickerInputComponent, SectionComponent, SymbolComponent, TextFieldInputComponent } from "@bowstring/components";
 import { ListItemDirective, MasonryChildDirective }                                                                                                                                                                                                                                                                                                                      from "@bowstring/directives";
 import { getFirestoreErrorMessage }                                                                                                                                                                                                                                                                                                                                      from "@bowstring/firebase-interop";
-import { type Option }                                                                                                                                                                                                                                                                                                                                                   from "@bowstring/interfaces";
 import { AuthenticationService, EllipsesService, ErrorsService }                                                                                                                                                                                                                                                                                                         from "@bowstring/services";
 import { type CountryCode, getCountries, getCountryCallingCode, isPossiblePhoneNumber, parsePhoneNumberWithError, type PhoneNumber }                                                                                                                                                                                                                                     from "libphonenumber-js";
 import { RouteComponent }                                                                                                                                                                                                                                                                                                                                                from "../../../../";
@@ -40,11 +39,11 @@ import { FocusComponent }                                                       
       MasonryContainerComponent,
       OptionComponent,
       PhoneNumberFieldInputComponent,
+      PickerInputComponent,
       ReactiveFormsModule,
       SectionComponent,
       SymbolComponent,
       TextFieldInputComponent,
-      PickerInputComponent,
     ],
     styleUrl:        "HomeRouteComponent.sass",
     templateUrl:     "HomeRouteComponent.html",
@@ -60,7 +59,7 @@ export class HomeRouteComponent
 
     effect(
       (): void => {
-        const messageDocument: MessageDocument | undefined = this.messagesService.messageDocuments$()?.[0];
+        const messageDocument: MessageDocument | undefined = this.messagesService.messageDocument$();
 
         if (messageDocument)
           this.messageFormGroup.reset(
@@ -100,13 +99,7 @@ export class HomeRouteComponent
   private readonly firestore: Firestore         = inject<Firestore>(Firestore);
 
   protected readonly authenticationService: AuthenticationService                                                                                                                                                                                                                             = inject<AuthenticationService>(AuthenticationService);
-  protected readonly countryCallingCodes: Array<string>                                                                                                                                                                                                                                       = [
-    ...new Set<string>(
-      getCountries().map<string>(
-        (countryCode: CountryCode): string => getCountryCallingCode(countryCode),
-      ),
-    ),
-  ].sort(
+  protected readonly countryCallingCodes: Array<string>                                                                                                                                                                                                                                       = [ ...new Set<string>(getCountries().map<string>((countryCode: CountryCode): string => getCountryCallingCode(countryCode))) ].sort(
     (
       countryCallingCodeA: string,
       countryCallingCodeB: string,
@@ -114,12 +107,6 @@ export class HomeRouteComponent
   );
   protected readonly ellipsesService: EllipsesService                                                                                                                                                                                                                                         = inject<EllipsesService>(EllipsesService);
   protected readonly focusService: FocusService                                                                                                                                                                                                                                               = inject<FocusService>(FocusService);
-  protected readonly phoneCountryCallingCodeOptions: Array<Option>                                                                                                                                                                                                                            = getCountries().map<Option>(
-    (countryCode: CountryCode): Option => ({
-      label: countryCode,
-      value: `+${ getCountryCallingCode(countryCode) }`,
-    }),
-  );
   protected readonly messageFormGroup: FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<string>, "nationalNumber": FormControl<string> }> }> = new FormGroup<{ "email": FormControl<string>, "message": FormControl<string>, "name": FormControl<string>, "notCreated": FormControl<boolean>, "phone": FormGroup<{ "countryCallingCode": FormControl<string>, "nationalNumber": FormControl<string> }> }>(
     {
       email:      new FormControl<string>(
@@ -193,9 +180,7 @@ export class HomeRouteComponent
   );
   protected readonly messagesFormWorking$: WritableSignal<boolean>                                                                                                                                                                                                                            = signal<boolean>(false);
   protected readonly messagesService: MessagesService                                                                                                                                                                                                                                         = inject<MessagesService>(MessagesService);
-  protected readonly yearsSinceSummer2014: number                                                                                                                                                                                                                                             = new Date(
-    new Date().getTime() - new Date("2014-06-21T16:00:00.000Z").getTime(),
-  ).getFullYear() - 1970;
+  protected readonly yearsSinceSummer2014: number                                                                                                                                                                                                                                             = new Date(new Date().getTime() - new Date("2014-06-21T16:00:00.000Z").getTime()).getFullYear() - 1970;
 
   protected logClickAddToContactsEvent(): void {
     logEvent<"click_addToContacts">(
@@ -228,14 +213,13 @@ export class HomeRouteComponent
           ...(this.messageFormGroup.value.phone?.countryCallingCode && this.messageFormGroup.value.phone.nationalNumber ? { phone: `+${ this.messageFormGroup.controls.phone.controls.countryCallingCode.value }${ this.messageFormGroup.controls.phone.controls.nationalNumber.value }` } : {}),
           userId,
         },
-      ).catch<never>(
+      ).then<void, never>(
+        (): void => this.messagesFormWorking$.set(false),
         (firestoreError: FirestoreError): never => {
           this.errorsService.createError(getFirestoreErrorMessage(firestoreError));
 
           throw firestoreError;
         },
-      ).finally(
-        (): void => this.messagesFormWorking$.set(false),
       );
     }
   };

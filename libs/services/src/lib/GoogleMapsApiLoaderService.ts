@@ -6,19 +6,13 @@ import { isPlatformBrowser }               from "@angular/common";
 import { inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { ENVIRONMENT }                     from "@bowstring/injection-tokens";
 import { type Environment }                from "@bowstring/interfaces";
-import { Loader }                          from "@googlemaps/js-api-loader";
+import { importLibrary, setOptions }       from "@googlemaps/js-api-loader";
 
 
 @Injectable({ providedIn: "root" })
 export class GoogleMapsApiLoaderService {
 
   private readonly environment: Environment         = inject<Environment>(ENVIRONMENT);
-  private readonly loader: Loader                   = new Loader(
-    {
-      apiKey:  this.environment.apis.firebase.apiKey,
-      version: "weekly",
-    },
-  );
   private readonly platformId: NonNullable<unknown> = inject<NonNullable<unknown>>(PLATFORM_ID);
 
   private coreLibrary?: google.maps.CoreLibrary;
@@ -46,6 +40,15 @@ export class GoogleMapsApiLoaderService {
   private visualizationLibrary?: google.maps.VisualizationLibrary;
   private visualizationLibraryPromise?: Promise<google.maps.VisualizationLibrary | null>;
 
+  private setOptions(): void {
+    setOptions(
+      {
+        key: this.environment.apis.firebase.apiKey,
+        v:   "weekly",
+      },
+    );
+  }
+
   public async load(library: "core"): Promise<google.maps.CoreLibrary | null>
   public async load(library: "drawing"): Promise<google.maps.DrawingLibrary | null>
   public async load(library: "elevation"): Promise<google.maps.ElevationLibrary | null>
@@ -65,7 +68,9 @@ export class GoogleMapsApiLoaderService {
     switch (library) {
       case "core":
         return this.coreLibrary || this.coreLibraryPromise || ((): Promise<google.maps.CoreLibrary | null> => {
-          this.coreLibraryPromise = this.loader.importLibrary("core").then<google.maps.CoreLibrary>(
+          this.setOptions();
+
+          this.coreLibraryPromise = importLibrary<"core">("core").then<google.maps.CoreLibrary>(
             (coreLibrary: google.maps.CoreLibrary): google.maps.CoreLibrary => {
               this.coreLibrary = coreLibrary;
 
@@ -77,7 +82,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "drawing":
         return this.drawingLibrary || this.drawingLibraryPromise || ((): Promise<google.maps.DrawingLibrary | null> => {
-          this.drawingLibraryPromise = this.loader.importLibrary("drawing").then<google.maps.DrawingLibrary>(
+          this.setOptions();
+
+          this.drawingLibraryPromise = importLibrary<"drawing">("drawing").then<google.maps.DrawingLibrary>(
             (drawingLibrary: google.maps.DrawingLibrary): google.maps.DrawingLibrary => {
               this.drawingLibrary = drawingLibrary;
 
@@ -89,7 +96,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "elevation":
         return this.elevationLibrary || this.elevationLibraryPromise || ((): Promise<google.maps.ElevationLibrary | null> => {
-          this.elevationLibraryPromise = this.loader.importLibrary("elevation").then<google.maps.ElevationLibrary>(
+          this.setOptions();
+
+          this.elevationLibraryPromise = importLibrary<"elevation">("elevation").then<google.maps.ElevationLibrary>(
             (elevationLibrary: google.maps.ElevationLibrary): google.maps.ElevationLibrary => {
               this.elevationLibrary = elevationLibrary;
 
@@ -101,7 +110,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "geocoding":
         return this.geocodingLibrary || this.geocodingLibraryPromise || ((): Promise<google.maps.GeocodingLibrary | null> => {
-          this.geocodingLibraryPromise = this.loader.importLibrary("geocoding").then<google.maps.GeocodingLibrary>(
+          this.setOptions();
+
+          this.geocodingLibraryPromise = importLibrary<"geocoding">("geocoding").then<google.maps.GeocodingLibrary>(
             (geocodingLibrary: google.maps.GeocodingLibrary): google.maps.GeocodingLibrary => {
               this.geocodingLibrary = geocodingLibrary;
 
@@ -113,7 +124,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "geometry":
         return this.geometryLibrary || this.geometryLibraryPromise || ((): Promise<google.maps.GeometryLibrary | null> => {
-          this.geometryLibraryPromise = this.loader.importLibrary("geometry").then<google.maps.GeometryLibrary>(
+          this.setOptions();
+
+          this.geometryLibraryPromise = importLibrary<"geometry">("geometry").then<google.maps.GeometryLibrary>(
             (geometryLibrary: google.maps.GeometryLibrary): google.maps.GeometryLibrary => {
               this.geometryLibrary = geometryLibrary;
 
@@ -125,7 +138,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "journeySharing":
         return this.journeySharingLibrary || this.journeySharingLibraryPromise || ((): Promise<google.maps.JourneySharingLibrary | null> => {
-          this.journeySharingLibraryPromise = this.loader.importLibrary("journeySharing").then<google.maps.JourneySharingLibrary>(
+          this.setOptions();
+
+          this.journeySharingLibraryPromise = importLibrary<"journeySharing">("journeySharing").then<google.maps.JourneySharingLibrary>(
             (journeySharingLibrary: google.maps.JourneySharingLibrary): google.maps.JourneySharingLibrary => {
               this.journeySharingLibrary = journeySharingLibrary;
 
@@ -137,7 +152,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "maps":
         return this.mapsLibrary || this.mapsLibraryPromise || ((): Promise<google.maps.MapsLibrary | null> => {
-          this.mapsLibraryPromise = this.loader.importLibrary("maps").then<google.maps.MapsLibrary>(
+          this.setOptions();
+
+          this.mapsLibraryPromise = importLibrary<"maps">("maps").then<google.maps.MapsLibrary>(
             (mapsLibrary: google.maps.MapsLibrary): google.maps.MapsLibrary => {
               this.mapsLibrary = mapsLibrary;
 
@@ -149,7 +166,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "marker":
         return this.markerLibrary || this.markerLibraryPromise || ((): Promise<google.maps.MarkerLibrary | null> => {
-          this.markerLibraryPromise = this.loader.importLibrary("marker").then<google.maps.MarkerLibrary>(
+          this.setOptions();
+
+          this.markerLibraryPromise = importLibrary<"marker">("marker").then<google.maps.MarkerLibrary>(
             (markerLibrary: google.maps.MarkerLibrary): google.maps.MarkerLibrary => {
               this.markerLibrary = markerLibrary;
 
@@ -161,7 +180,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "places":
         return this.placesLibrary || this.placesLibraryPromise || ((): Promise<google.maps.PlacesLibrary | null> => {
-          this.placesLibraryPromise = this.loader.importLibrary("places").then<google.maps.PlacesLibrary>(
+          this.setOptions();
+
+          this.placesLibraryPromise = importLibrary<"places">("places").then<google.maps.PlacesLibrary>(
             (placesLibrary: google.maps.PlacesLibrary): google.maps.PlacesLibrary => {
               this.placesLibrary = placesLibrary;
 
@@ -173,7 +194,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "routes":
         return this.routesLibrary || this.routesLibraryPromise || ((): Promise<google.maps.RoutesLibrary | null> => {
-          this.routesLibraryPromise = this.loader.importLibrary("routes").then<google.maps.RoutesLibrary>(
+          this.setOptions();
+
+          this.routesLibraryPromise = importLibrary<"routes">("routes").then<google.maps.RoutesLibrary>(
             (routesLibrary: google.maps.RoutesLibrary): google.maps.RoutesLibrary => {
               this.routesLibrary = routesLibrary;
 
@@ -185,7 +208,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "streetView":
         return this.streetViewLibrary || this.streetViewLibraryPromise || ((): Promise<google.maps.StreetViewLibrary | null> => {
-          this.streetViewLibraryPromise = this.loader.importLibrary("streetView").then<google.maps.StreetViewLibrary>(
+          this.setOptions();
+
+          this.streetViewLibraryPromise = importLibrary<"streetView">("streetView").then<google.maps.StreetViewLibrary>(
             (streetViewLibrary: google.maps.StreetViewLibrary): google.maps.StreetViewLibrary => {
               this.streetViewLibrary = streetViewLibrary;
 
@@ -197,7 +222,9 @@ export class GoogleMapsApiLoaderService {
         })();
       case "visualization":
         return this.visualizationLibrary || this.visualizationLibraryPromise || ((): Promise<google.maps.VisualizationLibrary | null> => {
-          this.visualizationLibraryPromise = this.loader.importLibrary("visualization").then<google.maps.VisualizationLibrary>(
+          this.setOptions();
+
+          this.visualizationLibraryPromise = importLibrary<"visualization">("visualization").then<google.maps.VisualizationLibrary>(
             (visualizationLibrary: google.maps.VisualizationLibrary): google.maps.VisualizationLibrary => {
               this.visualizationLibrary = visualizationLibrary;
 

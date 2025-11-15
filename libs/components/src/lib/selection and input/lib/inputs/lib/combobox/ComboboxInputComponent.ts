@@ -49,9 +49,7 @@ import { InputWithOptionsComponent }                                            
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof ComboboxInputComponent => ComboboxInputComponent,
-        ),
+        useExisting: forwardRef((): typeof ComboboxInputComponent => ComboboxInputComponent),
       },
     ],
     selector:        "bowstring--combobox-input",

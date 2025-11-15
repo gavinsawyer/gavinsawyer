@@ -94,21 +94,15 @@ export class ErrorComponent {
   public readonly openModelWithTransform$: Signal<boolean>               = toSignal<boolean>(
     toObservable<"" | boolean | `${ boolean }`>(this.openModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
       startWith<"" | boolean | `${ boolean }`>(this.openModel$()),
-      map<"" | boolean | `${ boolean }`, boolean>(
-        (open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true",
-      ),
+      map<"" | boolean | `${ boolean }`, boolean>((open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true"),
     ),
     { requireSync: true },
   );
 
   protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
     toObservable<boolean | undefined>(this.openModelWithTransform$).pipe<boolean | undefined, boolean | undefined>(
-      delayWhen<boolean | undefined>(
-        (open?: boolean): Observable<number> => open ? timer(0) : timer(180),
-      ),
-      map<boolean | undefined, boolean | undefined>(
-        (): boolean | undefined => this.openModelWithTransform$(),
-      ),
+      delayWhen<boolean | undefined>((open?: boolean): Observable<number> => open ? timer(0) : timer(180)),
+      map<boolean | undefined, boolean | undefined>((): boolean | undefined => this.openModelWithTransform$()),
     ),
   ) : signal<undefined>(undefined);
   protected readonly wellRoundedDirective: WellRoundedDirective  = inject<WellRoundedDirective>(WellRoundedDirective);

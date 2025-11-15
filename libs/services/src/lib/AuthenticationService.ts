@@ -79,13 +79,9 @@ export class AuthenticationService {
       },
     ).pipe<User | null, User, string>(
       distinctUntilChanged<User | null>(),
-      filter<User | null, User>(
-        (user: User | null): user is User => !!user,
-      ),
+      filter<User | null, User>((user: User | null): user is User => !!user),
       this.rxSsrService.wrap<User, string>(
-        switchMap<User, Observable<string>>(
-          (user: User): Observable<string> => from<Promise<string>>(user.getIdToken()),
-        ),
+        switchMap<User, Observable<string>>((user: User): Observable<string> => from<Promise<string>>(user.getIdToken())),
         "0196bb78-e41c-765c-90c7-ea9ba3661398",
       ),
     ),
@@ -96,9 +92,7 @@ export class AuthenticationService {
         if (this.auth.currentUser)
           userObserver.next(this.auth.currentUser);
         else
-          this.auth.authStateReady().then<void>(
-            (): void => userObserver.next(this.auth.currentUser),
-          );
+          this.auth.authStateReady().then<void>((): void => userObserver.next(this.auth.currentUser));
 
         return onIdTokenChanged(
           this.auth,
@@ -113,9 +107,7 @@ export class AuthenticationService {
       },
     ).pipe<User | null, User, boolean>(
       distinctUntilChanged<User | null>(),
-      filter<User | null, User>(
-        (user: User | null): user is User => !!user,
-      ),
+      filter<User | null, User>((user: User | null): user is User => !!user),
       this.rxSsrService.wrap<User, boolean>(
         switchMap<User, Observable<boolean>>(
           (user: User): Observable<boolean> => user.isAnonymous ? of<false>(false) : from<Promise<boolean>>(
@@ -143,14 +135,61 @@ export class AuthenticationService {
       ),
     ),
   );
+  public readonly isVerified$: Signal<boolean | undefined>                                            = toSignal<boolean>(
+    new Observable<User | null>(
+      (userObserver: Observer<User | null>): TeardownLogic => {
+        if (this.auth.currentUser)
+          userObserver.next(this.auth.currentUser);
+        else
+          this.auth.authStateReady().then<void>((): void => userObserver.next(this.auth.currentUser));
+
+        return onIdTokenChanged(
+          this.auth,
+          (user: User | null): void => userObserver.next(user),
+          (error: Error): never => {
+            userObserver.error(error);
+
+            throw error;
+          },
+          (): void => userObserver.complete(),
+        );
+      },
+    ).pipe<User | null, User, boolean>(
+      distinctUntilChanged<User | null>(),
+      filter<User | null, User>((user: User | null): user is User => !!user),
+      this.rxSsrService.wrap<User, boolean>(
+        switchMap<User, Observable<boolean>>(
+          (user: User): Observable<boolean> => user.isAnonymous ? of<false>(false) : from<Promise<boolean>>(
+            this.adminAuth ? this.adminAuth.getUser(user.uid).then<boolean, never>(
+              ({ customClaims }: AdminUserRecord): boolean => customClaims?.["verified"] || false,
+              (error: Error): never => {
+                console.error("Something went wrong.");
+
+                throw error;
+              },
+            ) : httpsCallable<null, boolean>(
+              this.functions,
+              "getIsVerified",
+            )().then<boolean, never>(
+              ({ data: isVerified }: HttpsCallableResult<boolean>): boolean => isVerified,
+              (error: Error): never => {
+                console.error("Something went wrong.");
+
+                throw error;
+              },
+            ),
+          ),
+        ),
+        "0199ee42-d58c-7193-9fc0-4378c166bd9b",
+      ),
+    ),
+  );
   public readonly userObservable: Observable<User>                                                    = new Observable<User | null>(
     (userObserver: Observer<User | null>): TeardownLogic => {
       if (this.auth.currentUser)
         userObserver.next(this.auth.currentUser);
       else
-        this.auth.authStateReady().then<void>(
-          (): void => userObserver.next(this.auth.currentUser),
-        );
+        this.auth.authStateReady().then<void>((): void => userObserver.next(this.auth.currentUser));
 
       return onIdTokenChanged(
         this.auth,
@@ -177,9 +216,7 @@ export class AuthenticationService {
           );
       },
     ),
-    filter<User | null, User>(
-      (user: User | null): user is User => !!user,
-    ),
+    filter<User | null, User>((user: User | null): user is User => !!user),
   );
   public readonly user$: Signal<User | undefined>                                                     = toSignal<User>(
     this.userObservable.pipe<User>(

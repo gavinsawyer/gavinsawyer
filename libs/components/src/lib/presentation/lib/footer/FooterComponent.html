@@ -16,10 +16,14 @@
   <clipPath
     [attr.id]="wellRoundedDirective.clipPathId$()"
     clipPathUnits="objectBoundingBox">
-    <path
-      [attr.d]="wellRoundedDirective.pathDefinition$()"
-      fill="transparent" />
+    <path [attr.d]="wellRoundedDirective.pathDefinition$()" />
   </clipPath>
+  <mask
+    [attr.id]="wellRoundedDirective.glassMaskId$()"
+    maskContentUnits="userSpaceOnUse"
+    maskUnits="userSpaceOnUse">
+    <path [attr.d]="wellRoundedDirective.pathDefinition$()" />
+  </mask>
 </svg>
 
 <ng-template #badgeSymbolTemplate>
@@ -32,8 +36,11 @@
   <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
 </ng-template>
 <ng-template #pinnedControlTemplate>
-  <div id="pinnedControl">
-    <button class="harness"
+  <div id="pinnedControl"
+    bowstringHoverTransformingDirective #pinnedControlHoverTransformingDirective="hoverTransformingDirective"
+    bowstringWellRoundedDirective #pinnedControlWellRoundedDirective="wellRoundedDirective"
+    [level]="(wellRoundedDirective.levelInput$() || 1) * 2">
+    <button class="harness" #pinnedControlHtmlButtonElement
       (click)="$event.stopPropagation(); pinnedModel$.set(!pinnedModelWithTransform$());"
       (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
       role="button"
@@ -58,5 +65,21 @@
         </svg>}
       </div>
     </button>
+
+    <svg
+      viewBox="0 0 1 1"
+      xmlns="http://www.w3.org/2000/svg">
+      <clipPath
+        [attr.id]="pinnedControlWellRoundedDirective.clipPathId$()"
+        clipPathUnits="objectBoundingBox">
+        <path [attr.d]="pinnedControlWellRoundedDirective.pathDefinition$()" />
+      </clipPath>
+      <mask
+        [attr.id]="pinnedControlWellRoundedDirective.glassMaskId$()"
+        maskContentUnits="userSpaceOnUse"
+        maskUnits="userSpaceOnUse">
+        <path [attr.d]="pinnedControlWellRoundedDirective.pathDefinition$()" />
+      </mask>
+    </svg>
   </div>
 </ng-template>

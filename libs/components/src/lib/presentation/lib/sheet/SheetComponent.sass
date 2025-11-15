@@ -61,12 +61,21 @@
         @include keyframes--show-harness
 
     &::backdrop
+      background: transparent
+      display: none
+      height: calc(100dvh + 1px * var(--bowstring--sheet--scroll-top) + 7rem)
+      left: 0
+      position: absolute
+      top: 0
+      transform: translateZ(0)
+      width: 100dvw
+
       @mixin keyframes--hide-backdrop
-        backdrop-filter: blur(0) brightness(1.125)
+        backdrop-filter: blur(0)
         opacity: 0
 
       @mixin keyframes--show-backdrop
-        backdrop-filter: blur(calc(1rem * pow(var(--phi), -3))) brightness(1.125)
+        backdrop-filter: blur(calc(1rem * pow(var(--phi), -3)))
         opacity: 1
 
       @include keyframes--hide-backdrop
@@ -113,7 +122,7 @@
 
         @include ElevatedDirective.host
         @include FlexboxContainerDirective.host
-        @include GlassDirective.host(12%)
+        @include GlassDirective.host
         @include WellRoundedDirective.host
 
         --bowstring--container-directive--padding-bottom: var(--bowstring--sheet--padding-bottom) !important
@@ -127,6 +136,7 @@
 
         > .harness > .between::ng-deep > *
           --bowstring--sheet--material-opacity: initial
+          --bowstring--sheet--scroll-top: initial
 
           @include ElevatedDirective.children
           @include FlexboxContainerDirective.children
@@ -143,6 +153,7 @@
 
       &::backdrop
         animation: show-backdrop 180ms ease-in forwards
+        display: flex
 
     &:not(.open) > .harness
       animation: hide-harness 180ms ease-in forwards
@@ -174,6 +185,6 @@
         > svg
           display: grid
           height: 1em
-          max-width: 1em
+          width: 1em
           overflow: visible
           transform: translateZ(0)

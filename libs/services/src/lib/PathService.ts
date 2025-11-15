@@ -19,12 +19,8 @@ export class PathService {
 
   public readonly path$: Signal<`/${ string }`> = isPlatformBrowser(this.platformId) ? toSignal<`/${ string }`>(
     this.router.events.pipe<NavigationEnd, `/${ string }`, `/${ string }`>(
-      filter<RouterEvent | NavigationStart | NavigationEnd | NavigationCancel | NavigationError | RoutesRecognized | GuardsCheckStart | GuardsCheckEnd | RouteConfigLoadStart | RouteConfigLoadEnd | ChildActivationStart | ChildActivationEnd | ActivationStart | ActivationEnd | Scroll | ResolveStart | ResolveEnd, NavigationEnd>(
-        (routerEvent: RouterEvent | NavigationStart | NavigationEnd | NavigationCancel | NavigationError | RoutesRecognized | GuardsCheckStart | GuardsCheckEnd | RouteConfigLoadStart | RouteConfigLoadEnd | ChildActivationStart | ChildActivationEnd | ActivationStart | ActivationEnd | Scroll | ResolveStart | ResolveEnd): routerEvent is NavigationEnd => routerEvent instanceof NavigationEnd,
-      ),
-      map<NavigationEnd, `/${ string }`>(
-        ({ url }: NavigationEnd): `/${ string }` => `/${ this.localeId }${ url.split("?")[0] }`,
-      ),
+      filter<RouterEvent | NavigationStart | NavigationEnd | NavigationCancel | NavigationError | RoutesRecognized | GuardsCheckStart | GuardsCheckEnd | RouteConfigLoadStart | RouteConfigLoadEnd | ChildActivationStart | ChildActivationEnd | ActivationStart | ActivationEnd | Scroll | ResolveStart | ResolveEnd, NavigationEnd>((routerEvent: RouterEvent | NavigationStart | NavigationEnd | NavigationCancel | NavigationError | RoutesRecognized | GuardsCheckStart | GuardsCheckEnd | RouteConfigLoadStart | RouteConfigLoadEnd | ChildActivationStart | ChildActivationEnd | ActivationStart | ActivationEnd | Scroll | ResolveStart | ResolveEnd): routerEvent is NavigationEnd => routerEvent instanceof NavigationEnd),
+      map<NavigationEnd, `/${ string }`>(({ url }: NavigationEnd): `/${ string }` => `/${ this.localeId }${ url.split("?")[0] }`),
       startWith<`/${ string }`, [ `/${ string }` ]>(`/${ this.localeId }${ this.location.path() }`),
     ),
     { requireSync: true },

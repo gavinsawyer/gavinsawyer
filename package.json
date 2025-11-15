@@ -1,6 +1,6 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 55",
+  "version":         "2026.0 Beta 63",
   "author":          {
     "name":  "Gavin Sawyer",
     "email": "g@vinsawyer.us",
@@ -27,13 +27,13 @@
     "@angular/platform-server":          "18",
     "@angular/router":                   "18",
     "@firebase-web-authn/browser":       "10",
-    "@googlemaps/js-api-loader":         "1",
+    "@googlemaps/js-api-loader":         "2",
     "body-scroll-lock":                  "3",
     "libphonenumber-js":                 "1",
     "lodash":                            "4",
     "masonry-layout":                    "4",
     "rxjs":                              "7",
-    "uuid":                              "11",
+    "uuid":                              "13",
     "zone.js":                           "0.14"
   },
   "devDependencies": {
@@ -49,9 +49,9 @@
     "@eslint/js":                             "9",
     "@firebase-web-authn/extension":          "10",
     "@gavinsawyer/shortcuts-api":             "3",
-    "@nx/angular":                            "21",
-    "@nx/esbuild":                            "21",
-    "@nx/eslint-plugin":                      "21",
+    "@nx/angular":                            "22",
+    "@nx/esbuild":                            "22",
+    "@nx/eslint-plugin":                      "22",
     "@types/body-scroll-lock":                "3",
     "@types/coinbase-commerce-node":          "1",
     "@types/compression":                     "1",
@@ -59,16 +59,16 @@
     "@types/google.maps":                     "3",
     "@types/lodash":                          "4",
     "@types/masonry-layout":                  "4",
-    "@types/serviceworker":                   "0.0.140",
+    "@types/serviceworker":                   "0",
     "@typescript-eslint/eslint-plugin":       "8",
     "browser-sync":                           "3",
     "compression":                            "1",
     "cookie-parser":                          "1",
-    "firebase-functions":                     "6",
+    "firebase-functions":                     "7",
     "firebase-tools":                         "13",
     "git-describe":                           "4",
     "jsonwebtoken":                           "9",
-    "nx":                                     "21",
+    "nx":                                     "22",
     "url":                                    "0"
   }
 }

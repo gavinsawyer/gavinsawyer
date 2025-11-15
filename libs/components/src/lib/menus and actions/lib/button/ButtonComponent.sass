@@ -17,8 +17,20 @@
 \:host
   display: contents
 
-  @include FlexboxContainerDirective.host
+  --bowstring--button--padding-bottom: calc(1rem * pow(var(--phi), -2))
+  --bowstring--button--padding-sides: calc(1rem * pow(var(--phi), -1))
+  --bowstring--button--padding-top: calc(1rem * pow(var(--phi), -2))
 
+  @include FlexboxContainerDirective.host
+  @include HoverTransformingDirective.host("> .harness > .between > div")
+  @include WellRoundedDirective.host("> .harness > .between > div")
+
+  --bowstring--container-directive--margin-bottom: calc(-1 * var(--bowstring--button--padding-bottom)) !important
+  --bowstring--container-directive--margin-sides: calc(-1 * var(--bowstring--button--padding-sides)) !important
+  --bowstring--container-directive--margin-top: calc(-1 * var(--bowstring--button--padding-top)) !important
+  --bowstring--container-directive--padding-bottom: var(--bowstring--button--padding-bottom) !important
+  --bowstring--container-directive--padding-sides: var(--bowstring--button--padding-sides) !important
+  --bowstring--container-directive--padding-top: var(--bowstring--button--padding-top) !important
   --bowstring--flexbox-container-directive--align-items: center !important
   --bowstring--flexbox-container-directive--flex-direction: row !important
   --bowstring--flexbox-container-directive--justify-content: center !important
@@ -34,11 +46,14 @@
       > div
         display: contents
 
-        --bowstring--button--gap-column: calc(1rem * pow(var(--phi), -2))
-        --bowstring--button--gap-row: calc(1rem * pow(var(--phi), -3))
+        --bowstring--button--gap-column: calc(var(--bowstring--button--padding-sides) * pow(var(--phi), -1))
+        --bowstring--button--gap-row: calc(var(--bowstring--button--padding-bottom) * pow(var(--phi), -1))
 
         @include FlexboxContainerDirective.host
 
+        --bowstring--container-directive--padding-bottom: var(--bowstring--button--padding-bottom) !important
+        --bowstring--container-directive--padding-sides: var(--bowstring--button--padding-sides) !important
+        --bowstring--container-directive--padding-top: var(--bowstring--button--padding-top) !important
         --bowstring--flexbox-child-directive--flex-basis: 100% !important
         --bowstring--flexbox-container-directive--align-items: center !important
         --bowstring--flexbox-container-directive--flex-direction: row !important
@@ -63,110 +78,130 @@
             opacity: 1
             transition: opacity 200ms ease-in-out
 
-            &::ng-deep > *
-              @include FlexboxContainerDirective.children
+            &::ng-deep
+              > *
+                @include FlexboxContainerDirective.children
+                @include HoverTransformingDirective.children
+                @include WellRoundedDirective.children
+
+              > bowstring--symbol + bowstring--label > .harness > .between
+                text-wrap: nowrap
 
   &:not(.appearance-raised)
-    &:not(.material-appleMusic):not(.material-primary):not(.material-secondary):not(.material-spotify):not(.material-warning)
-      @include CanvasDirective.host(18%)
+    > .harness
+      > .between > div
+        --bowstring--container-directive--margin-bottom: calc(-1 * var(--bowstring--container-directive--padding-bottom)) !important
+        --bowstring--container-directive--margin-sides: calc(-1 * var(--bowstring--container-directive--padding-sides)) !important
+        --bowstring--container-directive--margin-top: calc(-1 * var(--bowstring--container-directive--padding-top)) !important
 
-      > .harness > .between::ng-deep > *
-        @include CanvasDirective.children
+        > .harness:not(:focus-within, :hover) > .between
+          background: none !important
+
+    &:not(.material-primary):not(.material-secondary):not(.material-warning)
+      > .harness > .between > div
+        @include CanvasDirective.host(9%)
+
+        > .harness > .between::ng-deep > *
+          @include CanvasDirective.children
 
     &.material-primary
-      @include PrimaryDirective.host
+      > .harness > .between > div
+        @include PrimaryDirective.host
+
+        > .harness > .between
+          color: var(--bowstring--primary-directive--colors--background) !important
+
+          &::ng-deep > *
+            @include PrimaryDirective.children
+
+    &.material-secondary
+      > .harness > .between > div
+        @include SecondaryDirective.host
+
+        > .harness > .between
+          color: var(--bowstring--secondary-directive--colors--background) !important
+
+          &::ng-deep > *
+            @include SecondaryDirective.children
+
+    &.material-warning
+      > .harness > .between > div
+        @include WarningDirective.host
+
+        > .harness > .between
+          color: var(--bowstring--warning-directive--colors--background) !important
+
+          &::ng-deep > *
+            @include WarningDirective.children
+
+  &.appearance-raised
+    --bowstring--button--padding-bottom: calc(1rem * pow(var(--phi), -1))
+    --bowstring--button--padding-sides: calc(1rem * pow(var(--phi), 0))
+    --bowstring--button--padding-top: calc(1rem * pow(var(--phi), -1))
+
+    > .harness > .between > div
+      @include ElevatedDirective.host
 
       > .harness > .between
-        color: var(--bowstring--primary-directive--colors--background) !important
-
         &::ng-deep > *
+          @include ElevatedDirective.children
+
+    &:not(.material-appleMusic):not(.material-glass):not(.material-inverse):not(.material-primary):not(.material-secondary):not(.material-spotify):not(.material-warning)
+      > .harness > .between > div
+        @include CanvasDirective.host(0%)
+
+        > .harness > .between::ng-deep > *
+          @include CanvasDirective.children
+
+    &.material-glass
+      > .harness > .between > div
+        --bowstring--button--material-opacity: 0.625
+
+        @include GlassDirective.host
+
+        --bowstring--elevated-directive--material-opacity: var(--bowstring--button--material-opacity) !important
+        --bowstring--glass-directive--material-opacity: var(--bowstring--button--material-opacity) !important
+
+        > .harness > .between::ng-deep > *
+          --bowstring--button--material-opacity: initial
+
+          @include GlassDirective.children
+
+    &.material-inverse
+      > .harness > .between > div
+        @include InverseDirective.host(0%)
+
+        > .harness > .between::ng-deep > *
+          @include InverseDirective.children
+
+    &.material-primary
+      > .harness > .between > div
+        @include PrimaryDirective.host
+
+        > .harness > .between::ng-deep > *
           @include PrimaryDirective.children
 
     &.material-secondary
-      @include SecondaryDirective.host
+      > .harness > .between > div
+        @include SecondaryDirective.host
 
-      > .harness > .between
-        color: var(--bowstring--secondary-directive--colors--background) !important
-
-        &::ng-deep > *
+        > .harness > .between::ng-deep > *
           @include SecondaryDirective.children
 
     &.material-warning
-      @include WarningDirective.host
+      > .harness > .between > div
+        @include WarningDirective.host
 
-      > .harness > .between
-        color: var(--bowstring--warning-directive--colors--background) !important
-
-        &::ng-deep > *
+        > .harness > .between::ng-deep > *
           @include WarningDirective.children
 
-    > .harness > .between
-      background: none !important
+  &.appearance-symbol
+    --bowstring--button--padding-bottom: calc(1rem * pow(var(--phi), -3))
+    --bowstring--button--padding-sides: calc(1rem * pow(var(--phi), -2))
+    --bowstring--button--padding-top: calc(1rem * pow(var(--phi), -3))
 
-  &.appearance-raised
-    @include ElevatedDirective.host
-    @include HoverTransformingDirective.host
-    @include WellRoundedDirective.host
-
-    &:not(.material-appleMusic):not(.material-glass):not(.material-inverse):not(.material-primary):not(.material-secondary):not(.material-spotify):not(.material-warning)
-      @include CanvasDirective.host(0%)
-
-      > .harness > .between::ng-deep > *
-        @include CanvasDirective.children
-
-    &.material-glass
-      --bowstring--button--material-opacity: 0.625
-
-      @include GlassDirective.host(12%)
-
-      --bowstring--elevated-directive--material-opacity: var(--bowstring--button--material-opacity) !important
-      --bowstring--glass-directive--material-opacity: var(--bowstring--button--material-opacity) !important
-
-      > .harness > .between::ng-deep > *
-        --bowstring--button--material-opacity: initial
-
-        @include GlassDirective.children
-
-    &.material-inverse
-      @include InverseDirective.host(0%)
-
-      > .harness > .between::ng-deep > *
-        @include InverseDirective.children
-
-    &.material-primary
-      @include PrimaryDirective.host
-
-      > .harness > .between::ng-deep > *
-        @include PrimaryDirective.children
-
-    &.material-secondary
-      @include SecondaryDirective.host
-
-      > .harness > .between::ng-deep > *
-        @include SecondaryDirective.children
-
-    &.material-warning
-      @include WarningDirective.host
-
-      > .harness > .between::ng-deep > *
-        @include WarningDirective.children
-
-    > .harness > .between
-      &::ng-deep > *
-        @include ElevatedDirective.children
-        @include HoverTransformingDirective.children
-        @include WellRoundedDirective.children
-
-      > div
-        --bowstring--button--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1))
-        --bowstring--button--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1))
-
-        --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
-        --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
-        --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
-
-  &.appearance-symbol > .harness > .between > div > .harness > .between
-    font-size: calc(1rem * var(--phi))
+    > .harness > .between > div > .harness > .between
+      font-size: calc(1rem * var(--phi))
 
   &.disabled > .harness
     pointer-events: none

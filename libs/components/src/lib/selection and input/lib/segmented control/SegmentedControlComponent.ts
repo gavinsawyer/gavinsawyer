@@ -59,15 +59,11 @@ import { SegmentedControlOptionComponent }                                      
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof SegmentedControlComponent => SegmentedControlComponent,
-        ),
+        useExisting: forwardRef((): typeof SegmentedControlComponent => SegmentedControlComponent),
       },
       {
         provide:     SEGMENTED_CONTROL_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof SegmentedControlComponent => SegmentedControlComponent,
-        ),
+        useExisting: forwardRef((): typeof SegmentedControlComponent => SegmentedControlComponent),
       },
     ],
     selector:        "bowstring--segmented-control",
@@ -129,16 +125,12 @@ export class SegmentedControlComponent
   protected getOptionOffset(value: string): number | undefined {
     const optionWidths = this.optionWidths$();
 
-    if (optionWidths?.every<number>(
-      (optionWidth?: number): optionWidth is number => typeof optionWidth === "number",
-    ))
+    if (optionWidths?.every<number>((optionWidth?: number): optionWidth is number => typeof optionWidth === "number"))
       return optionWidths.slice(
         0,
         Math.max(
           0,
-          this.options$().findIndex(
-            ({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value,
-          ),
+          this.options$().findIndex(({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value),
         ),
       ).reduce(
         (
@@ -153,18 +145,14 @@ export class SegmentedControlComponent
   protected getOptionWidth(value: string): number | undefined {
     return this.optionWidths$()?.[Math.max(
       0,
-      this.options$().findIndex(
-        ({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value,
-      ),
+      this.options$().findIndex(({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value),
     )];
   }
 
   public getOptionIndex(value: string): number {
     return Math.max(
       0,
-      this.options$().findIndex(
-        ({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value,
-      ),
+      this.options$().findIndex(({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value),
     );
   };
   public onChange?(): void

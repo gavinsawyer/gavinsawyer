@@ -89,7 +89,7 @@ export {
 
 declare const __non_webpack_require__: NodeJS.Require;
 
-if (((moduleFilename: string): boolean => moduleFilename === __filename || moduleFilename.includes("iisnode"))(((mainModule?: NodeJS.Module): string => mainModule?.filename || "")(__non_webpack_require__.main))) {
+if (((moduleFilename: string): boolean => moduleFilename === __filename || moduleFilename.includes("iisnode"))(((mainModule?: NodeJS.Module): string => mainModule?.filename || "")(__non_webpack_require__.main)))
   express().use(compression()).use(cookieParser()).use(
     (
       request: express.Request,
@@ -138,11 +138,8 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
     ),
   ).get(
     "*",
-    getI18nRequestHandler(
-      ({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => getRequestHandler(projectLocaleId),
-    ),
+    getI18nRequestHandler(({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => getRequestHandler(projectLocaleId)),
   ).listen(
     process.env["PORT"] || 4000,
     (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),
   );
-}

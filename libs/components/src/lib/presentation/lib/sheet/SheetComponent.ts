@@ -7,7 +7,7 @@ import { afterRender, ChangeDetectionStrategy, Component, effect, type EffectCle
 import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                             from "@angular/core/rxjs-interop";
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                 from "@bowstring/directives";
 import { type Symbol }                                                                                                                                                                                            from "@bowstring/interfaces";
-import { RxSsrService }                                                                                                                                                                                           from "@bowstring/services";
+import { RxSsrService, ViewportService }                                                                                                                                                                          from "@bowstring/services";
 import loadSymbol                                                                                                                                                                                                 from "@bowstring/symbols";
 import { type SymbolName }                                                                                                                                                                                        from "@bowstring/types";
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                           from "body-scroll-lock";
@@ -18,8 +18,9 @@ import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switch
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
-      "[class.openOrClosing]": "openOrClosing$()",
-      "[class.open]":          "openModelWithTransform$()",
+      "[class.openOrClosing]":                  "openOrClosing$()",
+      "[class.open]":                           "openModelWithTransform$()",
+      "[style.--bowstring--sheet--scroll-top]": "viewportService.scrollTop$()",
     },
     hostDirectives:  [
       {
@@ -61,9 +62,7 @@ import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switch
 export class SheetComponent {
 
   constructor() {
-    afterRender(
-      (): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()),
-    );
+    afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
 
     if (isPlatformBrowser(this.platformId))
       effect(
@@ -89,20 +88,14 @@ export class SheetComponent {
               0,
             );
 
-          effectCleanupRegisterFn(
-            (): void => clearAllBodyScrollLocks(),
-          );
+          effectCleanupRegisterFn((): void => clearAllBodyScrollLocks());
         },
       );
 
     fromEvent<KeyboardEvent>(
       this.document,
       "keydown",
-    ).pipe<KeyboardEvent>(
-      takeUntilDestroyed<KeyboardEvent>(),
-    ).subscribe(
-      (keyboardEvent: KeyboardEvent): void => this.keydown(keyboardEvent) && void (0),
-    );
+    ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe((keyboardEvent: KeyboardEvent): void => this.keydown(keyboardEvent) && void (0));
   }
 
   private readonly document: Document                                           = inject<Document>(DOCUMENT);
@@ -114,14 +107,13 @@ export class SheetComponent {
   protected readonly arrowUpAndDownAndArrowLeftAndRightSymbol$: Signal<Symbol | undefined> = toSignal<Symbol>(
     of<SymbolName>("ArrowUpAndDownAndArrowLeftAndRight").pipe<Symbol>(
       this.rxSsrService.wrap<SymbolName, Symbol>(
-        switchMap<SymbolName, Observable<Symbol>>(
-          (symbolName: SymbolName): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(symbolName)),
-        ),
+        switchMap<SymbolName, Observable<Symbol>>((symbolName: SymbolName): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(symbolName))),
         "Symbol:ArrowUpAndDownAndArrowLeftAndRight",
       ),
     ),
   );
   protected readonly containerDirective: ContainerDirective                                = inject<ContainerDirective>(ContainerDirective);
+  protected readonly viewportService: ViewportService                                      = inject<ViewportService>(ViewportService);
 
   public readonly openModel$: ModelSignal<"" | boolean | `${ boolean }`> = model<"" | boolean | `${ boolean }`>(
     false,
@@ -130,21 +122,15 @@ export class SheetComponent {
   public readonly openModelWithTransform$: Signal<boolean>               = toSignal<boolean>(
     toObservable<"" | boolean | `${ boolean }`>(this.openModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
       startWith<"" | boolean | `${ boolean }`>(this.openModel$()),
-      map<"" | boolean | `${ boolean }`, boolean>(
-        (open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true",
-      ),
+      map<"" | boolean | `${ boolean }`, boolean>((open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true"),
     ),
     { requireSync: true },
   );
 
   protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
     toObservable<boolean | undefined>(this.openModelWithTransform$).pipe<boolean | undefined, boolean | undefined>(
-      delayWhen<boolean | undefined>(
-        (open?: boolean): Observable<number> => open ? timer(0) : timer(180),
-      ),
-      map<boolean | undefined, boolean | undefined>(
-        (): boolean | undefined => this.openModelWithTransform$(),
-      ),
+      delayWhen<boolean | undefined>((open?: boolean): Observable<number> => open ? timer(0) : timer(180)),
+      map<boolean | undefined, boolean | undefined>((): boolean | undefined => this.openModelWithTransform$()),
     ),
   ) : signal<undefined>(undefined);
   protected readonly wellRoundedDirective: WellRoundedDirective  = inject<WellRoundedDirective>(WellRoundedDirective);

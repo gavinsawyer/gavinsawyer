@@ -56,9 +56,7 @@ import { InputWithOptionsComponent }                                            
       {
         multi:       true,
         provide:     NG_VALUE_ACCESSOR,
-        useExisting: forwardRef(
-          (): typeof PickerInputComponent => PickerInputComponent,
-        ),
+        useExisting: forwardRef((): typeof PickerInputComponent => PickerInputComponent),
       },
     ],
     selector:        "bowstring--picker-input",

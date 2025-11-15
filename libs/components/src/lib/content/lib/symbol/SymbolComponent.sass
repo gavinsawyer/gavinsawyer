@@ -12,15 +12,19 @@
   @include FlexboxContainerDirective.host
   @include InlinableDirective.host
 
+  --bowstring--container-directive--align-self: center !important
   --bowstring--flexbox-container-directive--align-items: center !important
   --bowstring--flexbox-container-directive--justify-content: center !important
 
-  > .harness > .between > svg
-    display: grid
-    height: 1em
-    max-width: 1em
-    overflow: visible
-    transform: translateZ(0)
+  > .harness
+    vertical-align: middle
+
+    > .between > svg
+      display: grid
+      height: 1em
+      max-width: 1em
+      overflow: visible
+      transform: translateZ(0)
 
   &.fixedWidth > .harness > .between > svg
     width: 1em

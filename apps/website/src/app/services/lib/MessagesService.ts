@@ -7,7 +7,7 @@ import { toSignal }                                                             
 import { type User }                                                                     from "@angular/fire/auth";
 import { collection, collectionData, type CollectionReference, Firestore, query, where } from "@angular/fire/firestore";
 import { AuthenticationService, RxSsrService }                                           from "@bowstring/services";
-import { catchError, Observable, of, switchMap }                                         from "rxjs";
+import { catchError, map, Observable, of, switchMap }                                    from "rxjs";
 import { type MessageDocument }                                                          from "../../interfaces";
 
 
@@ -18,11 +18,11 @@ export class MessagesService {
   private readonly firestore: Firestore                         = inject<Firestore>(Firestore);
   private readonly rxSsrService: RxSsrService                   = inject<RxSsrService>(RxSsrService);
 
-  public readonly messageDocuments$: Signal<Array<MessageDocument> | undefined> = toSignal<Array<MessageDocument> | undefined>(
-    this.authenticationService.userObservable.pipe<Array<MessageDocument> | undefined>(
-      this.rxSsrService.wrap<User, Array<MessageDocument> | undefined>(
-        switchMap<User, Observable<Array<MessageDocument> | undefined>>(
-          ({ uid: userId }: User): Observable<Array<MessageDocument> | undefined> => collectionData<MessageDocument>(
+  public readonly messageDocument$: Signal<MessageDocument | undefined> = toSignal<MessageDocument | undefined>(
+    this.authenticationService.userObservable.pipe<MessageDocument | undefined>(
+      this.rxSsrService.wrap<User, MessageDocument | undefined>(
+        switchMap<User, Observable<MessageDocument | undefined>>(
+          ({ uid: userId }: User): Observable<MessageDocument | undefined> => collectionData<MessageDocument>(
             query<MessageDocument, MessageDocument>(
               collection(
                 this.firestore,
@@ -34,10 +34,9 @@ export class MessagesService {
                 userId,
               ),
             ),
-          ).pipe<Array<MessageDocument> | undefined>(
-            catchError<Array<MessageDocument>, Observable<undefined>>(
-              (): Observable<undefined> => of<undefined>(undefined),
-            ),
+          ).pipe<Array<MessageDocument> | undefined, MessageDocument | undefined>(
+            catchError<Array<MessageDocument>, Observable<undefined>>((): Observable<undefined> => of<undefined>(undefined)),
+            map<Array<MessageDocument> | undefined, MessageDocument | undefined>((bagDocuments?: Array<MessageDocument>): MessageDocument | undefined => bagDocuments?.[0]),
           ),
         ),
         "0198a002-2278-75af-98c6-efe4fbddd0ea",
