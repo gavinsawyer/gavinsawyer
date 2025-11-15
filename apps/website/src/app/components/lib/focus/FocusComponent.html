@@ -19,6 +19,12 @@
       [attr.d]="wellRoundedDirective.pathDefinition$()"
       fill="transparent" />
   </clipPath>
+  <mask
+    [attr.id]="wellRoundedDirective.glassMaskId$()"
+    maskContentUnits="userSpaceOnUse"
+    maskUnits="userSpaceOnUse">
+    <path [attr.d]="wellRoundedDirective.pathDefinition$()" />
+  </mask>
 </svg>
 
 <ng-template #badgeSymbolTemplate>
