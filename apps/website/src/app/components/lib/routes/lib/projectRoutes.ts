@@ -2,8 +2,6 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-/// <reference types="@angular/localize" />
-
 import { inject, type Type }                   from "@angular/core";
 import { ActivatedRouteSnapshot, type Routes } from "@angular/router";
 import type * as brandLib                      from "@bowstring/brand";
@@ -11,7 +9,7 @@ import { description, title }                  from "@bowstring/brand";
 import { BRAND }                               from "@bowstring/injection-tokens";
 
 
-const routes: Routes = [
+const projectRoutes: Routes = [
   {
     data:          {
       description,
@@ -59,4 +57,4 @@ const routes: Routes = [
   },
 ];
 
-export default routes;
+export default projectRoutes;

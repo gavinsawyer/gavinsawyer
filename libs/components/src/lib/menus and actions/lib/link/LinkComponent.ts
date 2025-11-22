@@ -4,15 +4,17 @@
 
 import { NgTemplateOutlet }                                                                                                                                                            from "@angular/common";
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, type InputSignal, type InputSignalWithTransform, output, type OutputEmitterRef, type Signal, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                                      from "@angular/core/rxjs-interop";
 import { RouterLink, RouterLinkActive }                                                                                                                                                from "@angular/router";
 import { CanvasDirective, ContainerDirective, FlexboxContainerDirective, InlinableDirective, PrimaryDirective, SecondaryDirective, WarningDirective }                                  from "@bowstring/directives";
+import { combineLatestWith, map, type Observable, of, startWith, switchMap }                                                                                                           from "rxjs";
 
 
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
-      "[class.disabled]":           "disabledInput$() || routerLinkActive$()?.isActive || false",
+      "[class.disabled]":           "disabled$()",
       "[class.material-primary]":   "materialInput$() === 'primary'",
       "[class.material-secondary]": "materialInput$() === 'secondary'",
       "[class.material-warning]":   "materialInput$() === 'warning'",
@@ -53,8 +55,9 @@ import { CanvasDirective, ContainerDirective, FlexboxContainerDirective, Inlinab
 )
 export class LinkComponent {
 
-  protected readonly containerDirective: ContainerDirective                  = inject<ContainerDirective>(ContainerDirective);
-  protected readonly routerLinkActive$: Signal<RouterLinkActive | undefined> = viewChild<RouterLinkActive>(RouterLinkActive);
+  private readonly routerLinkActive$: Signal<RouterLinkActive | undefined> = viewChild<RouterLinkActive>(RouterLinkActive);
+
+  protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
   public readonly disabledInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined> = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
     undefined,
@@ -62,6 +65,19 @@ export class LinkComponent {
       alias:     "disabled",
       transform: booleanAttribute,
     },
+  );
+  public readonly disabled$: Signal<boolean | undefined>                                                                   = toSignal<boolean>(
+    toObservable<boolean | undefined>(this.disabledInput$).pipe<[ boolean | undefined, boolean | undefined ], boolean>(
+      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.asObservable().pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
+      map<[ boolean | undefined, boolean | undefined ], boolean>(
+        (
+          [
+            disabledInput,
+            routerLinkActive,
+          ]: [ boolean | undefined, boolean | undefined ],
+        ): boolean => disabledInput || routerLinkActive || false,
+      ),
+    ),
   );
   public readonly exactInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined>    = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
     undefined,

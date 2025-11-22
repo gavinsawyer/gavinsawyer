@@ -2,8 +2,13 @@
  / Copyright © 2025 Gavin Sawyer. All rights reserved.
  /
 
+@use "../../../route/RouteComponent"
+
+
 \:host
   display: contents
+
+  @include RouteComponent.host
 
   > bowstring--flexbox-container
     --bowstring--flexbox-child-directive--flex-grow: 1 !important

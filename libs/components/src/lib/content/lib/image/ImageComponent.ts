@@ -8,7 +8,7 @@ import { outputFromObservable, toObservable, toSignal }                         
 import { RouterLink, RouterLinkActive }                                                                                                                                                                                from "@angular/router";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, HoverTransformingDirective, WellRoundedDirective }                                                                                                    from "@bowstring/directives";
 import { type Dimensions }                                                                                                                                                                                             from "@bowstring/interfaces";
-import { from, type Observable, Subject, switchMap }                                                                                                                                                                   from "rxjs";
+import { combineLatestWith, from, map, type Observable, of, startWith, Subject, switchMap }                                                                                                                            from "rxjs";
 
 
 // noinspection CssUnknownProperty
@@ -18,7 +18,7 @@ import { from, type Observable, Subject, switchMap }                            
     host:            {
       "[class.appearance-circular]":              "appearanceInput$() === 'circular'",
       "[class.appearance-transparent]":           "appearanceInput$() === 'transparent'",
-      "[class.disabled]":                         "disabledInput$() || routerLinkActive$()?.isActive || false",
+      "[class.disabled]":                         "disabled$()",
       "[class.outputObservedOrHasUrlInput]":      "outputSubject.observed || urlInput$()",
       "[style.--bowstring--image--aspect-ratio]": "(widthInput$() || imageDimensions$()?.width || 0) + '/' + (heightInput$() || imageDimensions$()?.height || 0)",
     },
@@ -87,10 +87,11 @@ export class ImageComponent {
 
   private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>     = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
   private readonly htmlImageElementRef$: Signal<ElementRef<HTMLImageElement>> = viewChild.required<ElementRef<HTMLImageElement>>("htmlImageElement");
+  private readonly routerLinkActive$: Signal<RouterLinkActive | undefined>    = viewChild<RouterLinkActive>(RouterLinkActive);
 
-  protected readonly containerDirective: ContainerDirective                  = inject<ContainerDirective>(ContainerDirective);
-  protected readonly hoverTransformingDirective: HoverTransformingDirective  = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  protected readonly imageDimensions$: Signal<Dimensions | undefined>        = toSignal<Dimensions | undefined>(
+  protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
+  protected readonly imageDimensions$: Signal<Dimensions | undefined>       = toSignal<Dimensions | undefined>(
     toObservable<ElementRef<HTMLImageElement>>(this.htmlImageElementRef$).pipe<Dimensions>(
       switchMap<ElementRef<HTMLImageElement>, Observable<Dimensions>>(
         ({ nativeElement: htmlImageElement }: ElementRef<HTMLImageElement>): Observable<Dimensions> => from<Promise<Dimensions>>(
@@ -112,9 +113,8 @@ export class ImageComponent {
       ),
     ),
   );
-  protected readonly outputSubject: Subject<void>                            = new Subject<void>();
-  protected readonly routerLinkActive$: Signal<RouterLinkActive | undefined> = viewChild<RouterLinkActive>(RouterLinkActive);
-  protected readonly wellRoundedDirective: WellRoundedDirective              = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly outputSubject: Subject<void>                           = new Subject<void>();
+  protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly altInput$: InputSignal<string | undefined>                                                               = input<string | undefined>(
     undefined,
@@ -130,6 +130,19 @@ export class ImageComponent {
       alias:     "disabled",
       transform: booleanAttribute,
     },
+  );
+  public readonly disabled$: Signal<boolean | undefined>                                                                   = toSignal<boolean>(
+    toObservable<boolean | undefined>(this.disabledInput$).pipe<[ boolean | undefined, boolean | undefined ], boolean>(
+      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.asObservable().pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
+      map<[ boolean | undefined, boolean | undefined ], boolean>(
+        (
+          [
+            disabledInput,
+            routerLinkActive,
+          ]: [ boolean | undefined, boolean | undefined ],
+        ): boolean => disabledInput || routerLinkActive || false,
+      ),
+    ),
   );
   public readonly exactInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined>    = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
     undefined,

@@ -68,9 +68,7 @@ self.addEventListener<"fetch">(
 );
 self.addEventListener<"install">(
   "install",
-  (): void => {
-    self.skipWaiting();
-  },
+  (): Promise<void> => self.skipWaiting(),
 );
 self.addEventListener<"message">(
   "message",

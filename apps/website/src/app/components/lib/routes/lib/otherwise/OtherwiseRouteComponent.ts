@@ -4,9 +4,8 @@
 
 import { isPlatformServer }                                                     from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject, type OnInit, PLATFORM_ID } from "@angular/core";
-import { type Routes }                                                          from "@angular/router";
 import { HeaderComponent, HeadingGroupComponent }                               from "@bowstring/components";
-import { ENVIRONMENT, PROJECT_ROUTES, RESPONSE }                                from "@bowstring/injection-tokens";
+import { ENVIRONMENT, RESPONSE }                                                from "@bowstring/injection-tokens";
 import { type Environment }                                                     from "@bowstring/interfaces";
 import { FindRouteByPathPipe }                                                  from "@bowstring/pipes";
 import { PathService }                                                          from "@bowstring/services";
@@ -40,7 +39,6 @@ export class OtherwiseRouteComponent
 
   protected readonly environment: Environment = inject<Environment>(ENVIRONMENT);
   protected readonly pathService: PathService = inject<PathService>(PathService);
-  protected readonly projectRoutes: Routes    = inject<Routes>(PROJECT_ROUTES);
 
   public override ngOnInit(): void {
     super.ngOnInit();

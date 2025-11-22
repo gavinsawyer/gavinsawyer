@@ -64,7 +64,6 @@ export class RootComponent {
   }
 
   private readonly appCheck: AppCheck                                          = inject<AppCheck>(AppCheck);
-  private readonly authenticationService: AuthenticationService                = inject<AuthenticationService>(AuthenticationService);
   private readonly document: Document                                          = inject<Document>(DOCUMENT);
   private readonly environment: Environment                                    = inject<Environment>(ENVIRONMENT);
   private readonly injector: Injector                                          = inject<Injector>(Injector);
@@ -78,29 +77,30 @@ export class RootComponent {
   protected readonly aboveTemplateRef$: Signal<TemplateRef<never> | undefined>  = toSignal<TemplateRef<never> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<never> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent, TemplateRef<never> | undefined>(
+          startWith<RouteComponent, [ RouteComponent ]>(routerOutlet.component as RouteComponent),
           switchMap<RouteComponent, Observable<TemplateRef<never> | undefined>>(
-            ({ aboveTemplateRef$ }: RouteComponent): Observable<TemplateRef<never> | undefined> => toObservable<TemplateRef<never> | undefined>(
-              aboveTemplateRef$,
+            (routeComponent: RouteComponent): Observable<TemplateRef<never> | undefined> => toObservable<TemplateRef<never> | undefined>(
+              routeComponent.aboveTemplateRef$,
               { injector: this.injector },
             ),
           ),
-          startWith<TemplateRef<never> | undefined, [ TemplateRef<never> | undefined ]>((routerOutlet.component as RouteComponent).aboveTemplateRef$()),
         ),
       ),
     ),
   );
+  protected readonly authenticationService: AuthenticationService               = inject<AuthenticationService>(AuthenticationService);
   protected readonly bannerTemplateRef$: Signal<TemplateRef<never> | undefined> = toSignal<TemplateRef<never> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<never> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent, TemplateRef<never> | undefined>(
+          startWith<RouteComponent, [ RouteComponent ]>(routerOutlet.component as RouteComponent),
           switchMap<RouteComponent, Observable<TemplateRef<never> | undefined>>(
-            ({ bannerTemplateRef$ }: RouteComponent): Observable<TemplateRef<never> | undefined> => toObservable<TemplateRef<never> | undefined>(
-              bannerTemplateRef$,
+            (routeComponent: RouteComponent): Observable<TemplateRef<never> | undefined> => toObservable<TemplateRef<never> | undefined>(
+              routeComponent.bannerTemplateRef$,
               { injector: this.injector },
             ),
           ),
-          startWith<TemplateRef<never> | undefined, [ TemplateRef<never> | undefined ]>((routerOutlet.component as RouteComponent).bannerTemplateRef$()),
         ),
       ),
     ),
@@ -108,14 +108,14 @@ export class RootComponent {
   protected readonly belowTemplateRef$: Signal<TemplateRef<never> | undefined>  = toSignal<TemplateRef<never> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<never> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<never> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<TemplateRef<never> | undefined, TemplateRef<never> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<never> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent, TemplateRef<never> | undefined>(
+          startWith<RouteComponent, [ RouteComponent ]>(routerOutlet.component as RouteComponent),
           switchMap<RouteComponent, Observable<TemplateRef<never> | undefined>>(
-            ({ belowTemplateRef$ }: RouteComponent): Observable<TemplateRef<never> | undefined> => toObservable<TemplateRef<never> | undefined>(
-              belowTemplateRef$,
+            (routeComponent: RouteComponent): Observable<TemplateRef<never> | undefined> => toObservable<TemplateRef<never> | undefined>(
+              routeComponent.belowTemplateRef$,
               { injector: this.injector },
             ),
           ),
-          startWith<TemplateRef<never> | undefined, [ TemplateRef<never> | undefined ]>((routerOutlet.component as RouteComponent).belowTemplateRef$()),
         ),
       ),
     ),

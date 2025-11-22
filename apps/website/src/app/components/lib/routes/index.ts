@@ -2,7 +2,11 @@
  * Copyright © 2025 Gavin Sawyer. All rights reserved.
  */
 
-import routes from "./lib/routes";
+import projectRoutes         from "./lib/projectRoutes";
+import projectRoutesProvider from "./lib/projectRoutesProvider";
 
 
-export { routes };
+export {
+  projectRoutes,
+  projectRoutesProvider,
+};

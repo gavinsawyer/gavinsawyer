@@ -4,8 +4,10 @@
 
 import { NgTemplateOutlet }                                                                                                                                                                                                              from "@angular/common";
 import { afterRender, booleanAttribute, ChangeDetectionStrategy, Component, type ElementRef, inject, input, type InputSignal, type InputSignalWithTransform, output, type OutputEmitterRef, type Signal, viewChild }                     from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                                                                                        from "@angular/core/rxjs-interop";
 import { RouterLink, RouterLinkActive }                                                                                                                                                                                                  from "@angular/router";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, HoverTransformingDirective, InverseDirective, PrimaryDirective, SecondaryDirective, WarningDirective, WellRoundedDirective } from "@bowstring/directives";
+import { combineLatestWith, map, type Observable, of, startWith, switchMap }                                                                                                                                                             from "rxjs";
 
 
 @Component(
@@ -14,7 +16,7 @@ import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContaine
     host:            {
       "[class.appearance-raised]":  "appearanceInput$() === 'raised'",
       "[class.appearance-symbol]":  "appearanceInput$() === 'symbol'",
-      "[class.disabled]":           "disabledInput$() || routerLinkActive$()?.isActive || false",
+      "[class.disabled]":           "disabled$()",
       "[class.material-glass]":     "materialInput$() === 'glass'",
       "[class.material-inverse]":   "materialInput$() === 'inverse'",
       "[class.material-primary]":   "materialInput$() === 'primary'",
@@ -84,11 +86,11 @@ export class ButtonComponent {
   private readonly hoverTransformingDirective: HoverTransformingDirective                               = inject<HoverTransformingDirective>(HoverTransformingDirective);
   private readonly externalLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined> = viewChild<ElementRef<HTMLAnchorElement>>("externalLinkHtmlAnchorElement");
   private readonly htmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement> | undefined>             = viewChild<ElementRef<HTMLButtonElement>>("htmlButtonElement");
+  private readonly routerLinkActive$: Signal<RouterLinkActive | undefined>                              = viewChild<RouterLinkActive>(RouterLinkActive);
   private readonly routerLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined>   = viewChild<ElementRef<HTMLAnchorElement>>("routerLinkHtmlAnchorElement");
 
-  protected readonly containerDirective: ContainerDirective                  = inject<ContainerDirective>(ContainerDirective);
-  protected readonly routerLinkActive$: Signal<RouterLinkActive | undefined> = viewChild<RouterLinkActive>(RouterLinkActive);
-  protected readonly wellRoundedDirective: WellRoundedDirective              = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly containerDirective: ContainerDirective     = inject<ContainerDirective>(ContainerDirective);
+  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly appearanceInput$: InputSignal<"raised" | "symbol" | undefined>                                                                = input<"raised" | "symbol" | undefined>(
     undefined,
@@ -100,6 +102,19 @@ export class ButtonComponent {
       alias:     "disabled",
       transform: booleanAttribute,
     },
+  );
+  public readonly disabled$: Signal<boolean | undefined>                                                                                        = toSignal<boolean>(
+    toObservable<boolean | undefined>(this.disabledInput$).pipe<[ boolean | undefined, boolean | undefined ], boolean>(
+      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.asObservable().pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
+      map<[ boolean | undefined, boolean | undefined ], boolean>(
+        (
+          [
+            disabledInput,
+            routerLinkActive,
+          ]: [ boolean | undefined, boolean | undefined ],
+        ): boolean => disabledInput || routerLinkActive || false,
+      ),
+    ),
   );
   public readonly materialInput$: InputSignal<"appleMusic" | "glass" | "inverse" | "primary" | "secondary" | "spotify" | "warning" | undefined> = input<"appleMusic" | "glass" | "inverse" | "primary" | "secondary" | "spotify" | "warning" | undefined>(
     undefined,
