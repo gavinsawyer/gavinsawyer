@@ -1,11 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _DigitalcrownHorizontalPressFill: Symbol = {
   paths:         [
     {
@@ -13,7 +14,7 @@ export const _DigitalcrownHorizontalPressFill: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M15.8672 17.3789L19.7578 12.8906C20.4609 12.1172 20.0625 10.9688 18.9258 10.9688L16.125 10.9688L16.125 2.96484C16.125 2.34375 15.6445 1.86328 15.0234 1.86328C14.4023 1.86328 13.9219 2.34375 13.9219 2.96484L13.9219 10.9688L11.0859 10.9688C10.0078 10.9688 9.53906 12.082 10.2539 12.8906L14.1562 17.3789C14.6484 17.9414 15.3633 17.9531 15.8672 17.3789Z",
+      definition: "M13.9219 2.96484L13.9219 13.6055C13.9219 14.2383 14.4023 14.7188 15.0234 14.7188C15.6445 14.7188 16.125 14.2383 16.125 13.6055L16.125 2.96484C16.125 2.34375 15.6445 1.86328 15.0234 1.86328C14.4023 1.86328 13.9219 2.34375 13.9219 2.96484ZM18.9258 10.9688L11.0859 10.9688C10.0078 10.9688 9.53906 12.082 10.2539 12.8906L14.1562 17.3789C14.6484 17.9414 15.3633 17.9531 15.8672 17.3789L19.7578 12.8906C20.4609 12.1172 20.0625 10.9688 18.9258 10.9688Z",
       opacity:    0.85,
     },
   ],

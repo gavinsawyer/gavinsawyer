@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { isPlatformBrowser, NgTemplateOutlet }                                                                      from "@angular/common";
@@ -9,7 +9,6 @@ import { ContainerDirective, FlexboxContainerDirective }                        
 import { Observable, type Observer, switchMap, type TeardownLogic }                                                 from "rxjs";
 
 
-// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,9 +50,7 @@ export class ErrorsContainerComponent {
       switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
         ({ nativeElement: htmlElement }: ElementRef<HTMLDivElement>): Observable<number> => new Observable<number>(
           (dimensionsObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(
-              ([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(element.clientHeight),
-            );
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(element.clientHeight));
 
             resizeObserver.observe(htmlElement);
 

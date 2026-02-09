@@ -1,15 +1,15 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "elevated"
 
-$level: functions.get-input-reference($namespace, "level", 1)
-$material-opacity: functions.get-input-reference($namespace, "material-opacity", 1)
+$level: sassFunctions.get-input-reference($namespace, "level", 1)
+$material-opacity: sassFunctions.get-input-reference($namespace, "material-opacity", 1)
 
 @function get-color($theme, $type, $shade)
 
@@ -17,9 +17,9 @@ $material-opacity: functions.get-input-reference($namespace, "material-opacity",
 @mixin color-scheme($theme)
 
 @mixin children
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ("level", "material-opacity"))
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ("level", "material-opacity"))
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host($child-selector: '')
   @include color-scheme("light")
@@ -30,12 +30,13 @@ $material-opacity: functions.get-input-reference($namespace, "material-opacity",
   #{ $child-selector } > .harness:before
     color: transparentize(black, 0.25)
     content: ""
-    left: 2px
+    left: 0
     height: calc(100% - 4px)
     opacity: calc(pow($material-opacity, 2))
     position: absolute
-    top: 2px
+    top: 0
     width: calc(100% - 4px)
+    transform: translateX(2px) translateY(2px) translateZ(0)
     transition: box-shadow 200ms var(--bounce)
     z-index: 0
 

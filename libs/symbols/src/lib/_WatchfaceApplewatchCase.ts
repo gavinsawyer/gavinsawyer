@@ -1,11 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _WatchfaceApplewatchCase: Symbol = {
   paths:         [
     {
@@ -13,7 +14,7 @@ export const _WatchfaceApplewatchCase: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M12.3867 15.1406C13.0898 15.7266 13.6992 15.7266 14.3789 15.1406L20.6602 9.66797C21.0586 9.31641 21.0703 8.70703 20.6953 8.30859C20.3203 7.93359 19.7344 7.92188 19.3008 8.30859L13.3711 13.4648L9.77344 10.3945C9.375 10.043 8.75391 10.1133 8.41406 10.5117C8.05078 10.9219 8.12109 11.5312 8.54297 11.8945Z",
+      definition: "M12.3984 15.2109C13.0781 15.7734 13.7227 15.7852 14.3672 15.2109L20.7891 9.58594C21.1992 9.21094 21.1992 8.56641 20.7773 8.14453C20.4023 7.76953 19.793 7.75781 19.3477 8.15625L13.3711 13.3594L9.79688 10.3125C9.38672 9.96094 8.75391 10.0312 8.39062 10.4531C8.01562 10.875 8.08594 11.5312 8.51953 11.8945Z",
       opacity:    0.85,
     },
   ],

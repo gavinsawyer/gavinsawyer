@@ -1,21 +1,21 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 @use "../container/ContainerDirective"
 
 
 $namespace: "flexbox-container"
 
-$align-content: functions.get-input-reference($namespace, "align-content", normal)
-$align-items: functions.get-input-reference($namespace, "align-items", normal)
-$flex-direction: functions.get-input-reference($namespace, "flex-direction", column)
-$flex-wrap: functions.get-input-reference($namespace, "flex-wrap", nowrap)
-$gap-column: functions.get-input-reference($namespace, "gap-column", 0)
-$gap-row: functions.get-input-reference($namespace, "gap-row", 0)
-$justify-content: functions.get-input-reference($namespace, "justify-content", normal)
+$align-content: sassFunctions.get-input-reference($namespace, "align-content", normal)
+$align-items: sassFunctions.get-input-reference($namespace, "align-items", normal)
+$flex-direction: sassFunctions.get-input-reference($namespace, "flex-direction", column)
+$flex-wrap: sassFunctions.get-input-reference($namespace, "flex-wrap", nowrap)
+$gap-column: sassFunctions.get-input-reference($namespace, "gap-column", 0)
+$gap-row: sassFunctions.get-input-reference($namespace, "gap-row", 0)
+$justify-content: sassFunctions.get-input-reference($namespace, "justify-content", normal)
 
 @function get-color($theme, $type, $shade)
 
@@ -25,9 +25,9 @@ $justify-content: functions.get-input-reference($namespace, "justify-content", n
 @mixin children
   @include ContainerDirective.children
 
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ("align-content", "align-items", "flex-direction", "flex-wrap", "gap-column", "gap-row", "justify-content", "scroll-left", "scroll-top"))
-  @include mixins.reset-values($namespace, ("scroll-left", "scroll-top"))
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ("align-content", "align-items", "flex-direction", "flex-wrap", "gap-column", "gap-row", "justify-content", "scroll-left", "scroll-top"))
+  @include sassMixins.reset-values($namespace, ("scroll-left", "scroll-top"))
 
 @mixin host
   @include ContainerDirective.host
@@ -46,5 +46,7 @@ $justify-content: functions.get-input-reference($namespace, "justify-content", n
     gap: $gap-row $gap-column
     justify-content: $justify-content
 
-  &.inline > .harness > .between
-    display: inline-flex !important
+  &.inline > .harness
+    &,
+    > .between
+      display: inline-flex !important

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                                                                                                        from "@angular/common";
@@ -14,7 +14,6 @@ import { v7 as uuidV7 }                                                         
 import { SegmentedControlOptionComponent }                                                                                                                                                                         from "../segmented control option/SegmentedControlOptionComponent";
 
 
-// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -132,7 +131,7 @@ export class SegmentedControlComponent
           0,
           this.options$().findIndex(({ valueInput$ }: SegmentedControlOptionComponent): boolean => valueInput$() === value),
         ),
-      ).reduce(
+      ).reduce<number>(
         (
           accumulator: number,
           currentValue: number,

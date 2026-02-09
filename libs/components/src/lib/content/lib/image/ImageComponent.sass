@@ -1,18 +1,14 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/interaction/lib/hover transforming/HoverTransformingDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include ContainerDirective.host
+  @include directives.Container-host
 
   > .harness > .between > img
     aspect-ratio: var(--bowstring--image--aspect-ratio)
@@ -21,11 +17,15 @@
     width: 100%
 
   &:not(.appearance-transparent)
-    @include CanvasDirective.host(18%)
-    @include ElevatedDirective.host
-    @include WellRoundedDirective.host
+    --bowstring--image--material-opacity: 1
+
+    @include directives.Canvas-host(18%)
+    @include directives.Elevated-host
+    @include directives.WellRounded-host
 
     --bowstring--container-directive--aspect-ratio: var(--bowstring--image--aspect-ratio) !important
+    --bowstring--elevated-directive--material-opacity: var(--bowstring--image--material-opacity) !important
+    --bowstring--well-rounded-directive--material-opacity: var(--bowstring--image--material-opacity) !important
 
   &.appearance-circular > .harness
     &:before,
@@ -47,7 +47,14 @@
       display: none
 
   &.outputObservedOrHasUrlInput
-    @include HoverTransformingDirective.host
+    @include directives.HoverTransforming-host
 
     > .harness > .between > img
       cursor: pointer
+
+@each $host-context-namespace in ("footer", "sheet", "box", "article", "button", "capsule")
+  \:host-context(bowstring--#{ $host-context-namespace }).appearance-transparent
+    --bowstring--container-directive--padding-bottom: calc(var(--bowstring--#{ $host-context-namespace }--padding-bottom) * pow(var(--phi), -1)) !important
+    --bowstring--container-directive--padding-sides: calc(var(--bowstring--#{ $host-context-namespace }--padding-sides) * pow(var(--phi), -1)) !important
+    --bowstring--container-directive--padding-top: calc(var(--bowstring--#{ $host-context-namespace }--padding-top) * pow(var(--phi), -1)) !important
+

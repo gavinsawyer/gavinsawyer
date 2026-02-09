@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { ChangeDetectionStrategy, Component, contentChildren, forwardRef, type Signal } from "@angular/core";
@@ -37,29 +37,23 @@ export class InputWithOptionsComponent
 
         this.focused$.set(this.document.activeElement === this.htmlButtonElementRef$()?.nativeElement);
 
-        if (!this.focused$() && !value || (typeof value === "string" && this.optionComponents$().map<string>(
-          ({ valueInput$ }: OptionComponent): string => valueInput$(),
-        ).includes(value)))
+        if (!this.focused$() && !value || (typeof value === "string" && this.optionComponents$().map<string>(({ valueInput$ }: OptionComponent): string => valueInput$()).includes(value)))
           this.onChange?.();
       },
     );
   }
 
   public override registerOnChange(handler: (value: Date | string) => void): void {
-    this.onChange = (): void => {
-      setTimeout(
+    this.onChange = (): void => void setTimeout(
+      (): void => void setTimeout(
         (): void => {
-          setTimeout(
-            (): void => {
-              const value: Date | string = this.value$();
+          const value: Date | string = this.value$();
 
-              if (!value || (typeof value === "string" && this.optionComponents$().map<string>(({ valueInput$ }: OptionComponent): string => valueInput$()).includes(value)))
-                handler(value);
-            },
-          );
+          if (!value || (typeof value === "string" && this.optionComponents$().map<string>(({ valueInput$ }: OptionComponent): string => valueInput$()).includes(value)))
+            handler(value);
         },
-      );
-    };
+      ),
+    );
     this.onSubmit = (): void => handler(this.value$());
   }
 

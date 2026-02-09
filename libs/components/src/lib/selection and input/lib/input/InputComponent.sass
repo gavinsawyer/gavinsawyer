@@ -1,26 +1,24 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/interaction/lib/hover transforming/HoverTransformingDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 @mixin host
-  @include ElevatedDirective.host("> .harness > .between > div")
-  @include FlexboxContainerDirective.host
-  @include HoverTransformingDirective.host("> .harness > .between > div")
-  @include WellRoundedDirective.host("> .harness > .between > div")
+  display: contents
+
+  @include directives.Elevated-host("> .harness > .between > div")
+  @include directives.FlexboxContainer-host
+  @include directives.HoverTransforming-host("> .harness > .between > div")
+  @include directives.WellRounded-host("> .harness > .between > div")
 
   --bowstring--flexbox-container-directive--gap-column: calc(1rem * pow(var(--phi), -2)) !important
   --bowstring--flexbox-container-directive--gap-row: calc(1rem * pow(var(--phi), -3)) !important
 
   > .harness > .between
     &::ng-deep > *
-      @include FlexboxContainerDirective.children
+      @include directives.FlexboxContainer-children
 
     > label
       font-size: calc(1rem * pow(var(--phi), -0.5))
@@ -31,8 +29,8 @@
       --bowstring--input--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1))
       --bowstring--input--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1))
 
-      @include CanvasDirective.host(0%)
-      @include FlexboxContainerDirective.host
+      @include directives.Canvas-host(0%)
+      @include directives.FlexboxContainer-host
 
       --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -2)) !important
       --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), -1)) !important
@@ -48,17 +46,17 @@
 
         > .between
           &::ng-deep > *
-            @include CanvasDirective.children
-            @include ElevatedDirective.children
-            @include FlexboxContainerDirective.children
-            @include HoverTransformingDirective.children
-            @include WellRoundedDirective.children
+            @include directives.Canvas-children
+            @include directives.Elevated-children
+            @include directives.FlexboxContainer-children
+            @include directives.HoverTransforming-children
+            @include directives.WellRounded-children
 
           > div#clearButton
             display: contents
 
-            @include CanvasDirective.host(18%)
-            @include FlexboxContainerDirective.host
+            @include directives.Canvas-host(18%)
+            @include directives.FlexboxContainer-host
 
             --bowstring--flexbox-container-directive--align-items: center !important
             --bowstring--flexbox-container-directive--justify-content: center !important
@@ -76,6 +74,7 @@
               padding: 0
               text-align: start
               text-decoration: none
+              text-shadow: 0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow, transparent)
 
               > .between
                 background: none !important
@@ -83,11 +82,12 @@
                 transition: opacity 200ms ease-in-out
 
                 &::ng-deep > *
-                  @include CanvasDirective.children
-                  @include FlexboxContainerDirective.children
+                  @include directives.Canvas-children
+                  @include directives.FlexboxContainer-children
 
                 > svg
                   display: grid
+                  filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
                   height: 1em
                   max-width: 1em
                   overflow: visible
@@ -113,7 +113,7 @@
               color: white
 
           > input
-            @include CanvasDirective.host(0%)
+            @include directives.Canvas-host(0%)
 
             caret-color: currentColor
 

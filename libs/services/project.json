@@ -4,22 +4,30 @@
   "projectType": "library",
   "sourceRoot":  "libs/services/src",
   "targets":     {
-    "eslint":  {
-      "executor": "@nx/eslint:lint",
-      "options":  { "lintFilePatterns": [ "libs/services/src/**/*.ts" ] }
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
     },
     "esbuild": {
       "dependsOn": [ "eslint" ],
       "executor":  "@nx/esbuild:esbuild",
       "options":   {
-        "main":       "libs/services/src/lib/main.ts",
-        "outputPath": "dist/libs/services",
-        "tsConfig":   "libs/services/tsconfig.lib.json"
+        "main":        "libs/services/src/lib/main.ts",
+        "metafile":    true,
+        "outputPath":  "dist/libs/services",
+        "packages":    "external",
+        "splitting":   true,
+        "treeShaking": true,
+        "tsConfig":    "libs/services/tsconfig.lib.json"
       },
       "outputs":   [ "{options.outputPath}" ]
     },
-    "build":   {
-      "dependsOn": [ "esbuild" ],
+    "eslint":  {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/services/src/**/*.ts" ] }
+    },
+    "lint":    {
+      "dependsOn": [ "eslint" ],
       "executor":  "nx:noop"
     }
   }

@@ -1,5 +1,0 @@
-{
-  "compilerOptions": { "types": [ "@angular/localize" ] },
-  "extends":         "../../tsconfig.base.json",
-  "files":           [ "src/index.ts" ]
-}

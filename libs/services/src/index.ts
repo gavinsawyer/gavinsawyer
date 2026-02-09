@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 export * from "./lib/AnalyticsService";
@@ -15,7 +15,5 @@ export * from "./lib/FirestoreService";
 export * from "./lib/FunctionsService";
 export * from "./lib/GoogleMapsApiLoaderService";
 export * from "./lib/PathService";
-export * from "./lib/ResponsivityService";
 export * from "./lib/RxSsrService";
-export * from "./lib/UserDateService";
 export * from "./lib/ViewportService";

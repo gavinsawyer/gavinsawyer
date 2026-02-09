@@ -1,0 +1,22 @@
+{
+  "name":         "@bowstring/webhook-event-functions",
+  "author":       {
+    "name":  "Gavin William Sawyer",
+    "email": "g@vinsawyer.us",
+    "url":   "https://gavinsawyer.us"
+  },
+  "repository":   {
+    "type":      "git",
+    "url":       "github:gavinsawyer/bowstring",
+    "directory": "libs/webhook event functions"
+  },
+  "private":      true,
+  "engines":      { "node": "22" },
+  "main":         "./main.cjs",
+  "type":         "module",
+  "dependencies": {
+    "@angular/localize":      "18",
+    "@sendgrid/eventwebhook": "8",
+    "firebase-functions":     "7"
+  }
+}

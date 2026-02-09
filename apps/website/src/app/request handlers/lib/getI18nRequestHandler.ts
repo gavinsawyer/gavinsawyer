@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import type express             from "express";
@@ -27,7 +27,7 @@ function getI18nRequestHandler(getRequestHandler: (
     getRequestHandler(
       {
         projectLocaleId,
-        staticRoot: `${ process.cwd() }/dist/apps/website/browser/${ request.path.split("/")[1] !== String(projectLocaleId) ? String(projectLocaleId) : "" }`,
+        staticRoot: `${ process.cwd() }/dist/apps/${ project.name }/browser/${ request.path.split("/")[1] !== String(projectLocaleId) ? String(projectLocaleId) : "" }`,
       },
     )(
       request,

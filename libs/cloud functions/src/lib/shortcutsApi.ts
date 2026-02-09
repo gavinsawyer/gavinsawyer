@@ -1,5 +1,10 @@
+// noinspection JSUnusedGlobalSymbols
+
+/*
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
+ */
+
 import { getShortcutsApi } from "@gavinsawyer/shortcuts-api";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const shortcutsApi: CallableFunction = getShortcutsApi();

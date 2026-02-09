@@ -1,11 +1,10 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { Directive, input, type InputSignalWithTransform, numberAttribute } from "@angular/core";
 
 
-// noinspection CssUnknownProperty
 @Directive(
   {
     host: {

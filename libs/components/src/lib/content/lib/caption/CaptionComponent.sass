@@ -1,20 +1,20 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include ContainerDirective.host
+  @include directives.Container-host
 
   > .harness > .between
     font-size: calc(1em * pow(var(--phi), -0.5))
 
     &::ng-deep > *
-      @include ContainerDirective.children
+      @include directives.Container-children
 
     > p
       margin: 0

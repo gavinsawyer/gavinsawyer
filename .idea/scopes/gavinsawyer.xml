@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="gavinsawyer" pattern="file[gavinsawyer]:apps/website/src/app/components/lib/focus//*||file[gavinsawyer]:apps/website/src/app/components/lib/routes//*||file[gavinsawyer]:apps/website/src/app/interfaces//*||file[gavinsawyer]:apps/website/src/app/services//*||file[gavinsawyer]:apps/website/src/assets//*||file[gavinsawyer]:apps/website/src/locales//*||file[gavinsawyer]:libs/brand/src/lib//*||file:libs/cloud functions/src/lib/shortcutsApi.ts||file:README.md" />
+</component>

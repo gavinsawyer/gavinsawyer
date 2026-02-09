@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { type ServiceWorkerMessage } from "@bowstring/interfaces";
@@ -13,7 +13,7 @@ self.addEventListener<"activate">(
 );
 self.addEventListener<"fetch">(
   "fetch",
-  async (fetchEvent: FetchEvent): Promise<void> => {
+  (fetchEvent: FetchEvent): void => {
     if (self.location.origin !== `${ fetchEvent.request.url.split("/")[0] }//${ fetchEvent.request.url.split("/")[2] }` || fetchEvent.request.url.split("/")[3] === "firebase-web-authn-api")
       return fetchEvent.respondWith(fetch(fetchEvent.request));
 
@@ -36,43 +36,56 @@ self.addEventListener<"fetch">(
       );
 
     headers.append(
-      "Timezone-Offset",
-      `${ new Date().getTimezoneOffset() }`,
+      "Time-Zone",
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
     );
 
-    try {
-      return fetchEvent.respondWith(
-        fetch(
-          new Request(
-            fetchEvent.request.url,
-            {
-              body:           fetchEvent.request.method !== "GET" ? fetchEvent.request.headers.get("Content-Type")?.includes("json") ? JSON.stringify(await fetchEvent.request.json()) : await fetchEvent.request.text() : undefined,
-              cache:          fetchEvent.request.cache,
-              credentials:    fetchEvent.request.credentials,
-              headers,
-              keepalive:      fetchEvent.request.keepalive,
-              method:         fetchEvent.request.method,
-              mode:           "same-origin",
-              redirect:       fetchEvent.request.redirect,
-              referrer:       fetchEvent.request.referrer,
-              referrerPolicy: fetchEvent.request.referrerPolicy,
-              signal:         fetchEvent.request.signal,
-            },
-          ),
-        ),
-      );
-    } catch {
-      return fetchEvent.respondWith(fetch(fetchEvent.request));
-    }
+    fetchEvent.respondWith(
+      new Promise<string | undefined>(
+        (resolve: (body?: string) => void): void => {
+          if (fetchEvent.request.method !== "GET") {
+            if (fetchEvent.request.headers.get("Content-Type")?.includes("json"))
+              return void fetchEvent.request.json().then<void>((request: unknown): void => resolve(JSON.stringify(request)));
+
+            return void fetchEvent.request.text().then<void>(resolve);
+          }
+
+          resolve();
+        },
+      ).then<Response>(
+        (body?: string): Promise<Response> => {
+          try {
+            return fetch(
+              new Request(
+                fetchEvent.request.url,
+                {
+                  body,
+                  cache:          fetchEvent.request.cache,
+                  credentials:    fetchEvent.request.credentials,
+                  headers,
+                  keepalive:      fetchEvent.request.keepalive,
+                  method:         fetchEvent.request.method,
+                  mode:           "same-origin",
+                  redirect:       fetchEvent.request.redirect,
+                  referrer:       fetchEvent.request.referrer,
+                  referrerPolicy: fetchEvent.request.referrerPolicy,
+                  signal:         fetchEvent.request.signal,
+                },
+              ),
+            );
+          } catch {
+            return fetch(fetchEvent.request);
+          }
+        },
+      ),
+    );
   },
 );
 self.addEventListener<"install">(
   "install",
-  (): Promise<void> => self.skipWaiting(),
+  (event: ExtendableEvent): void => event.waitUntil(self.skipWaiting()),
 );
 self.addEventListener<"message">(
   "message",
-  (messageEvent: MessageEvent<ServiceWorkerMessage>): void => {
-    idToken = messageEvent.data.data.idToken;
-  },
+  (messageEvent: MessageEvent<ServiceWorkerMessage>): void => void (idToken = messageEvent.data.data.idToken),
 );

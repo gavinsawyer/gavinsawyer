@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                             from "@angular/common";
@@ -43,11 +43,7 @@ import { Observable, type Observer, switchMap, type TeardownLogic }             
 export class SegmentedControlOptionComponent {
 
   constructor() {
-    afterRender(
-      (): void => {
-        this.afterRender = true;
-      },
-    );
+    afterRender((): void => void (this.afterRender = true));
   }
 
   private readonly htmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement>> = viewChild.required<ElementRef<HTMLButtonElement>>("htmlButtonElement");
@@ -72,9 +68,7 @@ export class SegmentedControlOptionComponent {
       switchMap<ElementRef<HTMLButtonElement>, Observable<number>>(
         ({ nativeElement: htmlButtonElement }: ElementRef<HTMLButtonElement>): Observable<number> => new Observable<number>(
           (widthObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(
-              ([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => widthObserver.next(clientWidth),
-            );
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => widthObserver.next(clientWidth));
 
             resizeObserver.observe(htmlButtonElement);
 

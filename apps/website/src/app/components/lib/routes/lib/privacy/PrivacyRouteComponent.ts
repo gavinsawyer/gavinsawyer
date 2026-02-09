@@ -1,12 +1,14 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { DatePipe }                                                                                                                                                              from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject }                                                                                                                            from "@angular/core";
 import { ArticleComponent, CapsuleComponent, FlexboxContainerComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, LinkComponent, ListComponent, SectionComponent } from "@bowstring/components";
+import type * as configLib                                                                                                                                                       from "@bowstring/config";
 import { ListItemDirective }                                                                                                                                                     from "@bowstring/directives";
-import { UserDateService }                                                                                                                                                       from "@bowstring/services";
+import { DateFormat }                                                                                                                                                            from "@bowstring/enums";
+import { CONFIG }                                                                                                                                                                from "@bowstring/injection-tokens";
+import { DatePipe }                                                                                                                                                              from "@bowstring/pipes";
 import { RouteComponent }                                                                                                                                                        from "../../../../";
 
 
@@ -35,7 +37,8 @@ import { RouteComponent }                                                       
 export class PrivacyRouteComponent
   extends RouteComponent {
 
-  protected readonly userDateService: UserDateService = inject<UserDateService>(UserDateService);
-  protected readonly updatedDate: Date                = new Date("2025-04-09T00:00:00.000Z");
+  protected readonly configLib: typeof configLib   = inject<typeof configLib>(CONFIG);
+  protected readonly DateFormat: typeof DateFormat = DateFormat;
+  protected readonly updatedDate: Date             = new Date("2026-01-19T00:00:00.000Z");
 
 }

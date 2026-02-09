@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { Pipe, PipeTransform } from "@angular/core";
@@ -15,11 +15,18 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class InsertZwnjsPipe
   implements PipeTransform {
 
-  public transform(value?: string): string {
-    return value ? value.replace(
-      /\b(\w)/g,
-      `$1&zwnj;`,
-    ) : "";
+  /**
+   * @param value The string to format. */
+  public transform(value: string): string;
+  public transform(value?: null): "";
+  public transform(value?: string | null): string | "" {
+    if (value)
+      return value.replace(
+        /\b(\w)/g,
+        `$1&zwnj;`,
+      );
+
+    return "";
   }
 
 }

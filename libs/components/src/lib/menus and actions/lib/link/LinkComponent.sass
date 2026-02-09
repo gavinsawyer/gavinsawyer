@@ -1,13 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/inlinable/InlinableDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/materials/lib/primary/PrimaryDirective"
-@use "../../../../../../directives/src/lib/materials/lib/secondary/SecondaryDirective"
-@use "../../../../../../directives/src/lib/materials/lib/warning/WarningDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -16,8 +11,8 @@
   --bowstring--link--gap-column: calc(1rem * pow(var(--phi), -2))
   --bowstring--link--gap-row: calc(1rem * pow(var(--phi), -3))
 
-  @include FlexboxContainerDirective.host
-  @include InlinableDirective.host
+  @include directives.FlexboxContainer-host
+  @include directives.Inlinable-host
 
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--link--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--link--gap-row) !important
@@ -36,28 +31,29 @@
     padding: 0
     text-align: start
     text-decoration: none
+    text-shadow: 0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow, transparent)
     transition: opacity 200ms ease-in-out
 
     > .between
       background: none !important
 
   &:not(.material-primary):not(.material-secondary):not(.material-warning)
-    @include CanvasDirective.host(18%)
+    @include directives.Canvas-host(18%)
 
   &.material-primary
-    @include PrimaryDirective.host
+    @include directives.Primary-host
 
     > .harness > .between
       color: var(--bowstring--primary-directive--colors--background) !important
 
   &.material-secondary
-    @include SecondaryDirective.host
+    @include directives.Secondary-host
 
     > .harness > .between
       color: var(--bowstring--secondary-directive--colors--background) !important
 
   &.material-warning
-    @include WarningDirective.host
+    @include directives.Warning-host
 
     > .harness > .between
       color: var(--bowstring--warning-directive--colors--background) !important

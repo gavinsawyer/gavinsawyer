@@ -1,5 +1,7 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { getApp }                                      from "firebase-admin/app";
@@ -7,24 +9,23 @@ import { getAppCheck }                                 from "firebase-admin/app-
 import { type HttpsFunction, onRequest, type Request } from "firebase-functions/https";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const redirect: HttpsFunction = onRequest(
   {
     ingressSettings: "ALLOW_ALL",
     invoker:         "public",
   },
-  async (
+  (
     request: Request,
     response: Exclude<Request["res"], undefined>,
-  ): Promise<void> => getAppCheck(getApp()).verifyToken(
+  ): void => void getAppCheck(getApp()).verifyToken(
     `${ request.query["appCheckToken"] }`,
     { consume: true },
   ).then<void, never>(
     (): void => response.redirect(`${ request.query["url"] }`),
     (error: Error): never => {
-      response.status(500).send(error).end();
+      response.status(500).send("Something went wrong.").end();
 
-      throw new Error("Something went wrong.");
+      throw error;
     },
   ),
 );

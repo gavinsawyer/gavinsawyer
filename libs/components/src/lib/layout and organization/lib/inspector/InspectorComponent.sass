@@ -1,8 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -12,7 +12,7 @@
   --bowstring--inspector--gap-column: calc(var(--bowstring--root--gap-column) * pow(var(--phi), -1))
   --bowstring--inspector--gap-row: calc(var(--bowstring--root--gap-row) * pow(var(--phi), -1))
 
-  @include FlexboxContainerDirective.host
+  @include directives.FlexboxContainer-host
 
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--inspector--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--inspector--gap-row) !important
@@ -25,7 +25,7 @@
     z-index: 2
 
     > .between::ng-deep > *
-      @include FlexboxContainerDirective.children
+      @include directives.FlexboxContainer-children
 
 
 @each $host-context-namespace in ("main", "above", "below", "sheet", "box")

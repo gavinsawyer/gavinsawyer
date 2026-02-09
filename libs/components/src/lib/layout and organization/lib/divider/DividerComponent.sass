@@ -1,16 +1,15 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include CanvasDirective.host(60%)
-  @include FlexboxContainerDirective.host
+  @include directives.Canvas-host(60%)
+  @include directives.FlexboxContainer-host
 
   > .harness > .between
     opacity: 0.25

@@ -1,11 +1,13 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { Color } from "@bowstring/interfaces";
+import { type Color } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
+/** Hexadecimal color #d4ff00 */
 export const chartreuse: Color = {
   hue:        70,
   lightness:  0.5,

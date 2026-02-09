@@ -1,36 +1,35 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
-@use "../../../../../../directives/src/lib/materials/lib/inverse/InverseDirective"
-@use "../../../../../../directives/src/lib/materials/lib/primary/PrimaryDirective"
-@use "../../../../../../directives/src/lib/materials/lib/secondary/SecondaryDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  --bowstring--capsule--gap-column: calc(var(--bowstring--container-directive--padding-sides) * pow(var(--phi), -1))
-  --bowstring--capsule--gap-row: calc(var(--bowstring--container-directive--padding-bottom) * pow(var(--phi), -1))
+  --bowstring--capsule--gap-column: calc(var(--bowstring--capsule--padding-sides) * pow(var(--phi), -1))
+  --bowstring--capsule--gap-row: calc(var(--bowstring--capsule--padding-bottom) * pow(var(--phi), -1))
+  --bowstring--capsule--material-opacity: 1
+  --bowstring--capsule--padding-bottom: calc(1rem * pow(var(--phi), -2))
+  --bowstring--capsule--padding-sides: calc(1rem * pow(var(--phi), -1))
+  --bowstring--capsule--padding-top: calc(1rem * pow(var(--phi), -2))
 
-  @include ElevatedDirective.host
-  @include FlexboxContainerDirective.host
-  @include PrimaryDirective.host
-  @include WellRoundedDirective.host
+  @include directives.Elevated-host
+  @include directives.FlexboxContainer-host
+  @include directives.Primary-host
+  @include directives.WellRounded-host
 
-  --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -2)) !important
-  --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), -1)) !important
-  --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -2)) !important
+  --bowstring--container-directive--padding-bottom: var(--bowstring--capsule--padding-bottom) !important
+  --bowstring--container-directive--padding-sides: var(--bowstring--capsule--padding-sides) !important
+  --bowstring--container-directive--padding-top: var(--bowstring--capsule--padding-top) !important
+  --bowstring--elevated-directive--material-opacity: var(--bowstring--capsule--material-opacity) !important
   --bowstring--flexbox-container-directive--align-items: center !important
   --bowstring--flexbox-container-directive--flex-direction: row !important
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--capsule--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--capsule--gap-row) !important
   --bowstring--flexbox-container-directive--justify-content: center !important
+  --bowstring--well-rounded-directive--material-opacity: var(--bowstring--capsule--material-opacity) !important
 
   > .harness
     cursor: default
@@ -41,44 +40,43 @@
       text-transform: uppercase
 
       &::ng-deep > *
-        @include ElevatedDirective.children
-        @include FlexboxContainerDirective.children
-        @include PrimaryDirective.children
-        @include WellRoundedDirective.children
+        --bowstring--capsule--material-opacity: initial
+
+        @include directives.Elevated-children
+        @include directives.FlexboxContainer-children
+        @include directives.Primary-children
+        @include directives.WellRounded-children
 
   &:not(.material-glass):not(.material-inverse):not(.material-primary):not(.material-secondary)
-    @include CanvasDirective.host(0%)
+    @include directives.Canvas-host(0%)
 
     > .harness > .between::ng-deep > *
-      @include CanvasDirective.children
+      @include directives.Canvas-children
 
   &.material-glass
     --bowstring--capsule--material-opacity: 0.625
 
-    @include GlassDirective.host
+    @include directives.Glass-host
 
-    --bowstring--elevated-directive--material-opacity: var(--bowstring--capsule--material-opacity) !important
     --bowstring--glass-directive--material-opacity: var(--bowstring--capsule--material-opacity) !important
 
     > .harness > .between::ng-deep > *
-      --bowstring--capsule--material-opacity: initial
-
-      @include GlassDirective.children
+      @include directives.Glass-children
 
   &.material-inverse
-    @include InverseDirective.host(0%)
+    @include directives.Inverse-host(0%)
 
     > .harness > .between::ng-deep > *
-      @include InverseDirective.children
+      @include directives.Inverse-children
 
   &.material-primary
-    @include PrimaryDirective.host
+    @include directives.Primary-host
 
     > .harness > .between::ng-deep > *
-      @include PrimaryDirective.children
+      @include directives.Primary-children
 
   &.material-secondary
-    @include SecondaryDirective.host
+    @include directives.Secondary-host
 
     > .harness > .between::ng-deep > *
-      @include SecondaryDirective.children
+      @include directives.Secondary-children

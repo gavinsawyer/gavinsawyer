@@ -1,18 +1,18 @@
 {
   "name":         "@bowstring/cloud-functions",
   "author":       {
-    "name":  "Gavin Sawyer",
+    "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",
     "url":   "https://gavinsawyer.us"
   },
   "repository":   {
     "type":      "git",
-    "url":       "github:gavinsawyer/gavinsawyer",
+    "url":       "github:gavinsawyer/bowstring",
     "directory": "libs/cloud functions"
   },
   "private":      true,
   "engines":      { "node": "22" },
-  "main":         "./main.js",
+  "main":         "./main.cjs",
   "type":         "module",
   "dependencies": {
     "@gavinsawyer/shortcuts-api": "3",

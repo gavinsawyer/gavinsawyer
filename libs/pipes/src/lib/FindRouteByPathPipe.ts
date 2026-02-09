@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { Pipe, PipeTransform }     from "@angular/core";
@@ -17,12 +17,21 @@ export class FindRouteByPathPipe
   implements PipeTransform {
 
   public transform(
-    value?: Routes,
+    value: Routes,
+    path?: string,
+  ): Route
+  public transform(
+    value?: null,
+    path?: string,
+  ): undefined
+  public transform(
+    value?: Routes | null,
     path?: string,
   ): Route | undefined {
-    return value && value.find(
-      (route: Route): boolean => route.path === path,
-    );
+    if (value)
+      return value.find((route: Route): boolean => route.path === path);
+
+    return undefined;
   }
 
 }

@@ -1,17 +1,17 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "hover-transforming"
 
-$last-translation-x: functions.get-value-reference($namespace, "last-translation-x")
-$last-translation-y: functions.get-value-reference($namespace, "last-translation-y")
-$translation-x: functions.get-value-reference($namespace, "translation-x")
-$translation-y: functions.get-value-reference($namespace, "translation-y")
+$last-translation-x: sassFunctions.get-value-reference($namespace, "last-translation-x")
+$last-translation-y: sassFunctions.get-value-reference($namespace, "last-translation-y")
+$translation-x: sassFunctions.get-value-reference($namespace, "translation-x")
+$translation-y: sassFunctions.get-value-reference($namespace, "translation-y")
 
 @function get-color($theme, $type, $shade)
 
@@ -19,9 +19,9 @@ $translation-y: functions.get-value-reference($namespace, "translation-y")
 @mixin color-scheme($theme)
 
 @mixin children
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ())
-  @include mixins.reset-values($namespace, ("last-translation-x", "last-translation-y", "translation-x", "translation-y"))
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ())
+  @include sassMixins.reset-values($namespace, ("last-translation-x", "last-translation-y", "translation-x", "translation-y"))
 
 @mixin host($child-selector: '')
   @include color-scheme("light")

@@ -1,9 +1,10 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
+/** Represents the SVG data of a logo. */
 export interface Logo {
-  "baselineY": number,
+  "baselineY": number;
   "focusHover"?: {
     "paths"?: Array<{
       "definition": string;

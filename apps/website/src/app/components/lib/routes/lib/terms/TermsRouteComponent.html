@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <bowstring--article>
@@ -16,11 +16,11 @@
           <bowstring--capsule
             i18n
             material="primary">legal</bowstring--capsule>
-          <bowstring--label [input]="(userDateService.getUserDate(updatedDate) | date:'longDate') || ''" />
+          <bowstring--label [input]="updatedDate | bowstringDate:DateFormat.LongDate" />
         </bowstring--flexbox-container>
       </h3>
     </bowstring--header>
-    <p i18n="@@apps--Website--Components--Routes--Terms--Article--Preface"><span style="font-variant: small-caps;">Welcome to {{ brandLib.title }}</span> &lpar;&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;&rpar;. These Terms of Service &lpar;&ldquo;Terms&rdquo;&rpar; govern your use of our website located at {{ environment.domain }} &lpar;our &ldquo;Site&rdquo;&rpar; and any related services, features, or content we provide.</p>
+    <p i18n="@@apps--Website--Components--Routes--Terms--Article--Preface"><span style="font-variant: small-caps;">Welcome to {{ configLib.brand.title }}</span> &lpar;&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;&rpar;. These Terms of Service &lpar;&ldquo;Terms&rdquo;&rpar; govern your use of our website located at {{ environment.subdomain && environment.subdomain + "." }}{{ configLib.domain }} &lpar;our &ldquo;Site&rdquo;&rpar; and any related services, features, or content we provide.</p>
     <bowstring--section>
       <bowstring--header>
         <h4 i18n="@@apps--Website--Components--Routes--Terms--Article--Section_1--Header">Use of our Site</h4>

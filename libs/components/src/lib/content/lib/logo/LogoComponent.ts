@@ -1,21 +1,20 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                  from "@angular/common";
 import { ChangeDetectionStrategy, Component, inject }                        from "@angular/core";
-import type * as brandLib                                                    from "@bowstring/brand";
+import type * as configLib                                                   from "@bowstring/config";
 import { ContainerDirective, FlexboxContainerDirective, InlinableDirective } from "@bowstring/directives";
-import { BRAND }                                                             from "@bowstring/injection-tokens";
+import { CONFIG }                                                            from "@bowstring/injection-tokens";
 
 
-// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
-      "[style.--bowstring--logo--brand--logo--baseline-y]":     "brandLib.logo.baselineY",
-      "[style.--bowstring--logo--brand--logo--viewbox-height]": "brandLib.logo.viewBoxHeight",
+      "[style.--bowstring--logo--baseline-y]":     "configLib.brand.logo.baselineY",
+      "[style.--bowstring--logo--viewbox-height]": "configLib.brand.logo.viewBoxHeight",
     },
     hostDirectives:  [
       {
@@ -45,7 +44,7 @@ import { BRAND }                                                             fro
 )
 export class LogoComponent {
 
+  protected readonly configLib: typeof configLib            = inject<typeof configLib>(CONFIG);
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
-  protected readonly brandLib: typeof brandLib              = inject<typeof brandLib>(BRAND);
 
 }

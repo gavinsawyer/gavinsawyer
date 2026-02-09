@@ -1,20 +1,18 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include CanvasDirective.host(18%)
-  @include ElevatedDirective.host
-  @include FlexboxContainerDirective.host
-  @include WellRoundedDirective.host
+
+  @include directives.Canvas-host(18%)
+  @include directives.Elevated-host
+  @include directives.FlexboxContainer-host
+  @include directives.WellRounded-host
 
   > .harness > .between > video
     background: transparent !important

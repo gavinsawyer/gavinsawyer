@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { platformBrowserDynamic }      from "@angular/platform-browser-dynamic";
@@ -23,8 +23,11 @@ new Promise<ServiceWorkerRegistration | undefined>(
           throw error;
         },
       );
-    else
+    else {
+      console.error("Service worker registration not supported.");
+
       resolve();
+    }
   },
 ).then<void>(
   (serviceWorkerRegistration?: ServiceWorkerRegistration): Promise<void> => new Promise<void>(
@@ -40,12 +43,12 @@ new Promise<ServiceWorkerRegistration | undefined>(
     },
   ).then<void>(
     (): Promise<void> => platformBrowserDynamic(
-      serviceWorkerRegistration ? [
+      serviceWorkerRegistration && [
         {
           provide:  SERVICE_WORKER_REGISTRATION,
           useValue: serviceWorkerRegistration,
         },
-      ] : undefined,
+      ],
     ).bootstrapModule<ProjectBrowserModule>(ProjectBrowserModule).then<void, never>(
       (): void => void (0),
       (error: Error): never => {

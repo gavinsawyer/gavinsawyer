@@ -1,9 +1,9 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "inlinable"
@@ -14,9 +14,9 @@ $namespace: "inlinable"
 @mixin color-scheme($theme)
 
 @mixin children
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ())
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ())
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host
   @include color-scheme("light")

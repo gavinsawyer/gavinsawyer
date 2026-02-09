@@ -1,8 +1,8 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 64",
+  "version":         "2026.0 Beta 88",
   "author":          {
-    "name":  "Gavin Sawyer",
+    "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",
     "url":   "https://gavinsawyer.us"
   },
@@ -49,11 +49,12 @@
     "@eslint/js":                             "9",
     "@firebase-web-authn/extension":          "10",
     "@gavinsawyer/shortcuts-api":             "3",
-    "@nx/angular":                            "22",
-    "@nx/esbuild":                            "22",
-    "@nx/eslint-plugin":                      "22",
+    "@nx/angular":                            "22.2.0",
+    "@nx/esbuild":                            "22.2.0",
+    "@nx/eslint-plugin":                      "22.2.0",
+    "@sendgrid/eventwebhook":                 "8",
+    "@sendgrid/mail":                         "8",
     "@types/body-scroll-lock":                "3",
-    "@types/coinbase-commerce-node":          "1",
     "@types/compression":                     "1",
     "@types/cookie-parser":                   "1",
     "@types/google.maps":                     "3",
@@ -68,7 +69,7 @@
     "firebase-tools":                         "13",
     "git-describe":                           "4",
     "jsonwebtoken":                           "9",
-    "nx":                                     "22",
+    "nx":                                     "22.2.0",
     "url":                                    "0"
   }
 }

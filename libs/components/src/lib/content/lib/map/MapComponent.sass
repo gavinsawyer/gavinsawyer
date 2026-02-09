@@ -1,22 +1,17 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include CanvasDirective.host(18%)
-  @include ContainerDirective.host
-  @include ElevatedDirective.host
-  @include WellRoundedDirective.host
-
-  --bowstring--container-directive--aspect-ratio: var(--bowstring--image--aspect-ratio) !important
+  @include directives.Canvas-host(18%)
+  @include directives.Container-host
+  @include directives.Elevated-host
+  @include directives.WellRounded-host
 
   > .harness > .between
     display: flex

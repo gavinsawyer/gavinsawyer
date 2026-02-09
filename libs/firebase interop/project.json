@@ -4,22 +4,30 @@
   "projectType": "library",
   "sourceRoot":  "libs/firebase interop/src",
   "targets":     {
-    "eslint":  {
-      "executor": "@nx/eslint:lint",
-      "options":  { "lintFilePatterns": [ "libs/firebase interop/src/**/*.ts" ] }
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
     },
     "esbuild": {
       "dependsOn": [ "eslint" ],
       "executor":  "@nx/esbuild:esbuild",
       "options":   {
-        "main":       "libs/firebase interop/src/lib/main.ts",
-        "outputPath": "dist/libs/firebase interop",
-        "tsConfig":   "libs/firebase interop/tsconfig.lib.json"
+        "main":        "libs/firebase interop/src/lib/main.ts",
+        "metafile":    true,
+        "outputPath":  "dist/libs/firebase interop",
+        "packages":    "external",
+        "splitting":   true,
+        "treeShaking": true,
+        "tsConfig":    "libs/firebase interop/tsconfig.lib.json"
       },
       "outputs":   [ "{options.outputPath}" ]
     },
-    "build":   {
-      "dependsOn": [ "esbuild" ],
+    "eslint":  {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/firebase interop/src/**/*.ts" ] }
+    },
+    "lint":    {
+      "dependsOn": [ "eslint" ],
       "executor":  "nx:noop"
     }
   }

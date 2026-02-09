@@ -1,16 +1,15 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/inlinable/InlinableDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include FlexboxContainerDirective.host
-  @include InlinableDirective.host
+  @include directives.FlexboxContainer-host
+  @include directives.Inlinable-host
 
   --bowstring--container-directive--align-self: center !important
   --bowstring--flexbox-container-directive--align-items: center !important
@@ -21,6 +20,7 @@
 
     > .between > svg
       display: grid
+      filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
       height: 1em
       max-width: 1em
       overflow: visible

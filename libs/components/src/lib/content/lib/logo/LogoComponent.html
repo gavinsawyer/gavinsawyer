@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <span class="harness"><span class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></span></span>
@@ -11,33 +11,33 @@
 </ng-template>
 <ng-template #contentTemplate>
   <svg
-    [attr.viewBox]="'0 -' + (brandLib.logo.viewBoxHeight - brandLib.logo.baselineY) + ' ' + brandLib.logo.viewBoxWidth + ' ' + brandLib.logo.viewBoxHeight + ''"
+    [attr.viewBox]="'0 -' + (configLib.brand.logo.viewBoxHeight - configLib.brand.logo.baselineY) + ' ' + configLib.brand.logo.viewBoxWidth + ' ' + configLib.brand.logo.viewBoxHeight + ''"
     xmlns="http://www.w3.org/2000/svg">
     <g>
       <rect
-        [attr.height]="brandLib.logo.viewBoxHeight"
-        [attr.width]="brandLib.logo.viewBoxWidth"
+        [attr.height]="configLib.brand.logo.viewBoxHeight"
+        [attr.width]="configLib.brand.logo.viewBoxWidth"
         opacity="0"
         x="0"
         y="0" />
-      @for (path of brandLib.logo.focusHover?.paths; track $index) {<path class="focusHover"
+      @for (path of configLib.brand.logo.focusHover?.paths; track $index) {<path class="focusHover"
         [attr.d]="path.definition"
         [attr.fill-opacity]="path.opacity"
         fill="currentColor"
         fill-rule="nonzero" />}
-      @for (rect of brandLib.logo.focusHover?.rects; track $index) {<rect class="focusHover"
+      @for (rect of configLib.brand.logo.focusHover?.rects; track $index) {<rect class="focusHover"
         [attr.height]="rect.height"
         [attr.width]="rect.width"
         [attr.x]="rect.x"
         [attr.y]="rect.y"
         fill="currentColor"
         fill-rule="nonzero" />}
-      @for (path of brandLib.logo.paths; track $index) {<path
+      @for (path of configLib.brand.logo.paths; track $index) {<path
         [attr.d]="path.definition"
         [attr.fill-opacity]="path.opacity"
         fill="currentColor"
         fill-rule="nonzero" />}
-      @for (rect of brandLib.logo.rects; track $index) {<rect
+      @for (rect of configLib.brand.logo.rects; track $index) {<rect
         [attr.height]="rect.height"
         [attr.width]="rect.width"
         [attr.x]="rect.x"

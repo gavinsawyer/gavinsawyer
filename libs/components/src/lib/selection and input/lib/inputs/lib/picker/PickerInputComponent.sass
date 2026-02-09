@@ -1,21 +1,19 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../../../directives/src" as directives
 @use "../../../input with options/InputWithOptionsComponent"
 
 
 \:host
-  display: contents
-
   @include InputWithOptionsComponent.host
 
   > .harness > .between > div > .harness > .between
     > div#symbol
       display: contents
 
-      @include FlexboxContainerDirective.host
+      @include directives.FlexboxContainer-host
 
       --bowstring--flexbox-container-directive--align-items: center !important
       --bowstring--flexbox-container-directive--justify-content: center !important
@@ -30,6 +28,7 @@
 
           > svg
             display: grid
+            filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
             height: 1em
             max-width: 1em
             overflow: visible

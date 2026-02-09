@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                            from "@angular/common";
@@ -51,7 +51,7 @@ import { from, map, type Observable, switchMap }                                
       },
     ],
     imports:         [ NgTemplateOutlet ],
-    selector:        "bowstring-website--focus",
+    selector:        "bowstring-app--focus",
     styleUrl:        "FocusComponent.sass",
     templateUrl:     "FocusComponent.html",
 

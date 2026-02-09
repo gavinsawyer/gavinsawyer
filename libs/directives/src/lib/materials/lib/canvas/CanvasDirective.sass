@@ -1,17 +1,15 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "canvas"
 
-$background: functions.get-color-reference($namespace, "background")
-$background-inverse: functions.get-color-reference($namespace, "background-inverse")
-$foreground: functions.get-color-reference($namespace, "foreground")
-$foreground-inverse: functions.get-color-reference($namespace, "foreground-inverse")
+$background: sassFunctions.get-color-reference($namespace, "background")
+$background-inverse: sassFunctions.get-color-reference($namespace, "background-inverse")
 
 @function get-color($theme, $type, $shade)
   @if ($theme == "light")
@@ -35,15 +33,16 @@ $foreground-inverse: functions.get-color-reference($namespace, "foreground-inver
 
 
 @mixin color-scheme($theme, $shade)
+  --bowstring--colors--foreground: #{ get-color($theme, "foreground", $shade) }
+  --bowstring--colors--foreground-inverse: #{ get-color($theme, "foreground-inverse", $shade) }
+
   --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background", $shade) }
   --bowstring--#{ $namespace }-directive--colors--background-inverse: #{ get-color($theme, "background-inverse", $shade) }
-  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground", $shade) }
-  --bowstring--#{ $namespace }-directive--colors--foreground-inverse: #{ get-color($theme, "foreground-inverse", $shade) }
 
 @mixin children
-  @include mixins.reset-colors($namespace, ("background", "background-inverse", "foreground", "foreground-inverse"))
-  @include mixins.reset-inputs($namespace, ())
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ("background", "background-inverse"))
+  @include sassMixins.reset-inputs($namespace, ())
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host($shade)
   @include color-scheme("light", $shade)
@@ -53,4 +52,4 @@ $foreground-inverse: functions.get-color-reference($namespace, "foreground-inver
 
   > .harness > .between
     background: $background
-    color: $foreground
+    color: var(--bowstring--colors--foreground)

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <div class="harness"
@@ -7,10 +7,9 @@
   (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
   tabindex="-1">
   <div class="between">
-    @if (labelInput$()) {<!--suppress XmlInvalidId -->
-    <label
+    @if (labelInput$(); as label) {<label
       [attr.for]="inputName$()"
-      [innerHTML]="labelInput$()"></label>}
+      [innerHTML]="label"></label>}
     <div>
       <div class="harness" #htmlDivElement>
         <div class="between">

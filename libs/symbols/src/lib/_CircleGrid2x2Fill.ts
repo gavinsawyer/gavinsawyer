@@ -1,15 +1,16 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _CircleGrid2x2Fill: Symbol = {
   paths:         [
     {
-      definition: "M23.1914 28.7227C26.8359 28.7227 29.7773 25.7812 29.7773 22.1367C29.7773 18.5039 26.8359 15.5508 23.1914 15.5508C19.5586 15.5508 16.6055 18.5039 16.6055 22.1367C16.6055 25.7812 19.5586 28.7227 23.1914 28.7227Z",
+      definition: "M22.1719 28.7227C25.8047 28.7227 28.7578 25.7812 28.7578 22.1367C28.7578 18.5039 25.8047 15.5508 22.1719 15.5508C18.5273 15.5508 15.5859 18.5039 15.5859 22.1367C15.5859 25.7812 18.5273 28.7227 22.1719 28.7227Z",
       opacity:    0.85,
     },
     {
@@ -17,7 +18,7 @@ export const _CircleGrid2x2Fill: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M23.1914 13.1719C26.8359 13.1719 29.7773 10.2305 29.7773 6.58594C29.7773 2.95312 26.8359 0 23.1914 0C19.5586 0 16.6055 2.95312 16.6055 6.58594C16.6055 10.2305 19.5586 13.1719 23.1914 13.1719Z",
+      definition: "M22.1719 13.1719C25.8047 13.1719 28.7578 10.2305 28.7578 6.58594C28.7578 2.95312 25.8047 0 22.1719 0C18.5273 0 15.5859 2.95312 15.5859 6.58594C15.5859 10.2305 18.5273 13.1719 22.1719 13.1719Z",
       opacity:    0.85,
     },
     {
@@ -26,5 +27,5 @@ export const _CircleGrid2x2Fill: Symbol = {
     },
   ],
   viewBoxHeight: 28.7461,
-  viewBoxWidth:  30.1289,
+  viewBoxWidth:  29.1094,
 };

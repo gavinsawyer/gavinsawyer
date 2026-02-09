@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { DOCUMENT }                                                                                                                                                                                                                                                                                  from "@angular/common";
@@ -122,15 +122,11 @@ export class InputComponent
     this.previousFocused.emit();
   }
   public registerOnChange(handler: (value: Date | string) => void): void {
-    this.onChange = (): void => {
-      setTimeout(
-        (): void => {
-          setTimeout(
-            (): void => handler(this.value$()),
-          );
-        },
-      );
-    };
+    this.onChange = (): void => void setTimeout(
+      (): void => void setTimeout(
+        (): void => handler(this.value$()),
+      ),
+    );
     this.onSubmit = (): void => handler(this.value$());
   }
   public registerOnTouched(handler: () => void): void {

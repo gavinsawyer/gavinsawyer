@@ -1,15 +1,21 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import compression = require("compression");
-import cookieParser = require("cookie-parser");
-import express = require("express");
+import compression                                                                         from "compression";
+import cookieParser                                                                        from "cookie-parser";
+import express                                                                             from "express";
 import { cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }             from "firebase-admin/auth";
+import { type App as AdminFirebaseApp }                                                    from "firebase-admin/lib/app/core";
+import { type Auth as AdminAuth }                                                          from "firebase-admin/lib/auth/auth";
+import { environment }                                                                     from "../environment";
 import { getI18nRequestHandler }                                                           from "./request handlers";
 import { type ProjectLocaleId }                                                            from "./types";
 
+
+const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
+const adminAuth: AdminAuth               = adminGetAuth(adminFirebaseApp);
 
 express().use(compression()).use(cookieParser()).use(
   (
@@ -17,27 +23,23 @@ express().use(compression()).use(cookieParser()).use(
     response: express.Response,
     nextFunction: express.NextFunction,
   ): void => {
-    if (request.headersDistinct["authorization"]?.[0] && request.headersDistinct["authorization"]?.[0].split("Bearer ")[1] !== request.cookies["__session"]) {
-      const idToken: string = request.headersDistinct["authorization"]?.[0].split("Bearer ")[1];
+    const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
 
-      adminGetAuth(adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined)).verifyIdToken(idToken).then<void, void>(
-        ({ exp: expirySeconds }: AdminDecodedIdToken): void => {
-          response.cookie(
-            "__session",
-            idToken,
-            {
-              expires:  new Date(expirySeconds * 1000),
-              httpOnly: true,
-              sameSite: "strict",
-              secure:   true,
-            },
-          );
-        },
-        (): void => {
-          response.clearCookie("__session");
-        },
+    if (idToken && idToken !== request.cookies["__session"])
+      adminAuth.verifyIdToken(idToken).then<void, void>(
+        ({ exp: expirySeconds }: AdminDecodedIdToken): void => void response.cookie(
+          "__session",
+          idToken,
+          {
+            expires:  new Date(expirySeconds * 1000),
+            httpOnly: true,
+            sameSite: "strict",
+            secure:   true,
+          },
+        ),
+        (): void => void response.clearCookie("__session"),
       ).finally(nextFunction);
-    } else
+    else
       nextFunction();
   },
 ).set(
@@ -45,10 +47,10 @@ express().use(compression()).use(cookieParser()).use(
   "html",
 ).set(
   "views",
-  `${ process.cwd() }/dist/apps/website/browser`,
+  `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
 ).get(
   "/service-worker.js",
-  express.static(`${ process.cwd() }/dist/apps/website/browser`),
+  express.static(`${ process.cwd() }/dist/apps/${ environment.app }/browser`),
 ).get(
   "*.*",
   getI18nRequestHandler(
@@ -59,7 +61,7 @@ express().use(compression()).use(cookieParser()).use(
   ),
 ).get(
   "*",
-  getI18nRequestHandler(({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => require(`${ process.cwd() }/dist/apps/website/server/${ String(projectLocaleId) }/main.js`)["getRequestHandler"](projectLocaleId)),
+  getI18nRequestHandler(({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => require(`${ __dirname }/${ String(projectLocaleId) }/main.js`)["getRequestHandler"](projectLocaleId)),
 ).listen(
   process.env["PORT"] || 4000,
   (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),

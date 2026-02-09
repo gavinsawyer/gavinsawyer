@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                          from "@angular/common";
@@ -66,9 +66,7 @@ import { ContainerDirective, ElevatedDirective, PrimaryDirective, SecondaryDirec
 export class CapsuleComponent {
 
   constructor() {
-    afterRender(
-      (): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()),
-    );
+    afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
   }
 
   private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");

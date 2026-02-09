@@ -1,15 +1,14 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/container/ContainerDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/inlinable/InlinableDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
   display: contents
 
-  @include ContainerDirective.host
-  @include InlinableDirective.host
+  @include directives.Container-host
+  @include directives.Inlinable-host
 
   --bowstring--container-directive--align-self: baseline !important

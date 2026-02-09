@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <lastmod>2025-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-09T00:00:00+00:00</lastmod>
     <loc>https://gavinsawyer.us/en-US/</loc>
     <xhtml:link
       rel="alternate"
@@ -27,7 +27,7 @@
       href="https://gavinsawyer.us/fr-FR"/>
   </url>
   <url>
-    <lastmod>2025-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-09T00:00:00+00:00</lastmod>
     <loc>https://gavinsawyer.us/en-GB/</loc>
     <xhtml:link
       rel="alternate"
@@ -47,7 +47,7 @@
       href="https://gavinsawyer.us/fr-FR"/>
   </url>
   <url>
-    <lastmod>2025-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-09T00:00:00+00:00</lastmod>
     <loc>https://gavinsawyer.us/es-ES</loc>
     <xhtml:link
       rel="alternate"
@@ -67,7 +67,7 @@
       href="https://gavinsawyer.us/fr-FR"/>
   </url>
   <url>
-    <lastmod>2025-07-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-09T00:00:00+00:00</lastmod>
     <loc>https://gavinsawyer.us/fr-FR</loc>
     <xhtml:link
       rel="alternate"

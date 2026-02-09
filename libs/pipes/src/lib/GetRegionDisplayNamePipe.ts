@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { inject, LOCALE_ID, Pipe, PipeTransform } from "@angular/core";
@@ -17,11 +17,16 @@ export class GetRegionDisplayNamePipe
 
   private readonly localeId: string = inject<string>(LOCALE_ID);
 
-  public transform(value?: string): string {
-    return value ? new Intl.DisplayNames(
-      [ this.localeId ],
-      { type: "region" },
-    ).of(value) || value : "";
+  public transform(value: string): string
+  public transform(value?: null): ""
+  public transform(value?: string | null): string | "" {
+    if (value)
+      return new Intl.DisplayNames(
+        [ this.localeId ],
+        { type: "region" },
+      ).of(value) || value
+
+    return "";
   }
 
 }

@@ -1,16 +1,17 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { getApp }                                   from "firebase-admin/app";
-import { getAuth, type UserRecord }                 from "firebase-admin/auth";
-import { type CallableRequest, HttpsError, onCall } from "firebase-functions/https";
+import { getApp }                                                          from "firebase-admin/app";
+import { getAuth, type UserRecord }                                        from "firebase-admin/auth";
+import { type CallableFunction, type CallableRequest, HttpsError, onCall } from "firebase-functions/https";
 
 
-// noinspection JSUnusedGlobalSymbols
-export const getIsAdmin: CallableFunction = onCall<null, Promise<boolean>>(
+export const getIsAdmin: CallableFunction<null, Promise<boolean>> = onCall<null, Promise<boolean>>(
   { enforceAppCheck: true },
-  ({ auth: authData }: CallableRequest<null>): Promise<boolean> => {
+  async ({ auth: authData }: CallableRequest<null>): Promise<boolean> => {
     if (!authData?.uid)
       throw new HttpsError(
         "unauthenticated",

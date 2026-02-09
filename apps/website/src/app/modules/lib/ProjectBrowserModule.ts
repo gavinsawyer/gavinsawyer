@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { provideHttpClient, withFetch }                                                                                                                                                                                                                                                                                                                                                                                                                 from "@angular/common/http";
@@ -16,11 +16,11 @@ import { ReactiveFormsModule }                                                  
 import { GoogleMapsModule }                                                                                                                                                                                                                                                                                                                                                                                                                             from "@angular/google-maps";
 import { BrowserModule }                                                                                                                                                                                                                                                                                                                                                                                                                                from "@angular/platform-browser";
 import { provideRouter, RouterOutlet, withComponentInputBinding, withEnabledBlockingInitialNavigation, withInMemoryScrolling }                                                                                                                                                                                                                                                                                                                          from "@angular/router";
-import * as brandLib                                                                                                                                                                                                                                                                                                                                                                                                                                    from "@bowstring/brand";
 import { AboveComponent, BelowComponent, BoxComponent, ButtonComponent, CaptionComponent, DividerComponent, ErrorComponent, ErrorsContainerComponent, FlexboxContainerComponent, FooterComponent, FormComponent, GridContainerComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, LinkComponent, ListComponent, LogoComponent, MainComponent, NavComponent, SectionComponent, SheetComponent, SymbolComponent, TextFieldInputComponent } from "@bowstring/components";
+import * as configLib                                                                                                                                                                                                                                                                                                                                                                                                                                   from "@bowstring/config";
 import { ListItemDirective }                                                                                                                                                                                                                                                                                                                                                                                                                            from "@bowstring/directives";
-import { BRAND, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME }                                                                                                                                                                                                                                                                                                                                                                          from "@bowstring/injection-tokens";
-import { FindRouteByPathPipe }                                                                                                                                                                                                                                                                                                                                                                                                                          from "@bowstring/pipes";
+import { CONFIG, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME }                                                                                                                                                                                                                                                                                                                                                                         from "@bowstring/injection-tokens";
+import { DatePipe, FindRouteByPathPipe }                                                                                                                                                                                                                                                                                                                                                                                                                from "@bowstring/pipes";
 import { AnalyticsService, AppCheckService, AuthService, DatabaseService, FirebaseAppService, FirestoreService, FunctionsService }                                                                                                                                                                                                                                                                                                                      from "@bowstring/services";
 import project                                                                                                                                                                                                                                                                                                                                                                                                                                          from "../../../../project.json";
 import { gitInfoPartial }                                                                                                                                                                                                                                                                                                                                                                                                                               from "../../../.gitInfoPartial";
@@ -42,6 +42,7 @@ import { PROJECT_LOCALE_IDS }                                                   
       BrowserModule,
       ButtonComponent,
       CaptionComponent,
+      DatePipe,
       DividerComponent,
       ErrorComponent,
       ErrorsContainerComponent,
@@ -69,8 +70,8 @@ import { PROJECT_LOCALE_IDS }                                                   
     ],
     providers:    [
       {
-        provide:  BRAND,
-        useValue: brandLib,
+        provide:  CONFIG,
+        useValue: configLib,
       },
       {
         provide:  ENVIRONMENT,
@@ -95,6 +96,7 @@ import { PROJECT_LOCALE_IDS }                                                   
         provide:  PROJECT_NAME,
         useValue: project.name,
       },
+      DatePipe,
       projectRoutesProvider,
       provideAnalytics((injector: Injector): Analytics => injector.get(AnalyticsService).analytics),
       provideAppCheck((injector: Injector): AppCheck => injector.get(AppCheckService).appCheck),

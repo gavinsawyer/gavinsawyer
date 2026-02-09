@@ -4,7 +4,25 @@
   "projectType": "library",
   "sourceRoot":  "libs/directives/src",
   "targets":     {
-    "eslint": {
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":        "libs/directives/src/lib/main.ts",
+        "metafile":    true,
+        "outputPath":  "dist/libs/directives",
+        "packages":    "external",
+        "splitting":   true,
+        "treeShaking": true,
+        "tsConfig":    "libs/directives/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "eslint":  {
       "executor": "@nx/eslint:lint",
       "options":  {
         "lintFilePatterns": [
@@ -12,6 +30,10 @@
           "libs/directives/src/**/*.ts"
         ]
       }
+    },
+    "lint":    {
+      "dependsOn": [ "eslint" ],
+      "executor":  "nx:noop"
     }
   }
 }

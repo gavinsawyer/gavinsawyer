@@ -1,15 +1,14 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "inverse"
 
-$background: functions.get-color-reference($namespace, "background")
-$foreground: functions.get-color-reference($namespace, "foreground")
+$background: sassFunctions.get-color-reference($namespace, "background")
 
 @function get-color($theme, $type, $shade)
   @if ($theme == "light")
@@ -25,13 +24,14 @@ $foreground: functions.get-color-reference($namespace, "foreground")
 
 
 @mixin color-scheme($theme, $shade)
+  --bowstring--colors--foreground: #{ get-color($theme, "foreground", $shade) }
+
   --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background", $shade) }
-  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground", $shade) }
 
 @mixin children
-  @include mixins.reset-colors($namespace, ("background", "foreground"))
-  @include mixins.reset-inputs($namespace, ())
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ("background"))
+  @include sassMixins.reset-inputs($namespace, ())
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host($shade)
   @include color-scheme("light", $shade)
@@ -41,4 +41,4 @@ $foreground: functions.get-color-reference($namespace, "foreground")
 
   > .harness > .between
     background: $background
-    color: $foreground
+    color: var(--bowstring--colors--foreground)

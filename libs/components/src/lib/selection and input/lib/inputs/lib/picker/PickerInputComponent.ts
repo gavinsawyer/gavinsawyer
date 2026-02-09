@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
@@ -95,9 +95,7 @@ export class PickerInputComponent
   protected readonly wellRoundedDirective: WellRoundedDirective              = inject<WellRoundedDirective>(WellRoundedDirective);
 
   protected onPointerDown(): void {
-    setTimeout(
-      (): void => this.hoverTransformingDirective.cancelPressed(),
-    );
+    setTimeout(this.hoverTransformingDirective.cancelPressed);
   }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { Directive, input, type InputSignal }                                                                                                from "@angular/core";
@@ -7,7 +7,6 @@ import { type DistributedAlignment, type GridAutoFlow, type GridPositionalAlignm
 import { ContainerDirective }                                                                                                                from "../container/ContainerDirective";
 
 
-// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {

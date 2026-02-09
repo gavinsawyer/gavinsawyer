@@ -1,12 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/materials/lib/warning/WarningDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -15,15 +11,14 @@
   --bowstring--error--gap-column: var(--bowstring--container-directive--padding-sides)
   --bowstring--error--gap-row: var(--bowstring--container-directive--padding-bottom)
 
-  @include ElevatedDirective.host
-  @include FlexboxContainerDirective.host
-  @include WarningDirective.host
-  @include WellRoundedDirective.host
+  @include directives.Elevated-host
+  @include directives.FlexboxContainer-host
+  @include directives.Warning-host
+  @include directives.WellRounded-host
 
   --bowstring--container-directive--padding-bottom: calc(1rem * pow(var(--phi), -1)) !important
   --bowstring--container-directive--padding-sides: calc(1rem * pow(var(--phi), 0)) !important
   --bowstring--container-directive--padding-top: calc(1rem * pow(var(--phi), -1)) !important
-  --bowstring--elevated-directive--material-opacity: 1 !important
   --bowstring--flexbox-container-directive--align-items: center !important
   --bowstring--flexbox-container-directive--flex-direction: row !important
   --bowstring--flexbox-container-directive--justify-content: space-between !important
@@ -68,26 +63,24 @@
     > .between
       &::ng-deep > *
         --bowstring--error--height: initial
-        --bowstring--error--material-opacity: initial
-        --bowstring--error--raising-scale: initial
 
-        @include ElevatedDirective.children
-        @include FlexboxContainerDirective.children
-        @include WarningDirective.children
-        @include WellRoundedDirective.children
+        @include directives.Elevated-children
+        @include directives.FlexboxContainer-children
+        @include directives.Warning-children
+        @include directives.WellRounded-children
 
       > div:first-child
         display: contents
 
-        @include FlexboxContainerDirective.host
+        @include directives.FlexboxContainer-host
 
         > .harness > .between > div::ng-deep > *
-          @include FlexboxContainerDirective.children
+          @include directives.FlexboxContainer-children
 
       > div#closeControl
         display: contents
 
-        @include FlexboxContainerDirective.host
+        @include directives.FlexboxContainer-host
 
         --bowstring--flexbox-container-directive--align-items: center !important
         --bowstring--flexbox-container-directive--justify-content: center !important
@@ -104,9 +97,11 @@
           padding: 0
           text-align: start
           text-decoration: none
+          text-shadow: 0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow, transparent)
 
           > .between > svg
             display: grid
+            filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
             height: 1em
             max-width: 1em
             overflow: visible

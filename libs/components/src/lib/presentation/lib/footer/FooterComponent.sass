@@ -1,13 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/interaction/lib/hover transforming/HoverTransformingDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/canvas/CanvasDirective"
-@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -26,10 +21,10 @@
     --bowstring--footer--padding-sides: calc(1rem * pow(var(--phi), 1))
     --bowstring--footer--padding-top: calc(1rem * pow(var(--phi), 0))
 
-  @include ElevatedDirective.host
-  @include FlexboxContainerDirective.host
-  @include GlassDirective.host
-  @include WellRoundedDirective.host
+  @include directives.Elevated-host
+  @include directives.FlexboxContainer-host
+  @include directives.Glass-host
+  @include directives.WellRounded-host
 
   --bowstring--container-directive--padding-bottom: var(--bowstring--footer--padding-bottom) !important
   --bowstring--container-directive--padding-sides: var(--bowstring--footer--padding-sides) !important
@@ -40,6 +35,7 @@
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--footer--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--footer--gap-row) !important
   --bowstring--glass-directive--material-opacity: var(--bowstring--footer--material-opacity) !important
+  --bowstring--well-rounded-directive--material-opacity: var(--bowstring--footer--material-opacity) !important
 
   > .harness
     transform-origin: bottom
@@ -93,10 +89,10 @@
       --bowstring--footer--raising-scale: initial
       --bowstring--footer--unpinning-translation: initial
 
-      @include ElevatedDirective.children
-      @include FlexboxContainerDirective.children
-      @include GlassDirective.children
-      @include WellRoundedDirective.children
+      @include directives.Elevated-children
+      @include directives.FlexboxContainer-children
+      @include directives.Glass-children
+      @include directives.WellRounded-children
 
   > .backdrop
     display: grid
@@ -220,19 +216,20 @@
       content: ""
 
 div#pinnedControl
-  @include ElevatedDirective.children
-  @include FlexboxContainerDirective.children
-  @include GlassDirective.children
-  @include WellRoundedDirective.children
+  @include directives.Elevated-children
+  @include directives.FlexboxContainer-children
+  @include directives.Glass-children
+  @include directives.WellRounded-children
 
+  --bowstring--footer--pinned-control--material-opacity: 0.625
   --bowstring--footer--pinned-control--padding-bottom: calc(1rem * pow(var(--phi), -2))
   --bowstring--footer--pinned-control--padding-sides: calc(1rem * pow(var(--phi), -1))
   --bowstring--footer--pinned-control--padding-top: calc(1rem * pow(var(--phi), -2))
 
-  @include CanvasDirective.host(9%)
-  @include FlexboxContainerDirective.host
-  @include HoverTransformingDirective.host
-  @include WellRoundedDirective.host
+  @include directives.Canvas-host(9%)
+  @include directives.FlexboxContainer-host
+  @include directives.HoverTransforming-host
+  @include directives.WellRounded-host
 
   --bowstring--container-directive--margin-bottom: calc(-1 * var(--bowstring--footer--pinned-control--padding-bottom)) !important
   --bowstring--container-directive--margin-sides: calc(-1 * var(--bowstring--footer--pinned-control--padding-sides)) !important
@@ -243,6 +240,7 @@ div#pinnedControl
   --bowstring--flexbox-container-directive--align-items: center !important
   --bowstring--flexbox-container-directive--flex-direction: row !important
   --bowstring--flexbox-container-directive--justify-content: center !important
+  --bowstring--well-rounded-directive--material-opacity: var(--bowstring--footer--pinned-control--material-opacity) !important
 
   > .harness
     background: none
@@ -255,6 +253,7 @@ div#pinnedControl
     padding: 0
     text-align: start
     text-decoration: none
+    text-shadow: 0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow, transparent)
 
     > .between
       font-size: calc(1rem * pow(var(--phi), 0.5))
@@ -263,10 +262,11 @@ div#pinnedControl
 
       > svg
         display: grid
+        filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
         height: 1em
-        width: 1em
         overflow: visible
         transform: translateZ(0)
+        width: 1em
 
     &:not(:focus-within, :hover) > .between
       background: none !important

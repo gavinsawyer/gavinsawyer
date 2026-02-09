@@ -1,0 +1,21 @@
+{
+  "name":         "@bowstring/sendgrid-document-blocking-functions",
+  "author":       {
+    "name":  "Gavin William Sawyer",
+    "email": "g@vinsawyer.us",
+    "url":   "https://gavinsawyer.us"
+  },
+  "repository":   {
+    "type":      "git",
+    "url":       "github:gavinsawyer/bowstring",
+    "directory": "libs/sendgrid document blocking functions"
+  },
+  "private":      true,
+  "engines":      { "node": "22" },
+  "main":         "./main.cjs",
+  "type":         "module",
+  "dependencies": {
+    "@sendgrid/mail":     "8",
+    "firebase-functions": "7"
+  }
+}

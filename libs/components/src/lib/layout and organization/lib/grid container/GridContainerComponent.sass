@@ -1,8 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/grid container/GridContainerDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -11,13 +11,13 @@
   --bowstring--grid-container--gap-column: 0
   --bowstring--grid-container--gap-row: 0
 
-  @include GridContainerDirective.host
+  @include directives.GridContainer-host
 
   --bowstring--grid-container-directive--gap-column: var(--bowstring--grid-container--gap-column) !important
   --bowstring--grid-container-directive--gap-row: var(--bowstring--grid-container--gap-row) !important
 
   > .harness > .between::ng-deep > *
-    @include GridContainerDirective.children
+    @include directives.GridContainer-children
 
 
 @each $host-context-namespace in ("main", "above", "below", "nav", "footer", "aside", "sheet", "inspector", "box", "article", "form", "section", "heading-group", "header", "button", "capsule", "link")

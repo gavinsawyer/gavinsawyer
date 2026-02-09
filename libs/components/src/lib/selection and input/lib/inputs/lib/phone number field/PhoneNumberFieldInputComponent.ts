@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                                               from "@angular/common";
@@ -154,20 +154,16 @@ export class PhoneNumberFieldInputComponent
   }
 
   public override registerOnChange(handler: (value: Date | string) => void): void {
-    this.onChange = (): void => {
-      setTimeout(
+    this.onChange = (): void => void setTimeout(
+      (): void => void setTimeout(
         (): void => {
-          setTimeout(
-            (): void => {
-              const value: Date | string = this.value$();
+          const value: Date | string = this.value$();
 
-              if (!value || (typeof value === "string" && isPossiblePhoneNumber(`+${ this.countryCallingCodeInput$() }${ value }`)))
-                handler(value);
-            },
-          );
+          if (!value || (typeof value === "string" && isPossiblePhoneNumber(`+${ this.countryCallingCodeInput$() }${ value }`)))
+            handler(value);
         },
-      );
-    };
+      ),
+    );
     this.onSubmit = (): void => handler(this.value$());
   }
   public override writeValue(value?: string): void {

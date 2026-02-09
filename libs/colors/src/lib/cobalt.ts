@@ -1,11 +1,13 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { type Color } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
+/** Hexadecimal color #3355ff */
 export const cobalt: Color = {
   hue:        230,
   lightness:  0.6,

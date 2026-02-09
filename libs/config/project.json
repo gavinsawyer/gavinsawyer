@@ -1,0 +1,34 @@
+{
+  "name":        "config",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot":  "libs/config/src",
+  "targets":     {
+    "build":   {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
+    },
+    "esbuild": {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "main":        "libs/config/src/lib/main.ts",
+        "metafile":    true,
+        "outputPath":  "dist/libs/config",
+        "packages":    "external",
+        "splitting":   true,
+        "treeShaking": true,
+        "tsConfig":    "libs/config/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "eslint":  {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/config/src/**/*.ts" ] }
+    },
+    "lint":    {
+      "dependsOn": [ "eslint" ],
+      "executor":  "nx:noop"
+    }
+  }
+}

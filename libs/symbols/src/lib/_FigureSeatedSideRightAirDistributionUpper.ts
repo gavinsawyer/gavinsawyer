@@ -1,11 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _FigureSeatedSideRightAirDistributionUpper: Symbol = {
   paths:         [
     {
@@ -13,7 +14,7 @@ export const _FigureSeatedSideRightAirDistributionUpper: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M23.4258 14.9898C24.0469 14.9898 24.5273 14.5093 24.5273 13.8882L24.5273 6.84523L27.3633 6.84523C28.4531 6.84523 28.9219 5.73194 28.1953 4.91163L24.3047 0.43507C23.8125-0.139149 23.1094-0.150868 22.5938 0.43507L18.6914 4.91163C18 5.69679 18.3984 6.84523 19.5234 6.84523L22.3477 6.84523L22.3477 13.8882C22.3477 14.5093 22.8281 14.9898 23.4258 14.9898Z",
+      definition: "M19.5117 6.84523L27.3516 6.84523C28.4883 6.84523 28.875 5.69679 28.1836 4.91163L24.293 0.43507C23.7773-0.150868 23.0625-0.139149 22.582 0.43507L18.6797 4.91163C17.9531 5.73194 18.4336 6.84523 19.5117 6.84523ZM24.5391 13.8882L24.5391 3.97413C24.5391 3.35304 24.0586 2.87257 23.4492 2.87257C22.8398 2.87257 22.3594 3.35304 22.3594 3.97413L22.3594 13.8882C22.3594 14.5093 22.8398 14.9898 23.4492 14.9898C24.0586 14.9898 24.5391 14.5093 24.5391 13.8882Z",
       opacity:    0.85,
     },
   ],

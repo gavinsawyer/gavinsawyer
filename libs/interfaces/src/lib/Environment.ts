@@ -1,7 +1,8 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
+/** Represents the contents of an environment file for an app. */
 export interface Environment {
   "app": "console" | "website";
   "apis": {
@@ -19,6 +20,6 @@ export interface Environment {
       "siteKey": string;
     };
   };
-  "domain": string;
   "production": boolean;
+  "subdomain"?: string;
 }

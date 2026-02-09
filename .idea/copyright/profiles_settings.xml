@@ -3,7 +3,7 @@
     <module2copyright>
       <element module="Apple Inc." copyright="Apple Inc." />
       <element module="Bowstring" copyright="Bowstring" />
-      <element module="Gavin Sawyer" copyright="Gavin Sawyer" />
+      <element module="gavinsawyer" copyright="gavinsawyer" />
     </module2copyright>
   </settings>
 </component>

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                                                            from "@angular/common";
@@ -7,14 +7,15 @@ import { ChangeDetectionStrategy, Component, contentChildren, type ElementRef, i
 import { toObservable, toSignal }                                                                                                                                                                                                         from "@angular/core/rxjs-interop";
 import { ContainerDirective, ScrollStackItemDirective }                                                                                                                                                                                   from "@bowstring/directives";
 import { ViewportService }                                                                                                                                                                                                                from "@bowstring/services";
-import { combineLatestWith, fromEvent, map, Observable, type Observer, startWith, switchMap, type TeardownLogic }                                                                                                                         from "rxjs";
+import { animationFrameScheduler, combineLatestWith, distinctUntilChanged, fromEvent, map, Observable, observeOn, type Observer, scan, startWith, switchMap, type TeardownLogic }                                                         from "rxjs";
 
 
-// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
+      "[style.--bowstring--scroll-stack--current-item-index]":         "currentItemIndex$()",
+      "[style.--bowstring--scroll-stack--last-snapped-item-index]":    "lastSnappedItemIndex$()",
       "[style.--bowstring--scroll-stack--minimum-aspect-ratio-input]": "minimumAspectRatioInput$()",
       "[style.--bowstring--scroll-stack--scroll-left]":                "scrollLeft$()",
       "[style.--bowstring--scroll-stack--viewport-vertical-offset]":   "viewportVerticalOffset$()",
@@ -75,9 +76,11 @@ export class ScrollStackComponent {
         ({ nativeElement: innerHtmlDivElement }: ElementRef<HTMLDivElement>): Observable<number> => fromEvent<Event>(
           innerHtmlDivElement,
           "scroll",
-        ).pipe<Event | null, number>(
+          { passive: true },
+        ).pipe<Event | null, number, number>(
           startWith<Event, [ null ]>(null),
           map<Event | null, number>((): number => innerHtmlDivElement.scrollLeft),
+          observeOn<number>(animationFrameScheduler),
         ),
       ),
     ),
@@ -110,15 +113,43 @@ export class ScrollStackComponent {
       switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
         ({ nativeElement: htmlDivElement }: ElementRef<HTMLDivElement>): Observable<number> => new Observable<number>(
           (widthObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(
-              ([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => widthObserver.next(clientWidth),
-            );
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => widthObserver.next(clientWidth));
 
             resizeObserver.observe(htmlDivElement);
 
             return (): void => resizeObserver.disconnect();
           },
         ),
+      ),
+    ),
+  ) : signal<undefined>(undefined);
+  protected readonly currentItemIndex$: Signal<number | undefined>                                     = isPlatformBrowser(this.platformId) ? toSignal<number | undefined>(
+    toObservable<number | undefined>(this.scrollLeft$).pipe<number | undefined, [ number | undefined, number | undefined ], number | undefined>(
+      distinctUntilChanged<number | undefined>(),
+      combineLatestWith<number | undefined, [ number | undefined ]>(toObservable<number | undefined>(this.width$)),
+      map<[ number | undefined, number | undefined ], number | undefined>(
+        ([ scrollLeft, width ]: [ number | undefined, number | undefined ]): number | undefined => {
+          if (typeof width !== "number")
+            return undefined;
+
+          return 1 + ((scrollLeft || 0) / width);
+        },
+      ),
+    ),
+  ) : signal<undefined>(undefined);
+  protected readonly lastSnappedItemIndex$: Signal<number | undefined>                                 = isPlatformBrowser(this.platformId) ? toSignal<number | undefined>(
+    toObservable<number | undefined>(this.currentItemIndex$).pipe<number | undefined, number | undefined>(
+      distinctUntilChanged<number | undefined>(),
+      scan<number | undefined, number | undefined>(
+        (
+          lastEmittedItemIndex: number | undefined,
+          currentItemIndex?: number,
+        ): number | undefined => {
+          if (typeof currentItemIndex !== "number")
+            return undefined;
+
+          return Number.isInteger(Math.round(currentItemIndex * 100) / 100) || Math.abs(currentItemIndex - (lastEmittedItemIndex || 0)) >= 1 ? Math.round(currentItemIndex * 100) / 100 : lastEmittedItemIndex;
+        },
       ),
     ),
   ) : signal<undefined>(undefined);

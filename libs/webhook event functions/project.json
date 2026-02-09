@@ -1,0 +1,51 @@
+{
+  "name":        "webhook-event-functions",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "tags":        [ "cloud-functions" ],
+  "sourceRoot":  "libs/webhook event functions/src",
+  "targets":     {
+    "build":           {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
+    },
+    "deploy":          {
+      "dependsOn": [ "firebase-deploy" ],
+      "executor":  "nx:noop"
+    },
+    "esbuild":         {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "bundle":     true,
+        "external":   [
+          "@angular/localize",
+          "@sendgrid/eventwebhook",
+          "firebase-admin",
+          "firebase-functions"
+        ],
+        "format":     [ "cjs" ],
+        "main":       "libs/webhook event functions/src/lib/main.ts",
+        "metafile":   true,
+        "minify":     true,
+        "outputPath": "dist/libs/webhook event functions",
+        "platform":   "node",
+        "tsConfig":   "libs/webhook event functions/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "eslint":          {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/webhook event functions/src/**/*.ts" ] }
+    },
+    "firebase-deploy": {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:run-commands",
+      "options":   { "command": "firebase deploy --only functions:webhook-event-functions" }
+    },
+    "lint":            {
+      "dependsOn": [ "eslint" ],
+      "executor":  "nx:noop"
+    }
+  }
+}

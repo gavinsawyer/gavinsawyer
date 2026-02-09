@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <div
@@ -70,40 +70,55 @@
           <bowstring--link
             exact
             url="/">
-            <bowstring--label [input]="brandLib.title" />
+            <bowstring--label [input]="configLib.brand.title" />
           </bowstring--link>
         </h1>
       </bowstring--header>
-      @if ((projectRoutes | bowstringFindRouteByPath:'gallery') || (projectRoutes | bowstringFindRouteByPath:'shop') || (projectRoutes | bowstringFindRouteByPath:'account') || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--nav>
-        @if (projectRoutes | bowstringFindRouteByPath:'gallery'; as route) {<bowstring--link [url]="'/' + route.path">
+      @if ((projectRoutes | bowstringFindRouteByPath:"gallery") || (projectRoutes | bowstringFindRouteByPath:"shop") || (projectRoutes | bowstringFindRouteByPath:"account") || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--nav>
+        @if (projectRoutes | bowstringFindRouteByPath:"gallery"; as route) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
-        @if (projectRoutes | bowstringFindRouteByPath:'shop'; as route) {<bowstring--link [url]="'/' + route.path">
+        @if (projectRoutes | bowstringFindRouteByPath:"shop"; as route) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
         @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
-        @if (projectRoutes | bowstringFindRouteByPath:'account'; as route) {<bowstring--link [url]="'/' + route.path">
+        @if (projectRoutes | bowstringFindRouteByPath:"account"; as route) {<bowstring--link [url]="'/' + route.path">
           <bowstring--label [input]="route.data?.['title']" />
         </bowstring--link>}
       </bowstring--nav>}
     </bowstring--flexbox-container>
-    <router-outlet />
-    @if (aboveTemplateRef$(); as aboveTemplateRef) {<bowstring--above>
-      <ng-container *ngTemplateOutlet="aboveTemplateRef" />
-    </bowstring--above>}
+    <bowstring--flexbox-container
+      flexGrow="1"
+      flexShrink="0">
+      @if (aboveTemplateRef$(); as aboveTemplateRef) {<ng-container *ngTemplateOutlet="aboveTemplateRef" />}
+      <bowstring--flexbox-container flexGrow="1">
+        @if (headerTemplateRef$(); as headerTemplateRef) {<ng-container *ngTemplateOutlet="headerTemplateRef" />}
+        <bowstring--flexbox-container
+          flexGrow="1"
+          flexShrink="0">
+          @if (asideTemplateRef$(); as asideTemplateRef) {<ng-container *ngTemplateOutlet="asideTemplateRef" />}
+          <bowstring--section flexShrink="0">
+            <bowstring--flexbox-container flexShrink="0">
+              @if (subheaderTemplateRef$(); as subheaderTemplateRef) {<ng-container *ngTemplateOutlet="subheaderTemplateRef" />}
+              <router-outlet />
+            </bowstring--flexbox-container>
+            @if (inspectorTemplateRef$(); as inspectorTemplateRef) {<ng-container *ngTemplateOutlet="inspectorTemplateRef" />}
+          </bowstring--section>
+        </bowstring--flexbox-container>
+      </bowstring--flexbox-container>
+    </bowstring--flexbox-container>
+    @if (footerTemplateRef$(); as footerTemplateRef) {<ng-container *ngTemplateOutlet="footerTemplateRef" />}
   </bowstring--main>
-  @defer {@if (belowTemplateRef$(); as belowTemplateRef) {<bowstring--below>
-    <ng-container *ngTemplateOutlet="belowTemplateRef" />
-  </bowstring--below>}}
+  @defer {@if (belowTemplateRef$(); as belowTemplateRef) {<ng-container *ngTemplateOutlet="belowTemplateRef" />}}
   <bowstring--footer>
     <bowstring--header>
-      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: var(--bowstring--root--brand-font-family); font-weight: 900; font-variation-settings: 'wdth' 112.5;">
+      <h6>
         <bowstring--link
           exact
           url="/">
-          <bowstring--label [input]="brandLib.title" />
+          <bowstring--label [input]="configLib.brand.title" />
         </bowstring--link>
       </h6>
     </bowstring--header>
@@ -112,11 +127,11 @@
       flexWrap="wrap"
       justifyContent="space-between">
       <bowstring--flexbox-container flexDirection="row">
-        @if ((projectRoutes | bowstringFindRouteByPath:'gallery') || (projectRoutes | bowstringFindRouteByPath:'shop') || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--flexbox-container alignItems="flex-start">
-          @if (projectRoutes | bowstringFindRouteByPath:'gallery'; as route) {<bowstring--link [url]="'/' + route.path">
+        @if ((projectRoutes | bowstringFindRouteByPath:"gallery") || (projectRoutes | bowstringFindRouteByPath:"shop") || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--flexbox-container alignItems="flex-start">
+          @if (projectRoutes | bowstringFindRouteByPath:"gallery"; as route) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
-          @if (projectRoutes | bowstringFindRouteByPath:'shop'; as route) {<bowstring--link [url]="'/' + route.path">
+          @if (projectRoutes | bowstringFindRouteByPath:"shop"; as route) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
           @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [url]="'/' + route.path">
@@ -124,10 +139,10 @@
           </bowstring--link>}
         </bowstring--flexbox-container>}
         <bowstring--flexbox-container alignItems="flex-start">
-          @if (projectRoutes | bowstringFindRouteByPath:'privacy'; as route) {<bowstring--link [url]="'/' + route.path">
+          @if (projectRoutes | bowstringFindRouteByPath:"privacy"; as route) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
-          @if (projectRoutes | bowstringFindRouteByPath:'terms'; as route) {<bowstring--link [url]="'/' + route.path">
+          @if (projectRoutes | bowstringFindRouteByPath:"terms"; as route) {<bowstring--link [url]="'/' + route.path">
             <bowstring--label [input]="route.data?.['title']" />
           </bowstring--link>}
         </bowstring--flexbox-container>
@@ -147,6 +162,7 @@
     </bowstring--section>
     <bowstring--divider />
     <bowstring--section id="connectivitySection"
+      [class.connectivitySection--hasCityTime]="configLib.brand.city || configLib.brand.timeZone"
       flexDirection="row"
       flexWrap="wrap">
       <div [hidden]="connectivityService.connected$()">
@@ -165,6 +181,10 @@
             input="Connected" />
         </bowstring--link>
       </div>
+      @if (brandShortTime$() || configLib.brand.city) {<bowstring--link disabled>
+        @if (brandShortTime$(); as brandShortTime) {<bowstring--label [input]="brandShortTime" />}
+        @if (configLib.brand.city; as city) {<bowstring--label [input]="city" />}
+      </bowstring--link>}
     </bowstring--section>
     <bowstring--section id="informationAndOptionsSection"
       flexDirection="row"
@@ -174,10 +194,10 @@
         flexDirection="row"
         flexGrow="1"
         flexWrap="wrap">
-        <span style="white-space: nowrap;">&copy;&nbsp;<div id="copyrightYear">2025&nbsp;</div><bowstring--link
+        <span style="white-space: nowrap;">&copy;&nbsp;<div id="copyrightYear">2026&nbsp;</div><bowstring--link
           inline
-          [url]="brandLib.copyrightHolderUrl">
-          <bowstring--label [input]="brandLib.copyrightHolder" />
+          [url]="configLib.brand.copyrightHolderUrl">
+          <bowstring--label [input]="configLib.brand.copyrightHolder" />
         </bowstring--link></span>
         <span style="white-space: nowrap;">&num;<bowstring--link
           [disabled]="versionSheetComponent.openModelWithTransform$()"

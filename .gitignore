@@ -2,8 +2,8 @@
 *-debug.log
 .DS_Store
 .angular
+.idea/runConfigurations
 .nx
-.run
 dist
 node_modules
 tmp

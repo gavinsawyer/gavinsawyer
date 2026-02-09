@@ -1,37 +1,38 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-const { configs }    = require("@eslint/js");
-const { FlatCompat } = require("@eslint/eslintrc");
+const { configs: { all: allConfig, recommended: recommendedConfig } } = require("@eslint/js");
+const { FlatCompat }                                                  = require("@eslint/eslintrc");
 
 const angularEslintPlugin = require("@angular-eslint/eslint-plugin");
 const nxEslintPlugin      = require("@nx/eslint-plugin");
 
 
-const compat = new FlatCompat(
+const flatCompat = new FlatCompat(
   {
-    baseDirectory:     __dirname,
-    recommendedConfig: configs.recommended,
-    allConfig:         configs.all,
+    baseDirectory: __dirname,
+    recommendedConfig,
+    allConfig,
   },
 );
 
 module.exports = [
   {
     ignores: [
+      "dist",
+      "gha-creds-*.json",
+      "node_modules",
+      "temp",
+      "tmp",
       "**/*-debug.log",
       "**/.DS_Store",
       ".angular",
-      ".idea",
-      ".run",
-      "dist",
-      "node_modules",
-      "tmp",
       ".firebase",
+      ".idea/runConfigurations",
+      ".idea",
       ".runtimeconfig.json",
       ".service-account.json",
-      "gha-creds-*.json",
     ],
   },
   {
@@ -40,7 +41,7 @@ module.exports = [
       "@nx":             nxEslintPlugin,
     },
   },
-  ...compat.extends(
+  ...flatCompat.extends(
     "plugin:@angular-eslint/template/accessibility",
     "plugin:@angular-eslint/template/recommended",
     "plugin:@nx/angular-template",
@@ -50,8 +51,7 @@ module.exports = [
       files: [ "**/*.html" ],
     }),
   ),
-  ...compat.extends(
-    "plugin:@nx/typescript",
+  ...flatCompat.extends(
     "plugin:@nx/angular",
     "plugin:@nx/typescript",
   ).map(
@@ -81,12 +81,12 @@ module.exports = [
     },
   },
   {
-    files: [ "apps/website/src/app/components/lib/**/*.ts" ],
+    files: [ "apps/**/src/app/components/lib/**/*.ts" ],
     rules: {
       "@angular-eslint/component-selector": [
         "error",
         {
-          prefix: "bowstring-website-",
+          prefix: "bowstring-app-",
           style:  "kebab-case",
           type:   "element",
         },
@@ -94,12 +94,12 @@ module.exports = [
     },
   },
   {
-    files: [ "apps/website/src/app/directives/lib/**/*.ts" ],
+    files: [ "apps/**/src/app/directives/lib/**/*.ts" ],
     rules: {
       "@angular-eslint/directive-selector": [
         "error",
         {
-          prefix: "bowstringWebsite",
+          prefix: "bowstringApp",
           style:  "camelCase",
           type:   "attribute",
         },
@@ -107,11 +107,11 @@ module.exports = [
     },
   },
   {
-    files: [ "apps/website/src/app/pipes/src/lib/**/*.ts" ],
+    files: [ "apps/**/src/app/pipes/src/lib/**/*.ts" ],
     rules: {
       "@angular-eslint/pipe-prefix": [
         "error",
-        { prefixes: [ "bowstringWebsite" ] },
+        { prefixes: [ "bowstringApp" ] },
       ],
     },
   },

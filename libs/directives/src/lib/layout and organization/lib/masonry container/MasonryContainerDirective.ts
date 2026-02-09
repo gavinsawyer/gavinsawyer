@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { isPlatformBrowser }                                                                                                                                                                                    from "@angular/common";
@@ -11,7 +11,6 @@ import { filter, Observable, type Observer, switchMap, type TeardownLogic }     
 import { ContainerDirective }                                                                                                                                                                                   from "../container/ContainerDirective";
 
 
-// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {

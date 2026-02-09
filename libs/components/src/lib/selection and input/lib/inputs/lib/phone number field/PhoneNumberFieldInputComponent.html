@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <div class="harness">
@@ -12,10 +12,9 @@
   </div>}
 </ng-template>
 <ng-template #contentTemplate>
-  @if (labelInput$()) {<!--suppress XmlInvalidId -->
-  <label
+  @if (labelInput$(); as label) {<label
     [attr.for]="inputName$()"
-    [innerHTML]="explicitAutocompleteInput$() ? (labelInput$() | bowstringInsertZwnjs) : labelInput$()"></label>}
+    [innerHTML]="explicitAutocompleteInput$() ? (label | bowstringInsertZwnjs) : labelInput$()"></label>}
   <div>
     <div class="harness" #htmlDivElement>
       <div class="between">

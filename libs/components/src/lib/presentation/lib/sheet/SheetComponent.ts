@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                          from "@angular/common";
@@ -67,26 +67,23 @@ export class SheetComponent {
     if (isPlatformBrowser(this.platformId))
       effect(
         (effectCleanupRegisterFn: EffectCleanupRegisterFn): void => {
-          if (this.openOrClosing$())
-            setTimeout(
-              (): void => {
+          const openOrClosing: boolean | undefined = this.openOrClosing$();
+
+          setTimeout(
+            (): void => {
+              if (openOrClosing) {
                 disableBodyScroll(this.htmlDialogElementRef$().nativeElement);
 
                 this.htmlDialogElementRef$().nativeElement.showModal();
                 this.htmlDialogElementRef$().nativeElement.focus();
-              },
-              0,
-            );
-          else
-            setTimeout(
-              (): void => {
+              } else {
                 enableBodyScroll(this.htmlDialogElementRef$().nativeElement);
 
                 this.htmlDialogElementRef$().nativeElement.focus();
                 this.htmlDialogElementRef$().nativeElement.close();
-              },
-              0,
-            );
+              }
+            },
+          );
 
           effectCleanupRegisterFn((): void => clearAllBodyScrollLocks());
         },
@@ -95,7 +92,7 @@ export class SheetComponent {
     fromEvent<KeyboardEvent>(
       this.document,
       "keydown",
-    ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe((keyboardEvent: KeyboardEvent): void => this.keydown(keyboardEvent) && void (0));
+    ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe((keyboardEvent: KeyboardEvent): void => void this.keydown(keyboardEvent));
   }
 
   private readonly document: Document                                           = inject<Document>(DOCUMENT);

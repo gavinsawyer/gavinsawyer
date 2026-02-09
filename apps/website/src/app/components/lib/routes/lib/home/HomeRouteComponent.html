@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <bowstring--box material="primary">
@@ -106,7 +106,7 @@
         appearance="raised"
         material="glass"
         (output)="logClickOpenResumeEvent();"
-        url="/assets/Gavin Sawyer - Resume.pdf">
+        url="/assets/Gavin William Sawyer - Resume.pdf">
         <bowstring--symbol input="DocumentFill" />
         <bowstring--label
           i18n-input
@@ -116,13 +116,13 @@
         appearance="raised"
         material="glass"
         (output)="logClickAddToContactsEvent();"
-        url="/assets/Gavin Sawyer - Contact.vcf">
+        url="/assets/Gavin William Sawyer - Contact.vcf">
         <bowstring--symbol input="PersonFillBadgePlus" />
         <bowstring--label
           i18n-input
           input="Add to contacts" />
       </bowstring--button>
-      @if (focusService.focus$(); as focus) {<bowstring-website--focus
+      @if (focusService.focus$(); as focus) {<bowstring-app--focus
         fontSizeExponent="-2"
         [input]="focus" />}
     </bowstring--flexbox-container>

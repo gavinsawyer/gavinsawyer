@@ -1,12 +1,11 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { Directive, input, type InputSignal, type InputSignalWithTransform, numberAttribute } from "@angular/core";
 import { type Auto, type Inherit, type ScalarString }                                         from "@bowstring/types";
 
 
-// noinspection CssUnknownProperty
 @Directive(
   {
     host: {

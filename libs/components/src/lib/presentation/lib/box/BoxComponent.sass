@@ -1,12 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
-@use "../../../../../../directives/src/lib/materials/lib/glass/GlassDirective"
-@use "../../../../../../directives/src/lib/materials/lib/primary/PrimaryDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/elevated/ElevatedDirective"
-@use "../../../../../../directives/src/lib/presentation/lib/well rounded/WellRoundedDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -14,7 +10,6 @@
 
   --bowstring--box--gap-column: var(--bowstring--container-directive--padding-sides)
   --bowstring--box--gap-row: var(--bowstring--container-directive--padding-bottom)
-  --bowstring--box--material-opacity: 0.625
   --bowstring--box--padding-bottom: calc(1rem * pow(var(--phi), -1))
   --bowstring--box--padding-sides: calc(1rem * pow(var(--phi), 0))
   --bowstring--box--padding-top: calc(1rem * pow(var(--phi), -1))
@@ -24,21 +19,9 @@
     --bowstring--box--padding-sides: calc(1rem * pow(var(--phi), 1))
     --bowstring--box--padding-top: calc(1rem * pow(var(--phi), 0))
 
-  @include ElevatedDirective.host
-  @include FlexboxContainerDirective.host
-  @include WellRoundedDirective.host
-
-  &:not(.material-primary)
-    @include GlassDirective.host
-
-    > .harness > .between::ng-deep > *
-      @include GlassDirective.children
-
-  &.material-primary
-    @include PrimaryDirective.host
-
-    > .harness > .between::ng-deep > *
-      @include PrimaryDirective.children
+  @include directives.Elevated-host
+  @include directives.FlexboxContainer-host
+  @include directives.WellRounded-host
 
   --bowstring--container-directive--padding-bottom: var(--bowstring--box--padding-bottom) !important
   --bowstring--container-directive--padding-sides: var(--bowstring--box--padding-sides) !important
@@ -47,10 +30,27 @@
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--box--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--box--gap-row) !important
   --bowstring--glass-directive--material-opacity: var(--bowstring--box--material-opacity) !important
+  --bowstring--well-rounded-directive--material-opacity: var(--bowstring--box--material-opacity) !important
+
+  &:not(.material-primary)
+    --bowstring--box--material-opacity: 0.625
+
+    @include directives.Glass-host
+
+    > .harness > .between::ng-deep > *
+      @include directives.Glass-children
+
+  &.material-primary
+    --bowstring--box--material-opacity: initial
+
+    @include directives.Primary-host
+
+    > .harness > .between::ng-deep > *
+      @include directives.Primary-children
 
   > .harness > .between::ng-deep > *
     --bowstring--box--material-opacity: initial
 
-    @include ElevatedDirective.children
-    @include FlexboxContainerDirective.children
-    @include WellRoundedDirective.children
+    @include directives.Elevated-children
+    @include directives.FlexboxContainer-children
+    @include directives.WellRounded-children

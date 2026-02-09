@@ -1,17 +1,17 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "grid-child"
 
-$grid-column-end: functions.get-input-reference($namespace, "grid-column-end", auto)
-$grid-column-start: functions.get-input-reference($namespace, "grid-column-start", auto)
-$grid-row-end: functions.get-input-reference($namespace, "grid-row-end", auto)
-$grid-row-start: functions.get-input-reference($namespace, "grid-row-start", auto)
+$grid-column-end: sassFunctions.get-input-reference($namespace, "grid-column-end", auto)
+$grid-column-start: sassFunctions.get-input-reference($namespace, "grid-column-start", auto)
+$grid-row-end: sassFunctions.get-input-reference($namespace, "grid-row-end", auto)
+$grid-row-start: sassFunctions.get-input-reference($namespace, "grid-row-start", auto)
 
 @function get-color($theme, $type, $shade)
 
@@ -19,9 +19,9 @@ $grid-row-start: functions.get-input-reference($namespace, "grid-row-start", aut
 @mixin color-scheme($theme)
 
 @mixin children
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ())
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ())
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host
   @include color-scheme("light")

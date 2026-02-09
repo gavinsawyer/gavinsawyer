@@ -1,42 +1,43 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "secondary"
 
-$background: functions.get-color-reference($namespace, "background")
-$foreground: functions.get-color-reference($namespace, "foreground")
+$background: sassFunctions.get-color-reference($namespace, "background")
 
-$brand-secondary-background-dark: functions.get-value-reference($namespace, "brand-secondary-background-dark")
-$brand-secondary-background-light: functions.get-value-reference($namespace, "brand-secondary-background-light")
-$brand-secondary-foreground-dark: functions.get-value-reference($namespace, "brand-secondary-foreground-dark")
-$brand-secondary-foreground-light: functions.get-value-reference($namespace, "brand-secondary-foreground-light")
+$background-dark: sassFunctions.get-value-reference($namespace, "background-dark")
+$background-light: sassFunctions.get-value-reference($namespace, "background-light")
+$foreground-dark: sassFunctions.get-value-reference($namespace, "foreground-dark")
+$foreground-light: sassFunctions.get-value-reference($namespace, "foreground-light")
 
 @function get-color($theme, $type)
   @if ($theme == "light")
     @if ($type == "background")
-      @return $brand-secondary-background-light
+      @return $background-light
     @else if ($type == "foreground")
-      @return $brand-secondary-foreground-light
+      @return $foreground-light
   @else if ($theme == "dark")
     @if ($type == "background")
-      @return $brand-secondary-background-dark
+      @return $background-dark
     @else if ($type == "foreground")
-      @return $brand-secondary-foreground-dark
+      @return $foreground-dark
 
 
 @mixin color-scheme($theme)
+  --bowstring--colors--foreground: #{ get-color($theme, "foreground") }
+  --bowstring--colors--foreground-shadow: initial
+
   --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background") }
-  --bowstring--#{ $namespace }-directive--colors--foreground: #{ get-color($theme, "foreground") }
 
 @mixin children
-  @include mixins.reset-colors($namespace, ("background", "foreground"))
-  @include mixins.reset-inputs($namespace, ())
-  @include mixins.reset-values($namespace, ("brand-secondary-background-dark", "brand-secondary-background-light", "brand-secondary-foreground-dark", "brand-secondary-foreground-light"))
+  @include sassMixins.reset-colors($namespace, ("background"))
+  @include sassMixins.reset-inputs($namespace, ())
+  @include sassMixins.reset-values($namespace, ("background-dark", "background-light", "foreground-dark", "foreground-light"))
 
 @mixin host
   @include color-scheme("light")
@@ -45,10 +46,9 @@ $brand-secondary-foreground-light: functions.get-value-reference($namespace, "br
     @include color-scheme("dark")
 
   > .harness
-    &:before,
-    > .between
+    &:before
       color: $background
 
     > .between
-      color: $foreground
       background: $background
+      color: var(--bowstring--colors--foreground)

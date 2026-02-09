@@ -1,16 +1,16 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "flexbox-child"
 
-$flex-basis: functions.get-input-reference($namespace, "flex-basis", auto)
-$flex-grow: functions.get-input-reference($namespace, "flex-grow", 0)
-$flex-shrink: functions.get-input-reference($namespace, "flex-shrink", 1)
+$flex-basis: sassFunctions.get-input-reference($namespace, "flex-basis", auto)
+$flex-grow: sassFunctions.get-input-reference($namespace, "flex-grow", 0)
+$flex-shrink: sassFunctions.get-input-reference($namespace, "flex-shrink", 1)
 
 @function get-color($theme, $type, $shade)
 
@@ -18,9 +18,9 @@ $flex-shrink: functions.get-input-reference($namespace, "flex-shrink", 1)
 @mixin color-scheme($theme)
 
 @mixin children
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ("flex-basis" "flex-grow" "flex-shrink"))
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ("flex-basis" "flex-grow" "flex-shrink"))
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host
   @include color-scheme("light")

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                               from "@angular/common";
@@ -13,7 +13,6 @@ import { type SymbolName }                                                      
 import { combineLatestWith, delayWhen, filter, from, map, merge, Observable, type Observer, of, startWith, switchMap, type TeardownLogic, timer }                                                                      from "rxjs";
 
 
-// noinspection CssUnknownProperty
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -73,12 +72,12 @@ export class FooterComponent {
   constructor() {
     afterRender(
       (): void => {
-        ((pinnedControlHtmlButtonElementRef?: ElementRef<HTMLButtonElement>): void => {
-          if (pinnedControlHtmlButtonElementRef) {
-            this.pinnedControlHoverTransformingDirective$()?.htmlElementRef$.set(pinnedControlHtmlButtonElementRef);
-            this.pinnedControlWellRoundedDirective$()?.htmlElementRef$.set(pinnedControlHtmlButtonElementRef);
-          }
-        })(this.pinnedControlHtmlButtonElementRef$());
+        const pinnedControlHtmlButtonElementRef: ElementRef<HTMLButtonElement> | undefined = this.pinnedControlHtmlButtonElementRef$();
+
+        if (pinnedControlHtmlButtonElementRef) {
+          this.pinnedControlHoverTransformingDirective$()?.htmlElementRef$.set(pinnedControlHtmlButtonElementRef);
+          this.pinnedControlWellRoundedDirective$()?.htmlElementRef$.set(pinnedControlHtmlButtonElementRef);
+        }
 
         this.wellRoundedDirective.htmlElementRef$.set(this.htmlElementRef$());
       },
@@ -180,20 +179,29 @@ export class FooterComponent {
       switchMap<true, Observable<number>>(
         (): Observable<number> => runInInjectionContext<Observable<number>>(
           this.injector,
-          (): Observable<number> => toObservable<ElementRef<HTMLDivElement>>(this.backdropHtmlDivElementRef$).pipe<[ ElementRef<HTMLDivElement>, number | undefined, number | undefined, number | undefined, number | undefined ], number>(
-            combineLatestWith<ElementRef<HTMLDivElement>, [ number | undefined, number | undefined, number | undefined, number | undefined ]>(
-              toObservable<number | undefined>(this.viewportService.height$),
-              toObservable<number | undefined>(this.viewportService.scrollTop$),
+          (): Observable<number> => toObservable<ElementRef<HTMLDivElement>>(this.backdropHtmlDivElementRef$).pipe<[ ElementRef<HTMLDivElement>, number | undefined, number | undefined, number | undefined ], { "adjustment": number, "backdropBottom": number }, [ { adjustment: number, backdropBottom: number }, number | undefined, number | undefined ], number>(
+            combineLatestWith<ElementRef<HTMLDivElement>, [ number | undefined, number | undefined, number | undefined ]>(
+              toObservable<number | undefined>(this.viewportService.width$),
               toObservable<number | undefined>(this.bodyHeight$),
               toObservable<number | undefined>(this.height$),
             ),
-            map<[ ElementRef<HTMLDivElement>, number | undefined, number | undefined, number | undefined, number | undefined ], number>(
-              ([ { nativeElement: backdropHtmlDivElement }, viewportHeight ]: [ ElementRef<HTMLDivElement>, number | undefined, number | undefined, number | undefined, number | undefined ]): number => Math.round(
+            map<[ ElementRef<HTMLDivElement>, number | undefined, number | undefined, number | undefined ], { "adjustment": number, "backdropBottom": number }>(
+              ([ { nativeElement: backdropHtmlDivElement } ]: [ ElementRef<HTMLDivElement>, number | undefined, number | undefined, number | undefined ]): { "adjustment": number, "backdropBottom": number } => ({
+                adjustment:     ((backdropStylePropertyMap: StylePropertyMapReadOnly): number => Math.max(
+                  0,
+                  - 0.6180339887 * parseInt(backdropStylePropertyMap.get("margin-bottom")?.toString() || "0") + parseInt(backdropStylePropertyMap.get("--bowstring--root--safe-area-inset-bottom")?.toString() || "0"),
+                ))(backdropHtmlDivElement.computedStyleMap()),
+                backdropBottom: backdropHtmlDivElement.getBoundingClientRect().bottom + (this.document.defaultView?.scrollY || 0),
+              }),
+            ),
+            combineLatestWith<{ "adjustment": number, "backdropBottom": number }, [ number | undefined, number | undefined ]>(
+              toObservable<number | undefined>(this.viewportService.height$),
+              toObservable<number | undefined>(this.viewportService.scrollTop$),
+            ),
+            map<[ { "adjustment": number, "backdropBottom": number }, number | undefined, number | undefined ], number>(
+              ([ layoutAnchor, viewportHeight, scrollTop ]: [ { "adjustment": number, "backdropBottom": number }, number | undefined, number | undefined ]): number => Math.round(
                 Math.max(
-                  backdropHtmlDivElement.getBoundingClientRect().bottom - (viewportHeight || 0) + Math.max(
-                    0,
-                    - 0.6180339887 * parseInt(backdropHtmlDivElement.computedStyleMap().get("margin-bottom")?.toString() || "0") + parseInt(backdropHtmlDivElement.computedStyleMap().get("--bowstring--root--safe-area-inset-bottom")?.toString() || "0"),
-                  ),
+                  layoutAnchor.backdropBottom - (scrollTop || 0) - (viewportHeight || 0) + layoutAnchor.adjustment,
                   0,
                 ),
               ),

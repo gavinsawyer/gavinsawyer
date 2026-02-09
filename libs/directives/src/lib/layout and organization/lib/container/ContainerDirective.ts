@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { booleanAttribute, contentChild, Directive, input, type InputSignal, type InputSignalWithTransform, numberAttribute, type Signal, TemplateRef }                                                                                         from "@angular/core";
@@ -9,7 +9,6 @@ import { FlexboxChildDirective }                                                
 import { GridChildDirective }                                                                                                                                                                                                                   from "../grid child/GridChildDirective";
 
 
-// noinspection CssUnknownProperty
 @Directive(
   {
     host:           {

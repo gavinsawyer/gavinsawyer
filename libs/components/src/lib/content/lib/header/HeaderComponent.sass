@@ -1,9 +1,8 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../../../directives/src/lib/content/lib/typography/TypographyDirective"
-@use "../../../../../../directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
+@use "../../../../../../directives/src" as directives
 
 
 \:host
@@ -12,8 +11,8 @@
   --bowstring--header--gap-column: calc(var(--bowstring--root--gap-column) * pow(var(--phi), -1))
   --bowstring--header--gap-row: calc(var(--bowstring--root--gap-row) * pow(var(--phi), -1))
 
-  @include FlexboxContainerDirective.host
-  @include TypographyDirective.host
+  @include directives.FlexboxContainer-host
+  @include directives.Typography-host
 
   --bowstring--flexbox-container-directive--gap-column: var(--bowstring--header--gap-column) !important
   --bowstring--flexbox-container-directive--gap-row: var(--bowstring--header--gap-row) !important
@@ -24,8 +23,8 @@
 
     > .between::ng-deep
       > *
-        @include FlexboxContainerDirective.children
-        @include TypographyDirective.children
+        @include directives.FlexboxContainer-children
+        @include directives.Typography-children
 
       > h1,
       > h2,

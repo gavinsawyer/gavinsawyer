@@ -1,21 +1,20 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { Directive, inject, signal, type Signal } from "@angular/core";
-import type * as brandLib                         from "@bowstring/brand";
-import { BRAND }                                  from "@bowstring/injection-tokens";
+import type * as configLib                        from "@bowstring/config";
+import { CONFIG }                                 from "@bowstring/injection-tokens";
 import { type Color }                             from "@bowstring/interfaces";
 
 
-// noinspection CssUnknownProperty
 @Directive(
   {
     host: {
-      "[style.--bowstring--primary-directive--brand-primary-background-dark]":  "brandPrimaryBackgroundDark$()",
-      "[style.--bowstring--primary-directive--brand-primary-background-light]": "brandPrimaryBackgroundLight$()",
-      "[style.--bowstring--primary-directive--brand-primary-foreground-dark]":  "brandPrimaryForegroundDark$()",
-      "[style.--bowstring--primary-directive--brand-primary-foreground-light]": "brandPrimaryForegroundLight$()",
+      "[style.--bowstring--primary-directive--background-dark]":  "backgroundDark$()",
+      "[style.--bowstring--primary-directive--background-light]": "backgroundLight$()",
+      "[style.--bowstring--primary-directive--foreground-dark]":  "foregroundDark$()",
+      "[style.--bowstring--primary-directive--foreground-light]": "foregroundLight$()",
     },
 
     standalone: true,
@@ -23,11 +22,11 @@ import { type Color }                             from "@bowstring/interfaces";
 )
 export class PrimaryDirective {
 
-  private readonly brandLib: typeof brandLib = inject<typeof brandLib>(BRAND);
+  private readonly configLib: typeof configLib = inject<typeof configLib>(CONFIG);
 
-  protected readonly brandPrimaryBackgroundDark$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`>  = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, (1 - 0.0625) * color.saturation)) }%, ${ 100 * Math.max(0, Math.min(1, (1 - 0.0625) * color.lightness)) }%)`)(this.brandLib.primaryColor));
-  protected readonly brandPrimaryBackgroundLight$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`> = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, (1 + 0.0625) * color.saturation)) }%, ${ 100 * Math.max(0, Math.min(1, (1 + 0.0625) * color.lightness)) }%)`)(this.brandLib.primaryColor));
-  protected readonly brandPrimaryForegroundDark$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`>  = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.saturation, color.lightness > 0.5 ? 2.9375 : 0.1875))) }%, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.lightness, color.lightness > 0.5 ? 2.9375 : 0.1875))) }%)`)(this.brandLib.primaryColor));
-  protected readonly brandPrimaryForegroundLight$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`> = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.saturation, color.lightness > 0.5 ? 2.8125 : 0.0625))) }%, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.lightness, color.lightness > 0.5 ? 2.8125 : 0.0625))) }%)`)(this.brandLib.primaryColor));
+  protected readonly backgroundDark$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`>  = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, (1 - 0.0625) * color.saturation)) }%, ${ 100 * Math.max(0, Math.min(1, (1 - 0.0625) * color.lightness)) }%)`)(this.configLib.brand.primaryColor));
+  protected readonly backgroundLight$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`> = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, (1 + 0.0625) * color.saturation)) }%, ${ 100 * Math.max(0, Math.min(1, (1 + 0.0625) * color.lightness)) }%)`)(this.configLib.brand.primaryColor));
+  protected readonly foregroundDark$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`>  = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.saturation, color.lightness > 0.5 ? 2.9375 : 0.1875))) }%, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.lightness, color.lightness > 0.5 ? 2.9375 : 0.1875))) }%)`)(this.configLib.brand.primaryColor));
+  protected readonly foregroundLight$: Signal<`hsl(${ number }, ${ number }%, ${ number }%)`> = signal<`hsl(${ number }, ${ number }%, ${ number }%)`>(((color: Color): `hsl(${ number }, ${ number }%, ${ number }%)` => `hsl(${ color.hue }, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.saturation, color.lightness > 0.5 ? 2.8125 : 0.0625))) }%, ${ 100 * Math.max(0, Math.min(1, Math.pow(color.lightness, color.lightness > 0.5 ? 2.8125 : 0.0625))) }%)`)(this.configLib.brand.primaryColor));
 
 }

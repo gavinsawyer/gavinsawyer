@@ -1,11 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _TruckPickupSideHillDownFill: Symbol = {
   paths:         [
     {
@@ -13,7 +14,11 @@ export const _TruckPickupSideHillDownFill: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M6.44522 31.7107L3.44522 26.5075C2.98819 25.6989 2.06241 25.8864 1.78116 26.6833L0.0819393 31.1247C-0.152436 31.7224 0.128814 32.2146 0.761627 32.32L5.44913 33.07C6.28116 33.2224 6.91397 32.5075 6.44522 31.7107ZM9.42178 38.8825C9.72647 39.3864 10.371 39.5505 10.8515 39.281L52.8046 15.0818C53.2851 14.8122 53.4726 14.1911 53.1913 13.6989C52.8866 13.1833 52.2421 13.0193 51.7616 13.2888L9.8085 37.488C9.32803 37.7575 9.15225 38.4021 9.42178 38.8825Z",
+      definition: "M9.42178 38.8825C9.72647 39.3864 10.371 39.5505 10.8515 39.281L52.8046 15.0818C53.2851 14.8122 53.4726 14.1911 53.1913 13.6989C52.8866 13.1833 52.2421 13.0193 51.7616 13.2888L9.8085 37.488C9.32803 37.7575 9.15225 38.4021 9.42178 38.8825Z",
+      opacity:    0.85,
+    },
+    {
+      definition: "M6.44522 31.7107L3.44522 26.5075C2.98819 25.6989 2.06241 25.8864 1.78116 26.6833L0.0819393 31.1247C-0.152436 31.7224 0.128814 32.2146 0.761627 32.32L5.44913 33.07C6.28116 33.2224 6.91397 32.5075 6.44522 31.7107Z",
       opacity:    0.85,
     },
   ],

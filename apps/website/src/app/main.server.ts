@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { APP_BASE_HREF }                                                                                                 from "@angular/common";
@@ -12,6 +12,7 @@ import express                                                                  
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type AppCheck as AdminAppCheck, getAppCheck as adminGetAppCheck }                                               from "firebase-admin/app-check";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
+import { environment }                                                                                                   from "../environment";
 import { ProjectServerModule }                                                                                           from "./modules";
 import { getI18nRequestHandler }                                                                                         from "./request handlers";
 import { type ProjectLocaleId }                                                                                          from "./types";
@@ -63,7 +64,7 @@ function getRequestHandler(projectLocaleId: ProjectLocaleId): express.RequestHan
     },
   ).render(
     {
-      documentFilePath: `${ process.cwd() }/dist/apps/website/browser/${ String(projectLocaleId) }/index.original.html`,
+      documentFilePath: `${ process.cwd() }/dist/apps/${ environment.app }/browser/${ String(projectLocaleId) }/index.original.html`,
       url:              `${ request.protocol }://${ request.headers.host }${ request.originalUrl }`,
     },
   ).then<void, never>(
@@ -79,13 +80,11 @@ function getRequestHandler(projectLocaleId: ProjectLocaleId): express.RequestHan
   );
 }
 
-
 // noinspection JSUnusedGlobalSymbols
 export {
   getRequestHandler,
   ProjectServerModule as AppServerModule,
 };
-
 
 declare const __non_webpack_require__: NodeJS.Require;
 
@@ -96,27 +95,28 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
       response: express.Response,
       nextFunction: express.NextFunction,
     ): void => {
-      if (request.headersDistinct["authorization"]?.[0] && request.headersDistinct["authorization"]?.[0].split("Bearer ")[1] !== request.cookies["__session"]) {
-        const idToken: string = request.headersDistinct["authorization"]?.[0].split("Bearer ")[1];
+      response.setHeader(
+        "X-Powered-By",
+        "Bowstring",
+      );
 
-        adminGetAuth(adminFirebaseApp).verifyIdToken(idToken).then<void, void>(
-          ({ exp: expirySeconds }: AdminDecodedIdToken): void => {
-            response.cookie(
-              "__session",
-              idToken,
-              {
-                expires:  new Date(expirySeconds * 1000),
-                httpOnly: true,
-                sameSite: "strict",
-                secure:   true,
-              },
-            );
-          },
-          (): void => {
-            response.clearCookie("__session");
-          },
+      const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
+
+      if (idToken && idToken !== request.cookies["__session"])
+        adminAuth.verifyIdToken(idToken).then<void, void>(
+          ({ exp: expirySeconds }: AdminDecodedIdToken): void => void response.cookie(
+            "__session",
+            idToken,
+            {
+              expires:  new Date(expirySeconds * 1000),
+              httpOnly: true,
+              sameSite: "strict",
+              secure:   true,
+            },
+          ),
+          (): void => void response.clearCookie("__session"),
         ).finally(nextFunction);
-      } else
+      else
         nextFunction();
     },
   ).set(
@@ -124,10 +124,10 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
     "html",
   ).set(
     "views",
-    `${ process.cwd() }/dist/apps/website/browser`,
+    `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
   ).get(
     "/service-worker.js",
-    express.static(`${ process.cwd() }/dist/apps/website/browser`),
+    express.static(`${ process.cwd() }/dist/apps/${ environment.app }/browser`),
   ).get(
     "*.*",
     getI18nRequestHandler(

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                          from "@angular/common";
@@ -66,9 +66,7 @@ import { map, startWith }                                                       
 export class MapComponent {
 
   constructor() {
-    afterRender(
-      (): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()),
-    );
+    afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
 
     this.googleMapsApiLoaderService.load("maps").catch<never>(
       (error: Error): never => {

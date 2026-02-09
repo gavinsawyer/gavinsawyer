@@ -1,33 +1,33 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 @use "../flexbox child/FlexboxChildDirective"
 @use "../grid child/GridChildDirective"
 
 
 $namespace: "container"
 
-$align-self: functions.get-input-reference($namespace, "align-self", auto)
-$aspect-ratio: functions.get-input-reference($namespace, "aspect-ratio", auto)
-$margin-bottom: functions.get-input-reference($namespace, "margin-bottom", 0)
-$margin-sides: functions.get-input-reference($namespace, "margin-sides", 0)
-$margin-top: functions.get-input-reference($namespace, "margin-top", 0)
-$overflow-x: functions.get-input-reference($namespace, "overflow-x", visible)
-$overflow-y: functions.get-input-reference($namespace, "overflow-y", visible)
-$padding-bottom: functions.get-input-reference($namespace, "padding-bottom", 0)
-$padding-sides: functions.get-input-reference($namespace, "padding-sides", 0)
-$padding-top: functions.get-input-reference($namespace, "padding-top", 0)
-$position: functions.get-input-reference($namespace, "position", relative)
-$position-bottom: functions.get-input-reference($namespace, "position-bottom", auto)
-$position-left: functions.get-input-reference($namespace, "position-left", auto)
-$position-right: functions.get-input-reference($namespace, "position-right", auto)
-$position-top: functions.get-input-reference($namespace, "position-top", auto)
-$scroll-snap-align: functions.get-input-reference($namespace, "scroll-snap-align", none)
-$scroll-snap-stop: functions.get-input-reference($namespace, "scroll-snap-stop", normal)
-$scroll-snap-type: functions.get-input-reference($namespace, "scroll-snap-type", none)
+$align-self: sassFunctions.get-input-reference($namespace, "align-self", auto)
+$aspect-ratio: sassFunctions.get-input-reference($namespace, "aspect-ratio", auto)
+$margin-bottom: sassFunctions.get-input-reference($namespace, "margin-bottom", 0)
+$margin-sides: sassFunctions.get-input-reference($namespace, "margin-sides", 0)
+$margin-top: sassFunctions.get-input-reference($namespace, "margin-top", 0)
+$overflow-x: sassFunctions.get-input-reference($namespace, "overflow-x", visible)
+$overflow-y: sassFunctions.get-input-reference($namespace, "overflow-y", visible)
+$padding-bottom: sassFunctions.get-input-reference($namespace, "padding-bottom", 0)
+$padding-sides: sassFunctions.get-input-reference($namespace, "padding-sides", 0)
+$padding-top: sassFunctions.get-input-reference($namespace, "padding-top", 0)
+$position: sassFunctions.get-input-reference($namespace, "position", relative)
+$position-bottom: sassFunctions.get-input-reference($namespace, "position-bottom", auto)
+$position-left: sassFunctions.get-input-reference($namespace, "position-left", auto)
+$position-right: sassFunctions.get-input-reference($namespace, "position-right", auto)
+$position-top: sassFunctions.get-input-reference($namespace, "position-top", auto)
+$scroll-snap-align: sassFunctions.get-input-reference($namespace, "scroll-snap-align", none)
+$scroll-snap-stop: sassFunctions.get-input-reference($namespace, "scroll-snap-stop", normal)
+$scroll-snap-type: sassFunctions.get-input-reference($namespace, "scroll-snap-type", none)
 
 @function get-color($theme, $type, $shade)
 
@@ -38,9 +38,9 @@ $scroll-snap-type: functions.get-input-reference($namespace, "scroll-snap-type",
   @include FlexboxChildDirective.children
   @include GridChildDirective.children
 
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ("align-self", "aspect-ratio", "margin-bottom", "margin-sides", "margin-top", "overflow-x", "overflow-y", "padding-bottom", "padding-sides", "padding-top", "position", "position-bottom", "position-left", "position-right", "position-top", "scroll-snap-align", "scroll-snap-stop", "scroll-snap-type"))
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ("align-self", "aspect-ratio", "margin-bottom", "margin-sides", "margin-top", "overflow-x", "overflow-y", "padding-bottom", "padding-sides", "padding-top", "position", "position-bottom", "position-left", "position-right", "position-top", "scroll-snap-align", "scroll-snap-stop", "scroll-snap-type"))
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host
   @include FlexboxChildDirective.host

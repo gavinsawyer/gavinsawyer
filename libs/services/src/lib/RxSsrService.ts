@@ -1,10 +1,10 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { isPlatformBrowser, isPlatformServer }                                                                                           from "@angular/common";
 import { effect, ExperimentalPendingTasks as PendingTasks, inject, Injectable, makeStateKey, PLATFORM_ID, type StateKey, TransferState } from "@angular/core";
-import { distinctUntilChanged, type MonoTypeOperatorFunction, type Observable, type OperatorFunction, startWith, take, tap }             from "rxjs";
+import { distinctUntilChanged, finalize, type MonoTypeOperatorFunction, type Observable, type OperatorFunction, startWith, take, tap }   from "rxjs";
 import { PathService }                                                                                                                   from "./PathService";
 
 
@@ -17,9 +17,7 @@ export class RxSsrService {
         (): void => this.pathService.path$() === this.transferState.get(
           this.pathStateKey,
           undefined,
-        ) ? void (0) : this.stateKeys?.forEach(
-          (stateKey: StateKey<unknown>): void => this.transferState.remove<unknown>(stateKey),
-        ),
+        ) ? void (0) : this.stateKeys?.forEach((stateKey: StateKey<unknown>): void => this.transferState.remove<unknown>(stateKey)),
       );
     else
       this.transferState.set(
@@ -36,112 +34,122 @@ export class RxSsrService {
 
   private stateKeys?: Array<StateKey<unknown>>;
 
-  public useState<Type>(id: string): MonoTypeOperatorFunction<Type> {
-    const stateKey: StateKey<Type> = makeStateKey<Type>(id);
+  public useState<T>(id: string): MonoTypeOperatorFunction<T> {
+    const stateKey: StateKey<T> = makeStateKey<T>(id);
 
     this.stateKeys = [
       ...(this.stateKeys ? [ ...this.stateKeys ] : []),
       stateKey,
     ];
 
-    return (inputObservable: Observable<Type>): Observable<Type> => {
-      if (isPlatformServer(this.platformId))
-        return inputObservable.pipe<Type, Type>(
-          tap<Type>(
-            (input: Type): void => this.transferState.set<Type>(
-              stateKey,
-              input,
-            ),
-          ),
-          take<Type>(1),
-        );
-
-      const state: Type | undefined = this.transferState.get<Type | undefined>(
-        stateKey,
-        undefined,
-      );
-
-      if (state !== undefined)
-        return inputObservable.pipe<Type, Type>(
-          startWith<Type>(state),
-          distinctUntilChanged<Type>(),
-        );
-
-      return inputObservable;
-    };
-  }
-  public wrap<Type, Result = Type>(
-    operatorFunction: OperatorFunction<Type, Result>,
-    id: string,
-  ): OperatorFunction<Type, Result> {
-    const stateKey: StateKey<Result> = makeStateKey<Result>(id);
-
-    this.stateKeys = [
-      ...(this.stateKeys ? [ ...this.stateKeys ] : []),
-      stateKey,
-    ];
-
-    return (inputObservable: Observable<Type>): Observable<Result> => {
-      let removeTask: () => void;
+    return (inputObservable: Observable<T>): Observable<T> => {
+      let removeTask: () => void = (): void => void (0);
 
       if (isPlatformServer(this.platformId))
-        return inputObservable.pipe<Type, Type, Result, Result, Result>(
-          distinctUntilChanged<Type>(),
-          tap<Type>(
-            (): void => {
+        return inputObservable.pipe<T, T, T, T>(
+          distinctUntilChanged<T>(),
+          tap<T>(
+            (input: T): void => {
               removeTask = this.pendingTasks.add();
-            },
-          ),
-          operatorFunction,
-          tap<Result>(
-            (input: Result): void => {
+
               setTimeout(removeTask);
 
-              this.transferState.set<Result>(
+              this.transferState.set<T>(
                 stateKey,
                 input,
               );
             },
           ),
-          take<Result>(1),
+          take<T>(1),
+          finalize<T>((): void => void setTimeout(removeTask)),
         );
 
-      const state: Result | undefined = this.transferState.get<Result | undefined>(
+      const state: T | undefined = this.transferState.get<T | undefined>(
         stateKey,
         undefined,
       );
 
       if (state !== undefined)
-        return inputObservable.pipe<Type, Type, Result, Result, Result, Result>(
-          distinctUntilChanged<Type>(),
-          tap<Type>(
+        return inputObservable.pipe<T, T, T, T, T>(
+          distinctUntilChanged<T>(),
+          tap<T>(
             (): void => {
               removeTask = this.pendingTasks.add();
-            },
-          ),
-          operatorFunction,
-          tap<Result>(
-            (): void => {
+
               setTimeout(removeTask);
             },
           ),
-          startWith<Result>(state),
-          distinctUntilChanged<Result>(),
+          startWith<T>(state),
+          distinctUntilChanged<T>(),
+          finalize<T>((): void => void setTimeout(removeTask)),
         );
 
-      return inputObservable.pipe<Type, Type, Result, Result>(
-        distinctUntilChanged<Type>(),
-        tap<Type>(
-          (): void => {
-            removeTask = this.pendingTasks.add();
-          },
-        ),
+      return inputObservable.pipe<T, T, T>(
+        distinctUntilChanged<T>(),
+        tap<T>((): void => {
+          removeTask = this.pendingTasks.add();
+
+          setTimeout(removeTask);
+        }),
+        finalize<T>((): void => void setTimeout(removeTask)),
+      );
+    };
+  }
+  public wrap<T, R = T>(
+    operatorFunction: OperatorFunction<T, R>,
+    id: string,
+  ): OperatorFunction<T, R> {
+    const stateKey: StateKey<R> = makeStateKey<R>(id);
+
+    this.stateKeys = [
+      ...(this.stateKeys ? [ ...this.stateKeys ] : []),
+      stateKey,
+    ];
+
+    return (inputObservable: Observable<T>): Observable<R> => {
+      let removeTask: () => void = (): void => void (0);
+
+      if (isPlatformServer(this.platformId))
+        return inputObservable.pipe<T, T, R, R, R, R>(
+          distinctUntilChanged<T>(),
+          tap<T>((): void => void (removeTask = this.pendingTasks.add())),
+          operatorFunction,
+          tap<R>(
+            (input: R): void => {
+              setTimeout(removeTask);
+
+              this.transferState.set<R>(
+                stateKey,
+                input,
+              );
+            },
+          ),
+          take<R>(1),
+          finalize<R>((): void => void setTimeout(removeTask)),
+        );
+
+      const state: R | undefined = this.transferState.get<R | undefined>(
+        stateKey,
+        undefined,
+      );
+
+      if (state !== undefined)
+        return inputObservable.pipe<T, T, R, R, R, R, R>(
+          distinctUntilChanged<T>(),
+          tap<T>((): void => void (removeTask = this.pendingTasks.add())),
+          operatorFunction,
+          tap<R>((): void => void setTimeout(removeTask)),
+          startWith<R>(state),
+          distinctUntilChanged<R>(),
+          finalize<R>((): void => void setTimeout(removeTask)),
+        );
+
+      return inputObservable.pipe<T, T, R, R, R>(
+        distinctUntilChanged<T>(),
+        tap<T>((): void => void (removeTask = this.pendingTasks.add())),
         operatorFunction,
-        tap<Result>(
-          (): void => {
-            setTimeout(removeTask);
-          },
-        ),
+        tap<R>((): void => void setTimeout(removeTask)),
+        finalize<R>((): void => void setTimeout(removeTask)),
       );
     };
   }

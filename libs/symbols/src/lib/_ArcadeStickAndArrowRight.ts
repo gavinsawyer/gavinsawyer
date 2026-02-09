@@ -1,11 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _ArcadeStickAndArrowRight: Symbol = {
   paths:         [
     {
@@ -17,7 +18,7 @@ export const _ArcadeStickAndArrowRight: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M15.9258 13.0078C15.9258 13.5703 16.3711 14.0156 16.9453 14.0156L21.4102 14.0156L21.4102 16.2773C21.4102 17.2031 22.3359 17.5547 23.0742 16.9805L27.2695 13.7695C27.7969 13.3711 27.7852 12.6562 27.2695 12.2695L23.0742 9.04688C22.3594 8.50781 21.4102 8.80078 21.4102 9.76172L21.4102 12L16.9453 12C16.3711 12 15.9258 12.4453 15.9258 13.0078Z",
+      definition: "M21.4102 9.76172L21.4102 16.2773C21.4102 17.2031 22.3359 17.5547 23.0742 16.9805L27.2695 13.7695C27.7969 13.3711 27.7852 12.6562 27.2695 12.2695L23.0742 9.04688C22.3594 8.50781 21.4102 8.80078 21.4102 9.76172ZM15.9258 13.0078C15.9258 13.5703 16.3711 14.0156 16.9453 14.0156L24.5156 14.0156C25.0898 14.0156 25.5352 13.5703 25.5352 13.0078C25.5352 12.4453 25.0898 12 24.5156 12L16.9453 12C16.3711 12 15.9258 12.4453 15.9258 13.0078Z",
       opacity:    0.85,
     },
   ],

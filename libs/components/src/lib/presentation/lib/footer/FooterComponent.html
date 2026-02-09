@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <footer class="harness" #htmlElement
@@ -47,7 +47,7 @@
       tabindex="0"
       type="button">
       <div class="between">
-        @if (!pinnedModelWithTransform$() ? pinFillSymbol$() : pinSlashFillSymbol$(); as symbol) {<svg
+        @if (pinnedModelWithTransform$() ? pinSlashFillSymbol$() : pinFillSymbol$(); as symbol) {<svg
           [attr.viewBox]="'0 0 ' + symbol.viewBoxWidth + ' ' + symbol.viewBoxHeight + ''"
           xmlns="http://www.w3.org/2000/svg">
           <g>

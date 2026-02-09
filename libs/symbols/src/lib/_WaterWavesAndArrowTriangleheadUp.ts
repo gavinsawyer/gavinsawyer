@@ -1,11 +1,12 @@
+// noinspection JSUnusedGlobalSymbols
+
 /*
- * Copyright © 2025 Apple Inc. Adapted for Bowstring from SF Symbols Version 6.0.
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
  */
 
 import { type Symbol } from "@bowstring/interfaces";
 
 
-// noinspection JSUnusedGlobalSymbols
 export const _WaterWavesAndArrowTriangleheadUp: Symbol = {
   paths:         [
     {
@@ -17,7 +18,7 @@ export const _WaterWavesAndArrowTriangleheadUp: Symbol = {
       opacity:    0.85,
     },
     {
-      definition: "M11.7773 18.7734L14.707 18.7734L14.707 28.2656C14.707 28.8164 15.1875 29.2734 15.7383 29.2734C16.2891 29.2734 16.7695 28.8164 16.7695 28.2656L16.7695 18.7734L19.6992 18.7734C20.5781 18.7734 20.9414 17.9414 20.4258 17.2852L16.5469 12.0938C16.0547 11.4609 15.4336 11.4492 14.9297 12.0938L11.0508 17.2734C10.5234 17.9414 10.8867 18.7734 11.7773 18.7734Z",
+      definition: "M11.7773 18.7734L19.6992 18.7734C20.5781 18.7734 20.9414 17.9414 20.4258 17.2852L16.5469 12.0938C16.0547 11.4609 15.4336 11.4492 14.9297 12.0938L11.0508 17.2734C10.5234 17.9414 10.8867 18.7734 11.7773 18.7734ZM14.707 15.8789L14.707 28.2656C14.707 28.8164 15.1875 29.2734 15.7383 29.2734C16.2891 29.2734 16.7695 28.8164 16.7695 28.2656L16.7695 15.8789C16.7695 15.3398 16.2891 14.8711 15.7383 14.8711C15.1875 14.8711 14.707 15.3398 14.707 15.8789Z",
       opacity:    0.85,
     },
   ],

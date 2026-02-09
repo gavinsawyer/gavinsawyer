@@ -1,0 +1,50 @@
+{
+  "name":        "sendgrid-document-blocking-functions",
+  "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "tags":        [ "cloud-functions" ],
+  "sourceRoot":  "libs/sendgrid document blocking functions/src",
+  "targets":     {
+    "build":           {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:noop"
+    },
+    "deploy":          {
+      "dependsOn": [ "firebase-deploy" ],
+      "executor":  "nx:noop"
+    },
+    "esbuild":         {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "bundle":     true,
+        "external":   [
+          "@sendgrid/mail",
+          "firebase-admin",
+          "firebase-functions"
+        ],
+        "format":     [ "cjs" ],
+        "main":       "libs/sendgrid document blocking functions/src/lib/main.ts",
+        "metafile":   true,
+        "minify":     true,
+        "outputPath": "dist/libs/sendgrid document blocking functions",
+        "platform":   "node",
+        "tsConfig":   "libs/sendgrid document blocking functions/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "eslint":          {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/sendgrid document blocking functions/src/**/*.ts" ] }
+    },
+    "firebase-deploy": {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:run-commands",
+      "options":   { "command": "firebase deploy --only functions:sendgrid-document-blocking-functions" }
+    },
+    "lint":            {
+      "dependsOn": [ "eslint" ],
+      "executor":  "nx:noop"
+    }
+  }
+}

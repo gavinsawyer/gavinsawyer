@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                                                                                                          from "@angular/common";
@@ -92,8 +92,8 @@ export class ToggleComponent
   }
   protected onTouched?(): void
 
-  public registerOnChange(handler: (value: boolean | "") => void): void {
-    this.onChange = (): void => handler(this.value);
+  public registerOnChange(handler: (value: boolean) => void): void {
+    this.onChange = (): void => handler(this.value || false);
   }
   public registerOnTouched(handler: () => void): void {
     this.onTouched = handler;

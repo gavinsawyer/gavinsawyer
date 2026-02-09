@@ -1,5 +1,5 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
 @use "../../../../../../../libs/directives/src/lib/layout and organization/lib/flexbox container/FlexboxContainerDirective"
@@ -42,7 +42,7 @@
   > .harness > .between
     flex-direction: column
     //noinspection CssNoGenericFontName
-    font-family: var(--bowstring--root--brand--font-family)
+    font-family: var(--bowstring--root--font-family)
     font-optical-sizing: auto
     font-style: normal
     letter-spacing: -0.03444185375em
@@ -53,12 +53,32 @@
       @include CanvasDirective.children
       @include FlexboxContainerDirective.children
 
+    > bowstring--main::ng-deep > .harness > .between > bowstring--flexbox-container > .harness > .between > bowstring--flexbox-container > .harness > .between > bowstring--flexbox-container
+      &,
+      > .harness > .between > bowstring--section
+        @media (min-width: 48rem)
+          --bowstring--flexbox-container-directive--flex-direction: row !important
+
+      > .harness > .between > bowstring--section
+        &,
+        > .harness > .between > bowstring--flexbox-container
+          @media (min-width: 48rem)
+            --bowstring--flexbox-child-directive--flex-basis: calc(1rem * pow(var(--phi), 6)) !important
+            --bowstring--flexbox-child-directive--flex-grow: 1 !important
+            --bowstring--flexbox-child-directive--flex-shrink: 0 !important
+
+        > .harness > .between > bowstring--flexbox-container > .harness > .between > router-outlet
+          display: none
+
     > bowstring--footer::ng-deep > .harness > .between
       > bowstring--section#connectivitySection
         --bowstring--flexbox-container-directive--justify-content: center !important
 
         @media (min-width: 48rem)
           --bowstring--flexbox-container-directive--justify-content: flex-start !important
+
+          &.connectivitySection--hasCityTime
+            --bowstring--flexbox-container-directive--justify-content: space-between !important
 
       > bowstring--section#informationAndOptionsSection > .harness > .between
         > bowstring--flexbox-container:first-child

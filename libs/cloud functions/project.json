@@ -5,31 +5,45 @@
   "tags":        [ "cloud-functions" ],
   "sourceRoot":  "libs/cloud functions/src",
   "targets":     {
-    "eslint":          {
-      "executor": "@nx/eslint:lint",
-      "options":  { "lintFilePatterns": [ "libs/cloud functions/src/**/*.ts" ] }
-    },
-    "esbuild":         {
-      "dependsOn": [ "eslint" ],
-      "executor":  "@nx/esbuild:esbuild",
-      "options":   {
-        "main":       "libs/cloud functions/src/lib/main.ts",
-        "outputPath": "dist/libs/cloud functions",
-        "tsConfig":   "libs/cloud functions/tsconfig.lib.json"
-      },
-      "outputs":   [ "{options.outputPath}" ]
-    },
-    "firebase-deploy": {
-      "dependsOn": [ "esbuild" ],
-      "executor":  "nx:run-commands",
-      "options":   { "command": "firebase deploy --only functions:cloud-functions" }
-    },
     "build":           {
       "dependsOn": [ "esbuild" ],
       "executor":  "nx:noop"
     },
     "deploy":          {
       "dependsOn": [ "firebase-deploy" ],
+      "executor":  "nx:noop"
+    },
+    "esbuild":         {
+      "dependsOn": [ "eslint" ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "bundle":     true,
+        "external":   [
+          "@gavinsawyer/shortcuts-api",
+          "firebase-admin",
+          "firebase-functions"
+        ],
+        "format":     [ "cjs" ],
+        "main":       "libs/cloud functions/src/lib/main.ts",
+        "metafile":   true,
+        "minify":     true,
+        "outputPath": "dist/libs/cloud functions",
+        "platform":   "node",
+        "tsConfig":   "libs/cloud functions/tsconfig.lib.json"
+      },
+      "outputs":   [ "{options.outputPath}" ]
+    },
+    "eslint":          {
+      "executor": "@nx/eslint:lint",
+      "options":  { "lintFilePatterns": [ "libs/cloud functions/src/**/*.ts" ] }
+    },
+    "firebase-deploy": {
+      "dependsOn": [ "esbuild" ],
+      "executor":  "nx:run-commands",
+      "options":   { "command": "firebase deploy --only functions:cloud-functions" }
+    },
+    "lint":            {
+      "dependsOn": [ "eslint" ],
       "executor":  "nx:noop"
     }
   }

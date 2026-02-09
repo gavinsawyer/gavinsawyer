@@ -1,11 +1,11 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 export * from "./lib/ADMIN_APP_CHECK";
 export * from "./lib/ADMIN_AUTH";
 export * from "./lib/ADMIN_FIREBASE_APP";
-export * from "./lib/BRAND";
+export * from "./lib/CONFIG";
 export * from "./lib/ENVIRONMENT";
 export * from "./lib/GIT_INFO_PARTIAL";
 export * from "./lib/ORIGIN";

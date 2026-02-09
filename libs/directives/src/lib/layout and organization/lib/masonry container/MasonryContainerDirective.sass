@@ -1,19 +1,19 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 @use "../container/ContainerDirective"
 
 
 $namespace: "masonry-container"
 
-$columns: functions.get-input-reference($namespace, "columns", 1)
-$gap-column: functions.get-input-reference($namespace, "gap-column", calc(1rem * pow(var(--phi), 2)))
-$gap-row: functions.get-input-reference($namespace, "gap-row", calc(1rem * pow(var(--phi), 1)))
+$columns: sassFunctions.get-input-reference($namespace, "columns", 1)
+$gap-column: sassFunctions.get-input-reference($namespace, "gap-column", calc(1rem * pow(var(--phi), 2)))
+$gap-row: sassFunctions.get-input-reference($namespace, "gap-row", calc(1rem * pow(var(--phi), 1)))
 
-$column-width: functions.get-value-reference($namespace, "column-width")
+$column-width: sassFunctions.get-value-reference($namespace, "column-width")
 
 @function get-color($theme, $type, $shade)
 
@@ -23,9 +23,9 @@ $column-width: functions.get-value-reference($namespace, "column-width")
 @mixin children
   @include ContainerDirective.children
 
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ("columns", "gap-column", "gap-row"))
-  @include mixins.reset-values($namespace, ("column-width"))
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ("columns", "gap-column", "gap-row"))
+  @include sassMixins.reset-values($namespace, ("column-width"))
 
 @mixin host
   @include ContainerDirective.host

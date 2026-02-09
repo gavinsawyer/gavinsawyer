@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright © 2025 Gavin Sawyer. All rights reserved.
+  ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
 <bowstring--article>
@@ -16,7 +16,7 @@
           <bowstring--capsule
             i18n
             material="primary">legal</bowstring--capsule>
-          <bowstring--label [input]="(userDateService.getUserDate(updatedDate) | date:'longDate') || ''" />
+          <bowstring--label [input]="updatedDate | bowstringDate:DateFormat.LongDate" />
         </bowstring--flexbox-container>
       </h3>
     </bowstring--header>

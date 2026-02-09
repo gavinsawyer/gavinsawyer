@@ -1,14 +1,14 @@
 /*!
- / Copyright © 2025 Gavin Sawyer. All rights reserved.
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
  /
 
-@use "../../../../sass/functions"
-@use "../../../../sass/mixins"
+@use "../../../sass functions" as sassFunctions
+@use "../../../sass mixins" as sassMixins
 
 
 $namespace: "typography"
 
-$font-size-exponent: functions.get-input-reference($namespace, "font-size-exponent", 0)
+$font-size-exponent: sassFunctions.get-input-reference($namespace, "font-size-exponent", 0)
 
 @function get-color($theme, $type, $shade)
 
@@ -16,9 +16,9 @@ $font-size-exponent: functions.get-input-reference($namespace, "font-size-expone
 @mixin color-scheme($theme)
 
 @mixin children
-  @include mixins.reset-colors($namespace, ())
-  @include mixins.reset-inputs($namespace, ("font-size-exponent"))
-  @include mixins.reset-values($namespace, ())
+  @include sassMixins.reset-colors($namespace, ())
+  @include sassMixins.reset-inputs($namespace, ("font-size-exponent"))
+  @include sassMixins.reset-values($namespace, ())
 
 @mixin host($child-selector: '')
   #{ $child-selector } > .harness > .between

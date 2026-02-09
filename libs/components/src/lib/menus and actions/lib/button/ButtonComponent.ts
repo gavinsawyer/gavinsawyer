@@ -1,5 +1,5 @@
 /*
- * Copyright © 2025 Gavin Sawyer. All rights reserved.
+ * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
 import { NgTemplateOutlet }                                                                                                                                                                                                              from "@angular/common";
@@ -92,18 +92,18 @@ export class ButtonComponent {
   protected readonly containerDirective: ContainerDirective     = inject<ContainerDirective>(ContainerDirective);
   protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
 
-  public readonly appearanceInput$: InputSignal<"raised" | "symbol" | undefined>                                                                = input<"raised" | "symbol" | undefined>(
+  public readonly appearanceInput$: InputSignal<"raised" | "symbol" | undefined>                                           = input<"raised" | "symbol" | undefined>(
     undefined,
     { alias: "appearance" },
   );
-  public readonly disabledInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined>                      = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
+  public readonly disabledInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined> = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
     undefined,
     {
       alias:     "disabled",
       transform: booleanAttribute,
     },
   );
-  public readonly disabled$: Signal<boolean | undefined>                                                                                        = toSignal<boolean>(
+  public readonly disabled$: Signal<boolean | undefined>                                                                   = toSignal<boolean>(
     toObservable<boolean | undefined>(this.disabledInput$).pipe<[ boolean | undefined, boolean | undefined ], boolean>(
       combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.asObservable().pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
       map<[ boolean | undefined, boolean | undefined ], boolean>(
@@ -116,16 +116,16 @@ export class ButtonComponent {
       ),
     ),
   );
-  public readonly materialInput$: InputSignal<"appleMusic" | "glass" | "inverse" | "primary" | "secondary" | "spotify" | "warning" | undefined> = input<"appleMusic" | "glass" | "inverse" | "primary" | "secondary" | "spotify" | "warning" | undefined>(
+  public readonly materialInput$: InputSignal<"glass" | "inverse" | "primary" | "secondary" | "warning" | undefined>       = input<"glass" | "inverse" | "primary" | "secondary" | "warning" | undefined>(
     undefined,
     { alias: "material" },
   );
-  public readonly output: OutputEmitterRef<void>                                                                                                = output<void>({ alias: "output" });
-  public readonly typeInput$: InputSignal<"reset" | "submit" | undefined>                                                                       = input<"reset" | "submit" | undefined>(
+  public readonly output: OutputEmitterRef<void>                                                                           = output<void>({ alias: "output" });
+  public readonly typeInput$: InputSignal<"reset" | "submit" | undefined>                                                  = input<"reset" | "submit" | undefined>(
     undefined,
     { alias: "type" },
   );
-  public readonly urlInput$: InputSignal<string | undefined>                                                                                    = input<string | undefined>(
+  public readonly urlInput$: InputSignal<string | undefined>                                                               = input<string | undefined>(
     undefined,
     { alias: "url" },
   );
