@@ -2,24 +2,22 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                                                            from "@angular/common";
-import { ChangeDetectionStrategy, Component, contentChildren, type ElementRef, inject, Injector, input, type InputSignalWithTransform, numberAttribute, PLATFORM_ID, runInInjectionContext, signal, type Signal, TemplateRef, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                                                                         from "@angular/core/rxjs-interop";
-import { ContainerDirective, ScrollStackItemDirective }                                                                                                                                                                                   from "@bowstring/directives";
-import { ViewportService }                                                                                                                                                                                                                from "@bowstring/services";
-import { animationFrameScheduler, combineLatestWith, distinctUntilChanged, fromEvent, map, Observable, observeOn, type Observer, scan, startWith, switchMap, type TeardownLogic }                                                         from "rxjs";
+import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                                                                      from "@angular/common";
+import { ChangeDetectionStrategy, Component, computed, contentChildren, type ElementRef, inject, Injector, input, type InputSignalWithTransform, numberAttribute, PLATFORM_ID, runInInjectionContext, signal, type Signal, TemplateRef, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                                                                                                   from "@angular/core/rxjs-interop";
+import { ContainerDirective, ScrollStackItemDirective }                                                                                                                                                                                             from "@bowstring/directives";
+import { ViewportService }                                                                                                                                                                                                                          from "@bowstring/services";
+import { combineLatestWith, distinctUntilChanged, fromEvent, map, Observable, scan, startWith, switchMap }                                                                                                                                          from "rxjs";
 
 
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
-      "[style.--bowstring--scroll-stack--current-item-index]":         "currentItemIndex$()",
+      "[style.--bowstring--scroll-stack--items-count]":                "itemsCount$()",
       "[style.--bowstring--scroll-stack--last-snapped-item-index]":    "lastSnappedItemIndex$()",
       "[style.--bowstring--scroll-stack--minimum-aspect-ratio-input]": "minimumAspectRatioInput$()",
-      "[style.--bowstring--scroll-stack--scroll-left]":                "scrollLeft$()",
       "[style.--bowstring--scroll-stack--viewport-vertical-offset]":   "viewportVerticalOffset$()",
-      "[style.--bowstring--scroll-stack--width]":                      "width$()",
     },
     hostDirectives:  [
       {
@@ -70,17 +68,24 @@ export class ScrollStackComponent {
       read:        TemplateRef,
     },
   );
-  protected readonly scrollLeft$: Signal<number | undefined>                                           = isPlatformBrowser(this.platformId) ? toSignal<number>(
-    toObservable<ElementRef<HTMLDivElement>>(this.innerHtmlDivElementRef$).pipe<number>(
-      switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
-        ({ nativeElement: innerHtmlDivElement }: ElementRef<HTMLDivElement>): Observable<number> => fromEvent<Event>(
+  protected readonly itemsCount$: Signal<number>                                                       = computed<number>((): number => this.itemTemplateRefs$().length);
+  protected readonly lastSnappedItemIndex$: Signal<number | undefined>                                 = isPlatformBrowser(this.platformId) ? toSignal<number | undefined>(
+    toObservable<ElementRef<HTMLDivElement>>(this.innerHtmlDivElementRef$).pipe<number | undefined>(
+      switchMap<ElementRef<HTMLDivElement>, Observable<number | undefined>>(
+        ({ nativeElement: innerHtmlDivElement }: ElementRef<HTMLDivElement>): Observable<number | undefined> => fromEvent<Event>(
           innerHtmlDivElement,
           "scroll",
           { passive: true },
-        ).pipe<Event | null, number, number>(
+        ).pipe<Event | null, number, number, number | undefined>(
           startWith<Event, [ null ]>(null),
-          map<Event | null, number>((): number => innerHtmlDivElement.scrollLeft),
-          observeOn<number>(animationFrameScheduler),
+          map<Event | null, number>((): number => 1 + innerHtmlDivElement.scrollLeft / innerHtmlDivElement.clientWidth),
+          distinctUntilChanged<number>(),
+          scan<number, number | undefined>(
+            (
+              lastEmittedItemIndex: number | undefined,
+              currentItemIndex: number,
+            ): number | undefined => Number.isInteger(Math.round(currentItemIndex * 100) / 100) || Math.abs(currentItemIndex - (lastEmittedItemIndex || 0)) >= 1 ? Math.round(currentItemIndex * 100) / 100 : lastEmittedItemIndex,
+          ),
         ),
       ),
     ),
@@ -105,51 +110,6 @@ export class ScrollStackComponent {
             ),
           ),
         ),
-      ),
-    ),
-  ) : signal<undefined>(undefined);
-  protected readonly width$: Signal<number | undefined>                                                = isPlatformBrowser(this.platformId) ? toSignal<number>(
-    toObservable<ElementRef<HTMLDivElement>>(this.htmlDivElementRef$).pipe<number>(
-      switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
-        ({ nativeElement: htmlDivElement }: ElementRef<HTMLDivElement>): Observable<number> => new Observable<number>(
-          (widthObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => widthObserver.next(clientWidth));
-
-            resizeObserver.observe(htmlDivElement);
-
-            return (): void => resizeObserver.disconnect();
-          },
-        ),
-      ),
-    ),
-  ) : signal<undefined>(undefined);
-  protected readonly currentItemIndex$: Signal<number | undefined>                                     = isPlatformBrowser(this.platformId) ? toSignal<number | undefined>(
-    toObservable<number | undefined>(this.scrollLeft$).pipe<number | undefined, [ number | undefined, number | undefined ], number | undefined>(
-      distinctUntilChanged<number | undefined>(),
-      combineLatestWith<number | undefined, [ number | undefined ]>(toObservable<number | undefined>(this.width$)),
-      map<[ number | undefined, number | undefined ], number | undefined>(
-        ([ scrollLeft, width ]: [ number | undefined, number | undefined ]): number | undefined => {
-          if (typeof width !== "number")
-            return undefined;
-
-          return 1 + ((scrollLeft || 0) / width);
-        },
-      ),
-    ),
-  ) : signal<undefined>(undefined);
-  protected readonly lastSnappedItemIndex$: Signal<number | undefined>                                 = isPlatformBrowser(this.platformId) ? toSignal<number | undefined>(
-    toObservable<number | undefined>(this.currentItemIndex$).pipe<number | undefined, number | undefined>(
-      distinctUntilChanged<number | undefined>(),
-      scan<number | undefined, number | undefined>(
-        (
-          lastEmittedItemIndex: number | undefined,
-          currentItemIndex?: number,
-        ): number | undefined => {
-          if (typeof currentItemIndex !== "number")
-            return undefined;
-
-          return Number.isInteger(Math.round(currentItemIndex * 100) / 100) || Math.abs(currentItemIndex - (lastEmittedItemIndex || 0)) >= 1 ? Math.round(currentItemIndex * 100) / 100 : lastEmittedItemIndex;
-        },
       ),
     ),
   ) : signal<undefined>(undefined);

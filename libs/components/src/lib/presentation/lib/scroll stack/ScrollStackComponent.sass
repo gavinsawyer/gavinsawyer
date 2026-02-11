@@ -5,6 +5,11 @@
 @use "../../../../../../directives/src" as directives
 
 
+@property --bowstring--scroll-stack--current-item-index
+  syntax: "<number>"
+  initial-value: 1
+  inherits: true
+
 \:host
   display: contents
 
@@ -18,9 +23,17 @@
     transform: translateZ(0)
 
     > .between
+      animation: bowstring--scroll-stack--progress linear both
+      animation-timeline: scroll(self inline)
       display: flex
       flex-direction: row
       z-index: auto !important
+
+      @keyframes bowstring--scroll-stack--progress
+        from
+          --bowstring--scroll-stack--current-item-index: 1
+        to
+          --bowstring--scroll-stack--current-item-index: var(--bowstring--scroll-stack--items-count)
 
       > div
         --bowstring--scroll-stack--item--eccentricity: calc((1 - min(1, pow(pow(var(--bowstring--scroll-stack--item--index) - var(--bowstring--scroll-stack--last-snapped-item-index, 0), 2), 0.5))) * clamp(0, 1 - pow(pow(2 * var(--bowstring--scroll-stack--item--relative-transformation--absolute-value) - 1, 2), 0.5), 1))
@@ -60,11 +73,10 @@
             @include directives.Container-children
 
             --bowstring--scroll-stack--current-item-index: initial
+            --bowstring--scroll-stack--items-count: initial
             --bowstring--scroll-stack--last-snapped-item-index: initial
             --bowstring--scroll-stack--minimum-aspect-ratio-input: initial
-            --bowstring--scroll-stack--scroll-left: initial
             --bowstring--scroll-stack--viewport-vertical-offset: initial
-            --bowstring--scroll-stack--width: initial
 
             --bowstring--scroll-stack--item--eccentricity: initial
             --bowstring--scroll-stack--item--index: initial
