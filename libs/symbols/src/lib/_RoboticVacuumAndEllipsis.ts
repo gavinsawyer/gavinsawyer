@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RoboticVacuumAndEllipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.6484 30.3867C27.9961 30.3867 29.1094 29.2969 29.1094 27.9141C29.1094 26.5664 27.9961 25.4531 26.6484 25.4531C25.2773 25.4531 24.1875 26.5664 24.1875 27.9141C24.1875 29.2969 25.2773 30.3867 26.6484 30.3867Z",

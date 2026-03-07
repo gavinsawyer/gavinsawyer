@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Line3Horizontal: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.984375 15.5273L29.3789 15.5273C29.9297 15.5273 30.375 15.0938 30.375 14.5312C30.375 13.9922 29.9297 13.5586 29.3789 13.5586L0.984375 13.5586C0.433594 13.5586 0 13.9922 0 14.5312C0 15.0938 0.433594 15.5273 0.984375 15.5273Z",

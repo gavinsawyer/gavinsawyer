@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HighlighterBadgeEllipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.6604 35.6719L9.09375 35.6719C8.51953 35.6719 8.05078 35.2031 8.05078 34.6289C8.05078 34.0664 8.51953 33.5977 9.09375 33.5977L29.5471 33.5977C29.8236 34.3428 30.2004 35.0389 30.6604 35.6719Z",

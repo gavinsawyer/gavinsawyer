@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ApplepencilDoubletap: Symbol = {
+export default {
   paths:         [
     {
       definition: "M3.04764 23.3786C2.83671 23.7653 3.25858 24.1169 3.58671 23.9411L5.77811 22.7575L4.26639 21.2458ZM4.91093 20.0973L6.94999 22.1364L7.78202 21.6794L26.5437 3.01138C27.2117 2.34342 27.2117 1.26529 26.5437 0.609041C25.8758-0.0589282 24.7859-0.0589282 24.1414 0.597322L5.37968 19.277Z",

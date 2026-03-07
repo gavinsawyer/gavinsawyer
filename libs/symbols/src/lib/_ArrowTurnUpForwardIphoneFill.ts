@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ArrowTurnUpForwardIphoneFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M20.8125 27.5977C20.8125 29.9648 22.3594 31.4648 24.8086 31.4648L35.6016 31.4648C38.0508 31.4648 39.5977 29.9648 39.5977 27.5977L39.5977 3.86719C39.5977 1.5 38.0508 0 35.6016 0L24.8086 0C22.3594 0 20.8125 1.5 20.8125 3.86719Z",

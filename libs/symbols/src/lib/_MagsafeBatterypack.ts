@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MagsafeBatterypack: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.14844 30.6211L17.0391 30.6211C19.5352 30.6211 21.1875 29.0508 21.1875 26.707L21.1875 3.92578C21.1875 1.57031 19.5352 0 17.0391 0L4.14844 0C1.65234 0 0 1.57031 0 3.92578L0 26.707C0 29.0508 1.65234 30.6211 4.14844 30.6211ZM4.38281 28.5469C2.97656 28.5469 2.07422 27.6914 2.07422 26.4023L2.07422 4.23047C2.07422 2.92969 2.97656 2.08594 4.38281 2.08594L16.8047 2.08594C18.2109 2.08594 19.1133 2.92969 19.1133 4.23047L19.1133 26.4023C19.1133 27.6914 18.2109 28.5469 16.8047 28.5469Z",

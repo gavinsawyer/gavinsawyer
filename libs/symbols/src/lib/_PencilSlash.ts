@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PencilSlash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M13.0824 15.0297L4.76221 23.3383L1.43409 24.7212C1.10596 24.8618 0.754401 24.4868 0.895026 24.1587L2.35987 20.9243L10.6742 12.6215ZM21.6607 6.46334L16.809 11.3083L14.4 8.90083L19.2583 4.04928ZM24.0278 1.28365L24.4497 1.70553C25.106 2.35006 25.0708 3.11178 24.3325 3.83834L22.9146 5.24459L20.4771 2.81881L21.9067 1.41256C22.6216 0.709436 23.395 0.650842 24.0278 1.28365Z",

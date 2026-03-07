@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LinesMeasurementVertical: Symbol = {
+export default {
   paths:         [
     {
       definition: "M5.96484 29.25C5.96484 30.1523 6.44531 30.6328 7.34766 30.6328L19.2656 30.6328C20.168 30.6328 20.6484 30.1523 20.6484 29.25C20.6484 28.3359 20.168 27.8672 19.2656 27.8672L7.34766 27.8672C6.44531 27.8672 5.96484 28.3359 5.96484 29.25Z",

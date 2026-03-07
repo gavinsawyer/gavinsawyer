@@ -2,15 +2,14 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Injector, input, type InputSignal, type OnInit, type Signal, TemplateRef, viewChild }                                                     from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                              from "@angular/core/rxjs-interop";
-import { Meta }                                                                                                                                                                                from "@angular/platform-browser";
-import { RouterOutlet, type Routes }                                                                                                                                                           from "@angular/router";
-import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, type FooterComponent, type HeaderComponent, type InspectorComponent }                            from "@bowstring/components";
-import { ChildRouteHeaderDirective, RouteAboveDirective, RouteAsideDirective, RouteBannerDirective, RouteBelowDirective, RouteFooterDirective, RouteHeaderDirective, RouteInspectorDirective } from "@bowstring/directives";
-import { PROJECT_ROUTES }                                                                                                                                                                      from "@bowstring/injection-tokens";
-import { combineLatestWith, map, type Observable, of, startWith, switchMap }                                                                                                                   from "rxjs";
-import { projectRoutesProvider }                                                                                                                                                               from "../routes";
+import { ChangeDetectionStrategy, Component, inject, Injector, input, type InputSignal, type OnInit, type Signal, TemplateRef, viewChild }                                                                                                                                                                                                               from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                                                                                                                                                                                                        from "@angular/core/rxjs-interop";
+import { Meta }                                                                                                                                                                                                                                                                                                                                          from "@angular/platform-browser";
+import { ActivatedRoute, RouterOutlet, type Routes }                                                                                                                                                                                                                                                                                                     from "@angular/router";
+import { PROJECT_ROUTES }                                                                                                                                                                                                                                                                                                                                from "@bowstring/core";
+import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, ChildRouteHeaderDirective, type FooterComponent, type HeaderComponent, type InspectorComponent, RouteAboveDirective, RouteAsideDirective, RouteBannerDirective, RouteBelowDirective, RouteFooterDirective, RouteHeaderDirective, RouteInspectorDirective } from "@bowstring/surface";
+import { combineLatestWith, map, merge, type Observable, of, startWith, switchMap }                                                                                                                                                                                                                                                                      from "rxjs";
+import { projectRoutesProvider }                                                                                                                                                                                                                                                                                                                         from "../routes";
 
 
 @Component(
@@ -50,10 +49,23 @@ export class RouteComponent
     { read: TemplateRef<HeaderComponent> },
   );
 
-  protected readonly injector: Injector                              = inject<Injector>(Injector);
-  protected readonly meta: Meta                                      = inject<Meta>(Meta);
-  protected readonly projectRoutes: Routes                           = inject<Routes>(PROJECT_ROUTES);
-  protected readonly routerOutlet$: Signal<RouterOutlet | undefined> = viewChild<RouterOutlet>(RouterOutlet);
+  protected readonly activatedRoute: ActivatedRoute                      = inject<ActivatedRoute>(ActivatedRoute);
+  protected readonly injector: Injector                                  = inject<Injector>(Injector);
+  protected readonly meta: Meta                                          = inject<Meta>(Meta);
+  protected readonly projectRoutes: Routes                               = inject<Routes>(PROJECT_ROUTES);
+  protected readonly routerOutlet$: Signal<RouterOutlet | undefined>     = viewChild<RouterOutlet>(RouterOutlet);
+  protected readonly routerOutletActivated$: Signal<boolean | undefined> = toSignal<boolean | undefined>(
+    toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<boolean | undefined, boolean | undefined>(
+      switchMap<RouterOutlet | undefined, Observable<boolean | undefined>>(
+        (routerOutlet?: RouterOutlet): Observable<boolean | undefined> => routerOutlet ? merge<[ true, false ]>(
+          routerOutlet.activateEvents.asObservable().pipe<true>(map<RouteComponent, true>((): true => true)),
+          routerOutlet.deactivateEvents.asObservable().pipe<false>(map<RouteComponent, false>((): false => false)),
+        ) : of<undefined>(undefined),
+      ),
+      startWith<boolean | undefined, [ boolean ]>(!!this.activatedRoute.children.length),
+    ),
+    { requireSync: true },
+  );
 
   public readonly aboveTemplateRef$: Signal<TemplateRef<AboveComponent> | undefined>         = toSignal<TemplateRef<AboveComponent> | undefined>(
     toObservable(this.aboveTemplateRef$Self).pipe<[ TemplateRef<AboveComponent> | undefined, TemplateRef<AboveComponent> | undefined ], TemplateRef<AboveComponent> | undefined>(

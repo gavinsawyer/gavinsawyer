@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextBelowFolder: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.04297 36.832L28.6406 36.832C29.2031 36.832 29.6719 36.3633 29.6719 35.8008C29.6719 35.2266 29.2031 34.7578 28.6406 34.7578L1.04297 34.7578C0.46875 34.7578 0 35.2266 0 35.8008C0 36.3633 0.46875 36.832 1.04297 36.832Z",

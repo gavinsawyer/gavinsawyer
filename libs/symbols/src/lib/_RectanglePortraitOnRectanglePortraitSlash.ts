@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectanglePortraitOnRectanglePortraitSlash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M6.18897 9.9649L6.18897 25.9512C6.18897 27.5567 7.05616 28.4824 8.74366 28.4824L10.853 28.4824L10.853 30.5567L8.62647 30.5567C5.64991 30.5567 4.11475 29.0098 4.11475 25.9981L4.11475 7.89142ZM27.4937 5.11526L27.4937 7.83401L25.4077 7.83401L25.4077 5.16213C25.4077 3.52151 24.5405 2.63088 22.8648 2.63088L8.74366 2.63088C7.9439 2.63088 7.3284 2.83093 6.90453 3.21839L5.32128 1.63458C6.07006 0.916628 7.17378 0.556665 8.62647 0.556665L22.9702 0.556665C25.9702 0.556665 27.4937 2.09182 27.4937 5.11526Z",

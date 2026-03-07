@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RJoystick: Symbol = {
+export default {
   paths:         [
     {
       definition: "M17.0742 24.4219C19.1576 24.4219 21.1 24.2236 22.8633 23.8402L22.8633 24.5156C22.8633 27.3281 20.707 28.9805 17.0742 28.9805C13.4297 28.9805 11.2734 27.3281 11.2734 24.5156L11.2734 23.8389C13.0397 24.2231 14.9861 24.4219 17.0742 24.4219Z",

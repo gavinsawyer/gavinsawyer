@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PhotoArtframe: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.08984 0C0.433594 0 0 0.433594 0 1.08984L0 26.4609C0 27.1172 0.433594 27.5508 1.08984 27.5508L34.418 27.5508C35.0742 27.5508 35.5078 27.1172 35.5078 26.4609L35.5078 1.08984C35.5078 0.433594 35.0742 0 34.418 0ZM2.48438 2.07422L33.0234 2.07422C33.3164 2.07422 33.4219 2.19141 33.4219 2.48438L33.4219 25.0664C33.4219 25.3594 33.3164 25.4766 33.0234 25.4766L2.48438 25.4766C2.19141 25.4766 2.07422 25.3594 2.07422 25.0664L2.07422 2.48438C2.07422 2.19141 2.19141 2.07422 2.48438 2.07422Z",

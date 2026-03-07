@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ClipboardFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M25.1602 10.1953L25.1602 33.375C25.1602 36.4102 23.6484 37.9336 20.6484 37.9336L4.51172 37.9336C1.51172 37.9336 0 36.4102 0 33.375L0 10.1953C0 7.16016 1.51172 5.625 4.51172 5.625L5.00895 5.625C4.99759 5.73568 4.99219 5.84915 4.99219 5.96484L4.99219 7.53516C4.99219 9.29297 6.22266 10.5352 7.94531 10.5352L17.2148 10.5352C18.9375 10.5352 20.168 9.29297 20.168 7.53516L20.168 5.96484C20.168 5.84915 20.1626 5.73568 20.1512 5.625L20.6484 5.625C23.6484 5.625 25.1602 7.16016 25.1602 10.1953Z",

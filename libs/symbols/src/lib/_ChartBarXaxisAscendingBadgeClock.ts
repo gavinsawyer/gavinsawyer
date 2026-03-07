@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ChartBarXaxisAscendingBadgeClock: Symbol = {
+export default {
   paths:         [
     {
       definition: "M32.6953 35.0977C32.6953 35.4464 32.7144 35.7908 32.7548 36.1289L9.91406 36.1289C9.35156 36.1289 8.87109 35.6836 8.87109 35.0977C8.87109 34.5117 9.35156 34.0664 9.91406 34.0664L32.7555 34.0664C32.7146 34.4047 32.6953 34.7491 32.6953 35.0977Z",

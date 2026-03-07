@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleAndHandPointUpLeft: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.5124 4.39453L29.5124 11.4403C29.0311 10.9076 28.3926 10.6277 27.6725 10.6534L27.6725 4.5C27.6725 2.77734 26.7116 1.83984 25.0241 1.83984L5.28974 1.83984C3.56708 1.83984 2.6413 2.77734 2.6413 4.5L2.6413 19.4648C2.6413 21.1875 3.60224 22.125 5.28974 22.125L12.7183 22.125L14.2365 23.9648L5.25458 23.9648C2.28974 23.9648 0.801455 22.5117 0.801455 19.5703L0.801455 4.39453C0.801455 1.45312 2.28974 0 5.25458 0L25.0593 0C28.0241 0 29.5124 1.45312 29.5124 4.39453Z",

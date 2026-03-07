@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _AlignVerticalCenterFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M3.92578 15.1992L0.902344 15.1992C0.398438 15.1992 0 14.7539 0 14.2383C0 13.7344 0.398438 13.2891 0.902344 13.2891L3.92578 13.2891ZM34.3711 14.2383C34.3711 14.7539 33.9727 15.1992 33.4688 15.1992L30.4805 15.1992L30.4805 13.2891L33.4688 13.2891C33.9727 13.2891 34.3711 13.7344 34.3711 14.2383ZM18.7617 15.1992L15.6445 15.1992L15.6445 13.2891L18.7617 13.2891Z",

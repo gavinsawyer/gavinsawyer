@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Exclamationmark2: Symbol = {
+export default {
   paths:         [
     {
       definition: "M12.7383 20.5664C13.418 20.5664 13.8867 20.1211 13.8984 19.418L14.0039 1.37109C14.0039 1.37109 14.0039 1.37109 14.0039 1.37109C14.0039 0.632812 13.418 0.140625 12.7266 0.140625C12.0234 0.140625 11.4492 0.632812 11.4492 1.37109C11.4492 1.37109 11.4492 1.37109 11.4492 1.37109L11.5781 19.418C11.5898 20.1211 12.0469 20.5664 12.7383 20.5664ZM12.7266 28.793C13.7695 28.793 14.6133 27.9375 14.6133 26.9062C14.6133 25.8516 13.7695 25.0195 12.7266 25.0195C11.6836 25.0195 10.8398 25.8516 10.8398 26.9062C10.8398 27.9375 11.6836 28.793 12.7266 28.793Z",

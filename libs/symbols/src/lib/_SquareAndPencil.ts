@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquareAndPencil: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.5312 5.14546L24.6079 7.07012L10.9278 7.07012C8.2676 7.07012 6.7676 8.57012 6.7676 11.2303L6.7676 25.1873C6.7676 27.8592 8.2676 29.3592 10.9278 29.3592L24.8848 29.3592C27.5449 29.3592 29.0449 27.8592 29.0449 25.1873L29.0449 11.6024L30.9835 9.6611C31.0751 10.1495 31.1192 10.6782 31.1192 11.242L31.1192 25.1873C31.1192 29.1951 28.8926 31.4334 24.8848 31.4334L10.9278 31.4334C6.91994 31.4334 4.69338 29.1951 4.69338 25.1873L4.69338 11.242C4.69338 7.23418 6.91994 4.9959 10.9278 4.9959L24.8848 4.9959C25.4742 4.9959 26.0252 5.04432 26.5312 5.14546Z",

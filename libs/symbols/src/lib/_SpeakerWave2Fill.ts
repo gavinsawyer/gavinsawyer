@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SpeakerWave2Fill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.6992 23.4961C29.1797 23.8242 29.7773 23.7188 30.1172 23.2266C32.0625 20.6016 33.2227 16.9102 33.2227 13.1602C33.2227 9.39844 32.0742 5.68359 30.1172 3.09375C29.7773 2.60156 29.1797 2.48438 28.6992 2.8125C28.2305 3.14062 28.1484 3.73828 28.5234 4.27734C30.2461 6.66797 31.2188 9.84375 31.2188 13.1602C31.2188 16.4766 30.2227 19.6406 28.5234 22.043C28.1602 22.5703 28.2305 23.1797 28.6992 23.4961Z",

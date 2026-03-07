@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ChecklistUnchecked: Symbol = {
+export default {
   paths:         [
     {
       definition: "M17.332 25.125L32.5312 25.125C33.1172 25.125 33.5859 24.6797 33.5859 24.0938C33.5859 23.5078 33.1172 23.0508 32.5312 23.0508L17.332 23.0508C16.7461 23.0508 16.2891 23.5078 16.2891 24.0938C16.2891 24.6797 16.7461 25.125 17.332 25.125Z",

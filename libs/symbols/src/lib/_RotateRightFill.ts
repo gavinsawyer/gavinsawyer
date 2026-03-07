@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RotateRightFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.1797 32.441C28.6172 32.441 29.8477 31.2574 29.8477 28.7848L29.8477 13.7496C29.8477 11.2653 28.6172 10.0934 26.1797 10.0934L11.0977 10.0934C8.66016 10.0934 7.42969 11.2653 7.42969 13.7496L7.42969 28.7848C7.42969 31.2574 8.66016 32.441 11.0977 32.441Z",

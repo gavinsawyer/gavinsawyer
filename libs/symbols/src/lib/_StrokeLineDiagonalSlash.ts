@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _StrokeLineDiagonalSlash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M13.2873 16.4082L4.26124 25.4343C3.55811 26.1374 2.39796 26.1257 1.69483 25.4225C1.01514 24.7194 1.01514 23.5827 1.70655 22.8913L10.7366 13.8562ZM25.4253 1.73895C26.105 2.43036 26.105 3.59052 25.4136 4.28192L16.3869 13.3086L13.8354 10.7558L22.8589 1.72724C23.562 1.03583 24.7339 1.03583 25.4253 1.73895Z",

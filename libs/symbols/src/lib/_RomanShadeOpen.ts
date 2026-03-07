@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RomanShadeOpen: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.83984 8.37891L29.4258 8.37891C30.0352 8.37891 30.457 7.95703 30.457 7.37109L30.457 4.80469C30.457 4.21875 30.0352 3.80859 29.4258 3.80859L4.83984 3.80859C4.24219 3.80859 3.80859 4.21875 3.80859 4.80469L3.80859 7.37109C3.80859 7.95703 4.24219 8.37891 4.83984 8.37891ZM6.23438 14.5781L28.0312 14.5781C28.6289 14.5781 29.0625 14.1562 29.0625 13.5703L29.0625 10.2422L5.20312 10.2422L5.20312 13.5703C5.20312 14.1562 5.63672 14.5781 6.23438 14.5781Z",

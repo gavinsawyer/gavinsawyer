@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ListDashBadgeEllipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.2576 26.543L17.5898 26.543C17.0039 26.543 16.5586 26.0977 16.5586 25.5117C16.5586 24.9258 17.0039 24.4688 17.5898 24.4688L27.7698 24.4687C27.8474 25.1899 28.0116 25.8855 28.2576 26.543Z",

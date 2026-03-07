@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PointerArrowMotionlinesClick: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.4883 10.1187C29.3086 11.5367 27.4688 12.6148 26.6484 11.1851C24.3984 7.22421 20.1328 4.57577 15.2461 4.57577C8.00391 4.57577 2.19141 10.4 2.19141 17.6539C2.19141 22.6226 4.96875 26.9469 8.91797 29.0914C10.3945 29.9469 9.30469 31.7633 7.94531 30.9898C3.32812 28.5055 0 23.4195 0 17.6539C0 9.29843 6.90234 2.38436 15.2461 2.38436C20.8828 2.38436 25.8516 5.51327 28.4883 10.1187Z",

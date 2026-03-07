@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LightbulbSlashFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.7485 35.3864C13.4048 35.3864 11.5064 34.2614 11.4009 32.5622L20.0962 32.5622C19.9556 34.2614 18.0806 35.3864 15.7485 35.3864ZM21.2681 30.277C21.2681 30.734 20.9048 31.0973 20.4478 31.0973L11.0493 31.0973C10.5923 31.0973 10.229 30.734 10.229 30.277C10.229 29.82 10.5923 29.4567 11.0493 29.4567L20.4478 29.4567C20.9048 29.4567 21.2681 29.82 21.2681 30.277Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SpeakerMinus: Symbol = {
+export default {
   paths:         [
     {
       definition: "M23.543 14.25L35.9297 14.25C36.6328 14.25 37.1367 13.8516 37.1367 13.1836C37.1367 12.4922 36.668 12.082 35.9297 12.082L23.543 12.082C22.793 12.082 22.3125 12.4922 22.3125 13.1836C22.3125 13.8516 22.8281 14.25 23.543 14.25Z",

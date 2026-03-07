@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WaveformBadgeMagnifyingglass: Symbol = {
+export default {
   paths:         [
     {
       definition: "M36.2461 13.5L36.2461 16.0546C35.8022 15.9674 35.3432 15.9258 34.875 15.9258C34.6378 15.9258 34.4029 15.9365 34.1719 15.9618L34.1719 13.5C34.1719 12.9258 34.6172 12.4453 35.2148 12.4453C35.8008 12.4453 36.2461 12.9258 36.2461 13.5Z",

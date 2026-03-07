@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _IphoneAppSwitcher: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.79297 6.99609L1.79297 24.4688C1.79297 26.1938 2.63831 27.5712 4.01352 28.125L3.99609 28.125C1.54688 28.125 0 26.625 0 24.2578L0 7.20703C0 4.83984 1.54688 3.33984 3.99609 3.33984L4.01352 3.33984C2.63831 3.89366 1.79297 5.27104 1.79297 6.99609Z",

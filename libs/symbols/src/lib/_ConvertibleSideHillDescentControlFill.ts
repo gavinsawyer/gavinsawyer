@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ConvertibleSideHillDescentControlFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M5.0367 36.0967C5.34139 36.6123 5.9742 36.7764 6.45467 36.4951L45.1617 14.1709C45.6304 13.9014 45.8062 13.2686 45.5367 12.7764C45.232 12.2607 44.5875 12.1084 44.1187 12.3779L5.4117 34.7021C4.94295 34.9834 4.76717 35.6162 5.0367 36.0967Z",

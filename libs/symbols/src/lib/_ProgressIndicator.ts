@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ProgressIndicator: Symbol = {
+export default {
   paths:         [
     {
       definition: "M11.4023 11.4023C11.8359 10.957 11.8359 10.2188 11.4023 9.78516L6.35156 4.75781C5.92969 4.32422 5.19141 4.32422 4.75781 4.75781C4.32422 5.19141 4.32422 5.91797 4.75781 6.35156L9.78516 11.4023C10.2188 11.8242 10.9453 11.8477 11.4023 11.4023Z",

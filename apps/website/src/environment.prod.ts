@@ -2,7 +2,7 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { type Environment } from "@bowstring/interfaces";
+import { type Environment } from "@bowstring/core";
 
 
 export const environment: Environment = {

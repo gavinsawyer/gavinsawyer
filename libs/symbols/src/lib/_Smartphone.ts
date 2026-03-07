@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Smartphone: Symbol = {
+export default {
   paths:         [
     {
       definition: "M2.71875 27.457C2.35547 27.457 2.07422 27.1758 2.07422 26.8125L2.07422 2.73047C2.07422 2.34375 2.33203 2.07422 2.71875 2.07422L16.0664 2.07422C16.4531 2.07422 16.7109 2.34375 16.7109 2.73047L16.7109 26.8125C16.7109 27.1758 16.4414 27.457 16.0664 27.457Z",

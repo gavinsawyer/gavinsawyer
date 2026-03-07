@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CloudMoonRain: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.3508 32.4987C26.7492 32.7331 26.8781 33.1901 26.6203 33.612L24.5578 37.198C24.3234 37.6081 23.8547 37.737 23.4563 37.5144C23.0461 37.28 22.9406 36.823 23.175 36.4245L25.2492 32.8151C25.507 32.405 25.9524 32.2761 26.3508 32.4987Z",

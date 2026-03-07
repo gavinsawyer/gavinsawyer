@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ListTriangle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M9.22266 21.5152L29.0859 21.5152C29.6719 21.5152 30.1406 21.0699 30.1406 20.4839C30.1406 19.898 29.6719 19.441 29.0859 19.441L9.22266 19.441C8.63672 19.441 8.17969 19.898 8.17969 20.4839C8.17969 21.0699 8.63672 21.5152 9.22266 21.5152Z",

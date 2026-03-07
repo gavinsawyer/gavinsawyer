@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LaserBurst: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.3051 17.6967L13.0688 18.6211L0.914062 18.6211C0.410156 18.6211 0 18.2109 0 17.707C0 17.1914 0.410156 16.7812 0.914062 16.7812L13.1013 16.7813ZM35.4141 17.707C35.4141 18.2109 35.0273 18.6211 34.5 18.6211L22.3128 18.6211L20.1042 17.7037L22.3344 16.7813L34.5 16.7812C35.0273 16.7812 35.4141 17.1914 35.4141 17.707Z",

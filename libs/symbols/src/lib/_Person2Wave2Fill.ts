@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Person2Wave2Fill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M49.418 0.466261C51.375 3.05611 52.5234 6.77095 52.5234 10.5327C52.5234 14.2827 51.3633 17.9741 49.418 20.5991C49.0781 21.0913 48.4805 21.1967 48 20.8686C47.5312 20.5522 47.4609 19.9428 47.8242 19.4155C49.5234 17.0131 50.5195 13.8491 50.5195 10.5327C50.5195 7.21626 49.5469 4.04048 47.8242 1.64986C47.4492 1.11079 47.5312 0.513136 48 0.185011C48.4805-0.143114 49.0781-0.0259261 49.418 0.466261Z",

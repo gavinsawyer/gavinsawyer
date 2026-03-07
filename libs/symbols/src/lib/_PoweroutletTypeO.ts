@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PoweroutletTypeO: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.55859 27.5742L23.9766 27.5742C27.0117 27.5742 28.5352 26.0508 28.5352 23.0625L28.5352 4.54688C28.5352 1.55859 27.0117 0.0351562 23.9766 0.0351562L4.55859 0.0351562C1.53516 0.0351562 0 1.54688 0 4.54688L0 23.0625C0 26.0625 1.53516 27.5742 4.55859 27.5742ZM4.60547 25.5C2.96484 25.5 2.07422 24.6328 2.07422 22.957L2.07422 4.65234C2.07422 2.97656 2.96484 2.10938 4.60547 2.10938L23.9414 2.10938C25.5469 2.10938 26.4609 2.97656 26.4609 4.65234L26.4609 22.957C26.4609 24.6328 25.5469 25.5 23.9414 25.5Z",

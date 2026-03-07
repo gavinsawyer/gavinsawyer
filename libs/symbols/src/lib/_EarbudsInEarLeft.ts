@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EarbudsInEarLeft: Symbol = {
+export default {
   paths:         [
     {
       definition: "M8.9251 1.56699C7.66142 2.89131 6.99609 5.00172 6.99609 7.66406C6.99609 11.8898 8.66388 14.732 11.7316 15.2539C11.0812 16.0169 10.8281 16.8562 10.8281 18.1406L10.8281 25.957C10.8281 27.1289 10.1602 27.7852 8.98828 27.7852L7.40625 27.7852C6.23438 27.7852 5.56641 27.1289 5.56641 25.957L5.56641 18.1406C5.56641 16.6523 5.22656 15.7617 4.32422 14.8945C4.08984 14.6602 3.85547 14.4375 3.62109 14.2031C2.10938 12.7734 1.03125 10.9102 1.03125 8.68359C1.03125 4.45312 4.00781 1.53516 8.30859 1.53516C8.51653 1.53516 8.72251 1.54446 8.9251 1.56699Z",

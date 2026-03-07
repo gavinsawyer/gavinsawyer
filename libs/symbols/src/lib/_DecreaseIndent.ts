@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DecreaseIndent: Symbol = {
+export default {
   paths:         [
     {
       definition: "M12.5859 25.8164C13.1836 25.8164 13.6289 25.3711 13.6289 24.7852C13.6289 24.1875 13.1836 23.7422 12.5859 23.7422L1.05469 23.7422C0.457031 23.7422 0 24.1875 0 24.7852C0 25.3711 0.457031 25.8164 1.05469 25.8164Z",

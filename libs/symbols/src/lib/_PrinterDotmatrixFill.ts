@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PrinterDotmatrixFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.4961 5.48438L29.4961 5.94141L7.81641 5.94141L7.81641 5.48438C7.81641 3.24609 9.48047 2.23828 11.8008 2.23828L25.5117 2.23828C27.9258 2.23828 29.4961 3.24609 29.4961 5.48438Z",

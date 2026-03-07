@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Ellipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M24.6211 5.47266C26.1328 5.47266 27.3633 4.25391 27.3633 2.74219C27.3633 1.21875 26.1328 0 24.6211 0C23.1094 0 21.8789 1.21875 21.8789 2.74219C21.8789 4.25391 23.1094 5.47266 24.6211 5.47266Z",

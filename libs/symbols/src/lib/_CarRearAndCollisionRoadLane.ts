@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CarRearAndCollisionRoadLane: Symbol = {
+export default {
   paths:         [
     {
       definition: "M7.75663 12.3048L0.151161 27.5274C-0.200401 28.2188 0.0456923 28.9806 1.0535 28.9806L2.91679 28.9806C3.70194 28.9806 4.08866 28.6173 4.32304 28.0313L10.5574 12.504C10.7332 12.0704 10.534 11.7188 10.0887 11.7188L8.67069 11.7188C8.2371 11.7188 7.95585 11.9181 7.75663 12.3048ZM35.0379 12.3048C34.8387 11.9181 34.5691 11.7188 34.1238 11.7188L32.7176 11.7188C32.2723 11.7188 32.0613 12.0704 32.2488 12.504L38.4715 28.0313C38.7058 28.6173 39.1043 28.9806 39.8894 28.9806L41.7527 28.9806C42.7488 28.9806 42.9949 28.2188 42.6551 27.5274Z",

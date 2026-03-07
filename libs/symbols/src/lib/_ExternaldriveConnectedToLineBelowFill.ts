@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ExternaldriveConnectedToLineBelowFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.2539 25.927C17.2366 26.2517 18.0222 27.0294 18.3569 28.0078L27.5625 28.0078C28.125 28.0078 28.5938 28.4766 28.5938 29.0391C28.5938 29.6133 28.125 30.082 27.5625 30.082L18.3806 30.082C17.9515 31.423 16.6904 32.4023 15.2227 32.4023C13.7549 32.4023 12.4862 31.423 12.0541 30.082L2.88281 30.082C2.32031 30.082 1.83984 29.6133 1.83984 29.0391C1.83984 28.4766 2.32031 28.0078 2.88281 28.0078L12.078 28.0078C12.4137 27.033 13.1996 26.2573 14.1797 25.9308L14.1797 22.0312L16.2539 22.0312Z",

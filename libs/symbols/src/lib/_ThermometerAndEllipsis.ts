@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ThermometerAndEllipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.1602 37.6406C23.5195 37.6406 24.6211 36.5508 24.6211 35.168C24.6211 33.8086 23.5195 32.707 22.1602 32.707C20.8008 32.707 19.6992 33.8086 19.6992 35.168C19.6992 36.5508 20.8008 37.6406 22.1602 37.6406Z",

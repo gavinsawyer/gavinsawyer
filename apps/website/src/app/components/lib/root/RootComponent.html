@@ -16,12 +16,12 @@
   </bowstring--header>
   <bowstring--divider />
   <bowstring--section>
-    @for (_projectLocaleId of projectLocaleIds //noinspection UnusedLocalSymbols; track $index) {<bowstring--button
-      [disabled]="projectLocaleIds[$index] === projectLocaleId"
+    @for (_localeId of localeIds; track $index) {<bowstring--button
+      [disabled]="localeIds[$index] === localeId"
       level="2"
-      (output)="projectLocaleIds[$index] === projectLocaleId || changeLocale(projectLocaleIds[$index]);">
+      (output)="localeIds[$index] === localeId || changeLocale(localeIds[$index]);">
       <bowstring--symbol input="Globe" />
-      <bowstring--label [input]="localeDisplayNames[projectLocaleIds[$index]]" />
+      <bowstring--label [input]="localeDisplayNames[localeIds[$index]]" />
     </bowstring--button>}
   </bowstring--section>}
 </bowstring--sheet>
@@ -213,7 +213,7 @@
           [disabled]="localeSheetComponent.openModelWithTransform$()"
           (output)="localeSheetComponent.openModel$.set(true);">
           <bowstring--symbol input="Globe" />
-          <bowstring--label [input]="localeDisplayNames[projectLocaleId]" />
+          <bowstring--label [input]="localeDisplayNames[localeId]" />
         </bowstring--link>
       </bowstring--flexbox-container>
     </bowstring--section>

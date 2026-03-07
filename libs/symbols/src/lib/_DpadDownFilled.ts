@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DpadDownFilled: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.0078 25.5234C22.0078 24.0469 21.8203 23.4609 20.8477 22.5L17.9062 19.5586C16.8867 18.5391 15.5273 18.5391 14.5078 19.5586L11.5664 22.5C10.6055 23.4609 10.4062 24.0469 10.4062 25.5234L10.4062 29.5078C10.4062 31.3008 11.4141 32.4023 13.0547 32.4023L19.3711 32.4023C21 32.4023 22.0078 31.3008 22.0078 29.5078Z",

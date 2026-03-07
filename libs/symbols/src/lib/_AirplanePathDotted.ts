@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _AirplanePathDotted: Symbol = {
+export default {
   paths:         [
     {
       definition: "M9 15.5273C10.1016 15.5273 11.0156 14.6133 11.0156 13.5117C11.0156 12.3984 10.1016 11.4844 9 11.4844C7.88672 11.4844 6.97266 12.3984 6.97266 13.5117C6.97266 14.6133 7.88672 15.5273 9 15.5273ZM2.01562 15.5273C3.12891 15.5273 4.03125 14.6133 4.03125 13.5117C4.03125 12.3984 3.12891 11.4844 2.01562 11.4844C0.914062 11.4844 0 12.3984 0 13.5117C0 14.6133 0.914062 15.5273 2.01562 15.5273Z",

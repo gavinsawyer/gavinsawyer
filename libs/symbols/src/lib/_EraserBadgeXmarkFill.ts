@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EraserBadgeXmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.207 29.1797L20.6133 30.7617C18.6094 32.7656 16.1484 32.6953 14.0273 30.5977L8.42578 24.9844C6.31641 22.875 6.24609 20.4023 8.25 18.3984L9.84375 16.8281ZM27.2227 3.85547L35.1562 11.8125C36.457 13.1016 36.4805 14.9062 35.2031 16.1719L34.8536 16.5214C34.5221 16.4833 34.1849 16.4648 33.8438 16.4648C28.6641 16.4648 24.3984 20.7305 24.3984 25.9102C24.3984 26.2516 24.4168 26.5888 24.4547 26.9203L23.5195 27.8555L11.168 15.5039L22.8516 3.82031C24.1172 2.54297 25.9219 2.55469 27.2227 3.85547Z",

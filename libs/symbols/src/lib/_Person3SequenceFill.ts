@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Person3SequenceFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M61.3828 27.1641C61.3828 28.3711 60.4453 29.1094 58.9102 29.1094L45.6457 29.1094C45.999 28.5425 46.1836 27.8767 46.1836 27.1641C46.1836 24.582 44.6319 21.6724 41.8849 19.4841C43.7661 18.5169 46.0666 17.9062 48.7031 17.9062C56.5195 17.9062 61.3828 23.2734 61.3828 27.1641ZM54.7148 8.54297C54.7148 12.3047 51.9727 15.1992 48.7148 15.1992C45.457 15.1992 42.7148 12.3047 42.7148 8.56641C42.7148 4.92188 45.4805 2.07422 48.7148 2.07422C51.9492 2.07422 54.7148 4.875 54.7148 8.54297Z",

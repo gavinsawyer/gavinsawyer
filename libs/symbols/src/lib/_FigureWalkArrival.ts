@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _FigureWalkArrival: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 32.8594C0 33.4688 0.503906 33.9727 1.11328 33.9727C1.72266 33.9727 2.22656 33.4688 2.22656 32.8594L2.22656 1.11328C2.22656 0.492188 1.72266 0 1.11328 0C0.503906 0 0 0.492188 0 1.11328Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CapsuleOnCapsuleFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M31.2994 6.99904C30.3188 6.81802 29.2849 6.72656 28.207 6.72656L20.9414 6.72656C12.6211 6.72656 6.92578 12.1758 6.92578 20.3672C6.92578 21.6417 7.06298 22.8497 7.34124 23.9719C3.69079 22.0928 1.51172 18.4333 1.51172 13.6289C1.51172 6.49219 6.35156 1.85156 13.6641 1.85156L20.9297 1.85156C25.6023 1.85156 29.2717 3.75248 31.2994 6.99904Z",

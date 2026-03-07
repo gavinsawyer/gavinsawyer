@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TowHitchExclamationmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M47.0977 25.3945C48.0703 25.3945 48.8906 24.5977 48.8906 23.6719C48.8906 22.7109 48.082 21.9375 47.0977 21.9375C46.1133 21.9375 45.3164 22.7109 45.3164 23.6719C45.3164 24.5977 46.1367 25.3945 47.0977 25.3945ZM47.0977 18.8672C47.7305 18.8672 48.1758 18.4102 48.1992 17.7656L48.457 6.97266C48.4805 6.15234 47.9414 5.61328 47.0977 5.61328C46.2656 5.61328 45.7266 6.15234 45.75 6.97266L46.0078 17.7656C46.0312 18.4102 46.4766 18.8672 47.0977 18.8672Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WifiRouter: Symbol = {
+export default {
   paths:         [
     {
       definition: "M21.0703 0C17.5781 0 14.2031 1.01953 11.4844 2.91797C11.0508 3.24609 10.9453 3.78516 11.2266 4.18359C11.5312 4.60547 12.0703 4.67578 12.5039 4.37109C14.8359 2.69531 17.8828 1.75781 21.0703 1.75781C24.2812 1.75781 27.3047 2.68359 29.625 4.37109C30.0586 4.67578 30.5977 4.60547 30.9141 4.18359C31.207 3.77344 31.0898 3.23438 30.6562 2.91797C27.9141 1.01953 24.5508 0 21.0703 0Z",

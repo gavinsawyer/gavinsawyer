@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PencilLine: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.1713 24.8213C30.1713 25.3955 29.7026 25.8642 29.1401 25.8642L6.99239 25.8642L9.07645 23.79L29.1401 23.79C29.7026 23.79 30.1713 24.2588 30.1713 24.8213Z",

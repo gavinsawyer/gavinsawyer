@@ -5,24 +5,23 @@
     "locales":      {
       "en-GB": {
         "baseHref":    "/en-GB/",
-        "translation": "libs/i18n/src/lib/messages/en-GB.json"
+        "translation": "libs/i18n/src/lib/messages/lib/en-GB.json"
       },
       "es-ES": {
         "baseHref":    "/es-ES/",
-        "translation": "libs/i18n/src/lib/messages/es-ES.json"
+        "translation": "libs/i18n/src/lib/messages/lib/es-ES.json"
       },
       "fr-FR": {
         "baseHref":    "/fr-FR/",
-        "translation": "libs/i18n/src/lib/messages/fr-FR.json"
+        "translation": "libs/i18n/src/lib/messages/lib/fr-FR.json"
       }
     },
     "sourceLocale": "en-US"
   },
-  "prefix":      "bowstring-website",
   "projectType": "application",
   "sourceRoot":  "apps/website/src",
   "targets":     {
-    "angular-browser":         {
+    "angular--browser":        {
       "configurations":       {
         "development": {
           "localize":  [ "en-US" ],
@@ -51,7 +50,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "dependsOn":            [ "build-service-worker" ],
+      "dependsOn":            [ "build--service-worker" ],
       "executor":             "@angular-devkit/build-angular:browser",
       "options":              {
         "allowedCommonJsDependencies": [
@@ -77,38 +76,19 @@
       },
       "outputs":              [ "{workspaceRoot}/dist/apps/website/browser" ]
     },
-    "angular-extract-i18n":    {
-      "dependsOn": [ "build-service-worker" ],
+    "angular--extract-i18n":   {
+      "dependsOn": [ "build--service-worker" ],
       "executor":  "@nx/angular:extract-i18n",
       "options":   {
-        "buildTarget": "website:angular-browser:production",
+        "buildTarget": "website:angular--browser:production",
         "format":      "json",
         "outFile":     "website.en-US.json",
-        "outputPath":  "tmp/i18n extracts",
+        "outputPath":  "tmp/libs/i18n/extracts",
         "progress":    true
       },
-      "outputs":   [ "{workspaceRoot}/tmp/i18n extracts" ]
+      "outputs":   [ "{workspaceRoot}/tmp/libs/i18n/extracts" ]
     },
-    "angular-firebase-deploy": {
-      "dependsOn": [
-        "build-intl-server",
-        "build-service-worker"
-      ],
-      "executor":  "@angular/fire:deploy",
-      "options":   {
-        "browserTarget":        "website:angular-browser:production",
-        "firebaseHostingSite":  "gavinsawyer-44c46",
-        "firebaseProject":      "gavinsawyer-44c46",
-        "functionName":         "ssr-website",
-        "functionsNodeVersion": "22.22",
-        "outputPath":           "dist/apps/website/run",
-        "region":               "us-central1",
-        "serverTarget":         "website:angular-server:production",
-        "ssr":                  "cloud-run",
-        "target":               "website"
-      }
-    },
-    "angular-server":          {
+    "angular--server":         {
       "configurations":       {
         "development": {
           "outputHashing": "none",
@@ -126,7 +106,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "dependsOn":            [ "build-intl-server" ],
+      "dependsOn":            [ "build--intl-server" ],
       "executor":             "@angular-devkit/build-angular:server",
       "options":              {
         "deleteOutputPath":     false,
@@ -138,85 +118,108 @@
       },
       "outputs":              [ "{workspaceRoot}/dist/apps/website/server" ]
     },
-    "angular-ssr-dev-server":  {
+    "angular--ssr-dev-server": {
       "continuous": true,
-      "dependsOn":  [ "build-service-worker" ],
+      "dependsOn":  [ "build--service-worker" ],
       "executor":   "@angular-devkit/build-angular:ssr-dev-server",
       "options":    {
-        "browserTarget": "website:angular-browser:development",
-        "serverTarget":  "website:angular-server:development",
+        "browserTarget": "website:angular--browser:development",
+        "serverTarget":  "website:angular--server:development",
         "ssl":           true
       }
     },
     "build":                   {
       "dependsOn": [
-        "angular-browser",
-        "angular-server"
+        "angular--browser",
+        "angular--server"
       ],
       "executor":  "nx:noop",
       "outputs":   [ "{workspaceRoot}/dist/apps/website" ]
     },
-    "build-intl-server":       {
-      "dependsOn": [ "esbuild-intl-server" ],
+    "build--intl-server":      {
+      "dependsOn": [ "esbuild--intl-server" ],
       "executor":  "nx:run-commands",
       "options":   { "commands": [ "mv dist/apps/website/server/main.intl-server.cjs dist/apps/website/server/main.js" ] },
       "outputs":   [ "{workspaceRoot}/dist/apps/website/server" ]
     },
-    "build-service-worker":    {
-      "dependsOn": [ "esbuild-service-worker" ],
-      "executor":  "nx:noop",
+    "build--service-worker":   {
+      "dependsOn": [
+        "lint",
+        "prebuild"
+      ],
+      "executor":  "@nx/esbuild:esbuild",
+      "options":   {
+        "deleteOutputPath": false,
+        "esbuildOptions":   {
+          "banner": {
+            "css": "/*!\n / Copyright © 2026 Gavin William Sawyer. All rights reserved.\n /\n",
+            "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n */\n"
+          }
+        },
+        "main":             "apps/website/src/app/main.service-worker.ts",
+        "metafile":         true,
+        "minify":           true,
+        "outputPath":       "dist/apps/website/browser",
+        "thirdParty":       true,
+        "tsConfig":         "apps/website/tsconfig.app.json"
+      },
       "outputs":   [ "{workspaceRoot}/dist/apps/website/browser" ]
     },
     "deploy":                  {
-      "dependsOn": [ "angular-firebase-deploy" ],
-      "executor":  "nx:noop"
+      "dependsOn": [
+        "build--intl-server",
+        "build--service-worker"
+      ],
+      "executor":  "@angular/fire:deploy",
+      "options":   {
+        "browserTarget":        "website:angular--browser:production",
+        "firebaseHostingSite":  "gavinsawyer-44c46",
+        "firebaseProject":      "gavinsawyer-44c46",
+        "functionName":         "ssr-website",
+        "functionsNodeVersion": "22.22",
+        "outputPath":           "dist/apps/website/run",
+        "region":               "us-central1",
+        "serverTarget":         "website:angular--server:production",
+        "ssr":                  "cloud-run",
+        "target":               "website"
+      }
     },
-    "esbuild-intl-server":     {
-      "dependsOn": [ "eslint" ],
+    "esbuild--intl-server":    {
+      "dependsOn": [
+        "lint",
+        "prebuild"
+      ],
       "executor":  "@nx/esbuild:esbuild",
       "options":   {
-        "bundle":     true,
-        "format":     [ "cjs" ],
-        "main":       "apps/website/src/app/main.intl-server.ts",
-        "metafile":   true,
-        "minify":     true,
-        "outputPath": "dist/apps/website/server",
-        "thirdParty": true,
-        "tsConfig":   "apps/website/tsconfig.app.json"
+        "deleteOutputPath": false,
+        "esbuildOptions":   {
+          "banner": {
+            "css": "/*!\n / Copyright © 2026 Gavin William Sawyer. All rights reserved.\n /\n",
+            "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n */\n"
+          }
+        },
+        "format":           [ "cjs" ],
+        "main":             "apps/website/src/app/main.intl-server.ts",
+        "metafile":         true,
+        "minify":           true,
+        "outputPath":       "dist/apps/website/server",
+        "thirdParty":       true,
+        "tsConfig":         "apps/website/tsconfig.app.json"
       },
       "outputs":   [ "{workspaceRoot}/dist/apps/website/server" ]
     },
-    "esbuild-service-worker":  {
-      "dependsOn": [ "eslint" ],
-      "executor":  "@nx/esbuild:esbuild",
-      "options":   {
-        "bundle":     true,
-        "main":       "apps/website/src/service-worker.ts",
-        "metafile":   true,
-        "minify":     true,
-        "outputPath": "dist/apps/website/browser",
-        "thirdParty": true,
-        "tsConfig":   "apps/website/tsconfig.app.json"
-      },
-      "outputs":   [ "{workspaceRoot}/dist/apps/website/browser" ]
-    },
-    "eslint":                  {
-      "dependsOn": [ "prebuild" ],
-      "executor":  "@nx/eslint:lint",
-      "inputs":    [
+    "lint":                    {
+      "executor": "@nx/eslint:lint",
+      "inputs":   [
         "{workspaceRoot}/apps/website/src/.gitInfoPartial.ts",
         "{workspaceRoot}/apps/website/src/.packageVersion.ts"
       ],
-      "options":   {
+      "options":  {
         "lintFilePatterns": [
           "apps/website/src/**/*.ts",
           "apps/website/src/**/*.html"
         ]
       }
-    },
-    "lint":                    {
-      "dependsOn": [ "eslint" ],
-      "executor":  "nx:noop"
     },
     "prebuild":                {
       "executor": "nx:run-commands",

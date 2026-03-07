@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CableConnectorSlash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.1904 21.9622L15.1904 33.9961L12.9521 33.9961L12.9521 21.9258L10.96 21.9258C9.71777 21.9258 9.19043 21.4102 9.19043 20.168L9.19043 15.9714ZM18.9287 8.4375L18.9287 18.2578L9.19043 8.51953L9.19043 8.4375C9.19043 7.19531 9.71777 6.66797 10.96 6.66797L17.1592 6.66797C18.4014 6.66797 18.9287 7.19531 18.9287 8.4375Z",

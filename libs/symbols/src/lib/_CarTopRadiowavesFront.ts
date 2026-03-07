@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CarTopRadiowavesFront: Symbol = {
+export default {
   paths:         [
     {
       definition: "M10.1133 1.94531C12.8438 1.94531 15.3281 2.97656 17.2266 4.71094C17.7891 5.20312 18.3633 5.22656 18.75 4.85156C19.1719 4.42969 19.1602 3.82031 18.7031 3.33984C16.4531 1.08984 13.3594 0 10.1133 0C6.85547 0 3.77344 1.08984 1.52344 3.33984C1.05469 3.82031 1.04297 4.42969 1.47656 4.85156C1.86328 5.22656 2.4375 5.20312 2.98828 4.71094C4.89844 2.97656 7.37109 1.94531 10.1133 1.94531Z",

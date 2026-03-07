@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CentsignRingDashed: Symbol = {
+export default {
   paths:         [
     {
       definition: "M12.2139 6.4014C13.2217 5.95609 14.2998 5.66312 15.4366 5.53422C15.7647 5.49906 15.9991 5.25297 15.9991 4.92484L15.9991 0.647498C15.9991 0.260779 15.7061-0.0321893 15.3194 0.0146857C13.2686 0.178748 11.335 0.729529 9.55375 1.57328C9.20218 1.73734 9.09671 2.13578 9.28421 2.4639L11.417 6.14359C11.5694 6.43656 11.8975 6.53031 12.2139 6.4014Z",

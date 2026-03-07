@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CarseatLeftForwardAndBackwardFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.233863 25.3008C1.49949 30.0938 2.94089 31.5469 5.94089 31.5469L23.2261 31.5469C25.3823 31.5469 26.8471 30.3516 27.3862 28.1602L33.0581 5.09766C33.9253 1.59375 32.144 0 30.0815 0C27.3511 0 24.4096 2.82422 25.9565 7.60547L26.3315 6.03516C21.9136 8.34375 19.8042 14.0391 20.5893 20.7539L21.0698 20.0977C17.9292 19.4531 13.9214 19.0781 10.0073 19.0781C2.21433 19.0781-0.926294 20.9531 0.233863 25.3008Z",

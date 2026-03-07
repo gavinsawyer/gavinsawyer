@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ButtonHorizontalTopPressFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.0938 33.6562L9.53906 33.6562C5.48078 33.6562 2.37714 31.2493 1.97117 27.3884C3.67755 29.451 6.37985 30.6562 9.53906 30.6562L30.0938 30.6562C33.2619 30.6562 35.9706 29.4441 37.6758 27.3706C37.2756 31.2417 34.1584 33.6562 30.0938 33.6562Z",

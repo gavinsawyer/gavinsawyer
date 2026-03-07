@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MoonphaseFullMoon: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.2578 28.3477C8.02734 28.3477 2.17969 22.5 2.17969 15.2695C2.17969 8.03906 8.02734 2.19141 15.2578 2.19141C22.4883 2.19141 28.3359 8.03906 28.3359 15.2695C28.3359 22.5 22.4883 28.3477 15.2578 28.3477Z",

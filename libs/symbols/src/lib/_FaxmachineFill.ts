@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _FaxmachineFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.4844 3.75L29.4844 4.06641L7.81641 4.06641L7.81641 3.75C7.81641 1.66406 9.08203 0.527344 11.3086 0.527344L25.9805 0.527344C28.2188 0.527344 29.4844 1.66406 29.4844 3.75Z",

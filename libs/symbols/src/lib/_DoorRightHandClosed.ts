@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DoorRightHandClosed: Symbol = {
+export default {
   paths:         [
     {
       definition: "M21.2578 31.7227C21.832 31.7227 22.3008 31.2539 22.3008 30.6797L22.3008 2.74219C22.3008 1.10156 21.1758 0 19.4883 0L2.8125 0C1.125 0 0 1.10156 0 2.74219L0 30.6797C0 31.2539 0.457031 31.7227 1.04297 31.7227C1.61719 31.7227 2.08594 31.2539 2.08594 30.6797L2.08594 2.88281C2.08594 2.40234 2.39062 2.08594 2.84766 2.08594L19.4531 2.08594C19.9102 2.08594 20.2148 2.40234 20.2148 2.88281L20.2148 30.6797C20.2148 31.2539 20.6719 31.7227 21.2578 31.7227Z",

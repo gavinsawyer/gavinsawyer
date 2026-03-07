@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextLine2SummaryBadgeXmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M10.5938 19.9922C10.5938 25.5117 13.6875 28.6055 19.4648 28.6055L33.7383 28.6055L33.7383 25.4883C33.7383 24.375 34.7578 23.9883 35.6836 24.6562L41.3672 28.7695C42.0703 29.2734 42.082 30.3164 41.3672 30.832L35.6836 34.8984C34.793 35.5195 33.7383 35.1562 33.7383 34.0781L33.7383 30.9023L19.4648 30.9023C12.2109 30.9023 8.29688 26.9766 8.29688 19.9688L8.29688 18.813C8.67195 18.8668 9.05599 18.8906 9.44531 18.8906C9.83423 18.8906 10.2183 18.8663 10.5938 18.8114Z",

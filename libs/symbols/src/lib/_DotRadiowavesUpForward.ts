@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DotRadiowavesUpForward: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.410156 1.04297C0.410156 1.60547 0.878906 2.07422 1.45312 2.07422C12 2.07422 20.5781 10.6641 20.5781 21.2109C20.5781 21.7734 21.0469 22.2539 21.6211 22.2539C22.1836 22.2539 22.6523 21.7734 22.6523 21.2109C22.6523 9.51562 13.1367 0 1.45312 0C0.878906 0 0.410156 0.46875 0.410156 1.04297Z",

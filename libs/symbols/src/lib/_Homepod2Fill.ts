@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Homepod2Fill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.38281 4.98047C5.66016 6.15234 8.90625 7.07812 12.3984 7.07812C13.1951 7.07812 13.9818 7.02816 14.7354 6.93614C14.2268 7.36214 13.7683 7.83635 13.3594 8.35547C11.8477 10.2539 11.0859 12.6562 11.0859 15.7148L11.0859 27.2227C11.0859 28.0583 11.1396 28.8456 11.2581 29.5755C4.56236 29.3162 1.51172 26.6588 1.51172 20.9297L1.51172 10.5C1.51172 7.86328 2.25 6.14062 3.1875 5.03906C3.51562 4.66406 4.00781 4.62891 4.38281 4.98047Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SliderHorizontalBelowSunMax: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.4648 30.5742C16.4648 30.9327 16.5201 31.2791 16.6226 31.6055L1.04297 31.6055C0.457031 31.6055 0 31.1484 0 30.5742C0 29.9883 0.457031 29.5312 1.04297 29.5312L16.6249 29.5313C16.5209 29.8608 16.4648 30.2112 16.4648 30.5742ZM28.582 30.5742C28.582 31.1484 28.125 31.6055 27.5508 31.6055L23.2796 31.6055C23.3822 31.2791 23.4375 30.9327 23.4375 30.5742C23.4375 30.2112 23.3815 29.8608 23.2773 29.5313L27.5508 29.5313C28.125 29.5312 28.582 29.9883 28.582 30.5742Z",

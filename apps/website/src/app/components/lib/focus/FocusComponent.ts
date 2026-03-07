@@ -5,11 +5,9 @@
 import { NgTemplateOutlet }                                                                                                            from "@angular/common";
 import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, inject, input, type InputSignal, type Signal, viewChild }   from "@angular/core";
 import { toObservable, toSignal }                                                                                                      from "@angular/core/rxjs-interop";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, TypographyDirective, WellRoundedDirective } from "@bowstring/directives";
-import { type Symbol }                                                                                                                 from "@bowstring/interfaces";
-import { RxSsrService }                                                                                                                from "@bowstring/services";
-import loadSymbol                                                                                                                      from "@bowstring/symbols";
-import { type SymbolName }                                                                                                             from "@bowstring/types";
+import { RxSsrService }                                                                                                                from "@bowstring/core";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, TypographyDirective, WellRoundedDirective } from "@bowstring/surface";
+import { loadSymbol, type Symbol, type SymbolName }                                                                                    from "@bowstring/symbols";
 import { type Focus }                                                                                                                  from "@gavinsawyer/shortcuts-api";
 import { from, map, type Observable, switchMap }                                                                                       from "rxjs";
 
@@ -61,9 +59,7 @@ import { from, map, type Observable, switchMap }                                
 export class FocusComponent {
 
   constructor() {
-    afterRender(
-      (): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()),
-    );
+    afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
   }
 
   private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
@@ -76,17 +72,16 @@ export class FocusComponent {
   protected readonly focusSymbol$: Signal<Symbol | undefined>          = toSignal<Symbol>(
     toObservable<Focus>(this.inputSignal$).pipe<Symbol>(
       this.rxSsrService.wrap<Focus, Symbol>(
-        switchMap<Focus, Observable<Symbol>>(
-          (focus: Focus): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(this.focusSymbolNamesAndColors[focus].symbolName)),
-        ),
-        "0198a02a-7223-728b-9e9a-f58c22791b2b",
+        switchMap<Focus, Observable<Symbol>>((focus: Focus): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(this.focusSymbolNamesAndColors[focus].symbolName))),
+        "019cc36e-bcbb-776f-9aa4-f7edb1c5af7e",
       ),
     ),
   );
   protected readonly focusSymbolFillColor$: Signal<string | undefined> = toSignal<string>(
     toObservable<Focus>(this.inputSignal$).pipe<string>(
-      map<Focus, string>(
-        (focus: Focus): string => (this.focusSymbolNamesAndColors[focus].color),
+      this.rxSsrService.wrap<Focus, string>(
+        map<Focus, string>((focus: Focus): string => (this.focusSymbolNamesAndColors[focus].color)),
+        "019cc36e-d539-7228-9315-bc7c8d84e644",
       ),
     ),
   );

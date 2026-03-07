@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MusicQuarternote3: Symbol = {
+export default {
   paths:         [
     {
       definition: "M24.7969 26.1211C24.7969 28.3828 26.5547 29.9648 29.0156 29.9648C31.2188 29.9648 34.4883 28.3594 34.4883 24L34.4883 8.63672C34.4883 8.13281 34.0664 7.72266 33.5742 7.72266C33.0586 7.72266 32.6367 8.13281 32.6367 8.63672L32.6367 19.7695C32.6367 20.5664 32.3086 21.0938 31.6055 21.2344L29.1914 21.7266C26.2031 22.3594 24.7969 23.8477 24.7969 26.1211Z",

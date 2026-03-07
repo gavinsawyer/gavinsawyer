@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MacwindowAndPointerArrow: Symbol = {
+export default {
   paths:         [
     {
       definition: "M19.7904 12.3149C19.7904 12.9828 19.2279 13.557 18.5365 13.557C17.8451 13.557 17.2709 12.9828 17.2709 12.3149C17.2709 11.6469 17.8451 11.0492 18.5365 11.0492C19.2279 11.0492 19.7904 11.6469 19.7904 12.3149Z",

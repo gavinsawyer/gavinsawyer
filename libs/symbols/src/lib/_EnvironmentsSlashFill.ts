@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EnvironmentsSlashFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M23.2733 1.8648C23.8475 5.69683 24.2108 6.21246 28.1131 6.7398C28.4178 6.78668 28.6522 6.9859 28.6522 7.29058C28.6522 7.57183 28.4412 7.80621 28.1248 7.85308C24.7403 8.29894 24.0896 8.72728 23.5362 11.3448L18.7255 6.51402C21.2957 6.01017 21.5521 5.1789 22.1483 1.8648C22.2068 1.57183 22.4295 1.37261 22.7108 1.37261C22.992 1.37261 23.2264 1.58355 23.2733 1.8648Z",

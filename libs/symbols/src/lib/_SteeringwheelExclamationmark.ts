@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SteeringwheelExclamationmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M37.0781 25.1484C38.0508 25.1484 38.8594 24.3516 38.8594 23.4258C38.8594 22.4648 38.0625 21.6914 37.0781 21.6914C36.0938 21.6914 35.2969 22.4648 35.2969 23.4258C35.2969 24.3516 36.1055 25.1484 37.0781 25.1484ZM37.0781 18.6211C37.7109 18.6211 38.1562 18.1641 38.1797 17.5195L38.4375 6.72656C38.4609 5.90625 37.9219 5.36719 37.0781 5.36719C36.2344 5.36719 35.6953 5.90625 35.7188 6.72656L35.9766 17.5195C36 18.1641 36.4453 18.6211 37.0781 18.6211Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EarbudsStemlessRight: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.6172 8.05078C22.6172 12.4219 18.7617 16.0078 14.0273 16.0078C13.9496 16.0078 13.8721 16.0069 13.797 15.997C14.5244 14.8538 14.9414 13.4977 14.9414 12.0469C14.9414 7.93359 11.5898 4.58203 7.46484 4.58203C7.04111 4.58203 6.62525 4.6178 6.22281 4.69472C7.58628 1.96241 10.5742 0.0703125 14.0273 0.0703125C18.7617 0.0703125 22.6172 3.64453 22.6172 8.05078Z",

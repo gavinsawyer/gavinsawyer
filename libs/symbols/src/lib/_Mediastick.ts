@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Mediastick: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.9454 15.3281L26.4962 15.3281C30.211 15.3281 31.4415 13.418 31.4415 7.66406C31.4532 1.89844 30.2227 0 26.4962 0L4.9454 0C1.21883 0-0.011636 1.89844 8.27846e-05 7.66406C8.27846e-05 13.418 1.23055 15.3281 4.9454 15.3281ZM4.9454 6.5625C4.08993 6.5625 3.41024 5.89453 3.41024 5.03906C3.41024 4.19531 4.08993 3.52734 4.9454 3.52734C5.78915 3.52734 6.45711 4.19531 6.45711 5.03906C6.45711 5.89453 5.78915 6.5625 4.9454 6.5625Z",

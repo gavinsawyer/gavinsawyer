@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CableConnectorHorizontal: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 6.36328L15.2695 6.36328L15.2695 4.13672L0 4.13672ZM14.6133 10.5L27.4688 10.5C28.7109 10.5 29.2266 9.97266 29.2266 8.73047L29.2266 1.75781C29.2266 0.515625 28.7109 0 27.4688 0L14.6133 0C13.3711 0 12.8438 0.515625 12.8438 1.75781L12.8438 8.73047C12.8438 9.97266 13.3711 10.5 14.6133 10.5Z",

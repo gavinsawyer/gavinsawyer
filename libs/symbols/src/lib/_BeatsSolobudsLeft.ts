@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BeatsSolobudsLeft: Symbol = {
+export default {
   paths:         [
     {
       definition: "M3.53906 13.793C3.53906 13.2305 3.59766 12.668 3.67969 12.1055C1.46484 13.1719 0 15.4102 0 17.9531C0 21.457 2.82422 24.4336 6.49219 24.4336C8.05078 24.4336 9.49219 23.8711 10.6055 22.957C6.49219 21.6094 3.53906 18.1641 3.53906 13.793Z",

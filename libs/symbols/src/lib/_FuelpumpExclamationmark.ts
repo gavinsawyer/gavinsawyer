@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _FuelpumpExclamationmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M38.0039 26.5664C38.9766 26.5664 39.7852 25.7695 39.7852 24.8438C39.7852 23.8828 38.9883 23.1094 38.0039 23.1094C37.0078 23.1094 36.2109 23.8828 36.2109 24.8438C36.2109 25.7695 37.0312 26.5664 38.0039 26.5664ZM38.0039 20.0391C38.625 20.0391 39.0703 19.582 39.0938 18.9375L39.3633 8.14453C39.3867 7.32422 38.8359 6.78516 38.0039 6.78516C37.1602 6.78516 36.6211 7.32422 36.6445 8.14453L36.9023 18.9375C36.9258 19.582 37.3711 20.0391 38.0039 20.0391Z",

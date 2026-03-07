@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _GaugeWithDotsNeedleBottom50percentBadgeMinus: Symbol = {
+export default {
   paths:         [
     {
       definition: "M38.0977 17.3086C38.0977 25.7344 31.2539 32.5664 22.8281 32.5664C20.6235 32.5664 18.528 32.0987 16.6408 31.2474C17.1203 30.6883 17.5328 30.0712 17.8615 29.4065C19.3904 30.0403 21.0683 30.3867 22.8281 30.3867C30.0586 30.3867 35.9062 24.5391 35.9062 17.3086C35.9062 10.0781 30.0586 4.23047 22.8281 4.23047C16.123 4.23047 10.6071 9.25922 9.84961 15.7589C9.71745 15.7412 9.5817 15.7383 9.44531 15.7383C8.82845 15.7383 8.22455 15.7988 7.64054 15.9181C8.33649 8.14152 14.8717 2.03906 22.8281 2.03906C31.2539 2.03906 38.0977 8.88281 38.0977 17.3086Z",

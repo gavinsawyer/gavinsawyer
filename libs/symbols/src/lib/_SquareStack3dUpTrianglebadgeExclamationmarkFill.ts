@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquareStack3dUpTrianglebadgeExclamationmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M23.8828 34.418C24.1172 34.5469 24.3633 34.6289 24.5742 34.6289C24.7969 34.6289 25.043 34.5469 25.2773 34.418L31.9714 30.5397L29.9169 34.2112L26.2852 36.3164C25.6406 36.6914 25.1367 36.8789 24.5742 36.8789C24.0234 36.8789 23.5195 36.6914 22.875 36.3164L10.8867 29.3672C9.82031 28.7461 9.375 28.2539 9.375 27.4922C9.375 27.0367 9.53925 26.6763 9.90843 26.3218Z",

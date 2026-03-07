@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Deskview: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.10156 36.1641L29.0625 36.1641C29.6953 36.1641 30.1758 35.6719 30.1758 35.0508C30.1758 34.4297 29.6836 33.9375 29.0625 33.9375L1.10156 33.9375C0.480469 33.9375 0 34.4297 0 35.0508C0 35.6719 0.480469 36.1641 1.10156 36.1641Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleStackBadgePlayFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M34.8205 5.88281L15.7224 5.88281C15.7975 4.82106 16.4868 4.20703 17.6133 4.20703L32.918 4.20703C34.0444 4.20703 34.7442 4.82106 34.8205 5.88281Z",

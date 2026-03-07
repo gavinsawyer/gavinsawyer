@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CloudBoltRainFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.9688 36.4107C29.3672 36.6333 29.8359 36.5044 30.0703 36.0942L32.1445 32.5083C32.3906 32.0982 32.2617 31.6294 31.8633 31.395C31.4648 31.1724 31.0195 31.3013 30.7734 31.7114L28.6875 35.3208C28.4531 35.7192 28.5586 36.1763 28.9688 36.4107Z",

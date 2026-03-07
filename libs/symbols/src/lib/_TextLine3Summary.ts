@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextLine3Summary: Symbol = {
+export default {
   paths:         [
     {
       definition: "M27.0161 24.4631L27.0161 33.0412C27.0161 34.1311 28.0708 34.4944 28.9614 33.8615L34.645 29.7951C35.3599 29.2912 35.3482 28.2483 34.645 27.7444L28.9614 23.6311C28.0357 22.9514 27.0161 23.3498 27.0161 24.4631ZM29.1372 29.8772C29.77 29.8772 30.2857 29.3498 30.2857 28.7287C30.2857 28.0959 29.77 27.5803 29.1372 27.5803L12.7427 27.5803C6.96534 27.5803 3.87159 24.4865 3.87159 18.967L3.87159 5.31467C3.87159 4.69358 3.35597 4.17795 2.72315 4.17795C2.10206 4.17795 1.57472 4.69358 1.57472 5.31467L1.57472 18.9436C1.57472 25.9514 5.48878 29.8772 12.7427 29.8772Z",

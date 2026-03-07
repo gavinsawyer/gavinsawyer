@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleCompressVertical: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.21875 23.1094L28.3008 23.1094C30.7734 23.1094 32.5195 21.4219 32.5195 19.1367L32.5195 17.7773C32.5195 15.4922 30.7734 13.8164 28.3008 13.8164L4.21875 13.8164C1.74609 13.8164 0 15.4922 0 17.7773L0 19.1367C0 21.4219 1.74609 23.1094 4.21875 23.1094ZM4.45312 21.1523C2.98828 21.1523 2.05078 20.1562 2.05078 18.8086L2.05078 18.1172C2.05078 16.7695 2.98828 15.7734 4.45312 15.7734L28.0664 15.7734C29.5195 15.7734 30.4688 16.7695 30.4688 18.1172L30.4688 18.8086C30.4688 20.1562 29.5195 21.1523 28.0664 21.1523Z",

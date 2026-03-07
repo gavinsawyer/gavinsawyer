@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CloudDrizzle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M25.1836 34.4323L27.2461 30.8464C27.5039 30.4245 27.375 29.9675 26.9766 29.7331C26.5781 29.5105 26.1328 29.6394 25.875 30.0495L23.7891 33.6589C23.5664 34.0573 23.6719 34.5144 24.082 34.7487C24.4805 34.9714 24.9492 34.8425 25.1836 34.4323Z",

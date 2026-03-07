@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HSquareOnSquare: Symbol = {
+export default {
   paths:         [
     {
       definition: "M31.6406 11.2969L31.6406 26.5664C31.6406 29.5664 30.1172 31.0898 27.082 31.0898L11.8945 31.0898C8.87109 31.0898 7.33594 29.5547 7.33594 26.5664L7.33594 24.3516L9.41016 24.3516L9.41016 26.4609C9.41016 28.1484 10.3359 29.0156 11.9414 29.0156L27.0469 29.0156C28.6758 29.0156 29.5664 28.1484 29.5664 26.4609L29.5664 11.4023C29.5664 9.71484 28.6758 8.84766 27.0469 8.84766L24.3164 8.84766L24.3164 6.77344L27.082 6.77344C30.1172 6.77344 31.6406 8.29688 31.6406 11.2969Z",

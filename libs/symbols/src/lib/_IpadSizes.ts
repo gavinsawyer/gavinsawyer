@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _IpadSizes: Symbol = {
+export default {
   paths:         [
     {
       definition: "M25.1185 4.69922L15.2344 4.69922C12.1406 4.69922 9.97266 6.78516 9.97266 9.85547L9.97266 31.6992C9.97266 32.2096 10.0326 32.6928 10.1518 33.1406L6.99609 33.1406C5.53125 33.1406 4.69922 32.332 4.69922 30.9141L4.69922 5.94141C4.69922 4.51172 5.53125 3.70312 6.99609 3.70312L23.1094 3.70312C24.0719 3.70312 24.7612 4.05222 25.1185 4.69922Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _XmarkBinCircle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.2578 30.6211C23.6836 30.6211 30.5273 23.7891 30.5273 15.3633C30.5273 6.9375 23.6836 0.09375 15.2578 0.09375C6.83203 0.09375 0 6.9375 0 15.3633C0 23.7891 6.83203 30.6211 15.2578 30.6211ZM15.2578 28.4414C8.02734 28.4414 2.17969 22.5938 2.17969 15.3633C2.17969 8.13281 8.02734 2.28516 15.2578 2.28516C22.4883 2.28516 28.3359 8.13281 28.3359 15.3633C28.3359 22.5938 22.4883 28.4414 15.2578 28.4414Z",

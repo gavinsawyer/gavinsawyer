@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Plusminus: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 23.918C0 24.5391 0.527344 25.0664 1.14844 25.0664L17.168 25.0664C17.7891 25.0664 18.3164 24.5391 18.3164 23.918C18.3164 23.2852 17.7891 22.7695 17.168 22.7695L1.14844 22.7695C0.527344 22.7695 0 23.2852 0 23.918Z",

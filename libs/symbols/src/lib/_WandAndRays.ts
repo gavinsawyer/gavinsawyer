@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WandAndRays: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.6406 30.9258C29.2617 31.5469 30.2109 31.5352 30.7852 30.9258C31.3594 30.3164 31.3945 29.4141 30.7734 28.793L16.2891 14.3086C15.6914 13.6992 14.7188 13.6992 14.1445 14.3086C13.5703 14.918 13.5469 15.832 14.1562 16.4414ZM19.5352 20.3789L14.9883 15.8086C14.8008 15.6211 14.8008 15.3281 14.9883 15.1406C15.1758 14.9531 15.4922 14.9414 15.6797 15.1406L20.2383 19.6992Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TruckSideHillDescentControlFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.66195 37.8121C4.96664 38.3277 5.61117 38.4918 6.09164 38.2106L48.0448 14.0231C48.5252 13.7418 48.7127 13.1324 48.4315 12.6402C48.1268 12.1129 47.4823 11.9488 47.0018 12.2301L5.04867 36.4176C4.5682 36.6988 4.39242 37.3316 4.66195 37.8121Z",

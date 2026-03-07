@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleExpandDiagonal: Symbol = {
+export default {
   paths:         [
     {
       definition: "M32.9648 10.3125L35.0156 10.3125L35.0156 5.63672C35.0156 3.35156 33.2695 1.66406 30.7969 1.66406L14.8242 1.66406L14.8242 3.71484L30.5625 3.71484C32.0156 3.71484 32.9648 4.71094 32.9648 6.05859ZM21.7383 23.5781L21.7383 21.5273L6 21.5273C4.54688 21.5273 3.60938 20.5312 3.60938 19.1836L3.60938 14.9297L1.54688 14.9297L1.54688 19.6172C1.54688 21.9023 3.29297 23.5781 5.77734 23.5781Z",

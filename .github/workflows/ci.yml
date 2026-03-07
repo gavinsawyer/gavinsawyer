@@ -24,7 +24,7 @@ jobs:
       matrix:
         project: ${{ fromJson(needs.resolve-apps.outputs.apps) }}
         include:
-          - project: tag:cloud-functions
+          - project: [ cloud-functions, tag:has-cloud-functions ]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6

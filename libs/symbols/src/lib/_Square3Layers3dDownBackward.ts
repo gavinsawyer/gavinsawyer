@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Square3Layers3dDownBackward: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.6211 0.354005L27.8086 7.39697C29.0391 8.11182 29.4727 8.87354 29.4727 10.2681L29.4727 24.1665C29.4727 26.4282 28.0781 27.1431 26.2148 26.0649L23.4141 24.4469L23.4141 21.9638L27.0703 24.0728C27.2578 24.1782 27.375 24.0962 27.375 23.9087L27.375 10.3384C27.375 9.75244 27.2109 9.5415 26.7539 9.27197L15 2.4751C14.8125 2.36963 14.6484 2.46338 14.6484 2.67432L14.6484 6.86443L12.5508 5.65138L12.5508 1.98291C12.5508 0.107911 14.2148-0.44287 15.6211 0.354005Z",

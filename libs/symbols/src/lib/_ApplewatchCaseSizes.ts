@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ApplewatchCaseSizes: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.8711 8.625L29.8711 23.6133C29.8711 26.543 28.1719 28.2773 25.3008 28.2773L24.4035 28.2773C24.9561 27.1663 25.2539 25.8506 25.2539 24.375L25.2539 18.1758C26.2969 17.625 26.9531 16.5117 26.9531 15.1641L26.9531 12.7031C26.9531 11.3086 26.2734 10.1836 25.1953 9.64453C25.2045 7.25499 23.3252 4.87998 20.2669 3.98438L25.3008 3.98438C28.1719 3.98438 29.8711 5.70703 29.8711 8.625Z",

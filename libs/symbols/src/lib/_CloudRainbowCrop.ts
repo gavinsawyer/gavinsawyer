@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CloudRainbowCrop: Symbol = {
+export default {
   paths:         [
     {
       definition: "M33.8438 15.0352C30.8635 15.0352 28.3191 16.903 27.3064 19.5308C26.9246 19.0556 26.4719 18.635 25.9593 18.2795C27.3491 15.3275 30.3354 13.3125 33.8438 13.3125Z",

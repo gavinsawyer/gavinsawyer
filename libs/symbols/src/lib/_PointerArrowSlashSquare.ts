@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PointerArrowSlashSquare: Symbol = {
+export default {
   paths:         [
     {
       definition: "M27.5508 4.52344L27.5508 23.0391C27.5508 26.0156 26.0156 27.5508 22.9805 27.5508L4.55859 27.5508C1.53516 27.5508 0 26.0391 0 23.0391L0 4.52344C0 1.52344 1.53516 0 4.55859 0L22.9805 0C26.0156 0 27.5508 1.53516 27.5508 4.52344ZM4.60547 2.07422C2.96484 2.07422 2.07422 2.95312 2.07422 4.62891L2.07422 22.9219C2.07422 24.6094 2.96484 25.4766 4.60547 25.4766L22.9453 25.4766C24.5508 25.4766 25.4766 24.6094 25.4766 22.9219L25.4766 4.62891C25.4766 2.95312 24.5508 2.07422 22.9453 2.07422Z",

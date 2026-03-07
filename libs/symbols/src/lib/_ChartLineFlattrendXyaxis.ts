@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ChartLineFlattrendXyaxis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.2891 14.2148L2.07422 14.2148L2.07422 12.0234L22.2891 12.0234Z",

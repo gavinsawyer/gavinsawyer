@@ -6,7 +6,7 @@ import { inject, Injectable, type Signal }                                      
 import { toSignal }                                                                      from "@angular/core/rxjs-interop";
 import { type User }                                                                     from "@angular/fire/auth";
 import { collection, collectionData, type CollectionReference, Firestore, query, where } from "@angular/fire/firestore";
-import { AuthenticationService, RxSsrService }                                           from "@bowstring/services";
+import { AuthenticationService, RxSsrService }                                           from "@bowstring/core";
 import { catchError, map, Observable, of, switchMap }                                    from "rxjs";
 import { type MessageDocument }                                                          from "../../interfaces";
 

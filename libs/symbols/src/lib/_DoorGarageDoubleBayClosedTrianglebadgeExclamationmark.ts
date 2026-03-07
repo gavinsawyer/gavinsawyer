@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DoorGarageDoubleBayClosedTrianglebadgeExclamationmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M52.1836 5.10938L52.1836 17.742C51.8341 17.6334 51.4702 17.5781 51.1055 17.5781C50.7645 17.5781 50.4251 17.6247 50.0977 17.716L50.0977 5.25C50.0977 4.76953 49.793 4.45312 49.3359 4.45312L11.543 4.45312C11.0859 4.45312 10.7812 4.76953 10.7812 5.25L10.7812 33.0469C10.7812 33.6211 10.3125 34.0898 9.73828 34.0898C9.15234 34.0898 8.69531 33.6211 8.69531 33.0469L8.69531 5.10938C8.69531 3.46875 9.82031 2.36719 11.5078 2.36719L49.3711 2.36719C51.0586 2.36719 52.1836 3.46875 52.1836 5.10938Z",

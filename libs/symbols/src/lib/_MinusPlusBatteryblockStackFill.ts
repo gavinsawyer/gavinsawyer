@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MinusPlusBatteryblockStackFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M42.9141 16.1836L42.9141 30.6328C42.9141 31.9453 42.0938 32.6953 40.6992 32.6953L10.6641 32.6953C9.44222 32.6953 8.72279 32.0728 8.67656 30.9844L40.3359 30.9844C40.8867 30.9844 41.2031 30.6914 41.2031 30.1172L41.2031 14.368C42.2822 14.4599 42.9141 15.1212 42.9141 16.1836Z",

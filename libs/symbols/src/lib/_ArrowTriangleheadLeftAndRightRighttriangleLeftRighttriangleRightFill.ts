@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ArrowTriangleheadLeftAndRightRighttriangleLeftRighttriangleRightFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M2.02734 32.3008L13.9688 32.3008C15.6797 32.3008 16.4414 31.5508 16.4414 29.8281L16.4414 11.7227C16.4414 10.586 15.5977 9.95314 14.6484 9.95314C14.0156 9.95314 13.418 10.2344 12.9844 10.8672L0.421875 29.0899C0.128906 29.5235 0 30.0156 0 30.4844C0 31.457 0.644531 32.3008 2.02734 32.3008ZM32.4844 32.3008C33.8672 32.3008 34.5117 31.457 34.5117 30.4844C34.5117 30.0156 34.3828 29.5235 34.0898 29.0899L21.5273 10.8672C21.0938 10.2344 20.4961 9.95314 19.8633 9.95314C18.9141 9.95314 18.0703 10.586 18.0703 11.7227L18.0703 29.8281C18.0703 31.5508 18.8203 32.3008 20.543 32.3008Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HumidifierAndEllipsisFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.1602 34.207C23.5195 34.207 24.6211 33.1172 24.6211 31.7344C24.6211 30.375 23.5195 29.2734 22.1602 29.2734C20.8008 29.2734 19.6992 30.375 19.6992 31.7344C19.6992 33.1172 20.8008 34.207 22.1602 34.207Z",

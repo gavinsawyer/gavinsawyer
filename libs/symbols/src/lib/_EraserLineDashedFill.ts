@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EraserLineDashedFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.4238 29.6426C26.4238 30.2051 25.9433 30.6739 25.3808 30.6739L17.6117 30.6739L19.6876 28.5997L25.3808 28.5997C25.9433 28.5997 26.4238 29.0684 26.4238 29.6426Z",

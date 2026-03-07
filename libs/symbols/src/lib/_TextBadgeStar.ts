@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextBadgeStar: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.1406 27.3047C30.1406 27.8906 29.6719 28.3359 29.0859 28.3359L1.04297 28.3359C0.445312 28.3359 0 27.8906 0 27.3047C0 26.707 0.445312 26.2617 1.04297 26.2617L29.0859 26.2617C29.6719 26.2617 30.1406 26.707 30.1406 27.3047Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _AirpodsPro: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.1641 26.4147C15.1641 27.2584 14.625 27.7155 13.7344 27.7155L12.5508 27.7155C11.6602 27.7155 11.1094 27.2584 11.1094 26.4147L11.1094 17.219C12.8282 17.0871 14.0988 16.7973 15.1641 16.3986ZM32.2031 17.219L32.2031 26.4147C32.2031 27.2584 31.6523 27.7155 30.7617 27.7155L29.5781 27.7155C28.6875 27.7155 28.1484 27.2584 28.1484 26.4147L28.1484 16.3986C29.2137 16.7973 30.4843 17.0871 32.2031 17.219Z",

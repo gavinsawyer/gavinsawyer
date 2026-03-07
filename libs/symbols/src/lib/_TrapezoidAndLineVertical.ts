@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TrapezoidAndLineVertical: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.1831 34.2891C16.1831 34.9336 15.7963 35.3203 15.2104 35.3203C14.5893 35.3203 14.2143 34.9336 14.2143 34.2891L14.2143 29.8125L16.1831 29.8125ZM16.1831 27.8438L14.2143 27.8438L14.2143 7.47656L16.1831 7.47656ZM16.1831 1.04297L16.1831 5.51953L14.2143 5.51953L14.2143 1.04297C14.2143 0.398438 14.5893 0 15.2104 0C15.7963 0 16.1831 0.398438 16.1831 1.04297Z",

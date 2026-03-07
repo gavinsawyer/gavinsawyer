@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EnvelopeFront: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.55859 25.7461L31.957 25.7461C34.6172 25.7461 36.1641 24.2109 36.1641 21.2227L36.1641 4.52344C36.1641 1.53516 34.6055 0.0117188 31.5938 0.0117188L4.20703 0.0117188C1.54688 0.0117188 0 1.53516 0 4.52344L0 21.2227C0 24.2109 1.55859 25.7461 4.55859 25.7461ZM4.51172 23.7656C2.89453 23.7656 1.98047 22.875 1.98047 21.2109L1.98047 4.52344C1.98047 2.88281 2.89453 1.99219 4.51172 1.99219L31.6523 1.99219C33.2695 1.99219 34.1719 2.88281 34.1719 4.53516L34.1719 21.2227C34.1719 22.875 33.2695 23.7656 31.6523 23.7656Z",

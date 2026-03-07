@@ -1,10 +1,10 @@
 {
   "emulators":  {
     "auth":              { "port": 9099 },
-    "firestore":         { "port": 8080 },
     "database":          { "port": 9000 },
-    "ui":                { "enabled": true },
-    "singleProjectMode": true
+    "firestore":         { "port": 8080 },
+    "singleProjectMode": true,
+    "ui":                { "enabled": true }
   },
   "extensions": { "firebase-web-authn": "./node_modules/@firebase-web-authn/extension" },
   "firestore":  {
@@ -23,24 +23,14 @@
       "source":   "dist/libs/cloud functions"
     },
     {
-      "codebase": "sendgrid-document-blocking-functions",
+      "codebase": "core",
       "ignore":   [
         "node_modules",
         ".git",
         "firebase-debug.log",
         "firebase-debug.*.log"
       ],
-      "source":   "dist/libs/sendgrid document blocking functions"
-    },
-    {
-      "codebase": "webhook-event-functions",
-      "ignore":   [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ],
-      "source":   "dist/libs/webhook event functions"
+      "source":   "dist/libs/core/cloud functions"
     }
   ],
   "hosting":    [
@@ -62,15 +52,15 @@
               "value": "no-cache"
             }
           ],
-          "source":  "/service-worker.js"
+          "source":  "/main.service-worker.js"
         }
       ],
       "ignore":   [ "**/.*" ],
       "public":   "dist/apps/website/browser",
       "rewrites": [
         {
-          "source":   "/firebase-web-authn-api",
-          "function": "ext-firebase-web-authn-api"
+          "function": "ext-firebase-web-authn-api",
+          "source":   "/firebase-web-authn-api"
         },
         {
           "run":    {

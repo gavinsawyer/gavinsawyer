@@ -2,10 +2,10 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { inject, type Type }                   from "@angular/core";
-import { ActivatedRouteSnapshot, type Routes } from "@angular/router";
-import * as configLib                          from "@bowstring/config";
-import { CONFIG }                              from "@bowstring/injection-tokens";
+import { inject, type Type, type ValueProvider }    from "@angular/core";
+import { type ActivatedRouteSnapshot, type Routes } from "@angular/router";
+import configLib, { CONFIG_LIB, type ConfigLib }    from "@bowstring/config";
+import { PROJECT_ROUTES }                           from "@bowstring/core";
 
 
 const projectRoutes: Routes = [
@@ -26,7 +26,7 @@ const projectRoutes: Routes = [
     },
     loadComponent: (): Promise<Type<unknown>> => import("./privacy/PrivacyRouteComponent").then<Type<unknown>>(({ PrivacyRouteComponent }: typeof import("./privacy/PrivacyRouteComponent")): Type<unknown> => PrivacyRouteComponent),
     path:          "privacy",
-    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<typeof configLib>(CONFIG).brand.title }`,
+    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
   },
   {
     data:          {
@@ -35,7 +35,7 @@ const projectRoutes: Routes = [
     },
     loadComponent: (): Promise<Type<unknown>> => import("./terms/TermsRouteComponent").then<Type<unknown>>(({ TermsRouteComponent }: typeof import("./terms/TermsRouteComponent")): Type<unknown> => TermsRouteComponent),
     path:          "terms",
-    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<typeof configLib>(CONFIG).brand.title }`,
+    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
   },
   {
     data:          {
@@ -44,8 +44,13 @@ const projectRoutes: Routes = [
     },
     loadComponent: (): Promise<Type<unknown>> => import("./otherwise/OtherwiseRouteComponent").then<Type<unknown>>(({ OtherwiseRouteComponent }: typeof import("./otherwise/OtherwiseRouteComponent")): Type<unknown> => OtherwiseRouteComponent),
     path:          "**",
-    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<typeof configLib>(CONFIG).brand.title }`,
+    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
   },
 ];
+
+export const projectRoutesProvider: ValueProvider = {
+  provide:  PROJECT_ROUTES,
+  useValue: projectRoutes,
+};
 
 export default projectRoutes;

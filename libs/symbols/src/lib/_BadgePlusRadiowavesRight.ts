@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BadgePlusRadiowavesRight: Symbol = {
+export default {
   paths:         [
     {
       definition: "M31.5938 0.499536C34.1484 4.36672 35.8594 9.06594 35.8594 14.5503C35.8594 20.023 34.1836 24.7339 31.5938 28.5894C31.2422 29.105 30.6211 29.2339 30.1641 28.9058C29.6836 28.5777 29.6133 27.9566 29.9648 27.4292C32.3086 23.9019 33.8789 19.6011 33.8789 14.5503C33.8789 9.48782 32.3086 5.19875 29.9648 1.65969C29.6133 1.13235 29.6836 0.511255 30.1641 0.18313C30.6211-0.144995 31.2422-0.0278077 31.5938 0.499536Z",

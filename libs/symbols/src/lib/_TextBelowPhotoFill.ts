@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextBelowPhotoFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.984375 38.3086L20.0156 38.3086C20.5664 38.3086 21 37.8867 21 37.3359C21 36.7852 20.5664 36.3516 20.0156 36.3516L0.984375 36.3516C0.421875 36.3516 0 36.7852 0 37.3359C0 37.8867 0.421875 38.3086 0.984375 38.3086Z",

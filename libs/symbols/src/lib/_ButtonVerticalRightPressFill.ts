@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ButtonVerticalRightPressFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.94531 9.53906L4.94531 30.1055C4.94531 33.2639 6.14606 35.9656 8.20429 37.6721C4.34701 37.2627 1.93359 34.1607 1.93359 30.1055L1.93359 9.53906C1.93359 5.48362 4.35014 2.35605 8.23353 1.95648C6.15726 3.65774 4.94531 6.36595 4.94531 9.53906Z",

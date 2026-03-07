@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SpatialCaptureOnHexagonFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.5352 2.61914L20.274 4.7776L10.4531 10.4473C8.96484 11.3145 8.07422 12.8379 8.07422 14.5723L8.07422 26.7363C8.07422 27.6022 8.29321 28.4161 8.69602 29.1208L3.10547 25.8809C2.19141 25.3535 1.65234 24.4395 1.65234 23.373L1.65234 11.209C1.65234 10.1426 2.19141 9.22852 3.10547 8.70117L13.6406 2.61914C14.5664 2.0918 15.6094 2.0918 16.5352 2.61914Z",

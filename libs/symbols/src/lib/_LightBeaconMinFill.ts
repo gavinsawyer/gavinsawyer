@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LightBeaconMinFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.7539 27.7266C27.3281 27.7266 27.8086 27.2695 27.8086 26.6953C27.8086 26.1211 27.3281 25.6406 26.7539 25.6406L24.8438 25.6406L24.8438 15.4922C24.8438 10.0547 20.7188 5.92969 15.2812 5.92969C9.86719 5.92969 5.75391 10.0547 5.75391 15.4922L5.75391 25.6406L3.82031 25.6406C3.24609 25.6406 2.78906 26.1211 2.78906 26.6953C2.78906 27.2695 3.24609 27.7266 3.82031 27.7266ZM16.3711 15.457L16.3711 25.6406L14.2266 25.6406L14.2266 15.457C14.2266 14.8594 14.6953 14.3672 15.2812 14.3672C15.8789 14.3672 16.3711 14.8594 16.3711 15.457Z",

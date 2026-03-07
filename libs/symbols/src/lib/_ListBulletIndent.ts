@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ListBulletIndent: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.7852 21.0352L36.5039 21.0352C37.1016 21.0352 37.5586 20.5781 37.5586 19.9922C37.5586 19.4062 37.1016 18.9609 36.5039 18.9609L15.7852 18.9609C15.1875 18.9609 14.7422 19.4062 14.7422 19.9922C14.7422 20.5781 15.1875 21.0352 15.7852 21.0352Z",

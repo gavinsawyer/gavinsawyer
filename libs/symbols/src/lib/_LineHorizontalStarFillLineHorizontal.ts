@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LineHorizontalStarFillLineHorizontal: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 27.3633C0 27.9258 0.46875 28.4062 1.04297 28.4062L36.8438 28.4062C37.4062 28.4062 37.875 27.9258 37.875 27.3633C37.875 26.7891 37.4062 26.3203 36.8438 26.3203L1.04297 26.3203C0.46875 26.3203 0 26.7891 0 27.3633ZM0 1.03125C0 1.60547 0.46875 2.07422 1.04297 2.07422L36.8438 2.07422C37.4062 2.07422 37.875 1.60547 37.875 1.03125C37.875 0.46875 37.4062 0 36.8438 0L1.04297 0C0.46875 0 0 0.46875 0 1.03125Z",

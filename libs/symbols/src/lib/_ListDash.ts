@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ListDash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M9.53906 20.5898L29.0859 20.5898C29.6719 20.5898 30.1406 20.1445 30.1406 19.5586C30.1406 18.9727 29.6719 18.5156 29.0859 18.5156L9.53906 18.5156C8.95312 18.5156 8.50781 18.9727 8.50781 19.5586C8.50781 20.1445 8.95312 20.5898 9.53906 20.5898Z",

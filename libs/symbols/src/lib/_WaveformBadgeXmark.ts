@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WaveformBadgeXmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M36.1055 13.0195L36.1055 15.0123C35.3928 15.0126 34.6976 15.0942 34.0313 15.2553L34.0312 13.0195C34.0312 12.4453 34.4766 11.9648 35.0742 11.9648C35.6602 11.9648 36.1055 12.4453 36.1055 13.0195Z",

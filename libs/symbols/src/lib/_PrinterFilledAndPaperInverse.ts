@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PrinterFilledAndPaperInverse: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.6263 5.94141L7.82768 5.94141C7.93909 3.38161 9.40893 2.23828 11.8711 2.23828L25.582 2.23828C28.1566 2.23828 29.5232 3.38161 29.6263 5.94141Z",

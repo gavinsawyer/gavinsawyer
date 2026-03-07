@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EraserTrianglebadgeExclamationmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.1133 28.9336L20.5195 30.5156C18.5156 32.5195 16.0547 32.4492 13.9336 30.3516L8.33203 24.7383C6.22266 22.6289 6.15234 20.1562 8.15625 18.1523L9.75 16.582ZM27.1289 3.60938L35.0625 11.5664C36.3633 12.8555 36.3867 14.6602 35.1094 15.9258L34.6673 16.3678C34.1432 16.1015 33.5634 15.9609 32.9766 15.9609C31.6523 15.9609 30.3633 16.6641 29.6836 17.9062L25.2876 25.7476L23.4258 27.6094L11.0742 15.2578L22.7578 3.57422C24.0234 2.29688 25.8281 2.30859 27.1289 3.60938Z",

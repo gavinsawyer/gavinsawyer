@@ -2,27 +2,30 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import compression                                                                         from "compression";
-import cookieParser                                                                        from "cookie-parser";
-import express                                                                             from "express";
-import { cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
-import { type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }             from "firebase-admin/auth";
-import { type App as AdminFirebaseApp }                                                    from "firebase-admin/lib/app/core";
-import { type Auth as AdminAuth }                                                          from "firebase-admin/lib/auth/auth";
-import { environment }                                                                     from "../environment";
-import { getI18nRequestHandler }                                                           from "./request handlers";
-import { type ProjectLocaleId }                                                            from "./types";
+import { type LocaleId }                                                                                                 from "@bowstring/i18n";
+import compression                                                                                                       from "compression";
+import cookieParser                                                                                                      from "cookie-parser";
+import express                                                                                                           from "express";
+import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
+import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
+import { environment }                                                                                                   from "../environment";
+import { getI18nRequestHandler }                                                                                         from "./request handlers";
 
 
 const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
 const adminAuth: AdminAuth               = adminGetAuth(adminFirebaseApp);
 
-express().use(compression()).use(cookieParser()).use(
+void express().use(compression()).use(cookieParser()).use(
   (
     request: express.Request,
     response: express.Response,
     nextFunction: express.NextFunction,
   ): void => {
+    response.setHeader(
+      "X-Powered-By",
+      "Bowstring",
+    );
+
     const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
 
     if (idToken && idToken !== request.cookies["__session"])
@@ -49,7 +52,7 @@ express().use(compression()).use(cookieParser()).use(
   "views",
   `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
 ).get(
-  "/service-worker.js",
+  "/main.service-worker.js",
   express.static(`${ process.cwd() }/dist/apps/${ environment.app }/browser`),
 ).get(
   "*.*",
@@ -61,7 +64,7 @@ express().use(compression()).use(cookieParser()).use(
   ),
 ).get(
   "*",
-  getI18nRequestHandler(({ projectLocaleId }: { projectLocaleId: ProjectLocaleId }): express.RequestHandler => require(`${ __dirname }/${ String(projectLocaleId) }/main.js`)["getRequestHandler"](projectLocaleId)),
+  getI18nRequestHandler(({ localeId }: { localeId: LocaleId }): express.RequestHandler => require(`${ __dirname }/${ String(localeId) }/main.js`)["getRequestHandler"](localeId)),
 ).listen(
   process.env["PORT"] || 4000,
   (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MedalStarFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M13.5352 19.3786L13.3057 19.5376L12.9727 18.4997C12.1992 16.0974 9.04688 16.0974 8.28516 18.4997L7.94591 19.5475L7.6875 19.3669L7.6875 1.26142L13.5352 1.26142ZM21.2344 3.54657L21.2344 12.4294C21.2344 13.5895 20.8945 14.2809 20.0039 14.8903L15.5625 17.9841L15.5625 1.26142L18.9375 1.26142C20.2734 1.26142 21.2344 2.21064 21.2344 3.54657ZM5.66016 17.9724L1.23047 14.8903C0.351562 14.2809 0 13.613 0 12.4294L0 3.54657C0 2.21064 0.949219 1.26142 2.28516 1.26142L5.66016 1.26142Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Powermeter: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.4651 0C8.21505 0 1.3713 5.97656 0.0236459 13.8398C-0.10526 14.543 0.304896 15.1055 0.961146 15.1641C1.57052 15.2227 2.1213 14.7656 2.23849 14.0859C3.42208 7.27734 9.28146 2.17969 16.4651 2.17969C24.5158 2.17969 30.926 8.60156 30.926 16.6758C30.926 20.5898 29.3908 24.2109 26.883 26.8008C26.3557 27.3516 26.2854 28.043 26.6721 28.4414C27.1643 28.8984 27.844 28.875 28.301 28.418C31.301 25.4062 33.1408 21.2344 33.1408 16.6758C33.1408 7.45312 25.676 0 16.4651 0Z",

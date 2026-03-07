@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Slowmo: Symbol = {
+export default {
   paths:         [
     {
       definition: "M8.46094 2.28516C7.98047 2.55469 7.85156 3.12891 8.10938 3.58594L10.875 8.35547C11.1445 8.8125 11.6836 8.97656 12.1406 8.69531C12.5977 8.42578 12.75 7.875 12.4805 7.41797L9.72656 2.64844C9.45703 2.20312 8.91797 2.03906 8.46094 2.28516Z",

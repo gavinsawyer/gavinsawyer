@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PersonFillBadgeMinus: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.9918 24.8737C26.7842 26.6033 25.3594 29.2916 25.3594 32.2852C25.3594 33.0025 25.4402 33.7016 25.6005 34.3711L11.7422 34.3711C10.207 34.3711 9.26953 33.6328 9.26953 32.4375C9.26953 28.5469 14.1328 23.1797 21.9492 23.1797C24.6909 23.1797 27.0692 23.84 28.9918 24.8737ZM27.9727 13.8164C27.9727 17.5664 25.2305 20.4727 21.9609 20.4727C18.7031 20.4727 15.9609 17.5664 15.9609 13.8398C15.9609 10.1953 18.7266 7.34766 21.9609 7.34766C25.207 7.34766 27.9727 10.1484 27.9727 13.8164Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Humidity: Symbol = {
+export default {
   paths:         [
     {
       definition: "M18.9833 23.66C15.3196 25.3359 12.1143 28.1133 7.51172 28.1133C5.56641 28.1133 3.84375 27.6562 2.12109 26.6602C1.42969 26.2617 1.39453 25.5586 1.69922 25.1016C1.96875 24.7031 2.48438 24.4922 3.04688 24.8086C4.58203 25.6875 5.94141 26.0391 7.51172 26.0391C12.0808 26.0391 15.2797 22.8914 19.4191 21.2745C19.1844 22.0358 19.0196 22.8381 18.9833 23.66Z",

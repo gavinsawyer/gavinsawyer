@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Quotelevel: Symbol = {
+export default {
   paths:         [
     {
       definition: "M14.3438 28.1602C14.9297 28.1602 15.3867 27.6914 15.3867 27.1055L15.3867 1.04297C15.3867 0.457031 14.9297 0 14.3438 0C13.7578 0 13.3125 0.457031 13.3125 1.04297L13.3125 27.1055C13.3125 27.6914 13.7578 28.1602 14.3438 28.1602Z",

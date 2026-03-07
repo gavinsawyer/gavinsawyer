@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Wave3Backward: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 17.6796C0 23.9491 1.95703 29.8436 5.46094 34.7655C6.42188 36.1014 8.23828 34.8944 7.27734 33.5819C3.98438 28.9999 2.21484 23.5155 2.21484 17.6796C2.21484 11.8319 3.97266 6.34754 7.27734 1.76551C8.26172 0.417855 6.38672-0.707145 5.46094 0.570198C1.94531 5.50379 0 11.3866 0 17.6796Z",

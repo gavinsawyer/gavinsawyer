@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HouseLodgeFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M13.7502 19.5484C13.8198 19.5523 13.8902 19.5521 13.9614 19.5479C13.9864 19.5486 14.0117 19.5472 14.0374 19.5436C14.0374 19.5436 14.0374 19.5436 14.0374 19.5436L14.0374 24.5391C14.0374 25.7954 14.3755 26.8679 14.9914 27.6914L7.7679 27.6914C5.71712 27.6914 4.54524 26.5664 4.54524 24.5391L4.54524 19.5352L13.5834 19.5352C13.6379 19.5442 13.6937 19.548 13.7502 19.5484Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LightswitchOn: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.51172 33.1055L17.0859 33.1055C20.0742 33.1055 21.5977 31.5703 21.5977 28.5469L21.5977 4.57031C21.5977 1.53516 20.0742 0.0117188 17.0859 0.0117188L4.51172 0.0117188C1.51172 0.0117188 0 1.53516 0 4.57031L0 28.5469C0 31.5703 1.51172 33.1055 4.51172 33.1055ZM4.62891 31.0312C2.94141 31.0312 2.07422 30.1406 2.07422 28.5117L2.07422 4.60547C2.07422 2.97656 2.94141 2.08594 4.62891 2.08594L16.9688 2.08594C18.6562 2.08594 19.5234 2.97656 19.5234 4.60547L19.5234 28.5117C19.5234 30.1406 18.6562 31.0312 16.9688 31.0312Z",

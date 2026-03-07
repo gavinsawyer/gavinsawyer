@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BoltBadgeClockFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M24.1289 3.5625L19.5703 15.8906L28.1719 15.8906C28.7227 15.8906 29.0859 16.2773 29.0859 16.7578C29.0859 17.0625 28.957 17.332 28.7344 17.625L27.8719 18.7041C22.907 18.9449 18.8906 23.1058 18.8906 28.125C18.8906 28.6802 18.9392 29.2246 19.0418 29.7511L15.0586 34.7344C14.168 35.8359 12.7734 35.1328 13.2891 33.7734L17.8359 21.4336L9.24609 21.4336C8.69531 21.4336 8.32031 21.0586 8.32031 20.5781C8.32031 20.2734 8.46094 20.0039 8.68359 19.7109L22.3594 2.60156C23.25 1.48828 24.6445 2.19141 24.1289 3.5625Z",

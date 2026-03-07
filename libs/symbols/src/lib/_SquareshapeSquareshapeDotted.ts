@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquareshapeSquareshapeDotted: Symbol = {
+export default {
   paths:         [
     {
       definition: "M5.42578 20.8477C5.42578 21.5156 5.85938 21.9375 6.51562 21.9375L20.9297 21.9375C21.5859 21.9375 22.0195 21.5156 22.0195 20.8477L22.0195 6.58594C22.0195 5.92969 21.5859 5.49609 20.9297 5.49609L6.51562 5.49609C5.85938 5.49609 5.42578 5.92969 5.42578 6.58594ZM7.5 19.4531L7.5 7.98047C7.5 7.6875 7.61719 7.57031 7.91016 7.57031L19.5352 7.57031C19.8281 7.57031 19.9453 7.6875 19.9453 7.98047L19.9453 19.4531C19.9453 19.7461 19.8281 19.8633 19.5352 19.8633L7.91016 19.8633C7.61719 19.8633 7.5 19.7461 7.5 19.4531Z",

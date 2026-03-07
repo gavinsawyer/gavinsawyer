@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CarRearWavesUp: Symbol = {
+export default {
   paths:         [
     {
       definition: "M14.4375 2.13281C17.7422 2.13281 20.7305 3.32812 23.0039 5.41406C23.5195 5.88281 24.1289 6.01172 24.5977 5.60156C25.0781 5.17969 25.0781 4.46484 24.5391 3.97266C21.8672 1.47656 18.3047 0.0351562 14.4375 0.0351562C10.5586 0.0351562 6.99609 1.47656 4.33594 3.97266C3.79688 4.46484 3.79688 5.17969 4.27734 5.60156C4.73438 6.01172 5.34375 5.88281 5.87109 5.41406C8.13281 3.32812 11.1211 2.13281 14.4375 2.13281Z",

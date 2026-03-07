@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ParkingsignRadiowavesDownRightOff: Symbol = {
+export default {
   paths:         [
     {
       definition: "M10.8281 19.2539C13.2305 19.1836 15.5859 18.1758 17.3906 16.3711C19.1719 14.5781 20.1797 12.2461 20.2383 9.83203C20.2734 9.29297 19.8984 8.91797 19.4414 8.95312C18.9492 8.97656 18.7031 9.36328 18.6797 9.86719C18.5859 11.8711 17.7773 13.7344 16.2656 15.2578C14.7539 16.7695 12.8789 17.5664 10.875 17.6602C10.3711 17.6836 9.9375 17.9531 9.9375 18.457C9.9375 18.9492 10.2891 19.2773 10.8281 19.2539Z",

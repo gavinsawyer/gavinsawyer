@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SliderHorizontalBelowSquareAndSquareFilled: Symbol = {
+export default {
   paths:         [
     {
       definition: "M5.15625 29.5312C5.15625 29.8897 5.21113 30.2361 5.31303 30.5625L1.04297 30.5625C0.457031 30.5625 0 30.1055 0 29.5312C0 28.9453 0.457031 28.4883 1.04297 28.4883L5.31532 28.4883C5.21185 28.8178 5.15625 29.1683 5.15625 29.5312ZM37.1133 29.5312C37.1133 30.1055 36.6562 30.5625 36.0703 30.5625L11.971 30.5625C12.0736 30.2361 12.1289 29.8897 12.1289 29.5312C12.1289 29.1683 12.0729 28.8178 11.9687 28.4883L36.0703 28.4883C36.6562 28.4883 37.1133 28.9453 37.1133 29.5312Z",

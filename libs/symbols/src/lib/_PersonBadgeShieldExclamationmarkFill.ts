@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PersonBadgeShieldExclamationmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.8102 24.5762C25.2015 25.1944 24.5391 26.5045 24.5391 28.0317L24.5391 33.4809C24.5391 33.7906 24.5533 34.0845 24.5877 34.3598L10.1133 34.3598C8.57812 34.3598 7.64062 33.6215 7.64062 32.4262C7.64062 28.5356 12.5039 23.1684 20.3203 23.1684C22.803 23.1684 24.9877 23.7098 26.8102 24.5762ZM26.3438 13.8051C26.3438 17.5551 23.6016 20.4613 20.332 20.4613C17.0742 20.4613 14.332 17.5551 14.332 13.8285C14.332 10.184 17.0977 7.33635 20.332 7.33635C23.5781 7.33635 26.3438 10.1371 26.3438 13.8051Z",

@@ -4,53 +4,54 @@
   "projectType": "library",
   "sourceRoot":  "libs/i18n/src",
   "targets":     {
-    "angular-extract-i18n": {
+    "angular--extract-i18n": {
       "dependsOn": [
         {
           "projects": [
             "console",
             "website"
           ],
-          "target":   "angular-extract-i18n"
+          "target":   "angular--extract-i18n"
         }
       ],
       "executor":  "nx:noop"
     },
-    "build":                {
-      "dependsOn": [ "esbuild" ],
-      "executor":  "nx:noop"
-    },
-    "esbuild":              {
-      "dependsOn": [ "eslint" ],
+    "build":                 {
+      "dependsOn": [ "lint" ],
       "executor":  "@nx/esbuild:esbuild",
       "options":   {
-        "main":        "libs/i18n/src/lib/main.ts",
-        "metafile":    true,
-        "outputPath":  "dist/libs/i18n",
-        "packages":    "external",
-        "splitting":   true,
-        "treeShaking": true,
-        "tsConfig":    "libs/i18n/tsconfig.lib.json"
+        "declaration":         true,
+        "esbuildOptions":      {
+          "banner": {
+            "css": "/*!\n / Copyright © 2026 Gavin William Sawyer. All rights reserved.\n /\n",
+            "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n */\n"
+          }
+        },
+        "external":            [ "@bowstring/*" ],
+        "generatePackageJson": true,
+        "main":                "libs/i18n/src/index.ts",
+        "metafile":            true,
+        "minify":              true,
+        "outputPath":          "dist/libs/i18n",
+        "splitting":           true,
+        "treeShaking":         true,
+        "tsConfig":            "libs/i18n/tsconfig.lib.json"
       },
-      "outputs":   [ "{options.outputPath}" ]
+      "outputs":   [ "{workspaceRoot}/dist/libs/i18n" ]
     },
-    "eslint":               {
+    "extract":               {
+      "dependsOn": [ "merge" ],
+      "executor":  "nx:run-commands",
+      "options":   { "commands": [ "rm -rf tmp/libs/i18n/extracts" ] }
+    },
+    "lint":                  {
       "executor": "@nx/eslint:lint",
       "options":  { "lintFilePatterns": [ "libs/i18n/src/**/*.ts" ] }
     },
-    "extract":              {
-      "dependsOn": [ "merge" ],
+    "merge":                 {
+      "dependsOn": [ "angular--extract-i18n" ],
       "executor":  "nx:run-commands",
-      "options":   { "commands": [ "rm -rf tmp/i18n\\ extracts" ] }
-    },
-    "lint":                 {
-      "dependsOn": [ "eslint" ],
-      "executor":  "nx:noop"
-    },
-    "merge":                {
-      "dependsOn": [ "angular-extract-i18n" ],
-      "executor":  "nx:run-commands",
-      "options":   { "commands": [ "node -p \"JSON.stringify({ locale: \\\"en-US\\\", translations: Object.assign({}, ...[\\\"console\\\", \\\"website\\\"].map(projectName => require(\\`./tmp/i18n extracts/\\${ projectName }.en-US.json\\`).translations)) }, null, 2)\" > libs/i18n/src/lib/messages/en-US.json" ] }
+      "options":   { "commands": [ "node -p \"JSON.stringify({ locale: \\\"en-US\\\", translations: Object.assign({}, ...[\\\"console\\\", \\\"website\\\"].map(projectName => require(\\`./tmp/libs/i18n/extracts/\\${ projectName }.en-US.json\\`).translations)) }, null, 2)\" > libs/i18n/src/lib/messages/lib/en-US.json" ] }
     }
   }
 }

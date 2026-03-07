@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Square2Layers3dBottomFilled: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.8984 20.3789C29.9648 21 30.4102 21.4922 30.4102 22.2539C30.4102 23.0039 29.9648 23.4961 28.8984 24.1289L16.9102 31.0781C16.2656 31.4531 15.75 31.6289 15.1992 31.6289C14.6602 31.6289 14.1445 31.4531 13.4883 31.0781L1.51172 24.1289C0.433594 23.4961 0 23.0039 0 22.2539C0 21.4922 0.433594 21 1.51172 20.3789L9.04504 16.0078L13.4883 18.5859C14.1445 18.9609 14.6602 19.1484 15.1992 19.1484C15.75 19.1484 16.2656 18.9609 16.9102 18.5859L21.3577 16.0078Z",

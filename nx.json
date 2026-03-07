@@ -1,5 +1,4 @@
 {
-  "defaultBase":        "main",
   "namedInputs":        {
     "default":       [
       "{projectRoot}/**/*",
@@ -10,9 +9,10 @@
   },
   "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
   "nxCloudId":          "${NX_CLOUD_ID}",
+  "parallel":           3,
   "targetDefaults":     {
-    "angular-browser":        { "cache": true },
-    "angular-server":         { "cache": true },
+    "angular--browser":       { "cache": true },
+    "angular--server":        { "cache": true },
     "build":                  {
       "dependsOn": [ "^build" ],
       "inputs":    [
@@ -20,6 +20,9 @@
         "^production"
       ]
     },
+    "build--cloud-functions": { "cache": true },
+    "build--intl-server":     { "cache": true },
+    "build--service-worker":  { "cache": true },
     "deploy":                 {
       "dependsOn": [ "^deploy" ],
       "inputs":    [
@@ -27,16 +30,12 @@
         "^production"
       ]
     },
-    "esbuild":                { "cache": true },
-    "esbuild-intl-server":    { "cache": true },
-    "esbuild-service-worker": { "cache": true },
-    "eslint":                 {
+    "lint":                   {
       "cache":  true,
       "inputs": [
         "default",
         "{workspaceRoot}/eslint.config.js"
       ]
-    },
-    "tsc":                    { "cache": true }
+    }
   }
 }

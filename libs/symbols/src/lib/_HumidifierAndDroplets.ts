@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HumidifierAndDroplets: Symbol = {
+export default {
   paths:         [
     {
       definition: "M3.80863 3.44531C4.37113 3.44531 4.82816 3 4.82816 2.4375C4.82816 1.88672 4.37113 1.42969 3.80863 1.42969C3.25785 1.42969 2.80082 1.88672 2.80082 2.4375C2.80082 3 3.25785 3.44531 3.80863 3.44531ZM11.7188 2.01562C12.2696 2.01562 12.7266 1.55859 12.7266 1.00781C12.7266 0.445312 12.2696 0 11.7188 0C11.168 0 10.711 0.445312 10.711 1.00781C10.711 1.55859 11.168 2.01562 11.7188 2.01562ZM19.6289 3.44531C20.1797 3.44531 20.6368 3 20.6368 2.4375C20.6368 1.88672 20.1797 1.42969 19.6289 1.42969C19.0664 1.42969 18.6094 1.88672 18.6094 2.4375C18.6094 3 19.0664 3.44531 19.6289 3.44531Z",

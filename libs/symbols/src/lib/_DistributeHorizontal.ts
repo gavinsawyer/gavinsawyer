@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DistributeHorizontal: Symbol = {
+export default {
   paths:         [
     {
       definition: "M8.37891 6.14062L8.37891 28.2305C8.37891 30.2461 9.49219 31.3711 11.4844 31.3711L16.1836 31.3711C18.1641 31.3711 19.2773 30.2461 19.2773 28.2305L19.2773 6.14062C19.2773 4.125 18.1641 3 16.1836 3L11.4844 3C9.49219 3 8.37891 4.125 8.37891 6.14062ZM10.3477 6.17578C10.3477 5.41406 10.793 4.95703 11.5898 4.95703L16.0781 4.95703C16.8633 4.95703 17.3203 5.41406 17.3203 6.17578L17.3203 28.1836C17.3203 28.957 16.8633 29.4141 16.0781 29.4141L11.5898 29.4141C10.793 29.4141 10.3477 28.957 10.3477 28.1836Z",

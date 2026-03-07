@@ -6,7 +6,7 @@ import { inject, Injectable, type Signal }                                    fr
 import { toSignal }                                                           from "@angular/core/rxjs-interop";
 import { FirebaseApp }                                                        from "@angular/fire/app";
 import { doc, docData, type DocumentReference, type Firestore, getFirestore } from "@angular/fire/firestore";
-import { RxSsrService }                                                       from "@bowstring/services";
+import { RxSsrService }                                                       from "@bowstring/core";
 import { type Focus, type PublicDocument }                                    from "@gavinsawyer/shortcuts-api";
 import { catchError, map, type Observable, of, switchMap }                    from "rxjs";
 

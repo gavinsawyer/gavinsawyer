@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HandDraw: Symbol = {
+export default {
   paths:         [
     {
       definition: "M9.13469 6.88295L9.27313 7.26174C4.97615 10.2459 3.24338 14.5007 3.15813 19.2111C3.14641 19.6798 2.80657 20.0431 2.34954 20.0548C1.90422 20.0665 1.50579 19.6447 1.50579 19.1759C1.50579 13.7317 3.7952 8.68284 8.82773 5.51205C8.86401 5.95986 8.96623 6.41969 9.13469 6.88295Z",

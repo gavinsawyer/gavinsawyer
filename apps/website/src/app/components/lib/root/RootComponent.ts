@@ -2,24 +2,18 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser }                                                                                                                              from "@angular/common";
-import { ChangeDetectionStrategy, Component, effect, inject, Injector, LOCALE_ID, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild }                   from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                   from "@angular/core/rxjs-interop";
-import { AppCheck, type AppCheckTokenResult, getLimitedUseToken }                                                                                                   from "@angular/fire/app-check";
-import { RouterOutlet, type Routes }                                                                                                                                from "@angular/router";
-import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, type FooterComponent, type HeaderComponent, type InspectorComponent } from "@bowstring/components";
-import type * as configLib                                                                                                                                          from "@bowstring/config";
-import { CanvasDirective, FlexboxContainerDirective }                                                                                                               from "@bowstring/directives";
-import { DateFormat }                                                                                                                                               from "@bowstring/enums";
-import { CONFIG, ENVIRONMENT, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES, SERVICE_WORKER_REGISTRATION }                                        from "@bowstring/injection-tokens";
-import { Environment }                                                                                                                                              from "@bowstring/interfaces";
-import { DatePipe }                                                                                                                                                 from "@bowstring/pipes";
-import { AuthenticationService, ConnectivityService, ErrorsService }                                                                                                from "@bowstring/services";
-import { type GitInfo }                                                                                                                                             from "git-describe";
-import { map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic }                                                                             from "rxjs";
-import { type RouteComponent }                                                                                                                                      from "../../";
-import { PROJECT_LOCALE_IDS }                                                                                                                                       from "../../../injection tokens";
-import { type ProjectLocaleId }                                                                                                                                     from "../../../types";
+import { DOCUMENT, isPlatformBrowser }                                                                                                                                                                                  from "@angular/common";
+import { ChangeDetectionStrategy, Component, effect, inject, Injector, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild }                                                                                  from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                                                                       from "@angular/core/rxjs-interop";
+import { AppCheck, type AppCheckTokenResult, getLimitedUseToken }                                                                                                                                                       from "@angular/fire/app-check";
+import { RouterOutlet, type Routes }                                                                                                                                                                                    from "@angular/router";
+import { CONFIG_LIB, type ConfigLib }                                                                                                                                                                                   from "@bowstring/config";
+import { AuthenticationService, ConnectivityService, DateFormat, DatePipe, ENVIRONMENT, type Environment, ErrorsService, GIT_INFO_PARTIAL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES, SERVICE_WORKER_REGISTRATION } from "@bowstring/core";
+import { LOCALE_ID, LOCALE_IDS, type LocaleId, type LocaleIds }                                                                                                                                                         from "@bowstring/i18n";
+import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, CanvasDirective, FlexboxContainerDirective, type FooterComponent, type HeaderComponent, type InspectorComponent }         from "@bowstring/surface";
+import { type GitInfo }                                                                                                                                                                                                 from "git-describe";
+import { map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic }                                                                                                                                 from "rxjs";
+import { type RouteComponent }                                                                                                                                                                                          from "../../";
 
 
 @Component(
@@ -138,7 +132,7 @@ export class RootComponent {
       ),
     ),
   );
-  protected readonly configLib: typeof configLib                                                = inject<typeof configLib>(CONFIG);
+  protected readonly configLib: ConfigLib                                                       = inject<ConfigLib>(CONFIG_LIB);
   protected readonly brandShortTime$: Signal<string | undefined>                                = this.configLib.brand.timeZone ? isPlatformBrowser(this.platformId) ? toSignal<string>(
     new Observable<Date>(
       (dateObserver: Observer<Date>): TeardownLogic => {
@@ -221,19 +215,19 @@ export class RootComponent {
       ),
     ),
   );
-  protected readonly projectLocaleIds: Array<ProjectLocaleId>                                   = inject<Array<ProjectLocaleId>>(PROJECT_LOCALE_IDS);
-  protected readonly localeDisplayNames: Record<ProjectLocaleId, string>                        = Object.fromEntries<string>(
-    this.projectLocaleIds.map<[ ProjectLocaleId, string ]>(
-      (projectLocaleId: ProjectLocaleId): [ ProjectLocaleId, string ] => [
-        projectLocaleId,
+  protected readonly localeIds: LocaleIds                                                       = inject<LocaleIds>(LOCALE_IDS);
+  protected readonly localeDisplayNames: Record<LocaleId, string>                               = Object.fromEntries<string>(
+    this.localeIds.map<[ LocaleId, string ]>(
+      (localeId: LocaleId): [ LocaleId, string ] => [
+        localeId,
         new Intl.DisplayNames(
-          [ String(projectLocaleId) ],
+          [ String(localeId) ],
           { type: "language" },
-        ).of(String(projectLocaleId)) || String(projectLocaleId),
+        ).of(String(localeId)) || String(localeId),
       ],
     ),
-  ) as Record<ProjectLocaleId, string>;
-  protected readonly projectLocaleId: ProjectLocaleId                                           = inject<ProjectLocaleId>(LOCALE_ID);
+  ) as Record<LocaleId, string>;
+  protected readonly localeId: LocaleId                                                         = inject<LocaleId>(LOCALE_ID);
   protected readonly projectName: string                                                        = inject<string>(PROJECT_NAME);
   protected readonly projectRoutes: Routes                                                      = inject<Routes>(PROJECT_ROUTES);
   protected readonly packageVersion: string                                                     = inject<string>(PACKAGE_VERSION);
@@ -253,10 +247,10 @@ export class RootComponent {
     ),
   );
 
-  protected async changeLocale(projectLocaleId: ProjectLocaleId): Promise<void> {
+  protected async changeLocale(localeId: LocaleId): Promise<void> {
     if (isPlatformBrowser(this.platformId))
       return getLimitedUseToken(this.appCheck).then<void, never>(
-        ({ token }: AppCheckTokenResult): void => void (this.document.location.href = `https://us-central1-${ this.environment.apis.firebase.projectId }.cloudfunctions.net/redirect?appCheckToken=${ encodeURI(token) }&url=${ encodeURI(`${ this.document.location.origin }/${ String(projectLocaleId) }/${ this.document.location.pathname.split("/").slice(2).join("/") }`) }`),
+        ({ token }: AppCheckTokenResult): void => void (this.document.location.href = `https://us-central1-${ this.environment.apis.firebase.projectId }.cloudfunctions.net/redirect?appCheckToken=${ encodeURIComponent(token) }&url=${ encodeURIComponent(`${ this.document.location.origin }/${ String(localeId) }/${ this.document.location.pathname.split("/").slice(2).join("/") }${ this.document.location.search }`) }`),
         (error: Error): never => {
           console.error("Something went wrong.");
 

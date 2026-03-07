@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LockSquareStackFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.3635 4.24219L8.80833 4.24219C8.88339 3.17917 9.57273 2.55469 10.6992 2.55469L20.4727 2.55469C21.5991 2.55469 22.2885 3.17917 22.3635 4.24219Z",

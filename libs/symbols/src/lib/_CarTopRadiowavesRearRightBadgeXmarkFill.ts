@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CarTopRadiowavesRearRightBadgeXmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M36.3516 33.5859C36.1992 36.7852 34.9688 39.7383 32.6602 42.0352C30.3633 44.3438 27.4219 45.7383 24.2344 45.7383C23.5664 45.7383 23.1211 45.3047 23.1211 44.707C23.1211 44.1562 23.5547 43.7812 24.293 43.7344C26.8711 43.6172 29.3438 42.5742 31.2891 40.6523C33.2109 38.7188 34.2422 36.2461 34.3594 33.668C34.418 32.8477 34.7812 32.5195 35.4023 32.5195C35.918 32.5078 36.3984 32.8828 36.3516 33.5859Z",

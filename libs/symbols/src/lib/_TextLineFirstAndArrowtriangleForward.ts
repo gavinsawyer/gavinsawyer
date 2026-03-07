@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextLineFirstAndArrowtriangleForward: Symbol = {
+export default {
   paths:         [
     {
       definition: "M10.3711 28.9799L38.4258 28.9799C39.0117 28.9799 39.4688 28.5346 39.4688 27.9487C39.4688 27.351 39.0117 26.9057 38.4258 26.9057L10.3711 26.9057C9.78516 26.9057 9.33984 27.351 9.33984 27.9487C9.33984 28.5346 9.78516 28.9799 10.3711 28.9799Z",

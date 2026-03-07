@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _XmarkTriangleCircleSquareFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M17.9531 27.2695L25.0547 27.2695C26.8477 27.2695 27.75 26.3906 27.75 24.5273L27.75 17.5195C27.75 15.6562 26.8477 14.7773 25.0547 14.7773L17.9531 14.7773C16.1719 14.7773 15.2578 15.6562 15.2578 17.5195L15.2578 24.5273C15.2578 26.3906 16.1719 27.2695 17.9531 27.2695Z",

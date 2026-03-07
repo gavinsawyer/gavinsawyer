@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ChartBarXaxisDescending: Symbol = {
+export default {
   paths:         [
     {
       definition: "M32.4375 27.7148C33 27.7148 33.4805 27.2695 33.4805 26.6836C33.4805 26.0977 33 25.6523 32.4375 25.6523L1.04297 25.6523C0.480469 25.6523 0 26.0977 0 26.6836C0 27.2695 0.480469 27.7148 1.04297 27.7148Z",

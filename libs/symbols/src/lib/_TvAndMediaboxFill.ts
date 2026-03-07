@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TvAndMediaboxFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M19.3125 32.0039C19.3125 32.4315 19.3478 32.8302 19.4164 33.1992L12.6094 33.1992C12.0352 33.1992 11.5664 32.7305 11.5664 32.1562C11.5664 31.5703 12.0352 31.1016 12.6094 31.1016L19.3125 31.1016ZM38.707 7.33594L38.707 21.6797L24.1992 21.6797C21.3516 21.6797 19.3125 23.3438 19.3125 26.4492L19.3125 28.3945L5.17969 28.3945C2.76562 28.3945 1.51172 27.1992 1.51172 24.7383L1.51172 7.33594C1.51172 4.875 2.76562 3.67969 5.17969 3.67969L35.0391 3.67969C37.4531 3.67969 38.707 4.875 38.707 7.33594Z",

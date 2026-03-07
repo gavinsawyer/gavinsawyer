@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LightspectrumHorizontal: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.5273 15.2344C30.5273 12.9492 29.9883 10.793 29.0391 8.85938L29.0391 21.6211C29.9883 19.6758 30.5273 17.5078 30.5273 15.2344Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BoldItalicUnderline: Symbol = {
+export default {
   paths:         [
     {
       definition: "M38.4727 31.418L53.0625 31.418C53.5078 31.418 53.8594 31.0781 53.8594 30.6328C53.8594 30.1875 53.5078 29.8477 53.0625 29.8477L38.4727 29.8477C38.0391 29.8477 37.6875 30.1875 37.6875 30.6328C37.6875 31.0781 38.0391 31.418 38.4727 31.418Z",

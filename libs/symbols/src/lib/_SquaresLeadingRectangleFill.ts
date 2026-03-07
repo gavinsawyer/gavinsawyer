@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquaresLeadingRectangleFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M14.4375 24.9375L32.6133 24.9375C35.4609 24.9375 36.8906 23.5078 36.8906 20.707L36.8906 4.81641C36.8906 2.01562 35.4609 0.574219 32.6133 0.574219L14.4375 0.574219C11.6016 0.574219 10.1602 2.00391 10.1602 4.81641L10.1602 20.707C10.1602 23.5195 11.6016 24.9375 14.4375 24.9375Z",

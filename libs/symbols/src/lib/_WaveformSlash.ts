@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WaveformSlash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.9273 12.3325L30.9273 20.1958C30.9273 20.77 30.4702 21.2388 29.8843 21.2388C29.2866 21.2388 28.853 20.77 28.853 20.1958L28.853 12.3325C28.853 11.7583 29.2866 11.2778 29.8843 11.2778C30.4702 11.2778 30.9273 11.7583 30.9273 12.3325Z",

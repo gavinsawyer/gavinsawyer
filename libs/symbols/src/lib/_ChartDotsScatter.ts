@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ChartDotsScatter: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.9062 6.375C29.9062 7.59375 28.875 8.64844 27.6328 8.64844C26.3789 8.64844 25.3359 7.59375 25.3359 6.375C25.3359 5.16797 26.3789 4.08984 27.6328 4.08984C28.875 4.08984 29.9062 5.16797 29.9062 6.375Z",

@@ -4,7 +4,7 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { type Color } from "@bowstring/interfaces";
+import { type Color } from "@bowstring/core";
 
 
 /** Hexadecimal color #d4ff00 */

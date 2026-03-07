@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ApplepencilSqueeze: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.436963 23.3786C0.226026 23.7653 0.647901 24.1169 0.976026 23.9411L3.16743 22.7575L1.65571 21.2458ZM2.30024 20.0973L4.33931 22.1364L5.17134 21.6794L23.9331 3.01138C24.601 2.34342 24.601 1.26529 23.9331 0.609041C23.2651-0.0589282 22.1752-0.0589282 21.5307 0.597322L2.76899 19.277Z",

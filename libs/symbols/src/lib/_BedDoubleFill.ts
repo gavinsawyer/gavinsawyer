@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BedDoubleFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 23.6367C0 24.3867 0.457031 24.8555 1.20703 24.8555L2.05078 24.8555C2.78906 24.8555 3.24609 24.3867 3.24609 23.6367L3.24609 21.3281C3.41016 21.375 3.82031 21.3984 4.13672 21.3984L33.6914 21.3984C34.0078 21.3984 34.418 21.375 34.582 21.3281L34.582 23.6367C34.582 24.3867 35.0508 24.8555 35.7891 24.8555L36.6328 24.8555C37.3711 24.8555 37.8281 24.3867 37.8281 23.6367L37.8281 14.4141C37.8281 11.7773 36.3398 10.2891 33.7031 10.2891L4.125 10.2891C1.48828 10.2891 0 11.7773 0 14.4141Z",

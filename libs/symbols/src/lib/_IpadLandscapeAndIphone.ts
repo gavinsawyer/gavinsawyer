@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _IpadLandscapeAndIphone: Symbol = {
+export default {
   paths:         [
     {
       definition: "M37.6758 6.52734L37.6758 6.9375L32.7891 6.9375C29.9297 6.9375 28.0664 8.78906 28.0664 11.5898L28.0664 26.6836C28.0664 26.9222 28.0799 27.1537 28.1113 27.375L8.84766 27.375C7.21875 27.375 6.32812 26.5078 6.32812 24.832L6.32812 6.52734C6.32812 4.85156 7.21875 3.98438 8.84766 3.98438L35.1445 3.98438C36.75 3.98438 37.6758 4.85156 37.6758 6.52734Z",

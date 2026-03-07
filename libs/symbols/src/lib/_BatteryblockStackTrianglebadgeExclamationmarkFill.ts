@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BatteryblockStackTrianglebadgeExclamationmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M47.8945 20.3086L47.8945 34.7578C47.8945 36.0703 47.0742 36.8203 45.6797 36.8203L15.6445 36.8203C14.4227 36.8203 13.7033 36.1978 13.657 35.1094L45.3164 35.1094C45.8672 35.1094 46.1836 34.8164 46.1836 34.2422L46.1836 18.9023L47.2962 18.9023C47.6836 19.2148 47.8945 19.6947 47.8945 20.3086Z",

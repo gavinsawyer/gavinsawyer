@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleAndPencilAndEllipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M31.2114 12.7182L8.57081 12.7182C5.91065 12.7182 4.42237 14.2182 4.42237 16.8784L4.42237 25.0815C4.42237 27.7534 5.91065 29.2534 8.57081 29.2534L33.9536 29.2534C36.6255 29.2534 38.1138 27.7534 38.1138 25.0815L38.1138 16.8784C38.1138 16.7679 38.1112 16.6594 38.1022 16.556L39.9396 14.7239C40.1129 15.3688 40.1997 16.0891 40.1997 16.8784L40.1997 25.0815C40.1997 29.0893 37.9614 31.3276 33.9536 31.3276L8.58252 31.3276C4.57471 31.3276 2.33643 29.0893 2.33643 25.0815L2.33643 16.8784C2.33643 12.8706 4.57471 10.644 8.58252 10.644L33.2856 10.644Z",

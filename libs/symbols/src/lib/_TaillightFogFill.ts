@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TaillightFogFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M24.9141 13.1768C24.9375 10.1768 24.6914 7.42294 23.9062 4.64559C23.0156 1.64559 21.2227 0.53231 17.7188 0.53231L16.9336 0.53231C8.10938 0.53231 0 6.36825 0 13.1768C0 19.9854 8.10938 25.7979 16.9336 25.7979L17.7188 25.7979C21.2344 25.7979 23.0273 24.6964 23.9062 21.6964C24.6914 18.919 24.9375 16.1651 24.9141 13.1768Z",

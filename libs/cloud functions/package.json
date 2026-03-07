@@ -1,5 +1,6 @@
 {
-  "name":         "@bowstring/cloud-functions",
+  "name":         "@gavinsawyer/cloud-functions",
+  "homepage":     "https://gavinsawyer.us",
   "author":       {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",
@@ -7,7 +8,7 @@
   },
   "repository":   {
     "type":      "git",
-    "url":       "github:gavinsawyer/bowstring",
+    "url":       "github:gavinsawyer/gavinsawyer",
     "directory": "libs/cloud functions"
   },
   "private":      true,

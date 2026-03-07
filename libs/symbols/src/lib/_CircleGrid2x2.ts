@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CircleGrid2x2: Symbol = {
+export default {
   paths:         [
     {
       definition: "M22.1719 28.7227C25.8047 28.7227 28.7578 25.7812 28.7578 22.1367C28.7578 18.5039 25.8047 15.5508 22.1719 15.5508C18.5273 15.5508 15.5859 18.5039 15.5859 22.1367C15.5859 25.7812 18.5273 28.7227 22.1719 28.7227ZM22.1719 26.707C19.6406 26.707 17.6016 24.668 17.6016 22.1367C17.6016 19.6055 19.6406 17.5664 22.1719 17.5664C24.6914 17.5664 26.7305 19.6055 26.7305 22.1367C26.7305 24.668 24.6914 26.707 22.1719 26.707Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _EraserSlashFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M17.7349 28.1675L16.1528 29.7495C14.1489 31.7534 11.688 31.6831 9.5669 29.5855L3.96534 23.9722C1.85596 21.8628 1.78565 19.3901 3.78956 17.3862L5.38331 15.8159ZM22.1235 23.7788L19.0591 26.8433L6.70753 14.4917L9.77044 11.4257ZM22.7505 2.84327L30.6958 10.8003C31.9966 12.0894 32.02 13.894 30.7427 15.1597L25.8459 20.0564L13.4936 7.69878L18.3794 2.80811C19.6567 1.53077 21.4614 1.54249 22.7505 2.84327Z",

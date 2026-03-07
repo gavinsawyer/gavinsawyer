@@ -2,12 +2,11 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { type Timestamp as AdminTimestamp } from "firebase-admin/firestore";
-import { type Timestamp }                   from "firebase/firestore";
+import { type Timestamp } from "@bowstring/core";
 
 
 export interface MessageDocument {
-  "created": AdminTimestamp | Timestamp;
+  "created": Timestamp;
   "email"?: string;
   "message": string;
   "name": string;

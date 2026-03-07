@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PlaySlashFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M17.4956 21.2148L8.32324 26.606C7.91309 26.8403 7.47949 26.9692 7.06934 26.9692C6.12012 26.9692 5.31152 26.3247 5.31152 24.9419L5.31152 9.03716ZM8.32324 2.28956L25.9482 12.6489C27.0381 13.2817 27.4365 13.7271 27.4365 14.4536C27.4365 15.1685 27.0381 15.6138 25.9482 16.2466L22.1885 18.4564L5.99816 2.2832C6.29676 2.04963 6.67064 1.93799 7.06934 1.93799C7.47949 1.93799 7.91309 2.05518 8.32324 2.28956Z",

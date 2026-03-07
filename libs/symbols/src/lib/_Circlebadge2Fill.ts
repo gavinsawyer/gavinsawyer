@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Circlebadge2Fill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M33.9375 13.4531C33.9375 19.8398 28.7461 25.0312 22.3594 25.0312C21.7318 25.0312 21.1157 24.9811 20.5195 24.8708C24.3536 22.512 26.9062 18.2775 26.9062 13.4531C26.9062 8.62713 24.3518 4.38642 20.5156 2.02462C21.113 1.91374 21.7304 1.86328 22.3594 1.86328C28.7461 1.86328 33.9375 7.06641 33.9375 13.4531Z",

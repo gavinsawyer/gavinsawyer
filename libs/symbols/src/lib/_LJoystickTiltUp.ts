@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _LJoystickTiltUp: Symbol = {
+export default {
   paths:         [
     {
       definition: "M33.8672 22.0122C33.8672 31.3521 26.2734 38.9458 16.9219 38.9458C7.57031 38.9458 0 31.3521 0 22.0122C0 14.5867 4.78506 8.25746 11.4531 5.98985C11.3127 6.72439 11.4625 7.458 11.8403 8.04862C6.12783 10.107 2.07422 15.5753 2.07422 22.0122C2.07422 30.2271 8.69531 36.8716 16.9219 36.8716C25.1484 36.8716 31.793 30.2388 31.793 22.0122C31.793 15.5626 27.7205 10.097 21.9969 8.04388C22.3732 7.45406 22.523 6.72109 22.3816 5.98441C29.0617 8.24623 33.8672 14.573 33.8672 22.0122Z",

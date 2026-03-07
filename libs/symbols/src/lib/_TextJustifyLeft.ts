@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _TextJustifyLeft: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.04297 25.8164L16.7578 25.8164C17.3438 25.8164 17.8125 25.3711 17.8125 24.7852C17.8125 24.1875 17.3438 23.7422 16.7578 23.7422L1.04297 23.7422C0.445312 23.7422 0 24.1875 0 24.7852C0 25.3711 0.445312 25.8164 1.04297 25.8164Z",

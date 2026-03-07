@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Opticid: Symbol = {
+export default {
   paths:         [
     {
       definition: "M18.3633 25.7578C28.2422 25.7578 36.7383 18.7617 36.7383 12.8789C36.7383 6.99609 28.2422 0 18.3633 0C8.49609 0 0 6.99609 0 12.8789C0 18.7617 8.49609 25.7578 18.3633 25.7578ZM18.3633 23.8477C8.94141 23.8477 1.92188 17.1914 1.92188 12.8789C1.92188 8.55469 8.94141 1.91016 18.3633 1.91016C27.7969 1.91016 34.8398 8.55469 34.8398 12.8789C34.8398 17.1914 27.7969 23.8477 18.3633 23.8477Z",

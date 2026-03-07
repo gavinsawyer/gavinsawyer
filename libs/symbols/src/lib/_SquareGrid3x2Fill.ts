@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquareGrid3x2Fill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M32.8008 27.5742L39.9141 27.5742C41.6953 27.5742 42.6094 26.707 42.6094 24.8438L42.6094 17.8242C42.6094 15.9609 41.6953 15.082 39.9141 15.082L32.8008 15.082C31.0195 15.082 30.1172 15.9609 30.1172 17.8242L30.1172 24.8438C30.1172 26.707 31.0195 27.5742 32.8008 27.5742Z",

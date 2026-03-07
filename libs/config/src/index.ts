@@ -2,5 +2,14 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-export * from "./lib/brand";
-export * from "./lib/domain";
+import { brand }  from "./lib/brand";
+import { domain } from "./lib/domain";
+
+
+export * from "./lib/injection tokens";
+export * from "./lib/types";
+
+export default {
+  brand,
+  domain,
+};

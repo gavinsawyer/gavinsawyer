@@ -2,17 +2,13 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { isPlatformServer }                                                     from "@angular/common";
-import { ChangeDetectionStrategy, Component, inject, type OnInit, PLATFORM_ID } from "@angular/core";
-import { HeaderComponent, HeadingGroupComponent }                               from "@bowstring/components";
-import type * as configLib                                                      from "@bowstring/config";
-import { RouteHeaderDirective }                                                 from "@bowstring/directives";
-import { CONFIG, ENVIRONMENT, RESPONSE }                                        from "@bowstring/injection-tokens";
-import { type Environment }                                                     from "@bowstring/interfaces";
-import { FindRouteByPathPipe }                                                  from "@bowstring/pipes";
-import { PathService }                                                          from "@bowstring/services";
-import { type Response }                                                        from "express";
-import { RouteComponent }                                                       from "../../../../";
+import { isPlatformServer }                                                          from "@angular/common";
+import { ChangeDetectionStrategy, Component, inject, type OnInit, PLATFORM_ID }      from "@angular/core";
+import { CONFIG_LIB, type ConfigLib }                                                from "@bowstring/config";
+import { ENVIRONMENT, type Environment, FindRouteByPathPipe, PathService, RESPONSE } from "@bowstring/core";
+import { HeaderComponent, HeadingGroupComponent, RouteHeaderDirective }              from "@bowstring/surface";
+import { type Response }                                                             from "express";
+import { RouteComponent }                                                            from "../../../../";
 
 
 @Component(
@@ -40,9 +36,9 @@ export class OtherwiseRouteComponent
     { optional: true },
   );
 
-  protected readonly configLib: typeof configLib = inject<typeof configLib>(CONFIG);
-  protected readonly environment: Environment    = inject<Environment>(ENVIRONMENT);
-  protected readonly pathService: PathService    = inject<PathService>(PathService);
+  protected readonly configLib: ConfigLib     = inject<ConfigLib>(CONFIG_LIB);
+  protected readonly environment: Environment = inject<Environment>(ENVIRONMENT);
+  protected readonly pathService: PathService = inject<PathService>(PathService);
 
   public override ngOnInit(): void {
     super.ngOnInit();

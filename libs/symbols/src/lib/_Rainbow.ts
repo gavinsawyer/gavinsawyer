@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Rainbow: Symbol = {
+export default {
   paths:         [
     {
       definition: "M21.9961 0C9.79688 0 0 9.82031 0 22.0195C0 22.5 0.386719 22.875 0.84375 22.875C1.33594 22.875 1.72266 22.5 1.72266 22.0195C1.72266 10.8164 10.793 1.72266 21.9961 1.72266C33.2109 1.72266 42.293 10.8164 42.293 22.0195C42.293 22.5 42.668 22.875 43.1484 22.875C43.6289 22.875 44.0156 22.5 44.0156 22.0195C44.0156 9.82031 34.1953 0 21.9961 0Z",

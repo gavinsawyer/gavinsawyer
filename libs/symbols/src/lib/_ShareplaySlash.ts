@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ShareplaySlash: Symbol = {
+export default {
   paths:         [
     {
       definition: "M44.4375 29.2515C44.4375 29.8375 43.957 30.2945 43.3828 30.2945C42.8086 30.2945 42.3516 29.8375 42.3516 29.2515C42.3516 17.2398 33.3047 7.44293 22.207 7.44293C19.6311 7.44293 17.1664 7.97074 14.9086 8.95095L13.3229 7.36325C16.0413 6.06216 19.0488 5.34527 22.207 5.34527C34.4531 5.34527 44.4375 16.1031 44.4375 29.2515ZM10.2494 11.7524C5.28748 15.7127 2.07422 22.0883 2.07422 29.2515C2.07422 29.8375 1.61719 30.2945 1.04297 30.2945C0.46875 30.2945 0 29.8375 0 29.2515C0 21.5295 3.4397 14.6321 8.77231 10.2747Z",

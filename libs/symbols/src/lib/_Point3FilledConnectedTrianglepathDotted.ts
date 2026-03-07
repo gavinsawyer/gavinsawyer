@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Point3FilledConnectedTrianglepathDotted: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.69922 9.41016C7.30078 9.41016 9.41016 7.30078 9.41016 4.6875C9.41016 2.09766 7.30078 0 4.69922 0C2.10938 0 0 2.09766 0 4.6875C0 7.30078 2.10938 9.41016 4.69922 9.41016ZM27.2695 9.41016C29.8711 9.41016 31.9805 7.30078 31.9805 4.6875C31.9805 2.09766 29.8711 0 27.2695 0C24.6797 0 22.5703 2.09766 22.5703 4.6875C22.5703 7.30078 24.6797 9.41016 27.2695 9.41016ZM15.9961 26.0156C18.5977 26.0156 20.707 23.918 20.707 21.3047C20.707 18.7148 18.5977 16.6055 15.9961 16.6055C13.3945 16.6055 11.2852 18.7148 11.2852 21.3047C11.2852 23.918 13.3945 26.0156 15.9961 26.0156Z",

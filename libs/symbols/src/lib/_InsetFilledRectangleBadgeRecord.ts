@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _InsetFilledRectangleBadgeRecord: Symbol = {
+export default {
   paths:         [
     {
       definition: "M43.5703 9.31641L43.5703 18.3062C43.232 18.2654 42.8876 18.2461 42.5391 18.2461C42.1824 18.2461 41.83 18.2663 41.4844 18.3099L41.4844 9.42188C41.4844 7.74609 40.5703 6.86719 38.9648 6.86719L12.668 6.86719C11.0273 6.86719 10.1367 7.74609 10.1367 9.42188L10.1367 27.7148C10.1367 29.4023 11.0273 30.2695 12.668 30.2695L33.4622 30.2695C33.6629 31.0041 33.9583 31.6996 34.3339 32.3438L12.6211 32.3438C9.59766 32.3438 8.0625 30.832 8.0625 27.832L8.0625 9.31641C8.0625 6.31641 9.59766 4.79297 12.6211 4.79297L39 4.79297C42.0352 4.79297 43.5703 6.32812 43.5703 9.31641Z",

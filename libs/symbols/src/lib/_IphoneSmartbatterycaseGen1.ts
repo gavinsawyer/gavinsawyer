@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _IphoneSmartbatterycaseGen1: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.7109 4.17188L16.7109 25.3594C16.7109 26.7305 15.9609 27.3047 14.543 27.3047L11.7656 27.3047L11.7656 26.8594C11.7656 26.2734 11.3789 25.8633 10.793 25.8633L8.01562 25.8633C7.42969 25.8633 7.04297 26.2734 7.04297 26.8594L7.04297 27.3047L4.25391 27.3047C2.82422 27.3047 2.07422 26.5898 2.07422 25.207L2.07422 4.17188C2.07422 2.80078 2.82422 2.07422 4.25391 2.07422L14.543 2.07422C15.9609 2.07422 16.7109 2.80078 16.7109 4.17188Z",

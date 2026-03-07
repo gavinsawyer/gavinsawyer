@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CircleGrid3x3: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.6719 29.6602C29.1094 29.6602 31.0781 27.6914 31.0781 25.2539C31.0781 22.8281 29.1094 20.8477 26.6719 20.8477C24.2461 20.8477 22.2656 22.8281 22.2656 25.2539C22.2656 27.6914 24.2461 29.6602 26.6719 29.6602ZM26.6719 27.7617C25.2891 27.7617 24.1641 26.6367 24.1641 25.2539C24.1641 23.8711 25.2891 22.7461 26.6719 22.7461C28.0547 22.7461 29.1797 23.8711 29.1797 25.2539C29.1797 26.6367 28.0547 27.7617 26.6719 27.7617Z",

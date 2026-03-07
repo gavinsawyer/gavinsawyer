@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Switch2: Symbol = {
+export default {
   paths:         [
     {
       definition: "M6.30469 28.2656L22.1367 28.2656C25.6641 28.2656 28.4414 25.8047 28.4414 22.207C28.4414 18.6211 25.6641 16.1602 22.1367 16.1602L6.30469 16.1602C2.77734 16.1602 0 18.6211 0 22.207C0 25.8047 2.77734 28.2656 6.30469 28.2656ZM17.6719 26.2617C15.3867 26.2617 13.5117 24.6211 13.5117 22.1953C13.5117 19.793 15.3867 18.1523 17.6719 18.1523L22.3594 18.1523C24.6562 18.1523 26.5195 19.793 26.5195 22.207C26.5195 24.6211 24.6562 26.2617 22.3594 26.2617Z",

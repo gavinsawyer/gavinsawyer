@@ -4,31 +4,32 @@
   "projectType": "library",
   "sourceRoot":  "libs/config/src",
   "targets":     {
-    "build":   {
-      "dependsOn": [ "esbuild" ],
-      "executor":  "nx:noop"
-    },
-    "esbuild": {
-      "dependsOn": [ "eslint" ],
+    "build": {
+      "dependsOn": [ "lint" ],
       "executor":  "@nx/esbuild:esbuild",
       "options":   {
-        "main":        "libs/config/src/lib/main.ts",
-        "metafile":    true,
-        "outputPath":  "dist/libs/config",
-        "packages":    "external",
-        "splitting":   true,
-        "treeShaking": true,
-        "tsConfig":    "libs/config/tsconfig.lib.json"
+        "declaration":         true,
+        "esbuildOptions":      {
+          "banner": {
+            "css": "/*!\n / Copyright © 2026 Gavin William Sawyer. All rights reserved.\n /\n",
+            "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n */\n"
+          }
+        },
+        "external":            [ "@bowstring/*" ],
+        "generatePackageJson": true,
+        "main":                "libs/config/src/index.ts",
+        "metafile":            true,
+        "minify":              true,
+        "outputPath":          "dist/libs/config",
+        "splitting":           true,
+        "treeShaking":         true,
+        "tsConfig":            "libs/config/tsconfig.lib.json"
       },
-      "outputs":   [ "{options.outputPath}" ]
+      "outputs":   [ "{workspaceRoot}/dist/libs/config" ]
     },
-    "eslint":  {
+    "lint":  {
       "executor": "@nx/eslint:lint",
       "options":  { "lintFilePatterns": [ "libs/config/src/**/*.ts" ] }
-    },
-    "lint":    {
-      "dependsOn": [ "eslint" ],
-      "executor":  "nx:noop"
     }
   }
 }

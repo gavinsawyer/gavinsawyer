@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _FigureSeatedSideRightWindshieldFrontAndHeatWavesAirDistributionMiddleAndLower: Symbol = {
+export default {
   paths:         [
     {
       definition: "M7.97982 8.08594C5.75326 8.08594 3.96029 6.23438 3.96029 4.07812C3.96029 1.82812 5.75326 0 7.97982 0C10.2298 0 12.0228 1.82812 12.0228 4.07812C12.0228 6.31641 10.2298 8.08594 7.97982 8.08594ZM31.9681 29.3672C31.2064 30.1758 29.8822 30.1055 28.9329 29.1328L22.5228 22.5117C22.3119 22.2891 22.1595 22.2305 21.8314 22.3594L16.7454 24.293C13.5462 25.5117 10.5462 24.3867 9.10482 21.75L5.95248 16.0312C4.69857 13.7344 5.10873 11.3906 7.2767 10.2422C9.37436 9.08203 11.554 9.94922 12.8314 12.2812L17.0033 19.8984L20.554 18.6094C22.3119 17.9648 23.7767 18.1641 25.1829 19.6172L31.8392 26.5078C32.765 27.457 32.6712 28.6523 31.9681 29.3672Z",

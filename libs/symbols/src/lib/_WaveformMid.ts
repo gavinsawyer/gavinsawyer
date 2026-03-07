@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WaveformMid: Symbol = {
+export default {
   paths:         [
     {
       definition: "M25.9805 14.6602C26.5664 14.6602 27.0117 14.1914 27.0117 13.6172L27.0117 10.418C27.0117 9.84375 26.5664 9.36328 25.9805 9.36328C25.3828 9.36328 24.9375 9.84375 24.9375 10.418L24.9375 13.6172C24.9375 14.1914 25.3828 14.6602 25.9805 14.6602Z",

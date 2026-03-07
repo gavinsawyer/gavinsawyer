@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Cellularbars: Symbol = {
+export default {
   paths:         [
     {
       definition: "M32.3086 25.7812L35.6953 25.7812C36.5859 25.7812 37.1719 25.1602 37.1719 24.2578L37.1719 1.52344C37.1719 0.609375 36.5859 0 35.6953 0L32.3086 0C31.418 0 30.8203 0.609375 30.8203 1.52344L30.8203 24.2578C30.8203 25.1602 31.418 25.7812 32.3086 25.7812Z",

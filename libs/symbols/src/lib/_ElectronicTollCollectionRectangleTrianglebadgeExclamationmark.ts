@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ElectronicTollCollectionRectangleTrianglebadgeExclamationmark: Symbol = {
+export default {
   paths:         [
     {
       definition: "M54.2227 9.83203L54.2227 17.4429C53.8911 17.3462 53.5475 17.2969 53.2031 17.2969C52.8444 17.2969 52.489 17.3476 52.1484 17.4474L52.1484 9.9375C52.1484 8.26172 51.2344 7.39453 49.6289 7.39453L13.3594 7.39453C11.7188 7.39453 10.8281 8.26172 10.8281 9.9375L10.8281 26.2266C10.8281 27.9141 11.7188 28.7812 13.3594 28.7812L44.5506 28.7812L43.5586 30.5508C43.5033 30.6491 43.4519 30.7506 43.4064 30.8555L13.3125 30.8555C10.2891 30.8555 8.75391 29.3438 8.75391 26.3438L8.75391 9.83203C8.75391 6.83203 10.2891 5.30859 13.3125 5.30859L49.6641 5.30859C52.6992 5.30859 54.2227 6.84375 54.2227 9.83203Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ApplepencilHover: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.05469 28.3242C6.28125 28.3242 8.08594 27.6094 8.08594 26.7305C8.08594 25.875 6.28125 25.1602 4.05469 25.1602C1.80469 25.1602 0 25.875 0 26.7305C0 27.6094 1.80469 28.3242 4.05469 28.3242Z",

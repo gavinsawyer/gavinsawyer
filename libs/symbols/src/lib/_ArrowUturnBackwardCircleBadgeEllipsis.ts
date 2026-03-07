@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ArrowUturnBackwardCircleBadgeEllipsis: Symbol = {
+export default {
   paths:         [
     {
       definition: "M37.6874 15.9176C37.1035 15.7986 36.4996 15.7383 35.8828 15.7383C35.7425 15.7383 35.6029 15.7414 35.4669 15.7596C34.7097 9.25956 29.1936 4.23047 22.4883 4.23047C15.2578 4.23047 9.41016 10.0781 9.41016 17.3086C9.41016 24.5391 15.2578 30.3867 22.4883 30.3867C24.2444 30.3867 25.919 30.0418 27.4452 29.4101C27.7723 30.077 28.1838 30.6951 28.6624 31.2547C26.7779 32.1012 24.6869 32.5664 22.4883 32.5664C14.0625 32.5664 7.23047 25.7344 7.23047 17.3086C7.23047 8.88281 14.0625 2.03906 22.4883 2.03906C30.4445 2.03906 36.9901 8.14127 37.6874 15.9176Z",

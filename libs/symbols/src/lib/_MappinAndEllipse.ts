@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MappinAndEllipse: Symbol = {
+export default {
   paths:         [
     {
       definition: "M28.2188 28.5469C28.2188 32.3086 22.3477 34.9336 14.1211 34.9336C5.88281 34.9336 0 32.3086 0 28.5469C0 25.4007 4.14078 23.0464 10.3477 22.3766L10.3477 24.2578C10.3477 24.3191 10.3479 24.38 10.3514 24.4364C5.77915 24.9945 2.58984 26.5704 2.58984 28.5469C2.58984 31.043 7.62891 32.8945 14.1094 32.8945C20.5664 32.8945 25.6289 31.0195 25.6289 28.5469C25.6289 26.587 22.418 24.9987 17.844 24.4368C17.8474 24.3803 17.8477 24.3193 17.8477 24.2578L17.8477 22.3723C24.0679 23.036 28.2188 25.3938 28.2188 28.5469Z",

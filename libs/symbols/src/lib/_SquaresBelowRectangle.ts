@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquaresBelowRectangle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.44141 18.9375L29.9531 18.9375C32.9297 18.9375 34.4062 17.4844 34.4062 14.543L34.4062 4.38281C34.4062 1.44141 32.9297 0 29.9531 0L4.44141 0C1.47656 0 0 1.44141 0 4.38281L0 14.543C0 17.4844 1.47656 18.9375 4.44141 18.9375ZM4.46484 16.875C2.88281 16.875 2.07422 16.0898 2.07422 14.4492L2.07422 4.47656C2.07422 2.84766 2.88281 2.0625 4.46484 2.0625L29.9297 2.0625C31.5234 2.0625 32.3203 2.84766 32.3203 4.47656L32.3203 14.4492C32.3203 16.0898 31.5234 16.875 29.9297 16.875Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _DoorGarageDoubleBayOpen: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.04297 31.7227C1.61719 31.7227 2.08594 31.2539 2.08594 30.6797L2.08594 2.88281C2.08594 2.40234 2.39062 2.08594 2.84766 2.08594L40.6406 2.08594C41.0977 2.08594 41.4023 2.40234 41.4023 2.88281L41.4023 30.6797C41.4023 31.2539 41.8594 31.7227 42.4453 31.7227C43.0195 31.7227 43.4883 31.2539 43.4883 30.6797L43.4883 2.74219C43.4883 1.10156 42.3633 0 40.6758 0L2.8125 0C1.125 0 0 1.10156 0 2.74219L0 30.6797C0 31.2539 0.457031 31.7227 1.04297 31.7227Z",

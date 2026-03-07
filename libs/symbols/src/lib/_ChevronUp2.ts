@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ChevronUp2: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.351562 25.9453C0.140625 26.1797 0 26.4609 0 26.7891C0 27.4453 0.503906 27.9492 1.17188 27.9492C1.48828 27.9492 1.78125 27.832 1.99219 27.6211L13.5234 15.6445L12.082 15.6445L23.5898 27.6211C23.8125 27.832 24.1172 27.9492 24.4219 27.9492C25.0898 27.9492 25.5938 27.4453 25.5938 26.7891C25.5938 26.4609 25.4648 26.1797 25.2422 25.957L13.6875 13.9219C13.4531 13.6641 13.1367 13.5117 12.7969 13.5117C12.457 13.5117 12.1641 13.6641 11.9062 13.9102Z",

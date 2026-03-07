@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CapsuleOnRectangle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30 4.59375L30 7.2883C29.3482 7.08656 28.6561 6.94193 27.9258 6.85998L27.9258 4.71094C27.9258 3.02344 27 2.15625 25.3945 2.15625L4.60547 2.15625C2.96484 2.15625 2.07422 3.02344 2.07422 4.71094L2.07422 18.8203C2.07422 20.5078 3 21.375 4.60547 21.375L6.74085 21.375C6.88114 22.1096 7.09004 22.8008 7.35786 23.4492L4.55859 23.4492C1.52344 23.4492 0 21.9375 0 18.9375L0 4.59375C0 1.60547 1.52344 0.0820312 4.55859 0.0820312L25.4414 0.0820312C28.4648 0.0820312 30 1.60547 30 4.59375Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _AppConnectedToAppBelowFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M5.76562 10.1953C5.76562 12.0586 7.07812 13.418 9.59766 14.1328L17.3555 16.3711C20.8242 17.3555 22.6406 19.3945 22.6406 22.3008L22.6406 22.875L20.5547 22.875L20.5547 22.3008C20.5547 20.4258 19.2539 19.0781 16.7227 18.3516L8.97656 16.1133C5.49609 15.1289 3.69141 13.0898 3.69141 10.1953L3.69141 9.57422L5.76562 9.57422Z",

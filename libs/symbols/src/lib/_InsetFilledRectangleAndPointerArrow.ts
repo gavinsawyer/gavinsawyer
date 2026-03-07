@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _InsetFilledRectangleAndPointerArrow: Symbol = {
+export default {
   paths:         [
     {
       definition: "M39.4662 10.609L39.4662 24.5313L37.3803 22.3511L37.3803 10.7145C37.3803 9.03869 36.4662 8.15978 34.8607 8.15978L8.56385 8.15978C6.92323 8.15978 6.0326 9.03869 6.0326 10.7145L6.0326 29.0074C6.0326 30.6949 6.92323 31.5621 8.56385 31.5621L30.6373 31.5621L30.6303 33.3785C30.6288 33.4673 30.6317 33.5543 30.6449 33.6363L8.51698 33.6363C5.49354 33.6363 3.95839 32.1246 3.95839 29.1246L3.95839 10.609C3.95839 7.609 5.49354 6.08556 8.51698 6.08556L34.8959 6.08556C37.931 6.08556 39.4662 7.62072 39.4662 10.609Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PersonSpatialaudioStereo3dFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M16.899 20.3063C19.8756 20.9508 22.7584 18.7711 23.0513 15.1852C23.3795 11.5993 20.9185 8.48208 17.9654 7.86098C15.0123 7.22817 12.1412 9.30239 11.8248 12.8063C11.5201 16.3805 13.9459 19.6852 16.899 20.3063ZM7.50055 32.1891L26.5201 36.2321C28.0435 36.5719 28.981 36.0563 29.0748 34.9196C29.4029 31.2165 25.2662 25.0993 17.9068 23.529C10.5591 21.9821 5.56696 26.1188 5.25055 29.7868C5.14508 30.9469 6.00055 31.8493 7.50055 32.1891Z",

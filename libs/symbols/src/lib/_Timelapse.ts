@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Timelapse: Symbol = {
+export default {
   paths:         [
     {
       definition: "M12.4922 0.46875C12.0352 0.5625 11.8125 0.960938 11.9297 1.45312L12.4336 3.39844C12.5508 3.82031 12.9609 4.03125 13.4531 3.90234C13.9336 3.76172 14.1094 3.38672 13.9805 2.94141L13.4531 1.07812C13.3242 0.585938 12.9258 0.386719 12.4922 0.46875Z",

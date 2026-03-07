@@ -4,31 +4,32 @@
   "projectType": "library",
   "sourceRoot":  "libs/symbols/src",
   "targets":     {
-    "build":   {
-      "dependsOn": [ "esbuild" ],
-      "executor":  "nx:noop"
-    },
-    "esbuild": {
-      "dependsOn": [ "eslint" ],
+    "build": {
+      "dependsOn": [ "lint" ],
       "executor":  "@nx/esbuild:esbuild",
       "options":   {
-        "main":        "libs/symbols/src/lib/main.ts",
-        "metafile":    true,
-        "outputPath":  "dist/libs/symbols",
-        "packages":    "external",
-        "splitting":   true,
-        "treeShaking": true,
-        "tsConfig":    "libs/symbols/tsconfig.lib.json"
+        "declaration":         true,
+        "esbuildOptions":      {
+          "banner": {
+            "css": "/*!\n / Copyright © 2026 Gavin William Sawyer. All rights reserved.\n /\n / Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).\n /\n",
+            "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n * \n * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).\n */\n"
+          }
+        },
+        "external":            [ "@bowstring/*" ],
+        "generatePackageJson": true,
+        "main":                "libs/symbols/src/index.ts",
+        "metafile":            true,
+        "minify":              true,
+        "outputPath":          "dist/libs/symbols",
+        "splitting":           true,
+        "treeShaking":         true,
+        "tsConfig":            "libs/symbols/tsconfig.lib.json"
       },
-      "outputs":   [ "{options.outputPath}" ]
+      "outputs":   [ "{workspaceRoot}/dist/libs/symbols" ]
     },
-    "eslint":  {
+    "lint":  {
       "executor": "@nx/eslint:lint",
       "options":  { "lintFilePatterns": [ "libs/symbols/src/**/*.ts" ] }
-    },
-    "lint":    {
-      "dependsOn": [ "eslint" ],
-      "executor":  "nx:noop"
     }
   }
 }

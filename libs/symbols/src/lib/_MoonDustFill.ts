@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MoonDustFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M14.7656 3.50391C14.3203 4.59375 14.0273 5.97656 14.0273 7.32422C14.0273 14.0859 17.8711 17.9414 24.6445 17.9414C26.0391 17.9414 27.4453 17.6133 28.2422 17.332C28.8984 17.1211 29.332 17.5781 28.9805 18.2578C28.5836 19.1353 28.0678 19.9649 27.4449 20.7188L9.45094 20.7188C7.79974 18.7117 6.80859 16.1407 6.80859 13.3359C6.80859 8.25 10.1016 4.24219 13.8633 2.64844C14.543 2.34375 15.0586 2.76562 14.7656 3.50391Z",

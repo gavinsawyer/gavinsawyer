@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _IpodTouchLandscape: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.5547 16.7109L4.92188 16.7109L4.92188 2.07422L26.5547 2.07422ZM30.0234 9.375C30.0234 10.0781 29.4609 10.6406 28.7695 10.6406C28.0781 10.6406 27.5273 10.0781 27.5273 9.375C27.5273 8.69531 28.0781 8.13281 28.7695 8.13281C29.4609 8.13281 30.0234 8.69531 30.0234 9.375ZM3.30469 9.375C3.30469 9.85547 2.91797 10.2422 2.44922 10.2422C1.98047 10.2422 1.60547 9.85547 1.60547 9.375C1.60547 8.90625 1.98047 8.53125 2.44922 8.53125C2.91797 8.53125 3.30469 8.90625 3.30469 9.375Z",

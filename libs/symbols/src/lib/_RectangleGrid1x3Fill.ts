@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleGrid1x3Fill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M2.48438 28.8398L30.4922 28.8398C32.0625 28.8398 32.9766 27.9492 32.9766 26.3086L32.9766 22.9102C32.9766 21.2695 32.0625 20.3789 30.4922 20.3789L2.48438 20.3789C0.914062 20.3789 0 21.2695 0 22.9102L0 26.3086C0 27.9492 0.914062 28.8398 2.48438 28.8398Z",

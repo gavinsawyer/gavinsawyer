@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _AirplaneArrival: Symbol = {
+export default {
   paths:         [
     {
       definition: "M1.56274 30.2744L34.0471 30.2744C34.6213 30.2744 35.0901 29.8056 35.0901 29.2431C35.0901 28.6689 34.6213 28.2001 34.0471 28.2001L1.56274 28.2001C0.988516 28.2001 0.519766 28.6689 0.519766 29.2431C0.519766 29.8056 0.988516 30.2744 1.56274 30.2744Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _CarRearRoadLaneDistance1AndGaugeOpenWithLinesNeedle67percentAndArrowtriangle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M15.6059 18.7148L8.08249 36.9023C7.8364 37.5 7.44968 37.8633 6.66452 37.8633L4.73093 37.8633C3.72312 37.8633 3.47702 37.0898 3.81687 36.4102L12.8051 18.5156C13.0044 18.1172 13.2856 17.918 13.7192 17.918L15.1372 17.918C15.5708 17.918 15.7817 18.2695 15.6059 18.7148ZM40.227 18.5273L41.6722 21.4044C41.56 21.3884 41.4444 21.3867 41.3286 21.3867C40.4109 21.3867 39.5158 21.4946 38.6593 21.7094L37.4262 18.7266C37.2505 18.2812 37.4614 17.9414 37.9067 17.9414L39.313 17.9414C39.7583 17.9414 40.0278 18.1289 40.227 18.5273Z",

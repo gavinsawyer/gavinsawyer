@@ -1,6 +1,7 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 89",
+  "version":         "2026.0 Beta 98",
+  "homepage":        "https://gavinsawyer.us",
   "author":          {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",

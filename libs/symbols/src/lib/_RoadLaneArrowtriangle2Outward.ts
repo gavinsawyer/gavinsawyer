@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RoadLaneArrowtriangle2Outward: Symbol = {
+export default {
   paths:         [
     {
       definition: "M6.45414 22.3477L8.31742 22.3477C9.10258 22.3477 9.50102 21.9727 9.73539 21.3867L18.0674 0.808594C18.2432 0.375 18.044 0.0234375 17.5987 0.0234375L16.7198 0.0234375C16.2745 0.0234375 15.9932 0.222656 15.8057 0.609375L5.5518 20.8945C5.20024 21.5742 5.45805 22.3477 6.45414 22.3477ZM39.583 22.3477L41.4463 22.3477C42.4424 22.3477 42.7002 21.5742 42.3487 20.8945L32.1065 0.609375C31.9073 0.222656 31.626 0.0234375 31.1807 0.0234375L30.3018 0.0234375C29.8565 0.0234375 29.6573 0.375 29.833 0.808594L38.1651 21.3867C38.3995 21.9727 38.7979 22.3477 39.583 22.3477Z",

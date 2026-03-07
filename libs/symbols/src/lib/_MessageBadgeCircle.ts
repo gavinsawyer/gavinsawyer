@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MessageBadgeCircle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30.5273 15.2695C30.5273 23.6953 23.6836 30.5273 15.2578 30.5273C6.83203 30.5273 0 23.6953 0 15.2695C0 6.84375 6.83203 0 15.2578 0C23.6836 0 30.5273 6.84375 30.5273 15.2695ZM2.17969 15.2695C2.17969 22.5 8.02734 28.3477 15.2578 28.3477C22.4883 28.3477 28.3359 22.5 28.3359 15.2695C28.3359 8.03906 22.4883 2.19141 15.2578 2.19141C8.02734 2.19141 2.17969 8.03906 2.17969 15.2695Z",

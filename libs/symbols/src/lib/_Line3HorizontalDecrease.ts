@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Line3HorizontalDecrease: Symbol = {
+export default {
   paths:         [
     {
       definition: "M7.62891 17.4492L22.8047 17.4492C23.3789 17.4492 23.8359 16.9922 23.8359 16.418C23.8359 15.832 23.3789 15.375 22.8047 15.375L7.62891 15.375C7.05469 15.375 6.59766 15.832 6.59766 16.418C6.59766 16.9922 7.05469 17.4492 7.62891 17.4492Z",

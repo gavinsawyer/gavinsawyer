@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PersonCropArtframe: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0 31.2188C0 31.875 0.433594 32.3086 1.08984 32.3086L24.0703 32.3086C24.7266 32.3086 25.1602 31.875 25.1602 31.2188L25.1602 1.10156C25.1602 0.445312 24.7266 0.0117188 24.0703 0.0117188L1.08984 0.0117188C0.433594 0.0117188 0 0.445312 0 1.10156ZM2.07422 29.8242L2.07422 2.49609C2.07422 2.20312 2.19141 2.08594 2.48438 2.08594L22.6758 2.08594C22.9688 2.08594 23.0859 2.20312 23.0859 2.49609L23.0859 29.8242C23.0859 30.1172 22.9688 30.2344 22.6758 30.2344L2.48438 30.2344C2.19141 30.2344 2.07422 30.1172 2.07422 29.8242Z",

@@ -2,8 +2,8 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { carmine, flax } from "@bowstring/colors";
-import { type Brand }    from "@bowstring/interfaces";
+import colorsLib from "@bowstring/colors";
+import { Brand } from "@bowstring/core";
 
 
 export const brand: Brand = {
@@ -70,9 +70,9 @@ export const brand: Brand = {
     saturation: .16,
   },
   roundness:          1,
-  secondaryColor:     flax,
+  secondaryColor:     colorsLib.flax,
   timeZone:           "America/New_York",
-  warningColor:       carmine,
+  warningColor:       colorsLib.carmine,
 
   get description(): string {
     return $localize`:@@libs--Config--Brand--Description:Gavin William Sawyer is an American entrepreneur and software engineer. He double-majored in Global Business and Analytics and minored in Cybersecurity at Suffolk University and has been creating software since age 13.`;

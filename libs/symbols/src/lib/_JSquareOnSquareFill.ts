@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _JSquareOnSquareFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M33.5156 13.125L33.5156 28.3945C33.5156 31.3945 31.9805 32.918 28.9453 32.918L13.7695 32.918C10.7461 32.918 9.19922 31.3828 9.19922 28.3945L9.19922 28.043L21.6211 28.043C25.6758 28.043 28.043 25.6992 28.043 21.6562L28.043 8.60156L28.9453 8.60156C31.9805 8.60156 33.5156 10.125 33.5156 13.125Z",

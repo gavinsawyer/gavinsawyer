@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PhotoOnRectangleAngledFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M31.1836 4.44141L31.5913 6.75L14.2148 6.75C10.1602 6.75 7.79297 9.09375 7.79297 13.125L7.79297 27.4688C7.79297 27.4929 7.79305 27.5171 7.79561 27.5394C5.7707 27.4144 4.5516 26.1535 4.13672 23.7773L1.64062 9.65625C1.125 6.70312 2.36719 4.94531 5.35547 4.41797L25.9102 0.796875C28.8867 0.269531 30.668 1.51172 31.1836 4.44141Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _VideoDoorbell: Symbol = {
+export default {
   paths:         [
     {
       definition: "M9.64453 33.7617C15.3047 33.7617 19.2656 29.9766 19.2656 24.5977L19.2656 9.17578C19.2656 3.78516 15.3047 0 9.64453 0C3.98438 0 0 3.78516 0 9.17578L0 24.5977C0 29.9766 3.98438 33.7617 9.64453 33.7617ZM9.63281 31.6875C5.17969 31.6875 2.0625 28.7578 2.0625 24.5977L2.0625 9.17578C2.0625 5.01562 5.17969 2.07422 9.63281 2.07422C14.0742 2.07422 17.2031 5.01562 17.2031 9.17578L17.2031 24.5977C17.2031 28.7578 14.0742 31.6875 9.63281 31.6875Z",

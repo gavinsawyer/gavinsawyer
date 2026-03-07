@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MacwindowStack: Symbol = {
+export default {
   paths:         [
     {
       definition: "M27.5596 3.98672C27.267 3.95244 26.9621 3.9375 26.6484 3.9375L10.0547 3.9375C9.7444 3.9375 9.44256 3.9522 9.15264 3.98586C9.65535 3.01604 10.6497 2.49609 12.0703 2.49609L24.6328 2.49609C26.0539 2.49609 27.0536 3.01635 27.5596 3.98672Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ContextualmenuAndPointerArrow: Symbol = {
+export default {
   paths:         [
     {
       definition: "M31.8049 13.0551L31.8049 31.477C31.8049 34.5122 30.2931 36.0356 27.2931 36.0356L11.1564 36.0356C8.15642 36.0356 6.6447 34.5122 6.6447 31.477L6.6447 20.1135C7.21724 20.5909 7.95692 20.8456 8.71892 20.818L8.71892 31.4419C8.71892 33.0708 9.58611 33.9614 11.2736 33.9614L27.1877 33.9614C28.8634 33.9614 29.7306 33.0708 29.7306 31.4419L29.7306 13.0903C29.7306 11.4614 28.8634 10.5708 27.1759 10.5708L13.0878 10.5708C13.0008 10.1618 12.795 9.76209 12.4572 9.41061L11.5839 8.49654L27.2931 8.49654C30.2931 8.49654 31.8049 10.02 31.8049 13.0551Z",

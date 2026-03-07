@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _HandPointUpLeftAndText: Symbol = {
+export default {
   paths:         [
     {
       definition: "M13.8153 2.50237L3.55811 2.50237C3.06592 2.50237 2.66749 2.11565 2.66749 1.62346C2.66749 1.13128 3.06592 0.732839 3.55811 0.732839L16.0349 0.732839C15.0875 1.11029 14.3279 1.72923 13.8153 2.50237Z",

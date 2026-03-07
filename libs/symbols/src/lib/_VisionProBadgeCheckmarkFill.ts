@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _VisionProBadgeCheckmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M33.8888 5.17856C33.2211 6.46004 32.8477 7.91266 32.8477 9.44531C32.8477 14.6367 37.1016 18.8906 42.293 18.8906C43.9084 18.8906 45.4388 18.4696 46.7785 17.7324C46.4027 23.8267 42.4071 28.3359 37.1836 28.3359C31.5117 28.3359 28.5703 23.5195 25.6875 23.5195C22.8047 23.5195 19.8633 28.3359 14.1914 28.3359C8.69531 28.3359 4.55859 23.3438 4.55859 16.7695C4.55859 6.02344 14.0039 4.82812 25.6875 4.82812C28.5975 4.82812 31.3686 4.90155 33.8888 5.17856Z",

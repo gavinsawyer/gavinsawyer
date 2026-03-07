@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ThermometerHigh: Symbol = {
+export default {
   paths:         [
     {
       definition: "M18.2695 18.2109L21.4922 18.2109C21.9609 18.2109 22.2891 17.8594 22.2891 17.4492C22.2891 17.0273 21.9609 16.6758 21.4922 16.6758L18.2695 16.6758C17.8008 16.6758 17.4727 17.0273 17.4727 17.4492C17.4727 17.8594 17.8008 18.2109 18.2695 18.2109Z",

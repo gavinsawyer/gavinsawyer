@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PersonCropSquareOnSquareAngledFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M26.1094 5.625L26.6062 8.4375L13.9688 8.4375C10.2188 8.4375 7.98047 10.6289 7.98047 14.3906L7.98047 29.7942C6.07362 29.7301 4.91977 28.5946 4.52344 26.3906L1.62891 9.9375C1.14844 7.26562 2.28516 5.68359 4.96875 5.20312L21.3516 2.32031C24.0469 1.85156 25.6406 2.96484 26.1094 5.625Z",

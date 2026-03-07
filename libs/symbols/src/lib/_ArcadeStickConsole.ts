@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _ArcadeStickConsole: Symbol = {
+export default {
   paths:         [
     {
       definition: "M6.08973 26.8477L36.1483 26.8477C40.5194 26.8477 42.7225 24.1523 42.16 19.418L40.5077 5.71875C40.0624 2.00391 37.953 0 34.5077 0L7.73035 0C4.29676 0 2.17566 2.00391 1.73035 5.71875L0.0897252 19.418C-0.484494 24.1523 1.71863 26.8477 6.08973 26.8477ZM6.08973 24.7617C3.18348 24.7617 1.74207 22.8281 2.17566 19.2305L3.78113 5.95312C4.08582 3.43359 5.45691 2.08594 7.73035 2.08594L34.5077 2.08594C36.7929 2.08594 38.1522 3.43359 38.4569 5.95312L40.0624 19.2305C40.5077 22.8398 39.0546 24.7617 36.1483 24.7617Z",

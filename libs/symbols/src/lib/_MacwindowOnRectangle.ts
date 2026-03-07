@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _MacwindowOnRectangle: Symbol = {
+export default {
   paths:         [
     {
       definition: "M30 5.15625L30 6.73828L27.9141 6.73828L27.9141 5.16797C27.9141 3.19922 26.8008 2.08594 24.832 2.08594L5.16797 2.08594C3.19922 2.08594 2.07422 3.19922 2.07422 5.16797L2.07422 18.1992C2.07422 20.1562 3.19922 21.293 5.16797 21.293L7.27734 21.293L7.27734 23.3672L5.15625 23.3672C1.88672 23.3672 0 21.4688 0 18.2109L0 5.15625C0 1.88672 1.88672 0 5.15625 0L25.0898 0C28.1953 0 30 1.88672 30 5.15625Z",

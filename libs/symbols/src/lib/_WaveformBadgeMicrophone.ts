@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _WaveformBadgeMicrophone: Symbol = {
+export default {
   paths:         [
     {
       definition: "M29.0977 7.74609L29.0977 22.991C29.0146 22.9617 28.9241 22.9453 28.8281 22.9453C28.1306 22.9453 27.4907 23.2307 27.0234 23.692L27.0234 7.74609C27.0234 7.17188 27.457 6.69141 28.0547 6.69141C28.6406 6.69141 29.0977 7.17188 29.0977 7.74609Z",

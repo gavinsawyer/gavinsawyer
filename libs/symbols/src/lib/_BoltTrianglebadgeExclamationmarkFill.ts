@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BoltTrianglebadgeExclamationmarkFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M24.7617 3.89062L20.2031 16.2188L28.8047 16.2188C29.3555 16.2188 29.7188 16.6055 29.7188 17.0859C29.7188 17.3906 29.5898 17.6602 29.3672 17.9531L28.2064 19.4054C27.1489 19.6095 26.185 20.265 25.6289 21.2812L23.0969 25.7978L15.6914 35.0625C14.8008 36.1641 13.4062 35.4609 13.9219 34.1016L18.4688 21.7617L9.87891 21.7617C9.32812 21.7617 8.95312 21.3867 8.95312 20.9062C8.95312 20.6016 9.09375 20.332 9.31641 20.0391L22.9922 2.92969C23.8828 1.81641 25.2773 2.51953 24.7617 3.89062Z",

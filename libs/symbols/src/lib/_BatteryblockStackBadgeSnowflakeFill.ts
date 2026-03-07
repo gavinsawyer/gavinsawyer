@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _BatteryblockStackBadgeSnowflakeFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M47.2031 20.5781L47.2031 35.0273C47.2031 36.3398 46.3828 37.0898 44.9883 37.0898L14.9531 37.0898C13.7313 37.0898 13.0119 36.4673 12.9656 35.3789L44.625 35.3789C45.1758 35.3789 45.4922 35.0859 45.4922 34.5117L45.4922 18.7626C46.5713 18.8544 47.2031 19.5157 47.2031 20.5781Z",

@@ -5,9 +5,6 @@
 const { configs: { all: allConfig, recommended: recommendedConfig } } = require("@eslint/js");
 const { FlatCompat }                                                  = require("@eslint/eslintrc");
 
-const angularEslintPlugin = require("@angular-eslint/eslint-plugin");
-const nxEslintPlugin      = require("@nx/eslint-plugin");
-
 
 const flatCompat = new FlatCompat(
   {
@@ -29,7 +26,6 @@ module.exports = [
       "**/.DS_Store",
       ".angular",
       ".firebase",
-      ".idea/runConfigurations",
       ".idea",
       ".runtimeconfig.json",
       ".service-account.json",
@@ -37,8 +33,8 @@ module.exports = [
   },
   {
     plugins: {
-      "@angular-eslint": angularEslintPlugin,
-      "@nx":             nxEslintPlugin,
+      "@angular-eslint": require("@angular-eslint/eslint-plugin"),
+      "@nx":             require("@nx/eslint-plugin"),
     },
   },
   ...flatCompat.extends(
@@ -63,9 +59,29 @@ module.exports = [
   {
     files: [ "**/*.ts" ],
     rules: {
-      "@angular-eslint/no-input-rename":  [ "off" ],
-      "@angular-eslint/no-output-rename": [ "off" ],
-      "@nx/enforce-module-boundaries":    [
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          prefix: "bowstring-",
+          style:  "kebab-case",
+          type:   "element",
+        },
+      ],
+      "@angular-eslint/directive-selector": [
+        "error",
+        {
+          prefix: "bowstring",
+          style:  "camelCase",
+          type:   "attribute",
+        },
+      ],
+      "@angular-eslint/no-input-rename":    [ "off" ],
+      "@angular-eslint/no-output-rename":   [ "off" ],
+      "@angular-eslint/pipe-prefix":        [
+        "error",
+        { prefixes: [ "bowstring" ] },
+      ],
+      "@nx/enforce-module-boundaries":      [
         "error",
         {
           allow:                         [],
@@ -81,7 +97,7 @@ module.exports = [
     },
   },
   {
-    files: [ "apps/**/src/app/components/lib/**/*.ts" ],
+    files: [ "apps/**/*.ts" ],
     rules: {
       "@angular-eslint/component-selector": [
         "error",
@@ -91,11 +107,6 @@ module.exports = [
           type:   "element",
         },
       ],
-    },
-  },
-  {
-    files: [ "apps/**/src/app/directives/lib/**/*.ts" ],
-    rules: {
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -104,49 +115,84 @@ module.exports = [
           type:   "attribute",
         },
       ],
-    },
-  },
-  {
-    files: [ "apps/**/src/app/pipes/src/lib/**/*.ts" ],
-    rules: {
-      "@angular-eslint/pipe-prefix": [
+      "@angular-eslint/pipe-prefix":        [
         "error",
         { prefixes: [ "bowstringApp" ] },
       ],
     },
   },
   {
-    files: [ "libs/components/src/lib/**/*.ts" ],
+    files: [ "libs/commerce/src/lib/**/*.ts" ],
     rules: {
       "@angular-eslint/component-selector": [
         "error",
         {
-          prefix: "bowstring-",
+          prefix: "bowstring-commerce-",
           style:  "kebab-case",
           type:   "element",
         },
       ],
-    },
-  },
-  {
-    files: [ "libs/directives/src/lib/**/*.ts" ],
-    rules: {
       "@angular-eslint/directive-selector": [
         "error",
         {
-          prefix: "bowstring",
+          prefix: "bowstringCommerce",
           style:  "camelCase",
           type:   "attribute",
         },
       ],
+      "@angular-eslint/pipe-prefix":        [
+        "error",
+        { prefixes: [ "bowstringCommerce" ] },
+      ],
     },
   },
   {
-    files: [ "libs/pipes/src/lib/**/*.ts" ],
+    files: [ "libs/dispatch/src/lib/**/*.ts" ],
     rules: {
-      "@angular-eslint/pipe-prefix": [
+      "@angular-eslint/component-selector": [
         "error",
-        { prefixes: [ "bowstring" ] },
+        {
+          prefix: "bowstring-dispatch-",
+          style:  "kebab-case",
+          type:   "element",
+        },
+      ],
+      "@angular-eslint/directive-selector": [
+        "error",
+        {
+          prefix: "bowstringDispatch",
+          style:  "camelCase",
+          type:   "attribute",
+        },
+      ],
+      "@angular-eslint/pipe-prefix":        [
+        "error",
+        { prefixes: [ "bowstringDispatch" ] },
+      ],
+    },
+  },
+  {
+    files: [ "libs/media/src/lib/**/*.ts" ],
+    rules: {
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          prefix: "bowstring-media-",
+          style:  "kebab-case",
+          type:   "element",
+        },
+      ],
+      "@angular-eslint/directive-selector": [
+        "error",
+        {
+          prefix: "bowstringMedia",
+          style:  "camelCase",
+          type:   "attribute",
+        },
+      ],
+      "@angular-eslint/pipe-prefix":        [
+        "error",
+        { prefixes: [ "bowstringMedia" ] },
       ],
     },
   },

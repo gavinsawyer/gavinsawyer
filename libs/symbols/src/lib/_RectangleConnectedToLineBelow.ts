@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _RectangleConnectedToLineBelow: Symbol = {
+export default {
   paths:         [
     {
       definition: "M14.4141 25.8589C15.3985 26.1846 16.1827 26.9612 16.517 27.9375L25.7109 27.9375C26.2852 27.9375 26.7539 28.4062 26.7539 28.9688C26.7539 29.543 26.2852 30.0117 25.7109 30.0117L16.5407 30.0117C16.1112 31.3527 14.8483 32.332 13.3711 32.332C11.9034 32.332 10.6423 31.3527 10.2131 30.0117L1.04297 30.0117C0.46875 30.0117 0 29.543 0 28.9688C0 28.4062 0.46875 27.9375 1.04297 27.9375L10.2368 27.9375C10.5715 26.9591 11.3571 26.1814 12.3398 25.8566L12.3398 22.0781L14.4141 22.0781Z",

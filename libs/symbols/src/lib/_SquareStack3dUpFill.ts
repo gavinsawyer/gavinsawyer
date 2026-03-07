@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquareStack3dUpFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M34.3828 27.4922C34.3828 28.2539 33.9375 28.7461 32.8711 29.3672L20.8828 36.3164C20.2383 36.6914 19.7344 36.8789 19.1719 36.8789C18.6211 36.8789 18.1172 36.6914 17.4727 36.3164L5.48438 29.3672C4.41797 28.7461 3.97266 28.2539 3.97266 27.4922C3.97266 27.0367 4.1369 26.6763 4.50608 26.3218L18.4805 34.418C18.7148 34.5469 18.9609 34.6289 19.1719 34.6289C19.3945 34.6289 19.6406 34.5469 19.875 34.418L33.8494 26.3218C34.2186 26.6763 34.3828 27.0367 34.3828 27.4922Z",

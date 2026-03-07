@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _Underline: Symbol = {
+export default {
   paths:         [
     {
       definition: "M0.796875 31.418L16.5352 31.418C16.9922 31.418 17.332 31.0781 17.332 30.6328C17.332 30.1875 16.9922 29.8477 16.5352 29.8477L0.796875 29.8477C0.351562 29.8477 0 30.1875 0 30.6328C0 31.0781 0.351562 31.418 0.796875 31.418Z",

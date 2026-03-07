@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _PanoBadgePlayFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M46.875 7.81641L46.875 17.0039C41.6953 17.0039 37.4297 21.2695 37.4297 26.4492C37.4297 27.1993 37.5185 27.9299 37.6955 28.6272C35.21 27.9379 32.0573 27.3281 27.9844 27.3281C18.5742 27.3281 14.1328 30.5625 11.3789 30.5625C9.91406 30.5625 9.09375 29.6719 9.09375 28.1133L9.09375 7.81641C9.09375 6.25781 9.91406 5.36719 11.3789 5.36719C14.1211 5.36719 18.6094 8.61328 27.9844 8.61328C37.3477 8.61328 41.8477 5.36719 44.5781 5.36719C46.0547 5.36719 46.875 6.25781 46.875 7.81641Z",

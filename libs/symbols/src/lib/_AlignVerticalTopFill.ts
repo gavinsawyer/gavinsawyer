@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _AlignVerticalTopFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M7.01953 33.1992L12.5391 33.1992C14.5312 33.1992 15.6445 32.0742 15.6445 30.0586L15.6445 7.96875C15.6445 5.95312 14.5312 4.82812 12.5391 4.82812L7.01953 4.82812C5.03906 4.82812 3.92578 5.95312 3.92578 7.96875L3.92578 30.0586C3.92578 32.0742 5.03906 33.1992 7.01953 33.1992ZM21.8555 22.7227L27.3867 22.7227C29.3672 22.7227 30.4805 21.5977 30.4805 19.5703L30.4805 7.96875C30.4805 5.95312 29.3672 4.82812 27.3867 4.82812L21.8555 4.82812C19.875 4.82812 18.7617 5.95312 18.7617 7.96875L18.7617 19.5703C18.7617 21.5977 19.875 22.7227 21.8555 22.7227Z",

@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _KeyRadiowavesForwardFill: Symbol = {
+export default {
   paths:         [
     {
       definition: "M27.7031 20.8724C28.1836 21.2006 28.7695 21.0834 29.1211 20.5912C31.0547 17.9779 32.2266 14.2865 32.2266 10.5248C32.2266 6.77479 31.0664 3.05995 29.1211 0.458385C28.7695-0.0338026 28.1836-0.139271 27.7031 0.188854C27.2227 0.50526 27.1523 1.11463 27.5273 1.64198C29.25 4.0326 30.2227 7.20838 30.2227 10.5248C30.2227 13.8412 29.2266 17.0053 27.5273 19.4076C27.1641 19.9467 27.2227 20.5443 27.7031 20.8724Z",

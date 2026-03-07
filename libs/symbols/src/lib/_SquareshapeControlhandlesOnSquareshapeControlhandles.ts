@@ -1,13 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
 /*
- * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.1 (116).
+ * Copyright © 2026 Apple Inc. Adapted for Bowstring from SF Symbols Version 7.2 (119).
  */
 
-import { type Symbol } from "@bowstring/interfaces";
-
-
-export const _SquareshapeControlhandlesOnSquareshapeControlhandles: Symbol = {
+export default {
   paths:         [
     {
       definition: "M4.37109 18.7195C4.04382 18.6093 3.69288 18.5508 3.32812 18.5508C2.96777 18.5508 2.62091 18.6079 2.29688 18.7152L2.29688 6.51526C2.62091 6.6226 2.96777 6.67969 3.32812 6.67969C3.69288 6.67969 4.04382 6.62119 4.37109 6.51097Z",
