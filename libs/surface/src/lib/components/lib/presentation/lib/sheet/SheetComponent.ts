@@ -10,7 +10,7 @@ import { loadSymbol, type Symbol, type SymbolName }                             
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                           from "body-scroll-lock";
 import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switchMap, tap, timer }                                                                                                                 from "rxjs";
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                 from "../../../../../directives";
-import { GlassMaskIdTickService }                                                                                                                                                                                 from "../../../../../services";
+import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                 from "../../../../../services";
 
 
 @Component(
@@ -110,6 +110,7 @@ export class SheetComponent {
     ),
   );
   protected readonly containerDirective: ContainerDirective                                = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService                                        = inject<HapticsService>(HapticsService);
   protected readonly viewportService: ViewportService                                      = inject<ViewportService>(ViewportService);
 
   public readonly openModel$: ModelSignal<"" | boolean | `${ boolean }`> = model<"" | boolean | `${ boolean }`>(

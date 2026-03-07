@@ -41,7 +41,7 @@
     bowstringWellRoundedDirective #pinnedControlWellRoundedDirective="wellRoundedDirective"
     [level]="(wellRoundedDirective.levelInput$() || 1) * 2">
     <button class="harness" #pinnedControlHtmlButtonElement
-      (click)="$event.stopPropagation(); pinnedModel$.set(!pinnedModelWithTransform$());"
+      (click)="$event.stopPropagation(); hapticsService.trigger(); pinnedModel$.set(!pinnedModelWithTransform$());"
       (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
       role="button"
       tabindex="0"

@@ -46,7 +46,7 @@
 <ng-template #dragControlTemplate>
   <div id="dragControl">
     <div class="harness"
-      (click)="$event.stopPropagation();"
+      (click)="$event.stopPropagation(); hapticsService.trigger();"
       (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
       tabindex="-1">
       <div class="between">

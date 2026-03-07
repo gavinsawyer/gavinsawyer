@@ -9,6 +9,7 @@ import { RxSsrService }                                                         
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                       from "@bowstring/symbols";
 import { delayWhen, from, map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic, timer }                                           from "rxjs";
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WarningDirective, WellRoundedDirective }                                       from "../../../../../directives";
+import { HapticsService }                                                                                                                                 from "../../../../../services";
 
 
 @Component(
@@ -64,6 +65,7 @@ export class ErrorComponent {
   private readonly rxSsrService: RxSsrService                             = inject<RxSsrService>(RxSsrService);
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService         = inject<HapticsService>(HapticsService);
   protected readonly height$: Signal<number | undefined>    = isPlatformBrowser(this.platformId) ? toSignal<number>(
     toObservable<ElementRef<HTMLDivElement>>(this.htmlDivElementRef$).pipe<number>(
       switchMap<ElementRef<HTMLDivElement>, Observable<number>>(

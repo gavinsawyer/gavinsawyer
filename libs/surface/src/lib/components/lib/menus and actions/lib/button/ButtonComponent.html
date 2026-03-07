@@ -11,14 +11,14 @@
       @if (urlInput$(); as url) {@if (url.includes(":") || url.match("\\.[a-z]")) {<a class="harness" #externalLinkHtmlAnchorElement
         [attr.href]="url"
         [attr.tabindex]="disabledInput$() ? -1 : 0"
-        (click)="$event.stopPropagation(); output.emit();"
+        (click)="$event.stopPropagation(); hapticsService.trigger(); output.emit();"
         (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
         target="_blank"
         role="button">
         <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
       </a>} @else {<a class="harness" #routerLinkHtmlAnchorElement
         [attr.tabindex]="disabledInput$() || routerLinkActive.isActive ? -1 : 0"
-        (click)="$event.stopPropagation(); output.emit();"
+        (click)="$event.stopPropagation(); hapticsService.trigger(); output.emit();"
         (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
         [routerLink]="url"
         routerLinkActive
@@ -30,7 +30,7 @@
         [attr.disabled]="disabledInput$() || undefined"
         [attr.tabindex]="disabledInput$() ? -1 : 0"
         [attr.type]="typeInput$() || 'button'"
-        (click)="$event.stopPropagation(); output.emit();"
+        (click)="$event.stopPropagation(); hapticsService.trigger(); output.emit();"
         (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
         role="button">
         <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>

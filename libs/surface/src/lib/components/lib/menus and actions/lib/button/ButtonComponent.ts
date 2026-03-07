@@ -8,6 +8,7 @@ import { toObservable, toSignal }                                               
 import { RouterLink, RouterLinkActive }                                                                                                                                                                                                  from "@angular/router";
 import { combineLatestWith, map, type Observable, of, startWith, switchMap }                                                                                                                                                             from "rxjs";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, HoverTransformingDirective, InverseDirective, PrimaryDirective, SecondaryDirective, WarningDirective, WellRoundedDirective } from "../../../../../directives";
+import { HapticsService }                                                                                                                                                                                                                from "../../../../../services";
 
 
 @Component(
@@ -90,6 +91,7 @@ export class ButtonComponent {
   private readonly routerLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined>   = viewChild<ElementRef<HTMLAnchorElement>>("routerLinkHtmlAnchorElement");
 
   protected readonly containerDirective: ContainerDirective     = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService             = inject<HapticsService>(HapticsService);
   protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly appearanceInput$: InputSignal<"raised" | "symbol" | undefined>                                           = input<"raised" | "symbol" | undefined>(

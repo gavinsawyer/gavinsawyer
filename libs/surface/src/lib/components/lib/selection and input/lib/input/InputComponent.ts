@@ -10,6 +10,7 @@ import { RxSsrService }                                                         
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                                                                                                  from "@bowstring/symbols";
 import { firstValueFrom, from, Observable, of, switchMap }                                                                                                                                                                                                                                           from "rxjs";
 import { v7 as uuidV7 }                                                                                                                                                                                                                                                                              from "uuid";
+import { HapticsService }                                                                                                                                                                                                                                                                            from "../../../../../services";
 
 
 @Component(
@@ -33,6 +34,7 @@ export class InputComponent
 
   protected readonly document: Document                                                       = inject<Document>(DOCUMENT);
   protected readonly focused$: WritableSignal<boolean>                                        = signal<false>(false);
+  protected readonly hapticsService: HapticsService                                           = inject<HapticsService>(HapticsService);
   protected readonly htmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>("htmlButtonElement");
   protected readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>                   = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
   protected readonly htmlInputElementRef$: Signal<ElementRef<HTMLInputElement>>               = viewChild.required<ElementRef<HTMLInputElement>>("htmlInputElement");

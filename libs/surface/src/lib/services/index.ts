@@ -4,3 +4,4 @@
 
 export * from "./lib/GlassMaskIdTickService";
 export * from "./lib/GoogleMapsApiLoaderService";
+export * from "./lib/HapticsService";

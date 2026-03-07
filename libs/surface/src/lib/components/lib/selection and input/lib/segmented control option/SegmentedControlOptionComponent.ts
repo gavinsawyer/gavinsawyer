@@ -9,6 +9,7 @@ import { Observable, type Observer, switchMap, type TeardownLogic }             
 import { ContainerDirective, FlexboxContainerDirective }                                                                                                                                                   from "../../../../../directives";
 import { SEGMENTED_CONTROL_VALUE_ACCESSOR }                                                                                                                                                                from "../../../../../injection tokens";
 import { type SegmentedControlValueAccessor }                                                                                                                                                              from "../../../../../interfaces";
+import { HapticsService }                                                                                                                                                                                  from "../../../../../services";
 
 
 @Component(
@@ -50,6 +51,7 @@ export class SegmentedControlOptionComponent {
   private readonly platformId: NonNullable<unknown>                             = inject<NonNullable<unknown>>(PLATFORM_ID);
 
   protected readonly containerDirective: ContainerDirective                       = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService                               = inject<HapticsService>(HapticsService);
   protected readonly segmentedControlValueAccessor: SegmentedControlValueAccessor = inject<SegmentedControlValueAccessor>(
     SEGMENTED_CONTROL_VALUE_ACCESSOR,
     { host: true },

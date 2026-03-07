@@ -9,7 +9,7 @@ import { type Dimensions, RxSsrService, ViewportService }                       
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                    from "@bowstring/symbols";
 import { combineLatestWith, delayWhen, filter, from, map, merge, Observable, type Observer, of, startWith, switchMap, tap, type TeardownLogic, timer }                                                                 from "rxjs";
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, HoverTransformingDirective, WellRoundedDirective }                                                                          from "../../../../../directives";
-import { GlassMaskIdTickService }                                                                                                                                                                                      from "../../../../../services";
+import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                      from "../../../../../services";
 
 
 @Component(
@@ -130,6 +130,7 @@ export class FooterComponent {
   private readonly width$: Signal<number | undefined>                                                       = computed<number | undefined>((): number | undefined => this.dimensions$()?.width);
 
   protected readonly containerDirective: ContainerDirective          = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService                  = inject<HapticsService>(HapticsService);
   protected readonly height$: Signal<number | undefined>             = computed<number | undefined>((): number | undefined => this.dimensions$()?.height);
   protected readonly pinFillSymbol$: Signal<Symbol | undefined>      = toSignal<Symbol>(
     of<SymbolName>("PinFill").pipe<Symbol>(
