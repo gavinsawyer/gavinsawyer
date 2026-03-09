@@ -8,7 +8,7 @@ import { takeUntilDestroyed, toObservable, toSignal }                           
 import { RxSsrService, ViewportService }                                                                                                                                                                                    from "@bowstring/core";
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                         from "@bowstring/symbols";
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                                     from "body-scroll-lock";
-import { delayWhen, from, fromEvent, map, type Observable, of, switchMap, tap, timer }                                                                                                                                      from "rxjs";
+import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switchMap, timer }                                                                                                                                from "rxjs";
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                           from "../../../../../directives";
 import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                           from "../../../../../services";
 
@@ -119,20 +119,21 @@ export class SheetComponent {
   );
   public readonly openModelWithTransform$: Signal<boolean>               = computed<boolean>((): boolean => this.openModel$() === "" || this.openModel$() === true || this.openModel$() === "true");
 
-  protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
-    toObservable<boolean | undefined>(this.openModelWithTransform$).pipe<boolean | undefined, boolean | undefined, boolean | undefined>(
-      tap<boolean | undefined>((): void => this.glassMaskIdTickService.tickedSubject.next()),
-      delayWhen<boolean | undefined>((open?: boolean): Observable<number> => open ? timer(0) : timer(180)),
-      map<boolean | undefined, boolean | undefined>(
-        (): boolean | undefined => {
+  protected readonly openOrClosing$: Signal<boolean>            = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
+    toObservable<boolean>(this.openModelWithTransform$).pipe<boolean, boolean, boolean>(
+      delayWhen<boolean>((open: boolean): Observable<number> => open ? timer(0) : timer(180)),
+      map<boolean, boolean>(
+        (): boolean => {
           this.glassMaskIdTickService.tickedSubject.next();
 
           return this.openModelWithTransform$();
         },
       ),
+      startWith<boolean>(this.openModelWithTransform$()),
     ),
-  ) : signal<undefined>(undefined);
-  protected readonly wellRoundedDirective: WellRoundedDirective  = inject<WellRoundedDirective>(WellRoundedDirective);
+    { requireSync: true },
+  ) : signal<false>(false);
+  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly dragControlTemplateRef$: Signal<TemplateRef<never>> = viewChild.required<TemplateRef<never>>("dragControlTemplate");
 

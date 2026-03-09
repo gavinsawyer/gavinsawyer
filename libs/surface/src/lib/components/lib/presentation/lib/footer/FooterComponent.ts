@@ -217,8 +217,7 @@ export class FooterComponent {
     { requireSync: true },
   );
   protected readonly raisedOrLoweringWhenPinnedOrUnpinning$: Signal<boolean> = toSignal<boolean>(
-    toObservable<boolean>(this.raisedWhenPinnedOrUnpinning$).pipe<boolean, boolean, boolean, boolean>(
-      tap<boolean>((): void => this.glassMaskIdTickService.tickedSubject.next()),
+    toObservable<boolean>(this.raisedWhenPinnedOrUnpinning$).pipe<boolean, boolean, boolean>(
       delayWhen<boolean>((raisedWhenPinnedOrUnpinning: boolean): Observable<number> => raisedWhenPinnedOrUnpinning ? timer(0) : timer(360)),
       map<boolean, boolean>(
         (): boolean => {

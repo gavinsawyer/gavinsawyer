@@ -2,11 +2,11 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser }                                                                                                                                              from "@angular/common";
-import { computed, Directive, type ElementRef, inject, output, OutputEmitterRef, PLATFORM_ID, type Signal, signal, type WritableSignal }                                            from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                   from "@angular/core/rxjs-interop";
-import { animationFrameScheduler, delayWhen, filter, fromEvent, map, merge, Observable, observeOn, type Observer, startWith, switchMap, takeUntil, tap, type TeardownLogic, timer } from "rxjs";
-import { GlassMaskIdTickService }                                                                                                                                                   from "../../../../../services";
+import { DOCUMENT, isPlatformBrowser }                                                                                                                                         from "@angular/common";
+import { computed, Directive, type ElementRef, inject, output, OutputEmitterRef, PLATFORM_ID, type Signal, signal, type WritableSignal }                                       from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                              from "@angular/core/rxjs-interop";
+import { animationFrameScheduler, delayWhen, filter, fromEvent, map, merge, Observable, observeOn, type Observer, startWith, switchMap, takeUntil, type TeardownLogic, timer } from "rxjs";
+import { GlassMaskIdTickService }                                                                                                                                              from "../../../../../services";
 
 
 @Directive(
@@ -65,8 +65,7 @@ export class HoverTransformingDirective {
     { requireSync: true },
   );
   protected readonly focusedOrUnfocusing$: Signal<boolean>                              = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
-    toObservable<boolean>(this.focused$).pipe<boolean, boolean, boolean, boolean>(
-      tap<boolean>((): void => this.glassMaskIdTickService.tickedSubject.next()),
+    toObservable<boolean>(this.focused$).pipe<boolean, boolean, boolean>(
       delayWhen<boolean>((focused: boolean): Observable<number> => focused ? timer(0) : timer(200)),
       map<boolean, boolean>(
         (): boolean => {
@@ -186,8 +185,7 @@ export class HoverTransformingDirective {
     { requireSync: true },
   ))(this.document.defaultView) : signal<false>(false);
   protected readonly pressedOrUnpressing$: Signal<boolean>                              = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
-    toObservable<boolean>(this.pressed$).pipe<boolean, boolean, boolean, boolean>(
-      tap<boolean>((): void => this.glassMaskIdTickService.tickedSubject.next()),
+    toObservable<boolean>(this.pressed$).pipe<boolean, boolean, boolean>(
       delayWhen<boolean>((pressed: boolean): Observable<number> => pressed ? timer(0) : timer(50)),
       map<boolean, boolean>(
         (): boolean => {
@@ -204,7 +202,13 @@ export class HoverTransformingDirective {
   protected readonly transformedOrUntransforming$: Signal<boolean>                      = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
     toObservable<boolean>(this.transformed$).pipe<boolean, boolean, boolean>(
       delayWhen<boolean>((transformed: boolean): Observable<number> => transformed ? timer(0) : timer(200)),
-      map<boolean, boolean>((): boolean => this.transformed$()),
+      map<boolean, boolean>(
+        (): boolean => {
+          this.glassMaskIdTickService.tickedSubject.next();
+
+          return this.transformed$();
+        },
+      ),
       startWith<boolean>(this.transformed$()),
     ),
     { requireSync: true },
