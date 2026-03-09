@@ -24,7 +24,7 @@ jobs:
       matrix:
         project: ${{ fromJson(needs.resolve-apps.outputs.apps) }}
         include:
-          - project: [ cloud-functions, tag:has-cloud-functions ]
+          - project: cloud-functions,tag:has-cloud-functions
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -42,7 +42,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GAVINSAWYER_44C46 }}
           token_format:     access_token
-      - run: npx nx run-many --target deploy --projects ${{ matrix.project }} --parallel=1
+      - run: npx nx run-many --target deploy --projects ${{ matrix.project }} --parallel=5
         env:
           APP_CHECK_TOKEN_WEBSITE:       ${{ secrets.APP_CHECK_TOKEN_WEBSITE }}
           FIREBASE_SERVICE_ACCOUNT_PATH: ${{ steps.auth.outputs.credentials_file_path }}

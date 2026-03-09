@@ -9,7 +9,7 @@
   },
   "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
   "nxCloudId":          "${NX_CLOUD_ID}",
-  "parallel":           3,
+  "parallel":           7,
   "targetDefaults":     {
     "angular--browser":       { "cache": true },
     "angular--server":        { "cache": true },
