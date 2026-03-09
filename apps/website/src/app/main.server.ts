@@ -14,7 +14,7 @@ import { type AppCheck as AdminAppCheck, getAppCheck as adminGetAppCheck }      
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
 import { environment }                                                                                                   from "../environment";
 import { ProjectServerModule }                                                                                           from "./modules";
-import { getI18nRequestHandler }                                                                                         from "./request handlers";
+import { getI18nRequestHandler }                                                                                         from "./getI18nRequestHandler";
 import "zone.js/node";
 
 

@@ -9,7 +9,7 @@ import express                                                                  
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
 import { environment }                                                                                                   from "../environment";
-import { getI18nRequestHandler }                                                                                         from "./request handlers";
+import { getI18nRequestHandler }                                                                                         from "./getI18nRequestHandler";
 
 
 const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);

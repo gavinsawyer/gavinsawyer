@@ -18,7 +18,7 @@
   <div>
     <div class="harness" #htmlDivElement>
       <div class="between">
-        @if (htmlInputElement.value) {<div id="clearButton">
+        @if (htmlInputElement.value) {<div id="clearControl">
           <button class="harness" #htmlButtonElement
             (click)="$event.stopPropagation(); hapticsService.trigger(); this.focused$() && writeValue(); this.focused$() && onChange?.(); htmlInputElement.focus();"
             (keydown)="$event.key === 'Escape' || $event.stopPropagation();"

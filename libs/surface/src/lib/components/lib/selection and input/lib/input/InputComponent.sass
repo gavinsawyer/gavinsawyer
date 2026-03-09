@@ -52,7 +52,7 @@
             @include directives.HoverTransforming-children
             @include directives.WellRounded-children
 
-          > div#clearButton
+          > div#clearControl
             display: contents
 
             @include directives.Canvas-host(18%)
@@ -123,7 +123,7 @@
           &:not(:focus-within)
             column-gap: 0
 
-            > div#clearButton > .harness
+            > div#clearControl > .harness
               cursor: text
               opacity: 0
               width: 0
@@ -132,7 +132,7 @@
     cursor: default
 
     > .between
-      > div#clearButton
+      > div#clearControl
         display: none
 
       > input,

@@ -4,7 +4,7 @@
 
 import { type LocaleId, localeIds } from "@bowstring/i18n";
 import type express                 from "express";
-import project                      from "../../../../project.json";
+import project                      from "../../project.json";
 
 
 export function getI18nRequestHandler(getRequestHandler: (
