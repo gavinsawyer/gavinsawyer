@@ -3,7 +3,7 @@
   -->
 
 <div class="harness" #htmlDivElement
-  (click)="$event.stopPropagation(); outputSubject.next()"
+  (click)="$event.stopPropagation(); (outputSubject.observed || urlInput$()) && this.hapticsService.trigger(); outputSubject.next()"
   (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
   tabindex="-1">
   <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
@@ -13,7 +13,7 @@
   viewBox="0 0 1 1"
   xmlns="http://www.w3.org/2000/svg">
   <clipPath
-    [attr.id]="wellRoundedDirective.clipPathId$()"
+    [attr.id]="wellRoundedDirective.clipPathId"
     clipPathUnits="objectBoundingBox">
     <path [attr.d]="wellRoundedDirective.pathDefinition$()" />
   </clipPath>

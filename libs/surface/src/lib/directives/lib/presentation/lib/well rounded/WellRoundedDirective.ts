@@ -18,7 +18,7 @@ import { GlassMaskIdTickService }                                               
     host:     {
       "[class.uninitialized]":                                               "pathDefinition$() === 'M 0,0 L 1,0 C 1,0 1,0 1,0 L 1,0.5 C 1,1 1,1 1,1 L 0,1 C 0,1 0,1 0,0.5 L 0,0.5 C 0,0 0,0 0,0 Z'",
       "[style.--bowstring--well-rounded-directive--roundness]":              "configLib.brand.roundness",
-      "[style.--bowstring--well-rounded-directive--clip-path-source]":       "clipPathSource$()",
+      "[style.--bowstring--well-rounded-directive--clip-path-source]":       "clipPathSource",
       "[style.--bowstring--well-rounded-directive--glass-mask-source]":      "glassMaskSource$()",
       "[style.--bowstring--well-rounded-directive--height]":                 "height$()",
       "[style.--bowstring--well-rounded-directive--level-input]":            "levelInput$()",
@@ -63,26 +63,11 @@ export class WellRoundedDirective {
 
   protected readonly configLib: ConfigLib = inject<ConfigLib>(CONFIG_LIB);
 
-  public readonly clipPathId$: Signal<`bowstring--well-rounded-directive--clip-path-${ string }`>              = signal<`bowstring--well-rounded-directive--clip-path-${ string }`>(`bowstring--well-rounded-directive--clip-path-${ uuidV7() }`);
-  public readonly glassMaskId$: Signal<`bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }`> = isPlatformBrowser(this.platformId) ? toSignal<`bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }`>(
-    this.glassMaskIdTickService.glassMaskIdTickObservable.pipe<`bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }`>(map<0 | 1, `bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }`>((glassMaskIdTick: 0 | 1): `bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }` => `${ this.glassMaskId }-${ glassMaskIdTick }`)),
-    { requireSync: true },
-  ) : signal<`bowstring--well-rounded-directive--glass-mask-${ string }-0`>(`${ this.glassMaskId }-0`);
+  public readonly clipPathId: `bowstring--well-rounded-directive--clip-path-${ string }`                       = `bowstring--well-rounded-directive--clip-path-${ uuidV7() }`;
+  public readonly glassMaskId$: Signal<`bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }`> = computed<`bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }`>((): `bowstring--well-rounded-directive--glass-mask-${ string }-${ 0 | 1 }` => `${ this.glassMaskId }-${ this.glassMaskIdTickService.glassMaskIdTick$() }`);
 
-  protected readonly clipPathSource$: Signal<`url(#bowstring--well-rounded-directive--clip-path-${ string })`>   = toSignal<`url(#bowstring--well-rounded-directive--clip-path-${ string })`>(
-    toObservable<`bowstring--well-rounded-directive--clip-path-${ string }`>(this.clipPathId$).pipe<`bowstring--well-rounded-directive--clip-path-${ string }`, `url(#bowstring--well-rounded-directive--clip-path-${ string })`>(
-      startWith<`bowstring--well-rounded-directive--clip-path-${ string }`>(this.clipPathId$()),
-      map<`bowstring--well-rounded-directive--clip-path-${ string }`, `url(#bowstring--well-rounded-directive--clip-path-${ string })`>((clipPathId: `bowstring--well-rounded-directive--clip-path-${ string }`): `url(#bowstring--well-rounded-directive--clip-path-${ string })` => `url(#${ clipPathId })`),
-    ),
-    { requireSync: true },
-  );
-  protected readonly glassMaskSource$: Signal<`url(#bowstring--well-rounded-directive--glass-mask-${ string })`> = toSignal<`url(#bowstring--well-rounded-directive--glass-mask-${ string })`>(
-    toObservable<`bowstring--well-rounded-directive--glass-mask-${ string }`>(this.glassMaskId$).pipe<`bowstring--well-rounded-directive--glass-mask-${ string }`, `url(#bowstring--well-rounded-directive--glass-mask-${ string })`>(
-      startWith<`bowstring--well-rounded-directive--glass-mask-${ string }`>(this.glassMaskId$()),
-      map<`bowstring--well-rounded-directive--glass-mask-${ string }`, `url(#bowstring--well-rounded-directive--glass-mask-${ string })`>((glassMaskId: `bowstring--well-rounded-directive--glass-mask-${ string }`): `url(#bowstring--well-rounded-directive--glass-mask-${ string })` => `url(#${ glassMaskId })`),
-    ),
-    { requireSync: true },
-  );
+  protected readonly clipPathSource: `url(#bowstring--well-rounded-directive--clip-path-${ string })`            = `url(#${ this.clipPathId })`;
+  protected readonly glassMaskSource$: Signal<`url(#bowstring--well-rounded-directive--glass-mask-${ string })`> = computed<`url(#bowstring--well-rounded-directive--glass-mask-${ string })`>((): `url(#bowstring--well-rounded-directive--glass-mask-${ string })` => `url(#${ this.glassMaskId$() })`);
   protected readonly height$: Signal<number | undefined>                                                         = computed<number | undefined>((): number | undefined => this.dimensions$()?.height);
   protected readonly width$: Signal<number | undefined>                                                          = computed<number | undefined>((): number | undefined => this.dimensions$()?.width);
 

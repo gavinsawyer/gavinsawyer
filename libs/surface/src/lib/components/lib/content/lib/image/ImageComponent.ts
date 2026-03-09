@@ -9,6 +9,7 @@ import { RouterLink, RouterLinkActive }                                         
 import { type Dimensions }                                                                                                                                                                                             from "@bowstring/core";
 import { combineLatestWith, from, map, type Observable, of, startWith, Subject, switchMap }                                                                                                                            from "rxjs";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, HoverTransformingDirective, WellRoundedDirective }                                                                                                    from "../../../../../directives";
+import { HapticsService }                                                                                                                                                                                              from "../../../../../services";
 
 
 @Component(
@@ -89,6 +90,7 @@ export class ImageComponent {
   private readonly routerLinkActive$: Signal<RouterLinkActive | undefined>    = viewChild<RouterLinkActive>(RouterLinkActive);
 
   protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService                         = inject<HapticsService>(HapticsService);
   protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
   protected readonly imageDimensions$: Signal<Dimensions | undefined>       = toSignal<Dimensions | undefined>(
     toObservable<ElementRef<HTMLImageElement>>(this.htmlImageElementRef$).pipe<Dimensions>(

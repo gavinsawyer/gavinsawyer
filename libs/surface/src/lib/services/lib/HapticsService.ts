@@ -11,6 +11,14 @@ export class HapticsService
   implements OnDestroy {
 
   constructor() {
+    this.renderer2.appendChild(
+      this.document.head,
+      this.htmlLabelElement,
+    );
+    this.renderer2.appendChild(
+      this.htmlLabelElement,
+      this.htmlInputElement,
+    );
     this.renderer2.setAttribute(
       this.htmlInputElement,
       "switch",
@@ -30,14 +38,6 @@ export class HapticsService
       this.htmlLabelElement,
       "display",
       "none",
-    );
-    this.renderer2.appendChild(
-      this.document.head,
-      this.htmlLabelElement,
-    );
-    this.renderer2.appendChild(
-      this.htmlLabelElement,
-      this.htmlInputElement,
     );
   }
 

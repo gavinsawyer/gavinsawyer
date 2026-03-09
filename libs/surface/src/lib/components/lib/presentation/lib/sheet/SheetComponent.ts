@@ -2,15 +2,15 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                          from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, effect, type EffectCleanupRegisterFn, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild } from "@angular/core";
-import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                             from "@angular/core/rxjs-interop";
-import { RxSsrService, ViewportService }                                                                                                                                                                          from "@bowstring/core";
-import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                               from "@bowstring/symbols";
-import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                           from "body-scroll-lock";
-import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switchMap, tap, timer }                                                                                                                 from "rxjs";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                 from "../../../../../directives";
-import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                 from "../../../../../services";
+import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                                    from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, computed, effect, type EffectCleanupRegisterFn, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild } from "@angular/core";
+import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                                       from "@angular/core/rxjs-interop";
+import { RxSsrService, ViewportService }                                                                                                                                                                                    from "@bowstring/core";
+import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                         from "@bowstring/symbols";
+import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                                     from "body-scroll-lock";
+import { delayWhen, from, fromEvent, map, type Observable, of, switchMap, tap, timer }                                                                                                                                      from "rxjs";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                           from "../../../../../directives";
+import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                           from "../../../../../services";
 
 
 @Component(
@@ -117,21 +117,15 @@ export class SheetComponent {
     false,
     { alias: "open" },
   );
-  public readonly openModelWithTransform$: Signal<boolean>               = toSignal<boolean>(
-    toObservable<"" | boolean | `${ boolean }`>(this.openModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
-      startWith<"" | boolean | `${ boolean }`>(this.openModel$()),
-      map<"" | boolean | `${ boolean }`, boolean>((open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true"),
-    ),
-    { requireSync: true },
-  );
+  public readonly openModelWithTransform$: Signal<boolean>               = computed<boolean>((): boolean => this.openModel$() === "" || this.openModel$() === true || this.openModel$() === "true");
 
   protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
     toObservable<boolean | undefined>(this.openModelWithTransform$).pipe<boolean | undefined, boolean | undefined, boolean | undefined>(
-      tap<boolean | undefined>((): void => this.glassMaskIdTickService.tick()),
+      tap<boolean | undefined>((): void => this.glassMaskIdTickService.tickedSubject.next()),
       delayWhen<boolean | undefined>((open?: boolean): Observable<number> => open ? timer(0) : timer(180)),
       map<boolean | undefined, boolean | undefined>(
         (): boolean | undefined => {
-          this.glassMaskIdTickService.tick();
+          this.glassMaskIdTickService.tickedSubject.next();
 
           return this.openModelWithTransform$();
         },

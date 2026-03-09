@@ -2,14 +2,14 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser, NgTemplateOutlet }                                                                                                            from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, type Signal, signal, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                         from "@angular/core/rxjs-interop";
-import { RxSsrService }                                                                                                                                   from "@bowstring/core";
-import { loadSymbol, type Symbol, type SymbolName }                                                                                                       from "@bowstring/symbols";
-import { delayWhen, from, map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic, timer }                                           from "rxjs";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WarningDirective, WellRoundedDirective }                                       from "../../../../../directives";
-import { HapticsService }                                                                                                                                 from "../../../../../services";
+import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                      from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, computed, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, type Signal, signal, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                   from "@angular/core/rxjs-interop";
+import { RxSsrService }                                                                                                                                             from "@bowstring/core";
+import { loadSymbol, type Symbol, type SymbolName }                                                                                                                 from "@bowstring/symbols";
+import { delayWhen, from, map, Observable, type Observer, of, switchMap, type TeardownLogic, timer }                                                                from "rxjs";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WarningDirective, WellRoundedDirective }                                                 from "../../../../../directives";
+import { HapticsService }                                                                                                                                           from "../../../../../services";
 
 
 @Component(
@@ -86,13 +86,7 @@ export class ErrorComponent {
     false,
     { alias: "open" },
   );
-  public readonly openModelWithTransform$: Signal<boolean>               = toSignal<boolean>(
-    toObservable<"" | boolean | `${ boolean }`>(this.openModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
-      startWith<"" | boolean | `${ boolean }`>(this.openModel$()),
-      map<"" | boolean | `${ boolean }`, boolean>((open?: "" | boolean | `${ boolean }`): boolean => open === "" || open === true || open === "true"),
-    ),
-    { requireSync: true },
-  );
+  public readonly openModelWithTransform$: Signal<boolean>               = computed<boolean>((): boolean => this.openModel$() === "" || this.openModel$() === true || this.openModel$() === "true");
 
   protected readonly openOrClosing$: Signal<boolean | undefined> = isPlatformBrowser(this.platformId) ? toSignal<boolean | undefined>(
     toObservable<boolean | undefined>(this.openModelWithTransform$).pipe<boolean | undefined, boolean | undefined>(

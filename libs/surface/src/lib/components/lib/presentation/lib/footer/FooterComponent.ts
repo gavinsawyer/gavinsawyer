@@ -154,13 +154,7 @@ export class FooterComponent {
     { alias: "pinned" },
   );
 
-  protected readonly pinnedModelWithTransform$: Signal<boolean>              = toSignal<boolean>(
-    toObservable<"" | boolean | `${ boolean }`>(this.pinnedModel$).pipe<"" | boolean | `${ boolean }`, boolean>(
-      startWith<"" | boolean | `${ boolean }`>(this.pinnedModel$()),
-      map<"" | boolean | `${ boolean }`, boolean>((pinned?: "" | boolean | `${ boolean }`): boolean => pinned === "" || pinned === true || pinned === "true"),
-    ),
-    { requireSync: true },
-  );
+  protected readonly pinnedModelWithTransform$: Signal<boolean>              = computed<boolean>((): boolean => this.pinnedModel$() === "" || this.pinnedModel$() === true || this.pinnedModel$() === "true");
   protected readonly pinning$: Signal<boolean>                               = toSignal<boolean>(
     toObservable<boolean>(this.pinnedModelWithTransform$).pipe<true, boolean, boolean>(
       filter<boolean, true>((pinned: boolean): pinned is true => pinned),
@@ -224,11 +218,11 @@ export class FooterComponent {
   );
   protected readonly raisedOrLoweringWhenPinnedOrUnpinning$: Signal<boolean> = toSignal<boolean>(
     toObservable<boolean>(this.raisedWhenPinnedOrUnpinning$).pipe<boolean, boolean, boolean, boolean>(
-      tap<boolean>((): void => this.glassMaskIdTickService.tick()),
+      tap<boolean>((): void => this.glassMaskIdTickService.tickedSubject.next()),
       delayWhen<boolean>((raisedWhenPinnedOrUnpinning: boolean): Observable<number> => raisedWhenPinnedOrUnpinning ? timer(0) : timer(360)),
       map<boolean, boolean>(
         (): boolean => {
-          this.glassMaskIdTickService.tick();
+          this.glassMaskIdTickService.tickedSubject.next();
 
           return this.raisedWhenPinnedOrUnpinning$();
         },
@@ -237,12 +231,7 @@ export class FooterComponent {
     ),
     { requireSync: true },
   );
-  protected readonly raisingScale$: Signal<number | undefined>               = isPlatformBrowser(this.platformId) ? toSignal<number>(
-    toObservable<number | undefined>(this.width$).pipe<[ number | undefined, number | undefined ], number>(
-      combineLatestWith<number | undefined, [ number | undefined ]>(toObservable<number | undefined>(this.viewportService.width$)),
-      map<[ number | undefined, number | undefined ], number>(([ footerWidth, viewportWidth ]: [ number | undefined, number | undefined ]): number => ((viewportWidth || footerWidth || 0) - (footerWidth || 0)) / (viewportWidth || footerWidth || 1) / 2.6180339887),
-    ),
-  ) : signal<undefined>(undefined);
+  protected readonly raisingScale$: Signal<number | undefined>               = computed<number>((): number => ((this.viewportService.width$() || this.width$() || 0) - (this.width$() || 0)) / (this.viewportService.width$() || this.width$() || 1) / 2.6180339887);
   protected readonly unpinning$: Signal<boolean>                             = toSignal<boolean>(
     toObservable<boolean>(this.pinnedModelWithTransform$).pipe<true, boolean, boolean>(
       filter<boolean, true>((pinned: boolean): pinned is true => pinned),

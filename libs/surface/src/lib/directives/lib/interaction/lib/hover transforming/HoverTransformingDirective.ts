@@ -3,7 +3,7 @@
  */
 
 import { DOCUMENT, isPlatformBrowser }                                                                                                                                              from "@angular/common";
-import { Directive, type ElementRef, inject, output, OutputEmitterRef, PLATFORM_ID, type Signal, signal, type WritableSignal }                                                      from "@angular/core";
+import { computed, Directive, type ElementRef, inject, output, OutputEmitterRef, PLATFORM_ID, type Signal, signal, type WritableSignal }                                            from "@angular/core";
 import { toObservable, toSignal }                                                                                                                                                   from "@angular/core/rxjs-interop";
 import { animationFrameScheduler, delayWhen, filter, fromEvent, map, merge, Observable, observeOn, type Observer, startWith, switchMap, takeUntil, tap, type TeardownLogic, timer } from "rxjs";
 import { GlassMaskIdTickService }                                                                                                                                                   from "../../../../../services";
@@ -66,11 +66,11 @@ export class HoverTransformingDirective {
   );
   protected readonly focusedOrUnfocusing$: Signal<boolean>                              = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
     toObservable<boolean>(this.focused$).pipe<boolean, boolean, boolean, boolean>(
-      tap<boolean>((): void => this.glassMaskIdTickService.tick()),
+      tap<boolean>((): void => this.glassMaskIdTickService.tickedSubject.next()),
       delayWhen<boolean>((focused: boolean): Observable<number> => focused ? timer(0) : timer(200)),
       map<boolean, boolean>(
         (): boolean => {
-          this.glassMaskIdTickService.tick();
+          this.glassMaskIdTickService.tickedSubject.next();
 
           return this.focused$();
         },
@@ -187,11 +187,11 @@ export class HoverTransformingDirective {
   ))(this.document.defaultView) : signal<false>(false);
   protected readonly pressedOrUnpressing$: Signal<boolean>                              = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
     toObservable<boolean>(this.pressed$).pipe<boolean, boolean, boolean, boolean>(
-      tap<boolean>((): void => this.glassMaskIdTickService.tick()),
+      tap<boolean>((): void => this.glassMaskIdTickService.tickedSubject.next()),
       delayWhen<boolean>((pressed: boolean): Observable<number> => pressed ? timer(0) : timer(50)),
       map<boolean, boolean>(
         (): boolean => {
-          this.glassMaskIdTickService.tick();
+          this.glassMaskIdTickService.tickedSubject.next();
 
           return this.pressed$();
         },
@@ -200,13 +200,7 @@ export class HoverTransformingDirective {
     ),
     { requireSync: true },
   ) : signal<false>(false);
-  protected readonly transformed$: Signal<boolean>                                      = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
-    toObservable<{ "x": number, "y": number }>(this.translation$).pipe<boolean, boolean>(
-      map<{ "x": number, "y": number }, boolean>(({ x, y }: { "x": number, "y": number }): boolean => x !== 0 || y !== 0),
-      startWith<boolean, [ false ]>(false),
-    ),
-    { requireSync: true },
-  ) : signal<false>(false);
+  protected readonly transformed$: Signal<boolean>                                      = computed<boolean>((): boolean => this.translation$().x !== 0 || this.translation$().y !== 0);
   protected readonly transformedOrUntransforming$: Signal<boolean>                      = isPlatformBrowser(this.platformId) ? toSignal<boolean>(
     toObservable<boolean>(this.transformed$).pipe<boolean, boolean, boolean>(
       delayWhen<boolean>((transformed: boolean): Observable<number> => transformed ? timer(0) : timer(200)),
