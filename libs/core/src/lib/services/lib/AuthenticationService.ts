@@ -10,7 +10,7 @@ import { Auth, createUserWithEmailAndPassword, onIdTokenChanged, signInAnonymous
 import { Functions }                                                                                                                             from "@angular/fire/functions";
 import { createUserWithPasskey, type FirebaseWebAuthnError, signInWithPasskey, verifyUserWithPasskey }                                           from "@firebase-web-authn/browser";
 import { type Auth as AdminAuth, type UserRecord as AdminUserRecord }                                                                            from "firebase-admin/auth";
-import { distinctUntilChanged, filter, from, Observable, type Observer, of, switchMap, tap, type TeardownLogic }                                 from "rxjs";
+import { catchError, distinctUntilChanged, filter, from, Observable, type Observer, of, switchMap, tap, type TeardownLogic }                     from "rxjs";
 import { getAuthErrorMessage }                                                                                                                   from "../../getAuthErrorMessage";
 import { getCallableCloudFunction }                                                                                                              from "../../getCallableCloudFunction";
 import { ADMIN_AUTH }                                                                                                                            from "../../injection tokens";
@@ -94,35 +94,33 @@ export class AuthenticationService {
       ),
     ),
   );
-  public readonly isAdmin$: Signal<boolean | undefined>                                               = toSignal<boolean>(
-    this.userObservable.pipe<boolean>(
-      this.rxSsrService.wrap<User, boolean>(
-        switchMap<User, Observable<boolean>>(
+  public readonly isAdmin$: Signal<boolean | undefined>                                               = toSignal<boolean | undefined>(
+    this.userObservable.pipe<boolean | undefined>(
+      this.rxSsrService.wrap<User, boolean | undefined>(
+        switchMap<User, Observable<boolean | undefined>>(
           (
             {
               isAnonymous,
               uid: userId,
             }: User,
-          ): Observable<boolean> => {
+          ): Observable<boolean | undefined> => {
             if (isAnonymous)
               return of<false>(false);
 
             return from<Promise<boolean>>(
-              this.adminAuth ? this.adminAuth.getUser(userId).then<boolean, never>(
-                ({ customClaims }: AdminUserRecord): boolean => customClaims?.["admin"] || false,
-                (error: Error): never => {
-                  console.error("Something went wrong.");
-
-                  throw error;
-                },
-              ) : getCallableCloudFunction(
+              this.adminAuth ? this.adminAuth.getUser(userId).then<boolean>(({ customClaims }: AdminUserRecord): boolean => customClaims?.["admin"] || false) : getCallableCloudFunction(
                 this.functions,
                 "getIsAdmin",
-              )().catch<never>(
-                (error: Error): never => {
-                  console.error("Something went wrong.");
+              )(),
+            ).pipe<boolean | undefined>(
+              catchError<boolean, Observable<undefined>>(
+                (error: Error): Observable<undefined> => {
+                  console.error(
+                    "Something went wrong.",
+                    error,
+                  );
 
-                  throw error;
+                  return of<undefined>(undefined);
                 },
               ),
             );

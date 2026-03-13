@@ -4,6 +4,7 @@
 
 import { platformBrowserDynamic }      from "@angular/platform-browser-dynamic";
 import { SERVICE_WORKER_REGISTRATION } from "@bowstring/core";
+import { firstValueFrom, fromEvent }   from "rxjs";
 import { ProjectBrowserModule }        from "./modules";
 
 
@@ -25,13 +26,12 @@ void (async (): Promise<ServiceWorkerRegistration | undefined> => {
     return undefined;
   }
 })().then<void>(
-  (serviceWorkerRegistration?: ServiceWorkerRegistration): Promise<void> => (async (): Promise<void> => {
+  (serviceWorkerRegistration?: ServiceWorkerRegistration): Promise<void> => (async (): Promise<void | Event> => {
     if (document.readyState !== "complete" && document.readyState !== "interactive")
-      return new Promise<void>(
-        (resolve: () => void): void => document.addEventListener<"readystatechange">(
+      return firstValueFrom<Event>(
+        fromEvent<Event>(
+          document,
           "readystatechange",
-          resolve,
-          { once: true },
         ),
       );
   })().then<void>(

@@ -173,6 +173,7 @@
       "executor":  "@angular/fire:deploy",
       "options":   {
         "browserTarget":        "website:angular--browser:production",
+        "cloudRunOptions":      { "minInstances": 1 },
         "firebaseHostingSite":  "gavinsawyer-44c46",
         "firebaseProject":      "gavinsawyer-44c46",
         "functionName":         "ssr-website",

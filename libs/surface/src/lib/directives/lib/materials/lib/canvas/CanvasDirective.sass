@@ -32,23 +32,23 @@ $background-inverse: sassFunctions.get-color-reference($namespace, "background-i
       @return invert(hsl(0, 0%, 80% + $shade))
 
 
-@mixin color-scheme($theme, $shade)
+@mixin color-scheme($theme, $shade, $background-alpha: 1)
   --bowstring--colors--foreground: #{ get-color($theme, "foreground", $shade) }
   --bowstring--colors--foreground-inverse: #{ get-color($theme, "foreground-inverse", $shade) }
 
-  --bowstring--#{ $namespace }-directive--colors--background: #{ get-color($theme, "background", $shade) }
-  --bowstring--#{ $namespace }-directive--colors--background-inverse: #{ get-color($theme, "background-inverse", $shade) }
+  --bowstring--#{ $namespace }-directive--colors--background: #{ transparentize(get-color($theme, "background", $shade), 1 - $background-alpha) }
+  --bowstring--#{ $namespace }-directive--colors--background-inverse: #{ transparentize(get-color($theme, "background-inverse", $shade), 1 - $background-alpha) }
 
 @mixin children
   @include sassMixins.reset-colors($namespace, ("background", "background-inverse"))
   @include sassMixins.reset-inputs($namespace, ())
   @include sassMixins.reset-values($namespace, ())
 
-@mixin host($shade)
-  @include color-scheme("light", $shade)
+@mixin host($shade, $background-alpha: 1)
+  @include color-scheme("light", $shade, $background-alpha)
 
   @media (prefers-color-scheme: dark)
-    @include color-scheme("dark", $shade)
+    @include color-scheme("dark", $shade, $background-alpha)
 
   > .harness > .between
     background: $background

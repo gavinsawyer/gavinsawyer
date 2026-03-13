@@ -14,7 +14,9 @@ self.addEventListener<"activate">(
 self.addEventListener<"fetch">(
   "fetch",
   (fetchEvent: FetchEvent): void => {
-    if (self.location.origin !== `${ fetchEvent.request.url.split("/")[0] }//${ fetchEvent.request.url.split("/")[2] }` || fetchEvent.request.url.split("/")[3] === "firebase-web-authn-api")
+    const url: URL = new URL(fetchEvent.request.url);
+
+    if (url.pathname === "/firebase-web-authn-api" || url.origin !== self.location.origin)
       return fetchEvent.respondWith(fetch(fetchEvent.request));
 
     const headers: Headers = new Headers();
@@ -41,40 +43,47 @@ self.addEventListener<"fetch">(
     );
 
     fetchEvent.respondWith(
-      (async (): Promise<string | undefined> => {
-        if (fetchEvent.request.method !== "GET") {
+      (async (): Promise<string | null> => {
+        if (fetchEvent.request.method !== "GET" && fetchEvent.request.method !== "HEAD") {
           if (fetchEvent.request.headers.get("Content-Type")?.includes("json"))
-            return fetchEvent.request.json().then<string>((request: unknown): string => JSON.stringify(request));
+            return fetchEvent.request.json().then<string>((body: unknown): string => JSON.stringify(body));
 
           return fetchEvent.request.text();
         }
 
-        return undefined;
+        return null;
       })().then<Response>(
-        (body?: string): Promise<Response> => {
-          try {
-            return fetch(
-              new Request(
-                fetchEvent.request.url,
-                {
-                  body,
-                  cache:          fetchEvent.request.cache,
-                  credentials:    fetchEvent.request.credentials,
-                  headers,
-                  keepalive:      fetchEvent.request.keepalive,
-                  method:         fetchEvent.request.method,
-                  mode:           "same-origin",
-                  redirect:       fetchEvent.request.redirect,
-                  referrer:       fetchEvent.request.referrer,
-                  referrerPolicy: fetchEvent.request.referrerPolicy,
-                  signal:         fetchEvent.request.signal,
-                },
-              ),
-            );
-          } catch {
-            return fetch(fetchEvent.request);
-          }
-        },
+        (body: string | null): Promise<Response> => (
+          (
+            {
+              cache,
+              credentials,
+              keepalive,
+              method,
+              redirect,
+              referrer,
+              referrerPolicy,
+              signal,
+            }: Request,
+          ): Promise<Response> => fetch(
+            new Request(
+              url,
+              {
+                body,
+                cache,
+                credentials,
+                headers,
+                keepalive,
+                method,
+                mode: "same-origin",
+                redirect,
+                referrer,
+                referrerPolicy,
+                signal,
+              },
+            ),
+          )
+        )(fetchEvent.request).catch<Response>((): Promise<Response> => fetch(fetchEvent.request)),
       ),
     );
   },

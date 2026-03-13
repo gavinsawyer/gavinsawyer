@@ -2,11 +2,11 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser }                                                                                                                                         from "@angular/common";
-import { computed, Directive, type ElementRef, inject, output, OutputEmitterRef, PLATFORM_ID, type Signal, signal, type WritableSignal }                                       from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                              from "@angular/core/rxjs-interop";
-import { animationFrameScheduler, delayWhen, filter, fromEvent, map, merge, Observable, observeOn, type Observer, startWith, switchMap, takeUntil, type TeardownLogic, timer } from "rxjs";
-import { GlassMaskIdTickService }                                                                                                                                              from "../../../../../services";
+import { DOCUMENT, isPlatformBrowser }                                                                                                                   from "@angular/common";
+import { computed, Directive, type ElementRef, inject, PLATFORM_ID, type Signal, signal, type WritableSignal }                                           from "@angular/core";
+import { toObservable, toSignal }                                                                                                                        from "@angular/core/rxjs-interop";
+import { animationFrameScheduler, delayWhen, filter, fromEvent, map, mergeWith, Observable, observeOn, startWith, Subject, switchMap, takeUntil, timer } from "rxjs";
+import { GlassMaskIdTickService }                                                                                                                        from "../../../../../services";
 
 
 @Directive(
@@ -34,6 +34,7 @@ export class HoverTransformingDirective {
   private readonly document: Document                             = inject<Document>(DOCUMENT);
   private readonly glassMaskIdTickService: GlassMaskIdTickService = inject<GlassMaskIdTickService>(GlassMaskIdTickService);
   private readonly platformId: NonNullable<unknown>               = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly pressedCancelledSubject: Subject<void>         = new Subject<void>();
 
   public readonly htmlElementRef$: WritableSignal<ElementRef<HTMLElement> | undefined> = signal<undefined>(undefined);
 
@@ -128,53 +129,93 @@ export class HoverTransformingDirective {
   protected readonly lastTranslation$: Signal<{ "x": number, "y": number } | undefined> = isPlatformBrowser(this.platformId) ? toSignal<{ "x": number, "y": number }>(toObservable<{ "x": number, "y": number }>(this.translation$).pipe<{ "x": number, "y": number }>(filter<{ "x": number, "y": number }>(({ x, y }: { "x": number, "y": number }): boolean => x !== 0 || y !== 0))) : signal<undefined>(undefined);
   protected readonly pressed$: Signal<boolean>                                          = isPlatformBrowser(this.platformId) && this.document.defaultView ? ((window: Window & typeof globalThis): Signal<boolean> => toSignal<boolean>(
     toObservable<ElementRef<HTMLElement> | undefined>(this.htmlElementRef$).pipe<ElementRef<HTMLElement>, boolean, boolean>(
-      filter<ElementRef<HTMLElement> | undefined, ElementRef<HTMLElement>>((htmlElementRef?: ElementRef<HTMLElement>): htmlElementRef is ElementRef<HTMLDivElement> => !!htmlElementRef),
+      filter<ElementRef<HTMLElement> | undefined, ElementRef<HTMLElement>>((htmlElementRef?: ElementRef<HTMLElement>): htmlElementRef is ElementRef<HTMLElement> => !!htmlElementRef),
       switchMap<ElementRef<HTMLElement>, Observable<boolean>>(
-        ({ nativeElement: htmlElement }: ElementRef<HTMLElement>): Observable<boolean> => fromEvent<Event>(
+        ({ nativeElement: htmlElement }: ElementRef<HTMLElement>): Observable<boolean> => fromEvent<PointerEvent>(
           htmlElement,
           "pointerdown",
           { passive: true },
-        ).pipe<boolean, boolean>(
-          switchMap<Event, Observable<boolean>>(
-            (): Observable<boolean> => merge<[ true, false ]>(
-              fromEvent<Event>(
-                htmlElement,
-                "pointerenter",
-                { passive: true },
-              ).pipe<true, true, true>(
-                map<Event, true>((): true => true),
-                takeUntil<true>(
-                  merge<[ Event, void ]>(
-                    fromEvent<Event>(
-                      window,
-                      "pointerup",
-                      { passive: true },
-                    ).pipe<Event>(observeOn<Event>(animationFrameScheduler)),
-                    new Observable<void>((pressedCancelledObserver: Observer<void>): TeardownLogic => this.pressedCancelled.subscribe((): void => pressedCancelledObserver.next()).unsubscribe),
-                  ),
+        ).pipe<boolean, boolean, boolean>(
+          switchMap<PointerEvent, Observable<boolean>>(
+            (): Observable<boolean> => fromEvent<PointerEvent>(
+              htmlElement,
+              "pointercancel",
+              { passive: true },
+            ).pipe<void | PointerEvent | DragEvent, false, boolean, boolean>(
+              mergeWith<PointerEvent, [ PointerEvent, DragEvent, void ]>(
+                fromEvent<PointerEvent>(
+                  window,
+                  "pointerup",
+                  { passive: true },
                 ),
-                observeOn<true>(animationFrameScheduler),
+                fromEvent<DragEvent>(
+                  htmlElement,
+                  "dragstart",
+                  { passive: true },
+                ),
+                this.pressedCancelledSubject,
               ),
-              merge<[ Event, Event, Event ]>(
-                fromEvent<Event>(
+              map<void | PointerEvent | DragEvent, false>((): false => false),
+              mergeWith<false, [ boolean ]>(
+                fromEvent<PointerEvent>(
                   htmlElement,
                   "pointerleave",
                   { passive: true },
-                ).pipe<Event>(observeOn<Event>(animationFrameScheduler)),
-                fromEvent<Event>(
-                  htmlElement,
-                  "pointerup",
-                  { passive: true },
-                ).pipe<Event>(observeOn<Event>(animationFrameScheduler)),
-                fromEvent<Event>(
-                  window,
-                  "scroll",
-                  { passive: true },
-                ).pipe<Event>(observeOn<Event>(animationFrameScheduler)),
-              ).pipe<false>(map<Event, false>((): false => false)),
-            ).pipe<boolean, boolean>(
+                ).pipe<boolean, boolean>(
+                  switchMap<PointerEvent, Observable<boolean>>(
+                    (): Observable<boolean> => fromEvent<PointerEvent>(
+                      htmlElement,
+                      "pointerenter",
+                      { passive: true },
+                    ).pipe<true, boolean>(
+                      map<PointerEvent, true>((): true => true),
+                      startWith<boolean, [ false ]>(false),
+                    ),
+                  ),
+                  takeUntil<boolean>(
+                    fromEvent<PointerEvent>(
+                      htmlElement,
+                      "pointercancel",
+                      { passive: true },
+                    ).pipe<void | PointerEvent | DragEvent>(
+                      mergeWith<PointerEvent, [ PointerEvent, DragEvent, void ]>(
+                        fromEvent<PointerEvent>(
+                          window,
+                          "pointerup",
+                          { passive: true },
+                        ),
+                        fromEvent<DragEvent>(
+                          htmlElement,
+                          "dragstart",
+                          { passive: true },
+                        ),
+                        this.pressedCancelledSubject,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               startWith<boolean, [ true ]>(true),
-              switchMap<boolean, Observable<boolean>>((pressed: boolean): Observable<boolean> => new Observable<false>((pressedCancelledObserver: Observer<false>): TeardownLogic => this.pressedCancelled.subscribe((): void => pressedCancelledObserver.next(false)).unsubscribe).pipe<boolean>(startWith<boolean>(pressed))),
+            ),
+          ),
+          mergeWith<boolean, [ boolean ]>(
+            fromEvent<KeyboardEvent>(
+              htmlElement,
+              "keydown",
+              { passive: true },
+            ).pipe<KeyboardEvent, boolean>(
+              filter<KeyboardEvent>(({ code }: KeyboardEvent): boolean => code === "Enter" || code === "Space"),
+              switchMap<KeyboardEvent, Observable<boolean>>(
+                (): Observable<boolean> => fromEvent<KeyboardEvent>(
+                  htmlElement,
+                  "keyup",
+                  { passive: true },
+                ).pipe<KeyboardEvent, false, boolean>(
+                  filter<KeyboardEvent>(({ code }: KeyboardEvent): boolean => code === "Enter" || code === "Space"),
+                  map<KeyboardEvent, false>((): false => false),
+                  startWith<boolean, [ true ]>(true),
+                ),
+              ),
             ),
           ),
           observeOn<boolean>(animationFrameScheduler),
@@ -214,10 +255,8 @@ export class HoverTransformingDirective {
     { requireSync: true },
   ) : signal<false>(false);
 
-  public readonly pressedCancelled: OutputEmitterRef<void> = output<void>();
-
   public cancelPressed(): void {
-    this.pressedCancelled.emit();
+    setTimeout((): void => this.pressedCancelledSubject.next());
   }
 
 }

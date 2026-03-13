@@ -49,8 +49,8 @@ export class ErrorsContainerComponent {
     toObservable<ElementRef<HTMLDivElement>>(this.htmlDivElementRef$).pipe<number>(
       switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
         ({ nativeElement: htmlElement }: ElementRef<HTMLDivElement>): Observable<number> => new Observable<number>(
-          (dimensionsObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(element.clientHeight));
+          (heightObserver: Observer<number>): TeardownLogic => {
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => heightObserver.next(element.getBoundingClientRect().height));
 
             resizeObserver.observe(htmlElement);
 

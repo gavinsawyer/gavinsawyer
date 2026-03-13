@@ -9,7 +9,7 @@ export interface SegmentedControlValueAccessor
   extends ControlValueAccessor {
   "value": string;
 
-  getOptionIndex(value?: string): number;
+  getOptionIndex(value: string): number;
   onChange?(): void;
   onTouched?(): void;
 }

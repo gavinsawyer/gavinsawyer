@@ -7,7 +7,7 @@ import { afterRender, booleanAttribute, ChangeDetectionStrategy, Component, type
 import { outputFromObservable, toObservable, toSignal }                                                                                                                                                                from "@angular/core/rxjs-interop";
 import { RouterLink, RouterLinkActive }                                                                                                                                                                                from "@angular/router";
 import { type Dimensions }                                                                                                                                                                                             from "@bowstring/core";
-import { combineLatestWith, from, map, type Observable, of, startWith, Subject, switchMap }                                                                                                                            from "rxjs";
+import { combineLatestWith, fromEvent, map, type Observable, of, startWith, Subject, switchMap }                                                                                                                       from "rxjs";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, HoverTransformingDirective, WellRoundedDirective }                                                                                                    from "../../../../../directives";
 import { HapticsService }                                                                                                                                                                                              from "../../../../../services";
 
@@ -79,13 +79,12 @@ export class ImageComponent {
   constructor() {
     afterRender(
       (): void => {
-        this.hoverTransformingDirective.htmlElementRef$.set(this.htmlDivElementRef$());
-        this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$());
+        this.hoverTransformingDirective.htmlElementRef$.set(this.htmlImageElementRef$());
+        this.wellRoundedDirective.htmlElementRef$.set(this.htmlImageElementRef$());
       },
     );
   }
 
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>     = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
   private readonly htmlImageElementRef$: Signal<ElementRef<HTMLImageElement>> = viewChild.required<ElementRef<HTMLImageElement>>("htmlImageElement");
   private readonly routerLinkActive$: Signal<RouterLinkActive | undefined>    = viewChild<RouterLinkActive>(RouterLinkActive);
 
@@ -95,20 +94,15 @@ export class ImageComponent {
   protected readonly imageDimensions$: Signal<Dimensions | undefined>       = toSignal<Dimensions | undefined>(
     toObservable<ElementRef<HTMLImageElement>>(this.htmlImageElementRef$).pipe<Dimensions>(
       switchMap<ElementRef<HTMLImageElement>, Observable<Dimensions>>(
-        ({ nativeElement: htmlImageElement }: ElementRef<HTMLImageElement>): Observable<Dimensions> => from<Promise<Dimensions>>(
-          new Promise(
-            (
-              resolve: (imageDimensions: Dimensions) => void,
-              reject: () => void,
-            ): void => {
-              htmlImageElement.onerror = reject;
-              htmlImageElement.onload  = (): void => resolve(
-                {
-                  height: htmlImageElement.height,
-                  width:  htmlImageElement.width,
-                },
-              );
-            },
+        ({ nativeElement: htmlImageElement }: ElementRef<HTMLImageElement>): Observable<Dimensions> => fromEvent<Event>(
+          htmlImageElement,
+          "load",
+        ).pipe<Dimensions>(
+          map<Event, Dimensions>(
+            (): Dimensions => ({
+              height: htmlImageElement.height,
+              width:  htmlImageElement.width,
+            }),
           ),
         ),
       ),
@@ -134,7 +128,7 @@ export class ImageComponent {
   );
   public readonly disabled$: Signal<boolean | undefined>                                                                   = toSignal<boolean>(
     toObservable<boolean | undefined>(this.disabledInput$).pipe<[ boolean | undefined, boolean | undefined ], boolean>(
-      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.asObservable().pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
+      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
       map<[ boolean | undefined, boolean | undefined ], boolean>(
         (
           [
@@ -165,7 +159,7 @@ export class ImageComponent {
     { alias: "loading" },
   );
   public readonly output: OutputRef<void>                                                                                  = outputFromObservable<void>(
-    this.outputSubject.asObservable(),
+    this.outputSubject,
     { alias: "output" },
   );
   public readonly urlInput$: InputSignal<string | undefined>                                                               = input<string | undefined>(

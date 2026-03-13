@@ -68,7 +68,13 @@ export class MapComponent {
   constructor() {
     afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
 
-    this.googleMapsApiLoaderService.load("maps").catch<never>(
+    this.googleMapsApiLoaderService.load("maps").then<void, never>(
+      (mapsLibrary: google.maps.MapsLibrary | null): void => {
+        if (!mapsLibrary)
+          return void (0);
+
+        console.log("Google Maps JavaScript API Maps library ready");
+      },
       (error: Error): never => {
         console.error("Something went wrong.");
 

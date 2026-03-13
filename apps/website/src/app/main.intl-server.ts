@@ -2,15 +2,16 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { type LocaleId }                                                                                                 from "@bowstring/i18n";
+import { type LocaleId, localeIds }                                                                                      from "@bowstring/i18n";
 import compression                                                                                                       from "compression";
 import cookieParser                                                                                                      from "cookie-parser";
 import express                                                                                                           from "express";
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
 import { environment }                                                                                                   from "../environment";
-import { getI18nRequestHandler }                                                                                         from "./getI18nRequestHandler";
 
+
+process.env["FIRESTORE_PREFER_REST"] = "true";
 
 const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
 const adminAuth: AdminAuth               = adminGetAuth(adminFirebaseApp);
@@ -52,20 +53,35 @@ void express().use(compression()).use(cookieParser()).use(
   "views",
   `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
 ).get(
-  "/main.service-worker.js",
-  express.static(`${ process.cwd() }/dist/apps/${ environment.app }/browser`),
-).get(
   "*.*",
-  getI18nRequestHandler(
-    ({ staticRoot }: { staticRoot: string }): express.RequestHandler => express.static(
-      staticRoot,
-      { maxAge: "1y" },
-    ),
+  express.static(
+    `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
+    { maxAge: "1y" },
   ),
 ).get(
   "*",
-  getI18nRequestHandler(({ localeId }: { localeId: LocaleId }): express.RequestHandler => require(`${ __dirname }/${ String(localeId) }/main.js`)["getRequestHandler"](localeId)),
+  (
+    request: express.Request,
+    response: express.Response,
+    nextFunction: express.NextFunction,
+  ): void => {
+    const localeId: LocaleId | undefined = localeIds.filter((localeId: LocaleId): boolean => request.path.startsWith(`/${ localeId }`))[0];
+
+    if (!localeId)
+      return response.redirect(`/${ request.acceptsLanguages(localeIds) || "en-US" }${ request.path }`);
+
+    require(`${ __dirname }/${ localeId }/main.js`)["getRequestHandler"](localeId)(
+      request,
+      response,
+      nextFunction,
+    );
+  },
 ).listen(
   process.env["PORT"] || 4000,
-  (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),
+  (error?: Error): void => {
+    if (error)
+      throw error;
+
+    console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`);
+  },
 );

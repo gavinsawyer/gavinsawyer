@@ -2,45 +2,20 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser, isPlatformServer }                                                                                           from "@angular/common";
-import { effect, ExperimentalPendingTasks as PendingTasks, inject, Injectable, makeStateKey, PLATFORM_ID, type StateKey, TransferState } from "@angular/core";
-import { distinctUntilChanged, finalize, type MonoTypeOperatorFunction, type Observable, type OperatorFunction, startWith, take, tap }   from "rxjs";
-import { PathService }                                                                                                                   from "./PathService";
+import { isPlatformServer }                                                                                                            from "@angular/common";
+import { ExperimentalPendingTasks as PendingTasks, inject, Injectable, makeStateKey, PLATFORM_ID, type StateKey, TransferState }       from "@angular/core";
+import { distinctUntilChanged, finalize, type MonoTypeOperatorFunction, type Observable, type OperatorFunction, startWith, take, tap } from "rxjs";
 
 
 @Injectable({ providedIn: "root" })
 export class RxSsrService {
 
-  constructor() {
-    if (isPlatformBrowser(this.platformId))
-      effect(
-        (): void => void (this.pathService.path$() !== this.transferState.get(
-          this.pathStateKey,
-          undefined,
-        ) && this.stateKeys?.forEach((stateKey: StateKey<unknown>): void => this.transferState.remove<unknown>(stateKey))),
-      );
-    else
-      this.transferState.set(
-        this.pathStateKey,
-        this.pathService.path$(),
-      );
-  }
-
-  private readonly pathService: PathService         = inject<PathService>(PathService);
-  private readonly pathStateKey: StateKey<string>   = makeStateKey<string>("01966901-1a70-7708-8d97-6824a3c35c6a");
   private readonly pendingTasks: PendingTasks       = inject<PendingTasks>(PendingTasks);
   private readonly platformId: NonNullable<unknown> = inject<NonNullable<unknown>>(PLATFORM_ID);
   private readonly transferState: TransferState     = inject<TransferState>(TransferState);
 
-  private stateKeys?: Array<StateKey<unknown>>;
-
   public useState<T>(id: string): MonoTypeOperatorFunction<T> {
     const stateKey: StateKey<T> = makeStateKey<T>(id);
-
-    this.stateKeys = [
-      ...(this.stateKeys ? [ ...this.stateKeys ] : []),
-      stateKey,
-    ];
 
     return (inputObservable: Observable<T>): Observable<T> => {
       let removeTask: () => void = (): void => void (0);
@@ -68,6 +43,8 @@ export class RxSsrService {
         stateKey,
         undefined,
       );
+
+      this.transferState.remove<T>(stateKey);
 
       if (state !== undefined)
         return inputObservable.pipe<T, T, T, T, T>(
@@ -101,11 +78,6 @@ export class RxSsrService {
   ): OperatorFunction<T, R> {
     const stateKey: StateKey<R> = makeStateKey<R>(id);
 
-    this.stateKeys = [
-      ...(this.stateKeys ? [ ...this.stateKeys ] : []),
-      stateKey,
-    ];
-
     return (inputObservable: Observable<T>): Observable<R> => {
       let removeTask: () => void = (): void => void (0);
 
@@ -132,6 +104,8 @@ export class RxSsrService {
         stateKey,
         undefined,
       );
+
+      this.transferState.remove<R>(stateKey);
 
       if (state !== undefined)
         return inputObservable.pipe<T, T, R, R, R, R, R>(

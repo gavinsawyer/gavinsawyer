@@ -4,8 +4,8 @@
 
 import { APP_BASE_HREF }                                                                                                 from "@angular/common";
 import { CommonEngine }                                                                                                  from "@angular/ssr";
-import { LOCALE_ID, type LocaleId }                                                                                      from "@bowstring/i18n";
 import { ADMIN_APP_CHECK, ADMIN_AUTH, ADMIN_FIREBASE_APP, REQUEST, RESPONSE }                                            from "@bowstring/core";
+import { LOCALE_ID, type LocaleId, localeIds }                                                                           from "@bowstring/i18n";
 import compression                                                                                                       from "compression";
 import cookieParser                                                                                                      from "cookie-parser";
 import express                                                                                                           from "express";
@@ -14,9 +14,10 @@ import { type AppCheck as AdminAppCheck, getAppCheck as adminGetAppCheck }      
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
 import { environment }                                                                                                   from "../environment";
 import { ProjectServerModule }                                                                                           from "./modules";
-import { getI18nRequestHandler }                                                                                         from "./getI18nRequestHandler";
 import "zone.js/node";
 
+
+process.env["FIRESTORE_PREFER_REST"] = "true";
 
 const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
 const adminAppCheck: AdminAppCheck       = adminGetAppCheck(adminFirebaseApp);
@@ -27,13 +28,13 @@ function getRequestHandler(localeId: LocaleId): express.RequestHandler {
     request: express.Request,
     response: express.Response,
     nextFunction: express.NextFunction,
-  ): Promise<void> => new CommonEngine(
+  ): void => void new CommonEngine(
     {
       bootstrap: ProjectServerModule,
       providers: [
         {
           provide:  APP_BASE_HREF,
-          useValue: `/${ String(localeId) }`,
+          useValue: `/${ localeId }`,
         },
         {
           provide:  ADMIN_APP_CHECK,
@@ -49,7 +50,7 @@ function getRequestHandler(localeId: LocaleId): express.RequestHandler {
         },
         {
           provide:  LOCALE_ID,
-          useValue: String(localeId),
+          useValue: localeId,
         },
         {
           provide:  REQUEST,
@@ -63,19 +64,12 @@ function getRequestHandler(localeId: LocaleId): express.RequestHandler {
     },
   ).render(
     {
-      documentFilePath: `${ process.cwd() }/dist/apps/${ environment.app }/browser/${ String(localeId) }/index.original.html`,
+      documentFilePath: `${ process.cwd() }/dist/apps/${ environment.app }/browser/${ localeId }/index.original.html`,
       url:              `${ request.protocol }://${ request.headers.host }${ request.originalUrl }`,
     },
-  ).then<void, never>(
-    (html: string): void => {
-      response.send(html);
-      nextFunction();
-    },
-    (error: Error): never => {
-      nextFunction(error);
-
-      throw error;
-    },
+  ).then<void, void>(
+    (html: string): void => void response.send(html),
+    (error: Error): void => nextFunction(error),
   );
 }
 
@@ -125,20 +119,35 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
     "views",
     `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
   ).get(
-    "/main.service-worker.js",
-    express.static(`${ process.cwd() }/dist/apps/${ environment.app }/browser`),
-  ).get(
     "*.*",
-    getI18nRequestHandler(
-      ({ staticRoot }: { staticRoot: string }): express.RequestHandler => express.static(
-        staticRoot,
-        { maxAge: "1y" },
-      ),
+    express.static(
+      `${ process.cwd() }/dist/apps/${ environment.app }/browser`,
+      { maxAge: "1y" },
     ),
   ).get(
     "*",
-    getI18nRequestHandler(({ localeId }: { localeId: LocaleId }): express.RequestHandler => getRequestHandler(localeId)),
+    (
+      request: express.Request,
+      response: express.Response,
+      nextFunction: express.NextFunction,
+    ): void => {
+      const localeId: LocaleId | undefined = localeIds.filter((localeId: LocaleId): boolean => request.path.startsWith(`/${ localeId }`))[0];
+
+      if (!localeId)
+        return response.redirect(`/${ request.acceptsLanguages(localeIds) || "en-US" }${ request.path }`);
+
+      getRequestHandler(localeId)(
+        request,
+        response,
+        nextFunction,
+      );
+    },
   ).listen(
     process.env["PORT"] || 4000,
-    (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),
+    (error?: Error): void => {
+      if (error)
+        throw error;
+
+      console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`);
+    },
   );

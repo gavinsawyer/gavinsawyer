@@ -8,7 +8,7 @@ import { Meta }                                                                 
 import { ActivatedRoute, RouterOutlet, type Routes }                                                                                                                                                                                                                                                                                                     from "@angular/router";
 import { PROJECT_ROUTES }                                                                                                                                                                                                                                                                                                                                from "@bowstring/core";
 import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, ChildRouteHeaderDirective, type FooterComponent, type HeaderComponent, type InspectorComponent, RouteAboveDirective, RouteAsideDirective, RouteBannerDirective, RouteBelowDirective, RouteFooterDirective, RouteHeaderDirective, RouteInspectorDirective } from "@bowstring/surface";
-import { combineLatestWith, map, merge, type Observable, of, startWith, switchMap }                                                                                                                                                                                                                                                                      from "rxjs";
+import { combineLatestWith, map, mergeWith, type Observable, of, startWith, switchMap }                                                                                                                                                                                                                                                                  from "rxjs";
 import { projectRoutesProvider }                                                                                                                                                                                                                                                                                                                         from "../routes";
 
 
@@ -57,9 +57,9 @@ export class RouteComponent
   protected readonly routerOutletActivated$: Signal<boolean | undefined> = toSignal<boolean | undefined>(
     toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<boolean | undefined, boolean | undefined>(
       switchMap<RouterOutlet | undefined, Observable<boolean | undefined>>(
-        (routerOutlet?: RouterOutlet): Observable<boolean | undefined> => routerOutlet ? merge<[ true, false ]>(
-          routerOutlet.activateEvents.asObservable().pipe<true>(map<RouteComponent, true>((): true => true)),
-          routerOutlet.deactivateEvents.asObservable().pipe<false>(map<RouteComponent, false>((): false => false)),
+        (routerOutlet?: RouterOutlet): Observable<boolean | undefined> => routerOutlet ? routerOutlet.activateEvents.pipe<true, boolean>(
+          map<RouteComponent, true>((): true => true),
+          mergeWith<true, [ false ]>(routerOutlet.deactivateEvents.pipe<false>(map<RouteComponent, false>((): false => false))),
         ) : of<undefined>(undefined),
       ),
       startWith<boolean | undefined, [ boolean ]>(!!this.activatedRoute.children.length),
@@ -72,7 +72,7 @@ export class RouteComponent
       combineLatestWith<TemplateRef<AboveComponent> | undefined, [ TemplateRef<AboveComponent> | undefined ]>(
         toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<TemplateRef<AboveComponent> | undefined>(
           switchMap<RouterOutlet | undefined, Observable<TemplateRef<AboveComponent> | undefined>>(
-            (routerOutlet?: RouterOutlet): Observable<TemplateRef<AboveComponent> | undefined> => routerOutlet?.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<AboveComponent> | undefined>(
+            (routerOutlet?: RouterOutlet): Observable<TemplateRef<AboveComponent> | undefined> => routerOutlet?.activateEvents.pipe<RouteComponent | undefined, TemplateRef<AboveComponent> | undefined>(
               startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet?.isActivated ? routerOutlet.component as RouteComponent : undefined),
               switchMap<RouteComponent | undefined, Observable<TemplateRef<AboveComponent> | undefined>>(
                 (routeComponent?: RouteComponent): Observable<TemplateRef<AboveComponent> | undefined> => routeComponent ? toObservable<TemplateRef<AboveComponent> | undefined>(
@@ -99,7 +99,7 @@ export class RouteComponent
       combineLatestWith<TemplateRef<AsideComponent> | undefined, [ TemplateRef<AsideComponent> | undefined ]>(
         toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<TemplateRef<AsideComponent> | undefined>(
           switchMap<RouterOutlet | undefined, Observable<TemplateRef<AsideComponent> | undefined>>(
-            (routerOutlet?: RouterOutlet): Observable<TemplateRef<AsideComponent> | undefined> => routerOutlet?.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<AsideComponent> | undefined>(
+            (routerOutlet?: RouterOutlet): Observable<TemplateRef<AsideComponent> | undefined> => routerOutlet?.activateEvents.pipe<RouteComponent | undefined, TemplateRef<AsideComponent> | undefined>(
               startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet?.isActivated ? routerOutlet.component as RouteComponent : undefined),
               switchMap<RouteComponent | undefined, Observable<TemplateRef<AsideComponent> | undefined>>(
                 (routeComponent?: RouteComponent): Observable<TemplateRef<AsideComponent> | undefined> => routeComponent ? toObservable<TemplateRef<AsideComponent> | undefined>(
@@ -126,7 +126,7 @@ export class RouteComponent
       combineLatestWith<TemplateRef<BannerComponent> | undefined, [ TemplateRef<BannerComponent> | undefined ]>(
         toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<TemplateRef<BannerComponent> | undefined>(
           switchMap<RouterOutlet | undefined, Observable<TemplateRef<BannerComponent> | undefined>>(
-            (routerOutlet?: RouterOutlet): Observable<TemplateRef<BannerComponent> | undefined> => routerOutlet?.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<BannerComponent> | undefined>(
+            (routerOutlet?: RouterOutlet): Observable<TemplateRef<BannerComponent> | undefined> => routerOutlet?.activateEvents.pipe<RouteComponent | undefined, TemplateRef<BannerComponent> | undefined>(
               startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet?.isActivated ? routerOutlet.component as RouteComponent : undefined),
               switchMap<RouteComponent | undefined, Observable<TemplateRef<BannerComponent> | undefined>>(
                 (routeComponent?: RouteComponent): Observable<TemplateRef<BannerComponent> | undefined> => routeComponent ? toObservable<TemplateRef<BannerComponent> | undefined>(
@@ -153,7 +153,7 @@ export class RouteComponent
       combineLatestWith<TemplateRef<BelowComponent> | undefined, [ TemplateRef<BelowComponent> | undefined ]>(
         toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<TemplateRef<BelowComponent> | undefined>(
           switchMap<RouterOutlet | undefined, Observable<TemplateRef<BelowComponent> | undefined>>(
-            (routerOutlet?: RouterOutlet): Observable<TemplateRef<BelowComponent> | undefined> => routerOutlet?.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<BelowComponent> | undefined>(
+            (routerOutlet?: RouterOutlet): Observable<TemplateRef<BelowComponent> | undefined> => routerOutlet?.activateEvents.pipe<RouteComponent | undefined, TemplateRef<BelowComponent> | undefined>(
               startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet?.isActivated ? routerOutlet.component as RouteComponent : undefined),
               switchMap<RouteComponent | undefined, Observable<TemplateRef<BelowComponent> | undefined>>(
                 (routeComponent?: RouteComponent): Observable<TemplateRef<BelowComponent> | undefined> => routeComponent ? toObservable<TemplateRef<BelowComponent> | undefined>(
@@ -189,7 +189,7 @@ export class RouteComponent
       combineLatestWith<TemplateRef<InspectorComponent> | undefined, [ TemplateRef<InspectorComponent> | undefined ]>(
         toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<TemplateRef<InspectorComponent> | undefined>(
           switchMap<RouterOutlet | undefined, Observable<TemplateRef<InspectorComponent> | undefined>>(
-            (routerOutlet?: RouterOutlet): Observable<TemplateRef<InspectorComponent> | undefined> => routerOutlet?.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<InspectorComponent> | undefined>(
+            (routerOutlet?: RouterOutlet): Observable<TemplateRef<InspectorComponent> | undefined> => routerOutlet?.activateEvents.pipe<RouteComponent | undefined, TemplateRef<InspectorComponent> | undefined>(
               startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet?.isActivated ? routerOutlet.component as RouteComponent : undefined),
               switchMap<RouteComponent | undefined, Observable<TemplateRef<InspectorComponent> | undefined>>(
                 (routeComponent?: RouteComponent): Observable<TemplateRef<InspectorComponent> | undefined> => routeComponent ? toObservable<TemplateRef<InspectorComponent> | undefined>(
@@ -216,7 +216,7 @@ export class RouteComponent
       combineLatestWith<TemplateRef<HeaderComponent> | undefined, [ TemplateRef<HeaderComponent> | undefined ]>(
         toObservable<RouterOutlet | undefined>(this.routerOutlet$).pipe<TemplateRef<HeaderComponent> | undefined>(
           switchMap<RouterOutlet | undefined, Observable<TemplateRef<HeaderComponent> | undefined>>(
-            (routerOutlet?: RouterOutlet): Observable<TemplateRef<HeaderComponent> | undefined> => routerOutlet?.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<HeaderComponent> | undefined>(
+            (routerOutlet?: RouterOutlet): Observable<TemplateRef<HeaderComponent> | undefined> => routerOutlet?.activateEvents.pipe<RouteComponent | undefined, TemplateRef<HeaderComponent> | undefined>(
               startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet?.isActivated ? routerOutlet.component as RouteComponent : undefined),
               switchMap<RouteComponent | undefined, Observable<TemplateRef<HeaderComponent> | undefined>>(
                 (routeComponent?: RouteComponent): Observable<TemplateRef<HeaderComponent> | undefined> => routeComponent ? toObservable<TemplateRef<HeaderComponent> | undefined>(

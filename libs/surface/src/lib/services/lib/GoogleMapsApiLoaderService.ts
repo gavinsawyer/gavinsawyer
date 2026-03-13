@@ -28,6 +28,8 @@ export class GoogleMapsApiLoaderService {
   private journeySharingLibraryPromise?: Promise<google.maps.JourneySharingLibrary | null>;
   private mapsLibrary?: google.maps.MapsLibrary | null;
   private mapsLibraryPromise?: Promise<google.maps.MapsLibrary | null>;
+  private maps3dLibrary?: google.maps.Maps3DLibrary | null;
+  private maps3dLibraryPromise?: Promise<google.maps.Maps3DLibrary | null>;
   private markerLibrary?: google.maps.MarkerLibrary | null;
   private markerLibraryPromise?: Promise<google.maps.MarkerLibrary | null>;
   private placesLibrary?: google.maps.PlacesLibrary | null;
@@ -55,12 +57,13 @@ export class GoogleMapsApiLoaderService {
   public async load(library: "geometry"): Promise<google.maps.GeometryLibrary | null>
   public async load(library: "journeySharing"): Promise<google.maps.JourneySharingLibrary | null>
   public async load(library: "maps"): Promise<google.maps.MapsLibrary | null>
+  public async load(library: "maps3d"): Promise<google.maps.Maps3DLibrary | null>
   public async load(library: "marker"): Promise<google.maps.MarkerLibrary | null>
   public async load(library: "places"): Promise<google.maps.PlacesLibrary | null>
   public async load(library: "routes"): Promise<google.maps.RoutesLibrary | null>
   public async load(library: "streetView"): Promise<google.maps.StreetViewLibrary | null>
   public async load(library: "visualization"): Promise<google.maps.VisualizationLibrary | null>
-  public async load(library: "core" | "drawing" | "elevation" | "geocoding" | "geometry" | "journeySharing" | "maps" | "marker" | "places" | "routes" | "streetView" | "visualization"): Promise<google.maps.CoreLibrary | google.maps.DrawingLibrary | google.maps.ElevationLibrary | google.maps.GeocodingLibrary | google.maps.GeometryLibrary | google.maps.JourneySharingLibrary | google.maps.MapsLibrary | google.maps.MarkerLibrary | google.maps.PlacesLibrary | google.maps.RoutesLibrary | google.maps.StreetViewLibrary | google.maps.VisualizationLibrary | null> {
+  public async load(library: "core" | "drawing" | "elevation" | "geocoding" | "geometry" | "journeySharing" | "maps" | "maps3d" | "marker" | "places" | "routes" | "streetView" | "visualization"): Promise<google.maps.CoreLibrary | google.maps.DrawingLibrary | google.maps.ElevationLibrary | google.maps.GeocodingLibrary | google.maps.GeometryLibrary | google.maps.JourneySharingLibrary | google.maps.MapsLibrary | google.maps.Maps3DLibrary | google.maps.MarkerLibrary | google.maps.PlacesLibrary | google.maps.RoutesLibrary | google.maps.StreetViewLibrary | google.maps.VisualizationLibrary | null> {
     if (!isPlatformBrowser(this.platformId))
       return null;
 
@@ -161,6 +164,20 @@ export class GoogleMapsApiLoaderService {
             console.error(error);
 
             return this.mapsLibrary = null;
+          },
+        );
+      case "maps3d":
+        if (this.maps3dLibrary !== undefined)
+          return this.maps3dLibrary;
+
+        this.setOptions();
+
+        return this.maps3dLibraryPromise ??= importLibrary<"maps3d">("maps3d").then<google.maps.Maps3DLibrary, null>(
+          (maps3dLibrary: google.maps.Maps3DLibrary): google.maps.Maps3DLibrary => this.maps3dLibrary = maps3dLibrary,
+          (error: Error): null => {
+            console.error(error);
+
+            return this.maps3dLibrary = null;
           },
         );
       case "marker":

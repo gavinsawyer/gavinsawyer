@@ -4,7 +4,8 @@
 
 <footer class="harness" #htmlElement
   (click)="$event.stopPropagation();"
-  (keydown)="$event.key === 'Escape' || $event.stopPropagation(); ($event.key === 'Escape' && pinnedModelWithTransform$() ? pinnedModel$.set(false) : true) || $event.preventDefault();"
+  (keydown)="($event.code !== 'Enter' && $event.code !== 'Escape' && $event.code !== 'Space') || $event.stopPropagation(); onKeydown($event);"
+  (keyup)="($event.code !== 'Enter' && $event.code !== 'Escape' && $event.code !== 'Space') || $event.stopPropagation(); onKeyup($event);"
   tabindex="-1">
   <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
 </footer>
@@ -41,8 +42,10 @@
     bowstringWellRoundedDirective #pinnedControlWellRoundedDirective="wellRoundedDirective"
     [level]="(wellRoundedDirective.levelInput$() || 1) * 2">
     <button class="harness" #pinnedControlHtmlButtonElement
-      (click)="$event.stopPropagation(); hapticsService.trigger(); pinnedModel$.set(!pinnedModelWithTransform$());"
-      (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+      (click)="$event.stopPropagation(); pinnedModel$.set(!pinnedModelWithTransform$());"
+      (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+      (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation() || pinnedControlHtmlButtonElement.click();"
+      (pointerup)="hapticsService.trigger();"
       role="button"
       tabindex="0"
       type="button">

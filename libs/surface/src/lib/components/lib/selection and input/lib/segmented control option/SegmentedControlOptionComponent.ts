@@ -70,7 +70,7 @@ export class SegmentedControlOptionComponent {
       switchMap<ElementRef<HTMLButtonElement>, Observable<number>>(
         ({ nativeElement: htmlButtonElement }: ElementRef<HTMLButtonElement>): Observable<number> => new Observable<number>(
           (widthObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: { clientWidth } } ]: Array<ResizeObserverEntry>): void => widthObserver.next(clientWidth));
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => widthObserver.next(element.getBoundingClientRect().width));
 
             resizeObserver.observe(htmlButtonElement);
 

@@ -41,14 +41,7 @@ export class WellRoundedDirective {
       switchMap<ElementRef<HTMLElement>, Observable<Dimensions>>(
         ({ nativeElement: htmlElement }: ElementRef<HTMLElement>): Observable<Dimensions> => new Observable<Dimensions>(
           (dimensionsObserver: Observer<Dimensions>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(
-              ([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(
-                {
-                  height: element.clientHeight,
-                  width:  element.clientWidth,
-                },
-              ),
-            );
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(element.getBoundingClientRect()));
 
             resizeObserver.observe(htmlElement);
 

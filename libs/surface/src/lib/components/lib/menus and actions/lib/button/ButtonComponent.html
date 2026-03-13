@@ -2,24 +2,25 @@
   ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
-<div class="harness"
-  (click)="$event.stopPropagation();"
-  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
-  tabindex="-1">
+<div class="harness">
   <div class="between">
     <div>
       @if (urlInput$(); as url) {@if (url.includes(":") || url.match("\\.[a-z]")) {<a class="harness" #externalLinkHtmlAnchorElement
         [attr.href]="url"
         [attr.tabindex]="disabledInput$() ? -1 : 0"
-        (click)="$event.stopPropagation(); hapticsService.trigger(); output.emit();"
-        (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+        (click)="$event.stopPropagation(); outputSubject.next();"
+        (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+        (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation() || externalLinkHtmlAnchorElement.click();"
+        (pointerup)="hapticsService.trigger();"
         target="_blank"
         role="button">
         <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
       </a>} @else {<a class="harness" #routerLinkHtmlAnchorElement
         [attr.tabindex]="disabledInput$() || routerLinkActive.isActive ? -1 : 0"
-        (click)="$event.stopPropagation(); hapticsService.trigger(); output.emit();"
-        (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+        (click)="$event.stopPropagation(); outputSubject.next();"
+        (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+        (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation() || routerLinkHtmlAnchorElement.click();"
+        (pointerup)="hapticsService.trigger();"
         [routerLink]="url"
         routerLinkActive
         #routerLinkActive="routerLinkActive"
@@ -30,8 +31,10 @@
         [attr.disabled]="disabledInput$() || undefined"
         [attr.tabindex]="disabledInput$() ? -1 : 0"
         [attr.type]="typeInput$() || 'button'"
-        (click)="$event.stopPropagation(); hapticsService.trigger(); output.emit();"
-        (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+        (click)="$event.stopPropagation(); outputSubject.next();"
+        (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+        (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.preventDefault() || htmlButtonElement.click();"
+        (pointerup)="hapticsService.trigger();"
         role="button">
         <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
       </button>}

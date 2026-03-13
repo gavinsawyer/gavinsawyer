@@ -20,9 +20,11 @@
       <div class="between">
         @if (htmlInputElement.value) {<div id="clearControl">
           <button class="harness" #htmlButtonElement
-            (click)="$event.stopPropagation(); hapticsService.trigger(); this.focused$() && writeValue(); this.focused$() && onChange?.(); htmlInputElement.focus();"
-            (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
-            (pointerdown)="$event.stopPropagation();"
+            (click)="$event.stopPropagation(); !this.focused$() || writeValue() || onChange?.(); htmlInputElement.focus();"
+            (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+            (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation() || htmlButtonElement.click();"
+            (pointerup)="hapticsService.trigger();"
+            (pointerdown)="onPointerdown();"
             tabindex="-1"
             type="button">
             <div class="between">
@@ -58,7 +60,8 @@
           (click)="$event.stopPropagation();"
           (focus)="onFocus();"
           (input)="onInput();"
-          (keydown)="$event.key === 'Escape' || $event.key !== 'Enter' || $event.stopPropagation(); $event.key === 'Escape' || $event.key !== 'Enter' || (enterKeyHintInput$() !== 'next' ? enterKeyHintInput$() !== 'previous' : false) || $event.preventDefault(); $event.key !== 'Enter' || (enterKeyHintInput$() !== 'next' ? enterKeyHintInput$() !== 'previous' ? onSubmit?.() : focusPrevious() : focusNext());">
+          (keydown)="$event.code !== 'Enter' || (enterKeyHintInput$() !== 'next' ? enterKeyHintInput$() !== 'previous' ? onSubmit?.() : focusPrevious() : focusNext()) || $event.preventDefault() || $event.stopPropagation();"
+          (pointerdown)="onPointerdown();">
       </div>
     </div>
 

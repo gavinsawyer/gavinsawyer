@@ -2,14 +2,14 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                                                                                          from "@angular/common";
-import { ChangeDetectionStrategy, Component, contentChild, type ElementRef, forwardRef, inject, Injector, input, type InputSignal, model, type ModelSignal, Renderer2, signal, type Signal, TemplateRef, viewChild } from "@angular/core";
-import { toObservable }                                                                                                                                                                                              from "@angular/core/rxjs-interop";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR }                                                                                                                                                                   from "@angular/forms";
-import { firstValueFrom }                                                                                                                                                                                            from "rxjs";
-import { v7 as uuidV7 }                                                                                                                                                                                              from "uuid";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, PrimaryDirective, ToggleSymbolDirective }                                                                                from "../../../../../directives";
-import { HapticsService }                                                                                                                                                                                            from "../../../../../services";
+import { NgTemplateOutlet }                                                                                                                                                                                                     from "@angular/common";
+import { ChangeDetectionStrategy, Component, contentChild, type ElementRef, forwardRef, inject, Injector, input, type InputSignal, model, type ModelSignal, Renderer2, signal, type Signal, TemplateRef, untracked, viewChild } from "@angular/core";
+import { toObservable }                                                                                                                                                                                                         from "@angular/core/rxjs-interop";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR }                                                                                                                                                                              from "@angular/forms";
+import { firstValueFrom }                                                                                                                                                                                                       from "rxjs";
+import { v7 as uuidV7 }                                                                                                                                                                                                         from "uuid";
+import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, PrimaryDirective, ToggleSymbolDirective }                                                                                           from "../../../../../directives";
+import { HapticsService }                                                                                                                                                                                                       from "../../../../../services";
 
 
 @Component(
@@ -71,6 +71,8 @@ export class ToggleComponent
     },
   );
 
+  protected value: boolean | "" = "";
+
   public readonly disabledModel$: ModelSignal<boolean | undefined> = model<boolean | undefined>(
     undefined,
     { alias: "disabled" },
@@ -80,17 +82,11 @@ export class ToggleComponent
     { alias: "label" },
   );
 
-  protected value: boolean | "" = "" as const;
-
   protected onChange?(): void
   protected onInput(): void {
     this.value = this.htmlInputElementRef$().nativeElement.checked;
 
-    this.renderer2.setProperty(
-      this.htmlInputElementRef$().nativeElement,
-      "checked",
-      this.value,
-    );
+    this.onChange?.();
   }
   protected onTouched?(): void
 
@@ -98,28 +94,25 @@ export class ToggleComponent
     this.onChange = (): void => handler(this.value || false);
   }
   public registerOnTouched(handler: () => void): void {
-    this.onTouched = handler;
+    this.onTouched = (): void => handler();
   }
   public setDisabledState(isDisabled: boolean): void {
-    this.disabledModel$.set(isDisabled);
+    untracked<void>((): void => this.disabledModel$.set(isDisabled));
   }
   public writeValue(value?: boolean): void {
     this.value = value || "";
 
-    firstValueFrom<ElementRef<HTMLInputElement> | undefined>(
-      toObservable<ElementRef<HTMLInputElement> | undefined>(
+    firstValueFrom<ElementRef<HTMLInputElement>>(
+      toObservable<ElementRef<HTMLInputElement>>(
         this.htmlInputElementRef$,
         { injector: this.injector },
       ),
     ).then<void>(
-      (htmlInputElementRef?: ElementRef<HTMLInputElement>): void => {
-        if (htmlInputElementRef)
-          this.renderer2.setProperty(
-            htmlInputElementRef.nativeElement,
-            "checked",
-            this.value,
-          );
-      },
+      (htmlInputElementRef: ElementRef<HTMLInputElement>): void => this.renderer2.setProperty(
+        htmlInputElementRef.nativeElement,
+        "checked",
+        this.value,
+      ),
     );
   }
 
