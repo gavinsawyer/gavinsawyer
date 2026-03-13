@@ -2,22 +2,22 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, forwardRef, inject, type Signal }                                                    from "@angular/core";
-import { toSignal }                                                                                                                            from "@angular/core/rxjs-interop";
-import { NG_VALUE_ACCESSOR }                                                                                                                   from "@angular/forms";
-import { InsertZwnjsPipe }                                                                                                                     from "@bowstring/core";
-import { loadSymbol, type Symbol, type SymbolName }                                                                                            from "@bowstring/symbols";
-import { from, Observable, of, switchMap }                                                                                                     from "rxjs";
-import { InputWithOptionsComponent }                                                                                                           from "../../../../";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "../../../../../../../directives";
+import { NgTemplateOutlet }                                                                                                from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, forwardRef, type Signal }                                        from "@angular/core";
+import { toSignal }                                                                                                        from "@angular/core/rxjs-interop";
+import { NG_VALUE_ACCESSOR }                                                                                               from "@angular/forms";
+import { InsertZwnjsPipe }                                                                                                 from "@bowstring/core";
+import { loadSymbol, type Symbol, type SymbolName }                                                                        from "@bowstring/symbols";
+import { from, Observable, of, switchMap }                                                                                 from "rxjs";
+import { InputWithOptionsComponent }                                                                                       from "../../../../";
+import { CanvasDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "../../../../../../../directives";
 
 
 @Component(
   {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host:            {
-      "[class.placeholder]": "placeholderInput$() && value$() === ''",
+      "[class.placeholder]": "placeholderInput$() && value === ''",
     },
     hostDirectives:  [
       { directive: CanvasDirective },
@@ -88,12 +88,5 @@ export class PickerInputComponent
       ),
     ),
   );
-  protected readonly containerDirective: ContainerDirective                  = inject<ContainerDirective>(ContainerDirective);
-  protected readonly hoverTransformingDirective: HoverTransformingDirective  = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  protected readonly wellRoundedDirective: WellRoundedDirective              = inject<WellRoundedDirective>(WellRoundedDirective);
-
-  protected onPointerDown(): void {
-    setTimeout(this.hoverTransformingDirective.cancelPressed);
-  }
 
 }

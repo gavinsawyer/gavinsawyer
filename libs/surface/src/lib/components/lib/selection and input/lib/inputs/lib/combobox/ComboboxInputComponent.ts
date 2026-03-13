@@ -2,13 +2,13 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, forwardRef, inject, signal, type Signal }                                            from "@angular/core";
-import { NG_VALUE_ACCESSOR }                                                                                                                   from "@angular/forms";
-import { InsertZwnjsPipe }                                                                                                                     from "@bowstring/core";
-import { v7 as uuidV7 }                                                                                                                        from "uuid";
-import { InputWithOptionsComponent }                                                                                                           from "../../../../";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "../../../../../../../directives";
+import { NgTemplateOutlet }                                                                                                from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, forwardRef, signal, type Signal }                                from "@angular/core";
+import { NG_VALUE_ACCESSOR }                                                                                               from "@angular/forms";
+import { InsertZwnjsPipe }                                                                                                 from "@bowstring/core";
+import { v7 as uuidV7 }                                                                                                    from "uuid";
+import { InputWithOptionsComponent }                                                                                       from "../../../../";
+import { CanvasDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "../../../../../../../directives";
 
 
 @Component(
@@ -72,10 +72,6 @@ export class ComboboxInputComponent
       },
     );
   }
-
-  protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
-  protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly optionsId$: Signal<`bowstring--input-directive--options-${ string }`> = signal<`bowstring--input-directive--options-${ string }`>(`bowstring--input-directive--options-${ uuidV7() }`);
 

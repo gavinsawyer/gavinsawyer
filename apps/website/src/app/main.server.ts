@@ -4,19 +4,22 @@
 
 import { APP_BASE_HREF }                                                                                                 from "@angular/common";
 import { CommonEngine }                                                                                                  from "@angular/ssr";
-import { LOCALE_ID, type LocaleId }                                                                                      from "@bowstring/i18n";
 import { ADMIN_APP_CHECK, ADMIN_AUTH, ADMIN_FIREBASE_APP, REQUEST, RESPONSE }                                            from "@bowstring/core";
+import { LOCALE_ID, type LocaleId }                                                                                      from "@bowstring/i18n";
 import compression                                                                                                       from "compression";
 import cookieParser                                                                                                      from "cookie-parser";
 import express                                                                                                           from "express";
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type AppCheck as AdminAppCheck, getAppCheck as adminGetAppCheck }                                               from "firebase-admin/app-check";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
+import http                                                                                                              from "node:http";
 import { environment }                                                                                                   from "../environment";
-import { ProjectServerModule }                                                                                           from "./modules";
 import { getI18nRequestHandler }                                                                                         from "./getI18nRequestHandler";
+import { ProjectServerModule }                                                                                           from "./modules";
 import "zone.js/node";
 
+
+process.env["FIRESTORE_PREFER_REST"] = "true";
 
 const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
 const adminAppCheck: AdminAppCheck       = adminGetAppCheck(adminFirebaseApp);
@@ -87,8 +90,8 @@ export {
 
 declare const __non_webpack_require__: NodeJS.Require;
 
-if (((moduleFilename: string): boolean => moduleFilename === __filename || moduleFilename.includes("iisnode"))(((mainModule?: NodeJS.Module): string => mainModule?.filename || "")(__non_webpack_require__.main)))
-  void express().use(compression()).use(cookieParser()).use(
+if (((moduleFilename: string): boolean => moduleFilename === __filename || moduleFilename.includes("iisnode"))(((mainModule?: NodeJS.Module): string => mainModule?.filename || "")(__non_webpack_require__.main))) {
+  const httpServer: http.Server = express().use(compression()).use(cookieParser()).use(
     (
       request: express.Request,
       response: express.Response,
@@ -140,5 +143,14 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
     getI18nRequestHandler(({ localeId }: { localeId: LocaleId }): express.RequestHandler => getRequestHandler(localeId)),
   ).listen(
     process.env["PORT"] || 4000,
-    (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),
+    (error?: Error): void => {
+      if (error)
+        throw error;
+
+      console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`);
+    },
   );
+
+  httpServer.headersTimeout   = 65000;
+  httpServer.keepAliveTimeout = 64000;
+}

@@ -3,4 +3,4 @@
  */
 
 export * from "./lib/FocusService";
-export * from "./lib/MessagesService";
+export * from "./lib/MessageService";

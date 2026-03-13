@@ -16,10 +16,7 @@
     [attr.for]="inputName$()"
     [innerHTML]="label"></label>}
   <div>
-    <div class="harness"
-      (click)="$event.stopPropagation();"
-      (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
-      tabindex="-1">
+    <div class="harness">
       <label class="between">
         <input #htmlInputElement
           [attr.disabled]="disabledModel$() || undefined"
@@ -27,13 +24,15 @@
           [attr.tabindex]="disabledModel$() ? -1 : 0"
           (blur)="onChange?.(); onTouched?.();"
           (change)="onChange?.();"
-          (click)="$event.stopPropagation(); hapticsService.trigger();"
+          (click)="$event.stopPropagation();"
           (input)="onInput();"
-          (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+          (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+          (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation() || htmlInputElement.click();"
           role="switch"
           type="checkbox">
         <div>
-          <div class="harness">
+          <div class="harness"
+            (pointerup)="hapticsService.trigger();">
             <div class="between">@if (symbolTemplateRef$(); as symbolTemplateRef) {<div><ng-container *ngTemplateOutlet="symbolTemplateRef" /></div>}</div>
           </div>
         </div>

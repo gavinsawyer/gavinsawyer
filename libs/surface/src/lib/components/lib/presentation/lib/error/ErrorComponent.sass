@@ -80,10 +80,31 @@
       > div#closeControl
         display: contents
 
-        @include directives.FlexboxContainer-host
+        @include directives.Elevated-children
+        @include directives.FlexboxContainer-children
+        @include directives.Glass-children
+        @include directives.WellRounded-children
 
+        --bowstring--error--close-control--material-opacity: 0.625
+        --bowstring--error--close-control--padding-bottom: calc(1rem * pow(var(--phi), -2))
+        --bowstring--error--close-control--padding-sides: calc(1rem * pow(var(--phi), -1))
+        --bowstring--error--close-control--padding-top: calc(1rem * pow(var(--phi), -2))
+
+        @include directives.Canvas-host(9%)
+        @include directives.FlexboxContainer-host
+        @include directives.HoverTransforming-host
+        @include directives.WellRounded-host
+
+        --bowstring--container-directive--margin-bottom: calc(-1 * var(--bowstring--error--close-control--padding-bottom)) !important
+        --bowstring--container-directive--margin-sides: calc(-1 * var(--bowstring--error--close-control--padding-sides)) !important
+        --bowstring--container-directive--margin-top: calc(-1 * var(--bowstring--error--close-control--padding-top)) !important
+        --bowstring--container-directive--padding-bottom: var(--bowstring--error--close-control--padding-bottom) !important
+        --bowstring--container-directive--padding-sides: var(--bowstring--error--close-control--padding-sides) !important
+        --bowstring--container-directive--padding-top: var(--bowstring--error--close-control--padding-top) !important
         --bowstring--flexbox-container-directive--align-items: center !important
+        --bowstring--flexbox-container-directive--flex-direction: row !important
         --bowstring--flexbox-container-directive--justify-content: center !important
+        --bowstring--well-rounded-directive--material-opacity: var(--bowstring--error--close-control--material-opacity) !important
 
         > .harness
           background: none
@@ -93,19 +114,26 @@
           font: inherit
           letter-spacing: inherit
           line-height: inherit
-          opacity: 1
           padding: 0
           text-align: start
           text-decoration: none
           text-shadow: 0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow, transparent)
 
-          > .between > svg
-            display: grid
-            filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
-            height: 1em
-            max-width: 1em
-            overflow: visible
-            transform: translateZ(0)
+          > .between
+            font-size: calc(1rem * pow(var(--phi), 0.5))
+            opacity: 1
+            transition: opacity 200ms ease-in-out
+
+            > svg
+              display: grid
+              filter: drop-shadow(0 0 calc(1em * pow(var(--phi), -1)) var(--bowstring--colors--foreground-shadow))
+              height: 1em
+              overflow: visible
+              transform: translateZ(0)
+              width: 1em
+
+          &:not(:focus-within, :hover) > .between
+            background: none !important
 
   > .backdrop
     display: grid

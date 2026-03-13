@@ -4,7 +4,8 @@
 
 <div class="harness" #htmlDivElement
   (click)="$event.stopPropagation();"
-  (keydown)="$event.key === 'Escape' || $event.stopPropagation();"
+  (keydown)="($event.code !== 'Enter' && $event.code !== 'Escape' && $event.code !== 'Space') || $event.stopPropagation(); onKeydown($event);"
+  (keyup)="($event.code !== 'Enter' && $event.code !== 'Escape' && $event.code !== 'Space') || $event.stopPropagation(); onKeyup($event);"
   tabindex="-1">
   <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
 </div>
@@ -39,10 +40,15 @@
       </div>
     </div>
   </div>
-  <div id="closeControl">
-    <button class="harness"
-      (click)="$event.stopPropagation(); hapticsService.trigger(); openModel$.set(false);"
-      (keydown)="$event.key === 'Escape' || $event.key !== 'Enter' || $event.stopPropagation(); $event.key !== 'Enter' || openModel$.set(false);"
+  <div id="closeControl"
+    bowstringHoverTransformingDirective #closeControlHoverTransformingDirective="hoverTransformingDirective"
+    bowstringWellRoundedDirective #closeControlWellRoundedDirective="wellRoundedDirective"
+    [level]="(wellRoundedDirective.levelInput$() || 1) * 2">
+    <button class="harness" #closeControlHtmlButtonElement
+      (click)="$event.stopPropagation(); openModel$.set(false);"
+      (keydown)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation();"
+      (keyup)="($event.code !== 'Enter' && $event.code !== 'Space') || $event.preventDefault() || $event.stopPropagation() || closeControlHtmlButtonElement.click();"
+      (pointerup)="hapticsService.trigger();"
       role="button"
       tabindex="0"
       type="button">
@@ -65,6 +71,22 @@
         </svg>}
       </div>
     </button>
+
+    <svg
+      viewBox="0 0 1 1"
+      xmlns="http://www.w3.org/2000/svg">
+      <clipPath
+        [attr.id]="closeControlWellRoundedDirective.clipPathId"
+        clipPathUnits="objectBoundingBox">
+        <path [attr.d]="closeControlWellRoundedDirective.pathDefinition$()" />
+      </clipPath>
+      <mask
+        [attr.id]="closeControlWellRoundedDirective.glassMaskId$()"
+        maskContentUnits="userSpaceOnUse"
+        maskUnits="userSpaceOnUse">
+        <path [attr.d]="closeControlWellRoundedDirective.pathDefinition$()" />
+      </mask>
+    </svg>
   </div>
   <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
 </ng-template>

@@ -4,10 +4,10 @@
 
 import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                                                                               from "@angular/common";
 import { afterRender, ChangeDetectionStrategy, Component, computed, type ElementRef, inject, Injector, model, type ModelSignal, PLATFORM_ID, runInInjectionContext, type Signal, signal, type TemplateRef, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                                                      from "@angular/core/rxjs-interop";
+import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                                  from "@angular/core/rxjs-interop";
 import { type Dimensions, RxSsrService, ViewportService }                                                                                                                                                              from "@bowstring/core";
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                    from "@bowstring/symbols";
-import { combineLatestWith, delayWhen, filter, from, map, merge, Observable, type Observer, of, startWith, switchMap, tap, type TeardownLogic, timer }                                                                 from "rxjs";
+import { combineLatestWith, delayWhen, filter, from, fromEvent, map, mergeWith, Observable, type Observer, of, startWith, switchMap, type TeardownLogic, timer }                                                       from "rxjs";
 import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, HoverTransformingDirective, WellRoundedDirective }                                                                          from "../../../../../directives";
 import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                      from "../../../../../services";
 
@@ -81,6 +81,17 @@ export class FooterComponent {
         this.wellRoundedDirective.htmlElementRef$.set(this.htmlElementRef$());
       },
     );
+
+    if (this.document.defaultView) {
+      fromEvent<KeyboardEvent>(
+        this.document.defaultView,
+        "keydown",
+      ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe(this.onKeydown);
+      fromEvent<KeyboardEvent>(
+        this.document.defaultView,
+        "keyup",
+      ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe(this.onKeyup);
+    }
   }
 
   private readonly backdropHtmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>                           = viewChild.required<ElementRef<HTMLDivElement>>("backdropHtmlDivElement");
@@ -89,7 +100,7 @@ export class FooterComponent {
   private readonly bodyHeight$: Signal<number | undefined>                                                  = isPlatformBrowser(this.platformId) ? toSignal<number>(
     new Observable<number>(
       (bodyHeightObserver: Observer<number>): TeardownLogic => {
-        const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: { clientHeight } } ]: Array<ResizeObserverEntry>): void => bodyHeightObserver.next(clientHeight));
+        const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => bodyHeightObserver.next(element.getBoundingClientRect().height));
 
         resizeObserver.observe(this.document.body);
 
@@ -103,14 +114,7 @@ export class FooterComponent {
       switchMap<ElementRef<HTMLElement>, Observable<Dimensions>>(
         ({ nativeElement: htmlElement }: ElementRef<HTMLElement>): Observable<Dimensions> => new Observable<Dimensions>(
           (dimensionsObserver: Observer<Dimensions>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(
-              ([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(
-                {
-                  height: element.clientHeight,
-                  width:  element.clientWidth,
-                },
-              ),
-            );
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(element.getBoundingClientRect()));
 
             resizeObserver.observe(htmlElement);
 
@@ -158,12 +162,7 @@ export class FooterComponent {
   protected readonly pinning$: Signal<boolean>                               = toSignal<boolean>(
     toObservable<boolean>(this.pinnedModelWithTransform$).pipe<true, boolean, boolean>(
       filter<boolean, true>((pinned: boolean): pinned is true => pinned),
-      switchMap<true, Observable<boolean>>(
-        (): Observable<boolean> => merge<[ true, false ]>(
-          of<true>(true),
-          timer(360).pipe<false>(map<number, false>((): false => false)),
-        ),
-      ),
+      switchMap<true, Observable<boolean>>((): Observable<boolean> => of<true>(true).pipe<boolean>(mergeWith<true, [ false ]>(timer(360).pipe<false>(map<number, false>((): false => false))))),
       startWith<boolean, [ false ]>(false),
     ),
     { requireSync: true },
@@ -240,12 +239,7 @@ export class FooterComponent {
           { injector: this.injector },
         ).pipe<false, boolean>(
           filter<boolean, false>((pinned: boolean): pinned is false => !pinned),
-          switchMap<false, Observable<boolean>>(
-            (): Observable<boolean> => merge<[ true, false ]>(
-              of<true>(true),
-              timer(360).pipe<false>(map<number, false>((): false => false)),
-            ),
-          ),
+          switchMap<false, Observable<boolean>>((): Observable<boolean> => of<true>(true).pipe<boolean>(mergeWith<true, [ false ]>(timer(360).pipe<false>(map<number, false>((): false => false))))),
         ),
       ),
       startWith<boolean, [ false ]>(false),
@@ -255,5 +249,20 @@ export class FooterComponent {
   protected readonly wellRoundedDirective: WellRoundedDirective              = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly pinnedControlTemplateRef$: Signal<TemplateRef<never>> = viewChild.required<TemplateRef<never>>("pinnedControlTemplate");
+
+  protected onKeydown(keyboardEvent: KeyboardEvent): void {
+    if (keyboardEvent.code === "Escape" && this.pinnedModelWithTransform$()) {
+      keyboardEvent.preventDefault();
+      keyboardEvent.stopPropagation();
+    }
+  }
+  protected onKeyup(keyboardEvent: KeyboardEvent): void {
+    if (keyboardEvent.code === "Escape" && this.pinnedModelWithTransform$()) {
+      keyboardEvent.preventDefault();
+      keyboardEvent.stopPropagation();
+
+      this.pinnedModel$.set(false);
+    }
+  }
 
 }

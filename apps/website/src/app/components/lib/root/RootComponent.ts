@@ -74,7 +74,7 @@ export class RootComponent {
   protected readonly aboveTemplateRef$: Signal<TemplateRef<AboveComponent> | undefined>         = toSignal<TemplateRef<AboveComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<AboveComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<AboveComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<AboveComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<AboveComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<AboveComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<AboveComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<AboveComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<AboveComponent> | undefined> => routeComponent ? toObservable<TemplateRef<AboveComponent> | undefined>(
@@ -89,7 +89,7 @@ export class RootComponent {
   protected readonly asideTemplateRef$: Signal<TemplateRef<AsideComponent> | undefined>         = toSignal<TemplateRef<AsideComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<AsideComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<AsideComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<AsideComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<AsideComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<AsideComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<AsideComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<AsideComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<AsideComponent> | undefined> => routeComponent ? toObservable<TemplateRef<AsideComponent> | undefined>(
@@ -105,7 +105,7 @@ export class RootComponent {
   protected readonly bannerTemplateRef$: Signal<TemplateRef<BannerComponent> | undefined>       = toSignal<TemplateRef<BannerComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<BannerComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<BannerComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<BannerComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<BannerComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<BannerComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<BannerComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<BannerComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<BannerComponent> | undefined> => routeComponent ? toObservable<TemplateRef<BannerComponent> | undefined>(
@@ -120,7 +120,7 @@ export class RootComponent {
   protected readonly belowTemplateRef$: Signal<TemplateRef<BelowComponent> | undefined>         = toSignal<TemplateRef<BelowComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<BelowComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<BelowComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<BelowComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<BelowComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<BelowComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<BelowComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<BelowComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<BelowComponent> | undefined> => routeComponent ? toObservable<TemplateRef<BelowComponent> | undefined>(
@@ -172,7 +172,7 @@ export class RootComponent {
   protected readonly footerTemplateRef$: Signal<TemplateRef<FooterComponent> | undefined>       = toSignal<TemplateRef<FooterComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<FooterComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<FooterComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<FooterComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<FooterComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<FooterComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<FooterComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<FooterComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<FooterComponent> | undefined> => routeComponent ? toObservable<TemplateRef<FooterComponent> | undefined>(
@@ -188,7 +188,7 @@ export class RootComponent {
   protected readonly headerTemplateRef$: Signal<TemplateRef<HeaderComponent> | undefined>       = toSignal<TemplateRef<HeaderComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<HeaderComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<HeaderComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<HeaderComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<HeaderComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<HeaderComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<HeaderComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<HeaderComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<HeaderComponent> | undefined> => routeComponent ? toObservable<TemplateRef<HeaderComponent> | undefined>(
@@ -203,7 +203,7 @@ export class RootComponent {
   protected readonly inspectorTemplateRef$: Signal<TemplateRef<InspectorComponent> | undefined> = toSignal<TemplateRef<InspectorComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<InspectorComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<InspectorComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<InspectorComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<InspectorComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<InspectorComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<InspectorComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<InspectorComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<InspectorComponent> | undefined> => routeComponent ? toObservable<TemplateRef<InspectorComponent> | undefined>(
@@ -234,7 +234,7 @@ export class RootComponent {
   protected readonly subheaderTemplateRef$: Signal<TemplateRef<HeaderComponent> | undefined>    = toSignal<TemplateRef<HeaderComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<HeaderComponent> | undefined>(
       switchMap<RouterOutlet, Observable<TemplateRef<HeaderComponent> | undefined>>(
-        (routerOutlet: RouterOutlet): Observable<TemplateRef<HeaderComponent> | undefined> => routerOutlet.activateEvents.asObservable().pipe<RouteComponent | undefined, TemplateRef<HeaderComponent> | undefined>(
+        (routerOutlet: RouterOutlet): Observable<TemplateRef<HeaderComponent> | undefined> => routerOutlet.activateEvents.pipe<RouteComponent | undefined, TemplateRef<HeaderComponent> | undefined>(
           startWith<RouteComponent, [ RouteComponent | undefined ]>(routerOutlet.isActivated ? routerOutlet.component as RouteComponent : undefined),
           switchMap<RouteComponent | undefined, Observable<TemplateRef<HeaderComponent> | undefined>>(
             (routeComponent?: RouteComponent): Observable<TemplateRef<HeaderComponent> | undefined> => routeComponent ? toObservable<TemplateRef<HeaderComponent> | undefined>(

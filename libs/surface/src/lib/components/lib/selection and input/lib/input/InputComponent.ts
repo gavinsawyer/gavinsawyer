@@ -10,6 +10,7 @@ import { RxSsrService }                                                         
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                                                                                                  from "@bowstring/symbols";
 import { firstValueFrom, from, Observable, of, switchMap }                                                                                                                                                                                                                                           from "rxjs";
 import { v7 as uuidV7 }                                                                                                                                                                                                                                                                              from "uuid";
+import { ContainerDirective, HoverTransformingDirective, WellRoundedDirective }                                                                                                                                                                                                                      from "../../../../../directives";
 import { HapticsService }                                                                                                                                                                                                                                                                            from "../../../../../services";
 
 
@@ -32,9 +33,11 @@ import { HapticsService }                                                       
 export class InputComponent
   implements ControlValueAccessor {
 
+  protected readonly containerDirective: ContainerDirective                                   = inject<ContainerDirective>(ContainerDirective);
   protected readonly document: Document                                                       = inject<Document>(DOCUMENT);
   protected readonly focused$: WritableSignal<boolean>                                        = signal<false>(false);
   protected readonly hapticsService: HapticsService                                           = inject<HapticsService>(HapticsService);
+  protected readonly hoverTransformingDirective: HoverTransformingDirective                   = inject<HoverTransformingDirective>(HoverTransformingDirective);
   protected readonly htmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement> | undefined> = viewChild<ElementRef<HTMLButtonElement>>("htmlButtonElement");
   protected readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>                   = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
   protected readonly htmlInputElementRef$: Signal<ElementRef<HTMLInputElement>>               = viewChild.required<ElementRef<HTMLInputElement>>("htmlInputElement");
@@ -42,7 +45,7 @@ export class InputComponent
   protected readonly inputName$: Signal<`bowstring--input-directive--input-${ string }`>      = signal<`bowstring--input-directive--input-${ string }`>(`bowstring--input-directive--input-${ uuidV7() }`);
   protected readonly renderer2: Renderer2                                                     = inject<Renderer2>(Renderer2);
   protected readonly rxSsrService: RxSsrService                                               = inject<RxSsrService>(RxSsrService);
-  protected readonly value$: WritableSignal<Date | string>                                    = signal<Date | string>("");
+  protected readonly wellRoundedDirective: WellRoundedDirective                               = inject<WellRoundedDirective>(WellRoundedDirective);
   protected readonly xmarkCircleFillSymbol$: Signal<Symbol | undefined>                       = toSignal<Symbol>(
     of<SymbolName>("XmarkCircleFill").pipe<Symbol>(
       this.rxSsrService.wrap<SymbolName, Symbol>(
@@ -53,6 +56,8 @@ export class InputComponent
       ),
     ),
   );
+
+  protected value: Date | string = "";
 
   public readonly autocompleteInput$: InputSignal<string | undefined>                                                                  = input<string | undefined>(
     undefined,
@@ -105,9 +110,12 @@ export class InputComponent
     this.onTouched?.();
   }
   protected onInput(): void {
-    this.value$.set(this.htmlInputElementRef$().nativeElement.value);
+    this.value = this.htmlInputElementRef$().nativeElement.value;
 
     this.onChange?.();
+  }
+  protected onPointerdown(): void {
+    this.hoverTransformingDirective.cancelPressed();
   }
   protected onSubmit?(): void
   protected onTouched?(): void
@@ -122,45 +130,29 @@ export class InputComponent
     this.previousFocused.emit();
   }
   public registerOnChange(handler: (value: Date | string) => void): void {
-    this.onChange = (): void => void setTimeout(
-      (): void => void setTimeout(
-        (): void => handler(this.value$()),
-      ),
-    );
-    this.onSubmit = (): void => handler(this.value$());
+    this.onChange = (): void => handler(this.value);
+    this.onSubmit = (): void => handler(this.value);
   }
   public registerOnTouched(handler: () => void): void {
     this.onTouched = handler;
   }
   public setDisabledState(isDisabled: boolean): void {
-    this.disabledModel$.set(isDisabled);
+    untracked<void>((): void => this.disabledModel$.set(isDisabled));
   }
   public writeValue(value?: Date | string): void {
-    untracked<void>(
-      (): void => this.value$.set(value || ""),
-    );
+    this.value = value || "";
 
-    firstValueFrom<ElementRef<HTMLInputElement> | undefined>(
-      toObservable<ElementRef<HTMLInputElement> | undefined>(
+    firstValueFrom<ElementRef<HTMLInputElement>>(
+      toObservable<ElementRef<HTMLInputElement>>(
         this.htmlInputElementRef$,
         { injector: this.injector },
       ),
     ).then<void>(
-      (htmlInputElementRef?: ElementRef<HTMLInputElement>): void => {
-        if (htmlInputElementRef)
-          firstValueFrom<Date | string>(
-            toObservable<Date | string>(
-              this.value$,
-              { injector: this.injector },
-            ),
-          ).then<void>(
-            (value: Date | string): void => this.renderer2.setProperty(
-              htmlInputElementRef.nativeElement,
-              "value",
-              value,
-            ),
-          );
-      },
+      (htmlInputElementRef: ElementRef<HTMLInputElement>): void => this.renderer2.setProperty(
+        htmlInputElementRef.nativeElement,
+        "value",
+        this.value,
+      ),
     );
   }
 

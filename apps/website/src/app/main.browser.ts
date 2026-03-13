@@ -7,7 +7,7 @@ import { SERVICE_WORKER_REGISTRATION } from "@bowstring/core";
 import { ProjectBrowserModule }        from "./modules";
 
 
-void (async (): Promise<ServiceWorkerRegistration | undefined> => {
+(async (): Promise<ServiceWorkerRegistration | undefined> => {
   if ("serviceWorker" in navigator)
     return navigator.serviceWorker.register(
       "/main.service-worker.js",

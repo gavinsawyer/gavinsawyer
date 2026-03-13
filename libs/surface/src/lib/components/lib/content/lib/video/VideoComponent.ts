@@ -119,8 +119,8 @@ export class VideoComponent {
     },
   );
 
-  public pause(): void {
-    this.htmlVideoElementRef$().nativeElement.pause();
+  public async pause(): Promise<void> {
+    return this.htmlVideoElementRef$().nativeElement.pause();
   }
   public async play(): Promise<void> {
     return this.htmlVideoElementRef$().nativeElement.play();

@@ -9,7 +9,7 @@ import { RxSsrService, ViewportService }                                        
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                                                                         from "@bowstring/symbols";
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll }                                                                                                                                                     from "body-scroll-lock";
 import { delayWhen, from, fromEvent, map, type Observable, of, startWith, switchMap, timer }                                                                                                                                from "rxjs";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, WellRoundedDirective }                                                                                                           from "../../../../../directives";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, HoverTransformingDirective, WellRoundedDirective }                                                                               from "../../../../../directives";
 import { GlassMaskIdTickService, HapticsService }                                                                                                                                                                           from "../../../../../services";
 
 
@@ -50,7 +50,11 @@ import { GlassMaskIdTickService, HapticsService }                               
         inputs:    [ "level" ],
       },
     ],
-    imports:         [ NgTemplateOutlet ],
+    imports:         [
+      HoverTransformingDirective,
+      NgTemplateOutlet,
+      WellRoundedDirective,
+    ],
     selector:        "bowstring--sheet",
     styleUrl:        "SheetComponent.sass",
     templateUrl:     "SheetComponent.html",
@@ -61,7 +65,18 @@ import { GlassMaskIdTickService, HapticsService }                               
 export class SheetComponent {
 
   constructor() {
-    afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
+    afterRender(
+      (): void => {
+        const dragControlHtmlDivElementRef: ElementRef<HTMLDivElement> | undefined = this.dragControlHtmlDivElementRef$();
+
+        if (dragControlHtmlDivElementRef) {
+          this.dragControlHoverTransformingDirective$()?.htmlElementRef$.set(dragControlHtmlDivElementRef);
+          this.dragControlWellRoundedDirective$()?.htmlElementRef$.set(dragControlHtmlDivElementRef);
+        }
+
+        this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$());
+      },
+    );
 
     if (isPlatformBrowser(this.platformId))
       effect(
@@ -88,18 +103,27 @@ export class SheetComponent {
         },
       );
 
-    fromEvent<KeyboardEvent>(
-      this.document,
-      "keydown",
-    ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe((keyboardEvent: KeyboardEvent): void => void this.keydown(keyboardEvent));
+    if (this.document.defaultView) {
+      fromEvent<KeyboardEvent>(
+        this.document.defaultView,
+        "keydown",
+      ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe(this.onKeydown);
+      fromEvent<KeyboardEvent>(
+        this.document.defaultView,
+        "keyup",
+      ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe(this.onKeyup);
+    }
   }
 
-  private readonly document: Document                                           = inject<Document>(DOCUMENT);
-  private readonly glassMaskIdTickService: GlassMaskIdTickService               = inject<GlassMaskIdTickService>(GlassMaskIdTickService);
-  private readonly htmlDialogElementRef$: Signal<ElementRef<HTMLDialogElement>> = viewChild.required<ElementRef<HTMLDialogElement>>("htmlDialogElement");
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>       = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
-  private readonly platformId: NonNullable<unknown>                             = inject<NonNullable<unknown>>(PLATFORM_ID);
-  private readonly rxSsrService: RxSsrService                                   = inject<RxSsrService>(RxSsrService);
+  private readonly document: Document                                                                     = inject<Document>(DOCUMENT);
+  private readonly dragControlHoverTransformingDirective$: Signal<HoverTransformingDirective | undefined> = viewChild<HoverTransformingDirective>("dragControlHoverTransformingDirective");
+  private readonly dragControlHtmlDivElementRef$: Signal<ElementRef<HTMLDivElement> | undefined>          = viewChild<ElementRef<HTMLDivElement>>("dragControlHtmlDivElement");
+  private readonly dragControlWellRoundedDirective$: Signal<WellRoundedDirective | undefined>             = viewChild<WellRoundedDirective>("dragControlWellRoundedDirective");
+  private readonly glassMaskIdTickService: GlassMaskIdTickService                                         = inject<GlassMaskIdTickService>(GlassMaskIdTickService);
+  private readonly htmlDialogElementRef$: Signal<ElementRef<HTMLDialogElement>>                           = viewChild.required<ElementRef<HTMLDialogElement>>("htmlDialogElement");
+  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>                                 = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
+  private readonly platformId: NonNullable<unknown>                                                       = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly rxSsrService: RxSsrService                                                             = inject<RxSsrService>(RxSsrService);
 
   protected readonly arrowUpAndDownAndArrowLeftAndRightSymbol$: Signal<Symbol | undefined> = toSignal<Symbol>(
     of<SymbolName>("ArrowUpAndDownAndArrowLeftAndRight").pipe<Symbol>(
@@ -137,11 +161,19 @@ export class SheetComponent {
 
   public readonly dragControlTemplateRef$: Signal<TemplateRef<never>> = viewChild.required<TemplateRef<never>>("dragControlTemplate");
 
-  protected keydown(keyboardEvent: KeyboardEvent): true | void {
-    if (keyboardEvent.key !== "Escape")
+  protected onKeydown(keyboardEvent: KeyboardEvent): void {
+    if (keyboardEvent.code === "Escape" && this.openModelWithTransform$()) {
+      keyboardEvent.preventDefault();
+      keyboardEvent.stopPropagation();
+    }
+  }
+  protected onKeyup(keyboardEvent: KeyboardEvent): void {
+    if (keyboardEvent.code === "Escape" && this.openModelWithTransform$()) {
+      keyboardEvent.preventDefault();
       keyboardEvent.stopPropagation();
 
-    return (keyboardEvent.key === "Escape" && this.openOrClosing$() ? this.openModel$.set(false) : true) || keyboardEvent.preventDefault();
+      this.openModel$.set(false);
+    }
   }
 
 }

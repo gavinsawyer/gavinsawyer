@@ -2,16 +2,16 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                                                                                        from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, contentChildren, ElementRef, forwardRef, inject, Injector, input, type InputSignal, model, type ModelSignal, Renderer2, signal, type Signal, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                                                  from "@angular/core/rxjs-interop";
-import { NG_VALUE_ACCESSOR, ReactiveFormsModule }                                                                                                                                                                  from "@angular/forms";
-import { combineLatest, firstValueFrom, type Observable, switchMap }                                                                                                                                               from "rxjs";
-import { v7 as uuidV7 }                                                                                                                                                                                            from "uuid";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, PrimaryDirective, WellRoundedDirective }                                                                               from "../../../../../directives";
-import { SEGMENTED_CONTROL_VALUE_ACCESSOR }                                                                                                                                                                        from "../../../../../injection tokens";
-import { type SegmentedControlValueAccessor }                                                                                                                                                                      from "../../../../../interfaces";
-import { SegmentedControlOptionComponent }                                                                                                                                                                         from "../segmented control option/SegmentedControlOptionComponent";
+import { NgTemplateOutlet }                                                                                                                                                                                                   from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, contentChildren, ElementRef, forwardRef, inject, Injector, input, type InputSignal, model, type ModelSignal, Renderer2, signal, type Signal, untracked, viewChild } from "@angular/core";
+import { toObservable, toSignal }                                                                                                                                                                                             from "@angular/core/rxjs-interop";
+import { NG_VALUE_ACCESSOR, ReactiveFormsModule }                                                                                                                                                                             from "@angular/forms";
+import { combineLatest, firstValueFrom, type Observable, switchMap }                                                                                                                                                          from "rxjs";
+import { v7 as uuidV7 }                                                                                                                                                                                                       from "uuid";
+import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, PrimaryDirective, WellRoundedDirective }                                                                                          from "../../../../../directives";
+import { SEGMENTED_CONTROL_VALUE_ACCESSOR }                                                                                                                                                                                   from "../../../../../injection tokens";
+import { type SegmentedControlValueAccessor }                                                                                                                                                                                 from "../../../../../interfaces";
+import { SegmentedControlOptionComponent }                                                                                                                                                                                    from "../segmented control option/SegmentedControlOptionComponent";
 
 
 @Component(
@@ -160,28 +160,25 @@ export class SegmentedControlComponent
     this.onChange = (): void => handler(this.value);
   }
   public registerOnTouched(handler: () => void): void {
-    this.onTouched = handler;
+    this.onTouched = (): void => handler();
   }
   public setDisabledState(isDisabled: boolean): void {
-    this.disabledModel$.set(isDisabled);
+    untracked<void>((): void => this.disabledModel$.set(isDisabled));
   }
   public writeValue(value?: string): void {
     this.value = value || "";
 
-    firstValueFrom<ElementRef<HTMLSelectElement> | undefined>(
-      toObservable<ElementRef<HTMLSelectElement> | undefined>(
+    firstValueFrom<ElementRef<HTMLSelectElement>>(
+      toObservable<ElementRef<HTMLSelectElement>>(
         this.htmlSelectElementRef$,
         { injector: this.injector },
       ),
     ).then<void>(
-      (htmlSelectElementRef?: ElementRef<HTMLSelectElement>): void => {
-        if (htmlSelectElementRef)
-          this.renderer2.setProperty(
-            htmlSelectElementRef.nativeElement,
-            "value",
-            this.value,
-          );
-      },
+      (htmlSelectElementRef: ElementRef<HTMLSelectElement>): void => this.renderer2.setProperty(
+        htmlSelectElementRef.nativeElement,
+        "value",
+        this.value,
+      ),
     );
   }
 

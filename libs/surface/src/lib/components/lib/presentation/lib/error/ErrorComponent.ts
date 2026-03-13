@@ -2,13 +2,13 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { isPlatformBrowser, NgTemplateOutlet }                                                                                                                      from "@angular/common";
+import { DOCUMENT, isPlatformBrowser, NgTemplateOutlet }                                                                                                            from "@angular/common";
 import { afterRender, ChangeDetectionStrategy, Component, computed, type ElementRef, inject, model, type ModelSignal, PLATFORM_ID, type Signal, signal, viewChild } from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                   from "@angular/core/rxjs-interop";
+import { takeUntilDestroyed, toObservable, toSignal }                                                                                                               from "@angular/core/rxjs-interop";
 import { RxSsrService }                                                                                                                                             from "@bowstring/core";
 import { loadSymbol, type Symbol, type SymbolName }                                                                                                                 from "@bowstring/symbols";
-import { delayWhen, from, map, Observable, type Observer, of, switchMap, type TeardownLogic, timer }                                                                from "rxjs";
-import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, WarningDirective, WellRoundedDirective }                                                 from "../../../../../directives";
+import { delayWhen, from, fromEvent, map, Observable, type Observer, of, switchMap, type TeardownLogic, timer }                                                     from "rxjs";
+import { ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WarningDirective, WellRoundedDirective }                     from "../../../../../directives";
 import { HapticsService }                                                                                                                                           from "../../../../../services";
 
 
@@ -46,7 +46,11 @@ import { HapticsService }                                                       
         inputs:    [ "level" ],
       },
     ],
-    imports:         [ NgTemplateOutlet ],
+    imports:         [
+      HoverTransformingDirective,
+      NgTemplateOutlet,
+      WellRoundedDirective,
+    ],
     selector:        "bowstring--error",
     styleUrl:        "ErrorComponent.sass",
     templateUrl:     "ErrorComponent.html",
@@ -57,12 +61,38 @@ import { HapticsService }                                                       
 export class ErrorComponent {
 
   constructor() {
-    afterRender((): void => this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$()));
+    afterRender(
+      (): void => {
+        const closeControlHtmlButtonElementRef: ElementRef<HTMLButtonElement> | undefined = this.closeControlHtmlButtonElementRef$();
+
+        if (closeControlHtmlButtonElementRef) {
+          this.closeControlHoverTransformingDirective$()?.htmlElementRef$.set(closeControlHtmlButtonElementRef);
+          this.closeControlWellRoundedDirective$()?.htmlElementRef$.set(closeControlHtmlButtonElementRef);
+        }
+
+        this.wellRoundedDirective.htmlElementRef$.set(this.htmlDivElementRef$());
+      },
+    );
+
+    if (this.document.defaultView) {
+      fromEvent<KeyboardEvent>(
+        this.document.defaultView,
+        "keydown",
+      ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe(this.onKeydown);
+      fromEvent<KeyboardEvent>(
+        this.document.defaultView,
+        "keyup",
+      ).pipe<KeyboardEvent>(takeUntilDestroyed<KeyboardEvent>()).subscribe(this.onKeyup);
+    }
   }
 
-  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
-  private readonly platformId: NonNullable<unknown>                       = inject<NonNullable<unknown>>(PLATFORM_ID);
-  private readonly rxSsrService: RxSsrService                             = inject<RxSsrService>(RxSsrService);
+  private readonly closeControlHoverTransformingDirective$: Signal<HoverTransformingDirective | undefined> = viewChild<HoverTransformingDirective>("closeControlHoverTransformingDirective");
+  private readonly closeControlHtmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement> | undefined>    = viewChild<ElementRef<HTMLButtonElement>>("closeControlHtmlButtonElement");
+  private readonly closeControlWellRoundedDirective$: Signal<WellRoundedDirective | undefined>             = viewChild<WellRoundedDirective>("closeControlWellRoundedDirective");
+  private readonly document: Document                                                                      = inject<Document>(DOCUMENT);
+  private readonly htmlDivElementRef$: Signal<ElementRef<HTMLDivElement>>                                  = viewChild.required<ElementRef<HTMLDivElement>>("htmlDivElement");
+  private readonly platformId: NonNullable<unknown>                                                        = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly rxSsrService: RxSsrService                                                              = inject<RxSsrService>(RxSsrService);
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
   protected readonly hapticsService: HapticsService         = inject<HapticsService>(HapticsService);
@@ -70,8 +100,8 @@ export class ErrorComponent {
     toObservable<ElementRef<HTMLDivElement>>(this.htmlDivElementRef$).pipe<number>(
       switchMap<ElementRef<HTMLDivElement>, Observable<number>>(
         ({ nativeElement: htmlElement }: ElementRef<HTMLDivElement>): Observable<number> => new Observable<number>(
-          (dimensionsObserver: Observer<number>): TeardownLogic => {
-            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => dimensionsObserver.next(element.clientHeight));
+          (heightObserver: Observer<number>): TeardownLogic => {
+            const resizeObserver: ResizeObserver = new ResizeObserver(([ { target: element } ]: Array<ResizeObserverEntry>): void => heightObserver.next(element.getBoundingClientRect().height));
 
             resizeObserver.observe(htmlElement);
 
@@ -105,5 +135,20 @@ export class ErrorComponent {
       ),
     ),
   );
+
+  protected onKeydown(keyboardEvent: KeyboardEvent): void {
+    if (keyboardEvent.code === "Escape" && this.openModelWithTransform$()) {
+      keyboardEvent.preventDefault();
+      keyboardEvent.stopPropagation();
+    }
+  }
+  protected onKeyup(keyboardEvent: KeyboardEvent): void {
+    if (keyboardEvent.code === "Escape" && this.openModelWithTransform$()) {
+      keyboardEvent.preventDefault();
+      keyboardEvent.stopPropagation();
+
+      this.openModel$.set(false);
+    }
+  }
 
 }

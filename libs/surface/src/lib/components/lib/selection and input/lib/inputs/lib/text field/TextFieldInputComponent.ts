@@ -2,12 +2,12 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                    from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, forwardRef, inject }                                                                 from "@angular/core";
-import { NG_VALUE_ACCESSOR }                                                                                                                   from "@angular/forms";
-import { InsertZwnjsPipe }                                                                                                                     from "@bowstring/core";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "../../../../../../../directives";
-import { InputComponent }                                                                                                                      from "../../../input/InputComponent";
+import { NgTemplateOutlet }                                                                                                from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, forwardRef }                                                     from "@angular/core";
+import { NG_VALUE_ACCESSOR }                                                                                               from "@angular/forms";
+import { InsertZwnjsPipe }                                                                                                 from "@bowstring/core";
+import { CanvasDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective } from "../../../../../../../directives";
+import { InputComponent }                                                                                                  from "../../../input/InputComponent";
 
 
 @Component(
@@ -71,9 +71,5 @@ export class TextFieldInputComponent
       },
     );
   }
-
-  protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
-  protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
 
 }

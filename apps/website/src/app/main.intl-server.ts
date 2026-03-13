@@ -8,14 +8,16 @@ import cookieParser                                                             
 import express                                                                                                           from "express";
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
+import http                                                                                                              from "node:http";
 import { environment }                                                                                                   from "../environment";
 import { getI18nRequestHandler }                                                                                         from "./getI18nRequestHandler";
 
 
+process.env["FIRESTORE_PREFER_REST"] = "true";
+
 const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
 const adminAuth: AdminAuth               = adminGetAuth(adminFirebaseApp);
-
-void express().use(compression()).use(cookieParser()).use(
+const httpServer: http.Server            = express().use(compression()).use(cookieParser()).use(
   (
     request: express.Request,
     response: express.Response,
@@ -67,5 +69,13 @@ void express().use(compression()).use(cookieParser()).use(
   getI18nRequestHandler(({ localeId }: { localeId: LocaleId }): express.RequestHandler => require(`${ __dirname }/${ String(localeId) }/main.js`)["getRequestHandler"](localeId)),
 ).listen(
   process.env["PORT"] || 4000,
-  (): void => console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`),
+  (error?: Error): void => {
+    if (error)
+      throw error;
+
+    console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`);
+  },
 );
+
+httpServer.headersTimeout   = 65000;
+httpServer.keepAliveTimeout = 64000;

@@ -33,7 +33,7 @@ export class InputWithOptionsComponent
   protected override onBlur(): void {
     setTimeout(
       (): void => {
-        const value: Date | string = this.value$();
+        const value: Date | string = this.value;
 
         this.focused$.set(this.document.activeElement === this.htmlButtonElementRef$()?.nativeElement);
 
@@ -44,17 +44,11 @@ export class InputWithOptionsComponent
   }
 
   public override registerOnChange(handler: (value: Date | string) => void): void {
-    this.onChange = (): void => void setTimeout(
-      (): void => void setTimeout(
-        (): void => {
-          const value: Date | string = this.value$();
-
-          if (!value || (typeof value === "string" && this.optionComponents$().map<string>(({ valueInput$ }: OptionComponent): string => valueInput$()).includes(value)))
-            handler(value);
-        },
-      ),
-    );
-    this.onSubmit = (): void => handler(this.value$());
+    this.onChange = (): void => {
+      if (!this.value || (typeof this.value === "string" && this.optionComponents$().map<string>(({ valueInput$ }: OptionComponent): string => valueInput$()).includes(this.value)))
+        handler(this.value);
+    };
+    this.onSubmit = (): void => handler(this.value);
   }
 
 }

@@ -3,10 +3,10 @@
  */
 
 import { NgTemplateOutlet }                                                                                                                                                                                                              from "@angular/common";
-import { afterRender, booleanAttribute, ChangeDetectionStrategy, Component, type ElementRef, inject, input, type InputSignal, type InputSignalWithTransform, output, type OutputEmitterRef, type Signal, viewChild }                     from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                                                                        from "@angular/core/rxjs-interop";
+import { afterRender, booleanAttribute, ChangeDetectionStrategy, Component, type ElementRef, inject, input, type InputSignal, type InputSignalWithTransform, type OutputRef, type Signal, viewChild }                                    from "@angular/core";
+import { outputFromObservable, toObservable, toSignal }                                                                                                                                                                                  from "@angular/core/rxjs-interop";
 import { RouterLink, RouterLinkActive }                                                                                                                                                                                                  from "@angular/router";
-import { combineLatestWith, map, type Observable, of, startWith, switchMap }                                                                                                                                                             from "rxjs";
+import { combineLatestWith, map, type Observable, of, startWith, Subject, switchMap }                                                                                                                                                    from "rxjs";
 import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, GlassDirective, HoverTransformingDirective, InverseDirective, PrimaryDirective, SecondaryDirective, WarningDirective, WellRoundedDirective } from "../../../../../directives";
 import { HapticsService }                                                                                                                                                                                                                from "../../../../../services";
 
@@ -84,15 +84,16 @@ export class ButtonComponent {
     );
   }
 
-  private readonly hoverTransformingDirective: HoverTransformingDirective                               = inject<HoverTransformingDirective>(HoverTransformingDirective);
   private readonly externalLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined> = viewChild<ElementRef<HTMLAnchorElement>>("externalLinkHtmlAnchorElement");
   private readonly htmlButtonElementRef$: Signal<ElementRef<HTMLButtonElement> | undefined>             = viewChild<ElementRef<HTMLButtonElement>>("htmlButtonElement");
   private readonly routerLinkActive$: Signal<RouterLinkActive | undefined>                              = viewChild<RouterLinkActive>(RouterLinkActive);
   private readonly routerLinkHtmlAnchorElementRef$: Signal<ElementRef<HTMLAnchorElement> | undefined>   = viewChild<ElementRef<HTMLAnchorElement>>("routerLinkHtmlAnchorElement");
 
-  protected readonly containerDirective: ContainerDirective     = inject<ContainerDirective>(ContainerDirective);
-  protected readonly hapticsService: HapticsService             = inject<HapticsService>(HapticsService);
-  protected readonly wellRoundedDirective: WellRoundedDirective = inject<WellRoundedDirective>(WellRoundedDirective);
+  protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
+  protected readonly hapticsService: HapticsService                         = inject<HapticsService>(HapticsService);
+  protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
+  protected readonly outputSubject: Subject<void>                           = new Subject<void>();
+  protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
 
   public readonly appearanceInput$: InputSignal<"raised" | "symbol" | undefined>                                           = input<"raised" | "symbol" | undefined>(
     undefined,
@@ -107,7 +108,7 @@ export class ButtonComponent {
   );
   public readonly disabled$: Signal<boolean | undefined>                                                                   = toSignal<boolean>(
     toObservable<boolean | undefined>(this.disabledInput$).pipe<[ boolean | undefined, boolean | undefined ], boolean>(
-      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.asObservable().pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
+      combineLatestWith<boolean | undefined, [ boolean | undefined ]>(toObservable<RouterLinkActive | undefined>(this.routerLinkActive$).pipe<boolean | undefined>(switchMap<RouterLinkActive | undefined, Observable<boolean | undefined>>((routerLinkActive?: RouterLinkActive): Observable<boolean | undefined> => routerLinkActive?.isActiveChange.pipe<boolean | undefined>(startWith<boolean, [ boolean | undefined ]>(routerLinkActive?.isActive)) || of<undefined>(undefined)))),
       map<[ boolean | undefined, boolean | undefined ], boolean>(
         (
           [
@@ -122,7 +123,10 @@ export class ButtonComponent {
     undefined,
     { alias: "material" },
   );
-  public readonly output: OutputEmitterRef<void>                                                                           = output<void>({ alias: "output" });
+  public readonly output: OutputRef<void>                                                                                  = outputFromObservable<void>(
+    this.outputSubject,
+    { alias: "output" },
+  );
   public readonly typeInput$: InputSignal<"reset" | "submit" | undefined>                                                  = input<"reset" | "submit" | undefined>(
     undefined,
     { alias: "type" },

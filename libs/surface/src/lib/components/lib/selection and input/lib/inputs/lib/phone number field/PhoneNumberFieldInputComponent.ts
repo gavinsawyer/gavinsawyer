@@ -2,15 +2,15 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { NgTemplateOutlet }                                                                                                                               from "@angular/common";
-import { afterRender, ChangeDetectionStrategy, Component, effect, type ElementRef, forwardRef, inject, input, type InputSignal, untracked }               from "@angular/core";
-import { toObservable }                                                                                                                                   from "@angular/core/rxjs-interop";
-import { NG_VALUE_ACCESSOR }                                                                                                                              from "@angular/forms";
-import { InsertZwnjsPipe }                                                                                                                                from "@bowstring/core";
-import { AsYouType, type CountryCode, getCountries, getCountryCallingCode, isPossiblePhoneNumber, parseIncompletePhoneNumber, validatePhoneNumberLength } from "libphonenumber-js";
-import { firstValueFrom }                                                                                                                                 from "rxjs";
-import { CanvasDirective, ContainerDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective }            from "../../../../../../../directives";
-import { InputComponent }                                                                                                                                 from "../../../input/InputComponent";
+import { NgTemplateOutlet }                                                                                                        from "@angular/common";
+import { afterRender, ChangeDetectionStrategy, Component, effect, type ElementRef, forwardRef, input, type InputSignal }           from "@angular/core";
+import { toObservable }                                                                                                            from "@angular/core/rxjs-interop";
+import { NG_VALUE_ACCESSOR }                                                                                                       from "@angular/forms";
+import { InsertZwnjsPipe }                                                                                                         from "@bowstring/core";
+import { AsYouType, type CountryCode, getCountries, getCountryCallingCode, parseIncompletePhoneNumber, validatePhoneNumberLength } from "libphonenumber-js";
+import { firstValueFrom }                                                                                                          from "rxjs";
+import { CanvasDirective, ElevatedDirective, FlexboxContainerDirective, HoverTransformingDirective, WellRoundedDirective }         from "../../../../../../../directives";
+import { InputComponent }                                                                                                          from "../../../input/InputComponent";
 
 
 @Component(
@@ -76,100 +76,53 @@ export class PhoneNumberFieldInputComponent
 
     effect(
       (): void => {
-        const value: Date | string = untracked<Date | string>(this.value$);
-
-        if (typeof value === "string")
+        if (typeof this.value === "string")
           this.renderer2.setProperty(
             this.htmlInputElementRef$().nativeElement,
             "value",
-            new AsYouType(
-              getCountries().find(
-                (countryCode: CountryCode): boolean => getCountryCallingCode(countryCode) === this.countryCallingCodeInput$(),
-              ),
-            ).input(value),
+            new AsYouType(getCountries().find((countryCode: CountryCode): boolean => getCountryCallingCode(countryCode) === this.countryCallingCodeInput$())).input(this.value),
           );
       },
     );
   }
 
-  protected readonly containerDirective: ContainerDirective                 = inject<ContainerDirective>(ContainerDirective);
-  protected readonly hoverTransformingDirective: HoverTransformingDirective = inject<HoverTransformingDirective>(HoverTransformingDirective);
-  protected readonly wellRoundedDirective: WellRoundedDirective             = inject<WellRoundedDirective>(WellRoundedDirective);
-
   public readonly countryCallingCodeInput$: InputSignal<string> = input.required<string>({ alias: "countryCallingCode" });
 
-  protected override onBlur(): void {
-    setTimeout(
-      (): void => {
-        const value: Date | string = this.value$();
-
-        this.focused$.set(this.document.activeElement === this.htmlButtonElementRef$()?.nativeElement);
-
-        if (!this.focused$() && !value || (typeof value === "string" && isPossiblePhoneNumber(`+${ this.countryCallingCodeInput$() }${ value }`)))
-          this.onChange?.();
-      },
-    );
-  }
   protected override onInput(): void {
-    this.value$.set(
-      parseIncompletePhoneNumber(
-        this.htmlInputElementRef$().nativeElement.value.slice(
-          0,
-          validatePhoneNumberLength(`+${ this.countryCallingCodeInput$() } ${ this.htmlInputElementRef$().nativeElement.value }`) === "TOO_LONG" ? - 1 : this.htmlInputElementRef$().nativeElement.value.length,
-        ),
+    this.value = parseIncompletePhoneNumber(
+      this.htmlInputElementRef$().nativeElement.value.slice(
+        0,
+        validatePhoneNumberLength(`+${ this.countryCallingCodeInput$() } ${ this.htmlInputElementRef$().nativeElement.value }`) === "TOO_LONG" ? - 1 : this.htmlInputElementRef$().nativeElement.value.length,
       ),
     );
 
     this.onChange?.();
 
-    const value: Date | string = this.value$();
+    const asYouType: AsYouType = new AsYouType(getCountries().find((countryCode: CountryCode): boolean => getCountryCallingCode(countryCode) === this.countryCallingCodeInput$()));
 
-    if (typeof value === "string") {
-      const asYouType: AsYouType = new AsYouType(
-        getCountries().find(
-          (countryCode: CountryCode): boolean => getCountryCallingCode(countryCode) === this.countryCallingCodeInput$(),
-        ),
+    let formattedValue: string = asYouType.input(this.value);
+    let template: string       = asYouType.getTemplate();
+
+    while (template && template.charAt(template.length - 1) !== "x") {
+      formattedValue = formattedValue.slice(
+        0,
+        formattedValue.length - 1,
       );
-
-      let formattedValue: string = asYouType.input(value);
-      let template: string       = asYouType.getTemplate();
-
-      while (template && template.charAt(template.length - 1) !== "x") {
-        formattedValue = formattedValue.slice(
-          0,
-          formattedValue.length - 1,
-        );
-        template       = template.slice(
-          0,
-          template.length - 1,
-        );
-      }
-
-      this.renderer2.setProperty(
-        this.htmlInputElementRef$().nativeElement,
-        "value",
-        formattedValue,
+      template       = template.slice(
+        0,
+        template.length - 1,
       );
     }
-  }
 
-  public override registerOnChange(handler: (value: Date | string) => void): void {
-    this.onChange = (): void => void setTimeout(
-      (): void => void setTimeout(
-        (): void => {
-          const value: Date | string = this.value$();
-
-          if (!value || (typeof value === "string" && isPossiblePhoneNumber(`+${ this.countryCallingCodeInput$() }${ value }`)))
-            handler(value);
-        },
-      ),
+    this.renderer2.setProperty(
+      this.htmlInputElementRef$().nativeElement,
+      "value",
+      formattedValue,
     );
-    this.onSubmit = (): void => handler(this.value$());
   }
+
   public override writeValue(value?: string): void {
-    untracked<void>(
-      (): void => this.value$.set(value || ""),
-    );
+    this.value = value || "";
 
     firstValueFrom<ElementRef<HTMLInputElement> | undefined>(
       toObservable<ElementRef<HTMLInputElement> | undefined>(
@@ -186,49 +139,40 @@ export class PhoneNumberFieldInputComponent
             ),
           ).then<void>(
             (countryCallingCodeInput: string): void => {
-              firstValueFrom<Date | string>(
-                toObservable<Date | string>(
-                  this.value$,
-                  { injector: this.injector },
-                ),
-              ).then<void>(
-                (value: Date | string): void => {
-                  if (countryCallingCodeInput) {
-                    if (typeof value === "string") {
-                      const asYouType: AsYouType = new AsYouType(
-                        getCountries().find(
-                          (countryCode: CountryCode): boolean => getCountryCallingCode(countryCode) === countryCallingCodeInput,
-                        ),
-                      );
+              if (countryCallingCodeInput) {
+                if (typeof this.value === "string") {
+                  const asYouType: AsYouType = new AsYouType(
+                    getCountries().find(
+                      (countryCode: CountryCode): boolean => getCountryCallingCode(countryCode) === countryCallingCodeInput,
+                    ),
+                  );
 
-                      let formattedValue: string = asYouType.input(value);
-                      let template: string       = asYouType.getTemplate();
+                  let formattedValue: string = asYouType.input(this.value);
+                  let template: string       = asYouType.getTemplate();
 
-                      while (template && template.charAt(template.length - 1) !== "x") {
-                        formattedValue = formattedValue.slice(
-                          0,
-                          formattedValue.length - 1,
-                        );
-                        template       = template.slice(
-                          0,
-                          template.length - 1,
-                        );
-                      }
-
-                      this.renderer2.setProperty(
-                        htmlInputElementRef.nativeElement,
-                        "value",
-                        formattedValue,
-                      );
-                    }
-                  } else
-                    this.renderer2.setProperty(
-                      htmlInputElementRef.nativeElement,
-                      "value",
-                      value,
+                  while (template && template.charAt(template.length - 1) !== "x") {
+                    formattedValue = formattedValue.slice(
+                      0,
+                      formattedValue.length - 1,
                     );
-                },
-              );
+                    template       = template.slice(
+                      0,
+                      template.length - 1,
+                    );
+                  }
+
+                  this.renderer2.setProperty(
+                    htmlInputElementRef.nativeElement,
+                    "value",
+                    formattedValue,
+                  );
+                }
+              } else
+                this.renderer2.setProperty(
+                  htmlInputElementRef.nativeElement,
+                  "value",
+                  this.value,
+                );
             },
           );
       },
