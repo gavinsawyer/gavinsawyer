@@ -8,7 +8,7 @@
   },
   "repository":   {
     "type":      "git",
-    "url":       "github:gavinsawyer/gavinsawyer",
+    "url":       "git+https://github.com/gavinsawyer/gavinsawyer.git",
     "directory": "libs/cloud functions"
   },
   "private":      true,

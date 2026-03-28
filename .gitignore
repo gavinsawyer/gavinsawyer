@@ -16,4 +16,5 @@ gha-creds-*.json
 
 # Version side-effect files
 apps/*/src/.gitInfoPartial.ts
+apps/*/src/.packageRepositoryUrl.ts
 apps/*/src/.packageVersion.ts

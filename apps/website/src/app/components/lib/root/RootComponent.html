@@ -33,7 +33,9 @@
         @if (packageVersion.split(" Beta ")[1]; as beta) {<span>Beta&nbsp;{{ beta }}</span>}
         <span>Commit&nbsp;&num;<bowstring--link
           inline
-          [url]="'https://github.com/gavinsawyer/gavinsawyer/commit/' + gitInfoPartial.hash">{{ gitInfoPartial.hash }}</bowstring--link></span>
+          [url]="packageRepositoryUrl + '/commit/' + gitInfoPartial.hash">
+          <bowstring--label [input]="gitInfoPartial.hash || ''" />
+        </bowstring--link></span>
         <span i18n>Project &ldquo;{{ projectName | titlecase }}&rdquo;</span>
       </bowstring--flexbox-container>
     </bowstring--caption>
@@ -42,7 +44,7 @@
   <bowstring--section>
     <bowstring--button
       level="2"
-      url="https://github.com/gavinsawyer/gavinsawyer/issues/new">
+      [url]="packageRepositoryUrl + '/issues/new'">
       <bowstring--symbol input="ExclamationmarkBubbleFill" />
       <bowstring--label
         i18n-input

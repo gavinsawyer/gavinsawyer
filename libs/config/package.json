@@ -1,6 +1,6 @@
 {
-  "name":        "@bowstring/config",
-  "homepage":    "https://bowstr.ing",
+  "name":        "@gavinsawyer/config",
+  "homepage":    "https://gavinsawyer.us",
   "author":      {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",
@@ -8,7 +8,7 @@
   },
   "repository":  {
     "type":      "git",
-    "url":       "git+https://github.com/gavinsawyer/bowstring.git",
+    "url":       "git+https://github.com/gavinsawyer/gavinsawyer.git",
     "directory": "libs/config"
   },
   "private":     true,
