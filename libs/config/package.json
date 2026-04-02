@@ -1,16 +1,17 @@
 {
-  "name":        "@gavinsawyer/config",
-  "homepage":    "https://gavinsawyer.us",
-  "author":      {
+  "name":         "@gavinsawyer/config",
+  "homepage":     "https://gavinsawyer.us",
+  "author":       {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",
     "url":   "https://gavinsawyer.us"
   },
-  "repository":  {
+  "repository":   {
     "type":      "git",
     "url":       "git+https://github.com/gavinsawyer/gavinsawyer.git",
     "directory": "libs/config"
   },
-  "private":     true,
-  "sideEffects": false
+  "private":      true,
+  "sideEffects":  false,
+  "dependencies": { "@angular/core": "18" }
 }
