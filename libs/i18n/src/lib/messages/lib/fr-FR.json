@@ -222,7 +222,7 @@
     "apps--Website--Components--Routes--Gallery--Meta--Description":                     "...",
     "apps--Website--Components--Routes--Gallery--Meta--Title":                           "Galerie",
     "apps--Website--Components--Routes--Home--Aside--Header_2":                          "Voulez-vous vous connecter ?",
-    "apps--Website--Components--Routes--Home--Aside--Header_1":                          "Nous vous contacterons{$INTERPOLATION}",
+    "apps--Website--Components--Routes--Home--Aside--Header_1":                          "Nous vous {$START_TAG_SPAN}contacterons{$START_TAG_BOWSTRING__ELLIPSES}{$CLOSE_TAG_BOWSTRING__ELLIPSES}{$CLOSE_TAG_SPAN}",
     "apps--Website--Components--Routes--Home--Header":                                   "Gavin est un entrepreneur et ingénieur logiciel américain. Il crée des logiciels depuis l'âge de 13 ans.",
     "apps--Website--Components--Routes--Home--Section_1--Box_1--Paragraph_1":            "Un méta-framework de Nx, Angular et Firebase, ainsi qu'un écosystème de bibliothèques soigneusement conçues pour les applications d'entreprise. Ce Site a été réalisé avec Bowstring.",
     "apps--Website--Components--Routes--Home--Section_1--Box_1--Paragraph_2":            "Bowstring est en accès anticipé sur invitation.",

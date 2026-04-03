@@ -9,14 +9,14 @@ import { interval, map, startWith }                             from "rxjs";
 
 
 @Injectable({ providedIn: "root" })
-export class EllipsesService {
+export class EllipsesCountService {
 
-  public readonly ellipses$: Signal<string> = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<string>(
-    interval(800).pipe<string, string>(
-      map<number, string>((n: number): string => ".".repeat((n % 3) + 1)),
-      startWith<string, [ "..." ]>("..."),
+  public readonly ellipsesCount$: Signal<number> = isPlatformBrowser(inject<object>(PLATFORM_ID)) ? toSignal<number>(
+    interval(800).pipe<number, number>(
+      map<number, number>((n: number): number => (n % 3) + 1),
+      startWith<number, [ 3 ]>(3),
     ),
     { requireSync: true },
-  ) : signal<string>("...");
+  ) : signal<3>(3);
 
 }

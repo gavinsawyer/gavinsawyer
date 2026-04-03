@@ -24,11 +24,12 @@
     "angular--browser":        {
       "configurations":       {
         "development": {
-          "localize":  [ "en-US" ],
-          "sourceMap": true
+          "localize":    [ "en-US" ],
+          "namedChunks": true,
+          "sourceMap":   true
         },
         "production":  {
-          "budgets":          [
+          "budgets":                  [
             {
               "maximumError":   "8mb",
               "maximumWarning": "2mb",
@@ -40,13 +41,15 @@
               "type":           "anyComponentStyle"
             }
           ],
-          "fileReplacements": [
+          "fileReplacements":         [
             {
               "replace": "apps/website/src/environment.ts",
               "with":    "apps/website/src/environment.prod.ts"
             }
           ],
-          "localize":         true
+          "i18nDuplicateTranslation": "error",
+          "i18nMissingTranslation":   "error",
+          "localize":                 true
         }
       },
       "defaultConfiguration": "production",
@@ -91,18 +94,21 @@
     "angular--server":         {
       "configurations":       {
         "development": {
+          "namedChunks":   true,
           "outputHashing": "none",
           "sourceMap":     true
         },
         "production":  {
-          "fileReplacements": [
+          "fileReplacements":         [
             {
               "replace": "apps/website/src/environment.ts",
               "with":    "apps/website/src/environment.prod.ts"
             }
           ],
-          "localize":         true,
-          "outputHashing":    "media"
+          "i18nDuplicateTranslation": "error",
+          "i18nMissingTranslation":   "error",
+          "localize":                 true,
+          "outputHashing":            "media"
         }
       },
       "defaultConfiguration": "production",

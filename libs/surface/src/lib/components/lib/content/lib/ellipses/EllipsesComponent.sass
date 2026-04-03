@@ -1,0 +1,19 @@
+/*!
+ / Copyright © 2026 Gavin William Sawyer. All rights reserved.
+ /
+
+@use "../../../../../directives"
+
+
+\:host
+  display: contents
+
+  @include directives.Container-host
+  @include directives.Inlinable-host
+
+  --bowstring--container-directive--align-self: baseline !important
+
+  &:not(.show-1) > .harness > .between > span > span:nth-child(1),
+  &:not(.show-2) > .harness > .between > span > span:nth-child(2),
+  &:not(.show-3) > .harness > .between > span > span:nth-child(3)
+    opacity: 0

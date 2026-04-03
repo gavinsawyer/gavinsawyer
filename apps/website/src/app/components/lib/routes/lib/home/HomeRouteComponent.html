@@ -14,7 +14,7 @@
       positionTop="var(--bowstring--main--gap-row)">
       <bowstring--box>
         <bowstring--header fontSizeExponent="-2">
-          @if (messageFormGroup.disabled) {<h3 i18n="@@apps--Website--Components--Routes--Home--Aside--Header_1">We'll be in touch{{ ellipsesService.ellipses$() }}</h3>} @else {<h3 i18n="@@apps--Website--Components--Routes--Home--Aside--Header_2">Want to connect?</h3>}
+          @if (messageFormGroup.disabled) {<h3 i18n="@@apps--Website--Components--Routes--Home--Aside--Header_1">We'll be in <span style="text-wrap: nowrap;">touch<bowstring--ellipses inline /></span></h3>} @else {<h3 i18n="@@apps--Website--Components--Routes--Home--Aside--Header_2">Want to connect?</h3>}
         </bowstring--header>
         <bowstring--form (output)="messageFormSubmit()">
           <bowstring--text-field-input
