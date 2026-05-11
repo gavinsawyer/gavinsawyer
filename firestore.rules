@@ -2,6 +2,13 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth.token.admin == true;
+    }
+    function isAdminOrOwner(data) {
+      return request.auth.uid == data.userId || isAdmin();
+    }
+
     match /messages/{documentId} {
       allow create:       if (request.auth.uid == request.resource.data.userId);
       allow delete, read: if (request.auth.uid == resource.data.userId || request.auth.token.admin == true);

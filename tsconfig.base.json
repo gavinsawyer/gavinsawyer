@@ -20,7 +20,7 @@
       "DOM.Iterable"
     ],
     "module":                             "ESNext",
-    "moduleResolution":                   "Node",
+    "moduleResolution":                   "Bundler",
     "noFallthroughCasesInSwitch":         true,
     "noImplicitOverride":                 true,
     "noImplicitReturns":                  true,

@@ -15,6 +15,7 @@ export interface AccountDocument {
     };
     "spotify"?: { "refreshToken": string };
   };
+  "created": Timestamp;
   "email": string;
   "enabledMessages"?: Record<MessagesType, boolean>;
   "localeId": LocaleId;

@@ -29,7 +29,7 @@ export class AccountService {
           previousDocumentId: string,
           currentDocumentId: string,
         ): boolean => currentDocumentId === previousDocumentId,
-        (documentSnapshot: DocumentSnapshot<AccountDocument, AccountDocument>): string => documentSnapshot.ref.id,
+        ({ id: documentId }: DocumentSnapshot<AccountDocument, AccountDocument>): string => documentId,
       ),
       takeUntilDestroyed<DocumentSnapshot<AccountDocument, AccountDocument>>(),
     ).subscribe(

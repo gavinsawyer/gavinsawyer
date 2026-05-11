@@ -27,6 +27,6 @@
     "lodash":                    "4",
     "masonry-layout":            "4",
     "rxjs":                      "7",
-    "uuid":                      "13"
+    "uuid":                      "14"
   }
 }

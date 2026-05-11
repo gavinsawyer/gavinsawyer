@@ -28,6 +28,6 @@
     "git-describe":                "4",
     "libphonenumber-js":           "1",
     "rxjs":                        "7",
-    "uuid":                        "13"
+    "uuid":                        "14"
   }
 }

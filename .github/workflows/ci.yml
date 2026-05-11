@@ -7,24 +7,8 @@ on:
   pull_request:
 
 jobs:
-  resolve-apps:
+  install:
     runs-on: ubuntu-latest
-    outputs:
-      apps: ${{ steps.echo.outputs.apps }}
-    steps:
-      - uses: actions/checkout@v6
-      - id:  echo
-        run: |
-             APPS=$(jq -sc '[.[].name]' apps/*/project.json)
-             echo "apps=$APPS" >> "$GITHUB_OUTPUT"
-  deploy:
-    needs:   resolve-apps
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        project: ${{ fromJson(needs.resolve-apps.outputs.apps) }}
-        include:
-          - project: cloud-functions,tag:has-cloud-functions
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -37,6 +21,57 @@ jobs:
           key:  node-modules-cache-${{ hashFiles('package-lock.json') }}
       - if:  steps.cache.outputs.cache-hit != 'true'
         run: npm ci
+  deploy--service-configs:
+    needs:   install
+    runs-on: ubuntu-latest
+    if:      github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key:  node-modules-cache-${{ hashFiles('package-lock.json') }}
+      - id:   auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GAVINSAWYER_44C46 }}
+          token_format:     access_token
+      - run: npx firebase ext:export -f
+        env:
+          FIREBASE_SERVICE_ACCOUNT_PATH: ${{ steps.auth.outputs.credentials_file_path }}
+          FIREBASE_TOKEN:                ${{ steps.auth.outputs.access_token }}
+      - run: npx firebase deploy --only extensions,firestore,storage
+        env:
+          FIREBASE_SERVICE_ACCOUNT_PATH: ${{ steps.auth.outputs.credentials_file_path }}
+          FIREBASE_TOKEN:                ${{ steps.auth.outputs.access_token }}
+  resolve-apps:
+    runs-on: ubuntu-latest
+    outputs:
+      apps: ${{ steps.echo.outputs.apps }}
+    steps:
+      - uses: actions/checkout@v6
+      - id:  echo
+        run: echo "apps=$(jq -sc '[.[].name]' apps/*/project.json)" >> "$GITHUB_OUTPUT"
+  deploy:
+    needs:   [ install, resolve-apps ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ${{ fromJson(needs.resolve-apps.outputs.apps) }}
+        include:
+          - project: cloud-functions,tag:has-cloud-functions
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key:  node-modules-cache-${{ hashFiles('package-lock.json') }}
       - id:   auth
         uses: google-github-actions/auth@v2
         with:
