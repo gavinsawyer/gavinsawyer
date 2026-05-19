@@ -3,6 +3,11 @@
   -->
 
 <div class="harness">
+  <div id="sizers">
+    <div #gutterSizerHtmlDivElement></div>
+    <div #columnSizerHtmlDivElement></div>
+  </div>
+
   <div class="between" #innerHtmlDivElement><ng-container *ngTemplateOutlet="contentTemplate" /></div>
 </div>
 
@@ -12,8 +17,6 @@
   </div>}
 </ng-template>
 <ng-template #contentTemplate>
-  <div #gutterSizerHtmlDivElement></div>
-  <div #columnSizerHtmlDivElement></div>
   @for (childTemplateRef of childTemplateRefs$(); track $index) {<div class="bowstringMasonryChild"><ng-container *ngTemplateOutlet="childTemplateRef" /></div>}
   <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
 </ng-template>

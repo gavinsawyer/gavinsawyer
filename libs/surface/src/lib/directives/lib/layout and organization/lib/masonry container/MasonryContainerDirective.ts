@@ -6,7 +6,7 @@ import { isPlatformBrowser }                                                    
 import { afterRender, computed, Directive, type ElementRef, inject, input, type InputSignal, type InputSignalWithTransform, numberAttribute, OnDestroy, PLATFORM_ID, signal, type Signal, type WritableSignal } from "@angular/core";
 import { toObservable, toSignal }                                                                                                                                                                               from "@angular/core/rxjs-interop";
 import { type Inherit, type ScalarString }                                                                                                                                                                      from "@bowstring/core";
-import type Masonry                                                                                                                                                                                             from "masonry-layout";
+import type MasonryLayout                                                                                                                                                                                       from "masonry-layout";
 import { filter, Observable, type Observer, switchMap, type TeardownLogic }                                                                                                                                     from "rxjs";
 import { ContainerDirective }                                                                                                                                                                                   from "../container/ContainerDirective";
 
@@ -53,11 +53,11 @@ export class MasonryContainerDirective
   implements OnDestroy {
 
   constructor() {
-    afterRender((): void => this.masonry$()?.layout?.());
+    afterRender((): void => this.masonryLayout$()?.layout?.());
   }
 
-  private readonly masonry$: Signal<Masonry | undefined> = computed<Masonry | undefined>(
-    (): Masonry | undefined => {
+  private readonly masonryLayout$: Signal<MasonryLayout | undefined> = computed<MasonryLayout | undefined>(
+    (): MasonryLayout | undefined => {
       const columnSizerHtmlDivElement: HTMLDivElement | undefined = this.columnSizerHtmlDivElementRef$()?.nativeElement;
       const gutterSizerHtmlDivElement: HTMLDivElement | undefined = this.gutterSizerHtmlDivElementRef$()?.nativeElement;
       const innerHtmlDivElement: HTMLDivElement | undefined       = this.innerHtmlDivElementRef$()?.nativeElement;
@@ -78,7 +78,7 @@ export class MasonryContainerDirective
       return undefined;
     },
   );
-  private readonly platformId: NonNullable<unknown>      = inject<NonNullable<unknown>>(PLATFORM_ID);
+  private readonly platformId: NonNullable<unknown>                  = inject<NonNullable<unknown>>(PLATFORM_ID);
 
   public readonly columnSizerHtmlDivElementRef$: WritableSignal<ElementRef<HTMLDivElement> | undefined> = signal<undefined>(undefined);
 
@@ -118,10 +118,10 @@ export class MasonryContainerDirective
   public readonly innerHtmlDivElementRef$: WritableSignal<ElementRef<HTMLDivElement> | undefined>       = signal<undefined>(undefined);
 
   public ngOnDestroy(): void {
-    this.masonry$()?.destroy?.();
+    this.masonryLayout$()?.destroy?.();
   }
   public reloadItems(): void {
-    this.masonry$()?.reloadItems?.();
+    this.masonryLayout$()?.reloadItems?.();
   }
 
 }

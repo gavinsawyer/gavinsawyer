@@ -1,6 +1,6 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 108",
+  "version":         "2026.0 Beta 109",
   "homepage":        "https://gavinsawyer.us",
   "author":          {
     "name":  "Gavin William Sawyer",
@@ -73,6 +73,5 @@
     "jsonwebtoken":                           "9",
     "nx":                                     "22.2.0",
     "url":                                    "0"
-  },
-  "overrides":       { "@protobufjs/inquire": "1.1.0" }
+  }
 }
