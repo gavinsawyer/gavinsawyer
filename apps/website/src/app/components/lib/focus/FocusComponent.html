@@ -54,7 +54,7 @@
         <div id="header">
           <header class="harness">
             <div class="between">
-              <h4>{{ inputSignal$() + (inputSignal$() === "Do Not Disturb" ? "" : " Focus") }}</h4>
+              <h4>{{ input$() + (input$() === "Do Not Disturb" ? "" : " Focus") }}</h4>
             </div>
           </header>
         </div>
@@ -74,7 +74,7 @@
   <div id="heading-group">
     <hgroup class="harness">
       <div class="between">
-        <p i18n="@@apps--Website--Components--Focus--Paragraph">Gavin has message notifications turned @if (inputSignal$() === "Personal") {on} @else {off}.</p>
+        <p i18n="@@apps--Website--Components--Focus--Paragraph">Gavin has message notifications turned @if (input$() === "Personal") {on} @else {off}.</p>
       </div>
     </hgroup>
   </div>

@@ -11,3 +11,4 @@ export * from "./lib/types";
 
 export * from "./lib/getAuthErrorMessage";
 export * from "./lib/getFirestoreErrorMessage";
+export * from "./lib/logo";

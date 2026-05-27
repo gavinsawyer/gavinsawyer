@@ -32,7 +32,7 @@ export interface Brand {
   "fontFamily": FontFamily;
 
   /** The brand's {@link Logo}. */
-  "logo": Logo;
+  "logo"?: Logo;
 
   /** The brand's newsletter title. */
   "newsletterTitle"?: string;

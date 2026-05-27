@@ -24,7 +24,9 @@
 <bowstring--sheet #versionSheetComponent>
   @defer {<bowstring--heading-group>
     <bowstring--header>
-      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: Anybody, var(--bowstring--root--brand-font-family); font-weight: 300;"><bowstring--logo inline /> {{ packageVersion.split(" Beta ")[0] }}</h6>
+      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: Anybody, var(--bowstring--root--brand-font-family); font-weight: 300;"><bowstring--logo
+        inline
+        [input]="logo" /> {{ packageVersion.split(" Beta ")[0] }}</h6>
     </bowstring--header>
     <bowstring--caption>
       <bowstring--flexbox-container

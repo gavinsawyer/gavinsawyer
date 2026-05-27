@@ -67,10 +67,10 @@ export class FocusComponent {
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
-  public readonly inputSignal$: InputSignal<Focus> = input.required<Focus>({ alias: "input" });
+  public readonly input$: InputSignal<Focus> = input.required<Focus>({ alias: "input" });
 
   protected readonly focusSymbol$: Signal<Symbol | undefined>          = toSignal<Symbol>(
-    toObservable<Focus>(this.inputSignal$).pipe<Symbol>(
+    toObservable<Focus>(this.input$).pipe<Symbol>(
       this.rxSsrService.wrap<Focus, Symbol>(
         switchMap<Focus, Observable<Symbol>>((focus: Focus): Observable<Symbol> => from<Promise<Symbol>>(loadSymbol(this.focusSymbolNamesAndColors[focus].symbolName))),
         "019cc36e-bcbb-776f-9aa4-f7edb1c5af7e",
@@ -78,7 +78,7 @@ export class FocusComponent {
     ),
   );
   protected readonly focusSymbolFillColor$: Signal<string | undefined> = toSignal<string>(
-    toObservable<Focus>(this.inputSignal$).pipe<string>(
+    toObservable<Focus>(this.input$).pipe<string>(
       this.rxSsrService.wrap<Focus, string>(
         map<Focus, string>((focus: Focus): string => (this.focusSymbolNamesAndColors[focus].color)),
         "019cc36e-d539-7228-9315-bc7c8d84e644",
