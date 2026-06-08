@@ -10,7 +10,7 @@ import { Auth, createUserWithEmailAndPassword, IdTokenResult, onIdTokenChanged, 
 import { Functions }                                                                                                                                            from "@angular/fire/functions";
 import { createUserWithPasskey, type FirebaseWebAuthnError, signInWithPasskey, verifyUserWithPasskey }                                                          from "@firebase-web-authn/browser";
 import { type Auth as AdminAuth, type UserRecord as AdminUserRecord }                                                                                           from "firebase-admin/auth";
-import { catchError, distinctUntilChanged, filter, from, map, Observable, type Observer, of, switchMap, tap, type TeardownLogic }                               from "rxjs";
+import { catchError, distinctUntilChanged, filter, from, map, Observable, type Observer, of, shareReplay, switchMap, tap, type TeardownLogic }                  from "rxjs";
 import { getAuthErrorMessage }                                                                                                                                  from "../../getAuthErrorMessage";
 import { getCallableCloudFunction }                                                                                                                             from "../../getCallableCloudFunction";
 import { ADMIN_AUTH }                                                                                                                                           from "../../injection tokens";
@@ -70,7 +70,7 @@ export class AuthenticationService {
         (): void => userObserver.complete(),
       );
     },
-  ).pipe<User | null, User | null, User | null, User>(
+  ).pipe<User | null, User | null, User | null, User, User>(
     distinctUntilChanged<User | null>(),
     tap<User | null>(
       (user: User | null): void => {
@@ -131,6 +131,12 @@ export class AuthenticationService {
       },
     ),
     filter<User | null, User>((user: User | null): user is User => !!user),
+    shareReplay<User>(
+      {
+        bufferSize: 1,
+        refCount:   true,
+      },
+    ),
   );
   public readonly idToken$: Signal<string | undefined>                                                = toSignal<string>(
     this.userObservable.pipe<string>(

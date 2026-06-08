@@ -10,7 +10,7 @@ import { doc, docSnapshots, type DocumentReference, type DocumentSnapshot, Fires
 import { Functions }                                                                                                    from "@angular/fire/functions";
 import { LOCALE_ID, type LocaleId }                                                                                     from "@bowstring/i18n";
 import { type FirebaseWebAuthnError, linkWithPasskey, unlinkPasskey }                                                   from "@firebase-web-authn/browser";
-import { catchError, distinctUntilChanged, filter, map, Observable, of, switchMap }                                     from "rxjs";
+import { catchError, distinctUntilChanged, filter, map, Observable, of, shareReplay, switchMap }                        from "rxjs";
 import { getAuthErrorMessage }                                                                                          from "../../getAuthErrorMessage";
 import { type AccountDocument }                                                                                         from "../../interfaces";
 import { AuthenticationService }                                                                                        from "./AuthenticationService";
@@ -57,7 +57,7 @@ export class AccountService {
   private readonly authenticationService: AuthenticationService                                                           = inject<AuthenticationService>(AuthenticationService);
   private readonly errorsService: ErrorsService                                                                           = inject<ErrorsService>(ErrorsService);
   private readonly firestore: Firestore                                                                                   = inject<Firestore>(Firestore);
-  private readonly documentSnapshotObservable: Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined> = this.authenticationService.userObservable.pipe<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(
+  private readonly documentSnapshotObservable: Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined> = this.authenticationService.userObservable.pipe<DocumentSnapshot<AccountDocument, AccountDocument> | undefined, DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(
     switchMap<User, Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>>(
       ({ uid: userId }: User): Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined> => (docSnapshots<AccountDocument>(
         doc(
@@ -65,6 +65,12 @@ export class AccountService {
           `/accounts/${ userId }`,
         ) as DocumentReference<AccountDocument, AccountDocument>,
       ) as Observable<DocumentSnapshot<AccountDocument, AccountDocument>>).pipe<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(catchError<DocumentSnapshot<AccountDocument, AccountDocument>, Observable<undefined>>((): Observable<undefined> => of<undefined>(undefined))),
+    ),
+    shareReplay<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(
+      {
+        bufferSize: 1,
+        refCount:   true,
+      },
     ),
   );
   private readonly functions: Functions                                                                                   = inject<Functions>(Functions);

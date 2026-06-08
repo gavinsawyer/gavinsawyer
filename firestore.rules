@@ -10,9 +10,9 @@ service cloud.firestore {
     }
 
     match /messages/{documentId} {
-      allow create:       if (request.auth.uid == request.resource.data.userId);
-      allow delete, read: if (request.auth.uid == resource.data.userId || request.auth.token.admin == true);
-      allow update:       if (request.auth.uid == resource.data.userId || request.auth.token.admin == true);
+      allow create:       if isAdminOrOwner(request.resource.data);
+      allow update:       if isAdminOrOwner(request.resource.data) && isAdminOrOwner(resource.data);
+      allow read, delete: if isAdminOrOwner(resource.data);
     }
   }
 }

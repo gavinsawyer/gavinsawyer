@@ -112,7 +112,7 @@
         }
       },
       "defaultConfiguration": "production",
-      "dependsOn":            [ "build--intl-server" ],
+      "dependsOn":            [ "build--server--prod" ],
       "executor":             "@angular-devkit/build-angular:server",
       "options":              {
         "deleteOutputPath":     false,
@@ -142,10 +142,10 @@
       "executor":  "nx:noop",
       "outputs":   [ "{workspaceRoot}/dist/apps/website" ]
     },
-    "build--intl-server":      {
-      "dependsOn": [ "esbuild--intl-server" ],
+    "build--server--prod":           {
+      "dependsOn": [ "esbuild--server--prod" ],
       "executor":  "nx:run-commands",
-      "options":   { "commands": [ "mv dist/apps/website/server/main.intl-server.cjs dist/apps/website/server/main.js" ] },
+      "options":   { "commands": [ "mv dist/apps/website/server/main.server.prod.cjs dist/apps/website/server/main.js" ] },
       "outputs":   [ "{workspaceRoot}/dist/apps/website/server" ]
     },
     "build--service-worker":   {
@@ -173,7 +173,7 @@
     },
     "deploy":                  {
       "dependsOn": [
-        "build--intl-server",
+        "build--server--prod",
         "build--service-worker"
       ],
       "executor":  "@angular/fire:deploy",
@@ -191,7 +191,7 @@
         "target":               "website"
       }
     },
-    "esbuild--intl-server":    {
+    "esbuild--server--prod":         {
       "dependsOn": [
         "lint",
         "prebuild"
@@ -206,7 +206,7 @@
           }
         },
         "format":           [ "cjs" ],
-        "main":             "apps/website/src/app/main.intl-server.ts",
+        "main":             "apps/website/src/app/main.server.prod.ts",
         "metafile":         true,
         "minify":           true,
         "outputPath":       "dist/apps/website/server",

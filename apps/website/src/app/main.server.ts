@@ -23,12 +23,17 @@ const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeA
 const adminAppCheck: AdminAppCheck       = adminGetAppCheck(adminFirebaseApp);
 const adminAuth: AdminAuth               = adminGetAuth(adminFirebaseApp);
 
-function getRequestHandler(localeId: LocaleId): express.RequestHandler {
-  return (
-    request: express.Request,
-    response: express.Response,
-    nextFunction: express.NextFunction,
-  ): void => void new CommonEngine(
+export const requestHandler: express.RequestHandler = (
+  request: express.Request,
+  response: express.Response,
+  nextFunction: express.NextFunction,
+): void => {
+  const localeId: LocaleId | undefined = localeIds.filter((localeId: LocaleId): boolean => request.path.startsWith(`/${ localeId }`))[0];
+
+  if (!localeId)
+    return response.redirect(`/${ request.acceptsLanguages(localeIds) || "en-US" }${ request.path }`);
+
+  new CommonEngine(
     {
       bootstrap: ProjectServerModule,
       providers: [
@@ -71,12 +76,6 @@ function getRequestHandler(localeId: LocaleId): express.RequestHandler {
     (html: string): void => void response.send(html),
     (error: Error): void => nextFunction(error),
   );
-}
-
-// noinspection JSUnusedGlobalSymbols
-export {
-  getRequestHandler,
-  ProjectServerModule as AppServerModule,
 };
 
 declare const __non_webpack_require__: NodeJS.Require;
@@ -126,22 +125,7 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
     ),
   ).get(
     "*",
-    (
-      request: express.Request,
-      response: express.Response,
-      nextFunction: express.NextFunction,
-    ): void => {
-      const localeId: LocaleId | undefined = localeIds.filter((localeId: LocaleId): boolean => request.path.startsWith(`/${ localeId }`))[0];
-
-      if (!localeId)
-        return response.redirect(`/${ request.acceptsLanguages(localeIds) || "en-US" }${ request.path }`);
-
-      getRequestHandler(localeId)(
-        request,
-        response,
-        nextFunction,
-      );
-    },
+    requestHandler,
   ).listen(
     process.env["PORT"] || 4000,
     (error?: Error): void => {

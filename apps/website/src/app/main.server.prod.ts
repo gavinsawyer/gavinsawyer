@@ -2,19 +2,16 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { type LocaleId, localeIds }                                                                                      from "@bowstring/i18n";
-import compression                                                                                                       from "compression";
-import cookieParser                                                                                                      from "cookie-parser";
-import express                                                                                                           from "express";
-import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
-import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
-import { environment }                                                                                                   from "../environment";
+import { type LocaleId, localeIds }                                                        from "@bowstring/i18n";
+import compression                                                                         from "compression";
+import cookieParser                                                                        from "cookie-parser";
+import express                                                                             from "express";
+import { cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
+import { type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }             from "firebase-admin/auth";
+import { environment }                                                                     from "../environment";
 
 
 process.env["FIRESTORE_PREFER_REST"] = "true";
-
-const adminFirebaseApp: AdminFirebaseApp = adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined);
-const adminAuth: AdminAuth               = adminGetAuth(adminFirebaseApp);
 
 void express().use(compression()).use(cookieParser()).use(
   (
@@ -30,7 +27,7 @@ void express().use(compression()).use(cookieParser()).use(
     const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
 
     if (idToken && idToken !== request.cookies["__session"])
-      adminAuth.verifyIdToken(idToken).then<void, void>(
+      adminGetAuth(adminGetApps()[0] || adminInitializeApp(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"] ? { credential: adminCert(process.env["FIREBASE_SERVICE_ACCOUNT_PATH"]) } : undefined)).verifyIdToken(idToken).then<void, void>(
         ({ exp: expirySeconds }: AdminDecodedIdToken): void => void response.cookie(
           "__session",
           idToken,
@@ -70,7 +67,7 @@ void express().use(compression()).use(cookieParser()).use(
     if (!localeId)
       return response.redirect(`/${ request.acceptsLanguages(localeIds) || "en-US" }${ request.path }`);
 
-    require(`${ __dirname }/${ localeId }/main.js`)["getRequestHandler"](localeId)(
+    require(`${ __dirname }/${ localeId }/main.js`)["requestHandler"](
       request,
       response,
       nextFunction,
