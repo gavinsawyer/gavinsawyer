@@ -1,8 +1,10 @@
 {
-  "name":        "surface",
   "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+
+  "name":        "surface",
   "projectType": "library",
   "sourceRoot":  "libs/surface/src",
+
   "targets":     {
     "build": {
       "dependsOn": [ "lint" ],

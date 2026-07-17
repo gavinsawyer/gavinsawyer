@@ -1,9 +1,10 @@
 {
-  "name":        "cloud-functions",
   "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+
+  "name":        "cloud-functions",
   "projectType": "library",
-  "tags":        [ "cloud-functions" ],
   "sourceRoot":  "libs/cloud functions/src",
+
   "targets":     {
     "build":    {
       "dependsOn": [

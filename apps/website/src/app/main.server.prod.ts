@@ -8,6 +8,9 @@ import cookieParser                                                             
 import express                                                                             from "express";
 import { cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }             from "firebase-admin/auth";
+import project                                                                             from "../../project.json";
+import { gitInfoPartial }                                                                  from "../.gitInfoPartial";
+import { packageVersion }                                                                  from "../.packageVersion";
 import { environment }                                                                     from "../environment";
 
 
@@ -20,8 +23,20 @@ void express().use(compression()).use(cookieParser()).use(
     nextFunction: express.NextFunction,
   ): void => {
     response.setHeader(
+      "X-Commit",
+      `#${ gitInfoPartial.hash }`,
+    );
+    response.setHeader(
+      "X-Package-Version",
+      packageVersion,
+    );
+    response.setHeader(
       "X-Powered-By",
       "Bowstring",
+    );
+    response.setHeader(
+      "X-Project-Name",
+      project.name,
     );
 
     const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
@@ -79,6 +94,6 @@ void express().use(compression()).use(cookieParser()).use(
     if (error)
       throw error;
 
-    console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`);
+    console.log(`Bowstring ${ packageVersion.split(" Beta ")[0] }-mini (${ packageVersion.split(" Beta ")[1] ? `Beta ${ packageVersion.split(" Beta ")[1] } • ` : "" }Commit #${ gitInfoPartial.hash } • Project "${ project.name }")`);
   },
 );

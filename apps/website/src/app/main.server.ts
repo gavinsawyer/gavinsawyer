@@ -12,6 +12,9 @@ import express                                                                  
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type AppCheck as AdminAppCheck, getAppCheck as adminGetAppCheck }                                               from "firebase-admin/app-check";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
+import project                                                                                                           from "../../project.json";
+import { gitInfoPartial }                                                                                                from "../.gitInfoPartial";
+import { packageVersion }                                                                                                from "../.packageVersion";
 import { environment }                                                                                                   from "../environment";
 import { ProjectServerModule }                                                                                           from "./modules";
 import "zone.js/node";
@@ -88,8 +91,20 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
       nextFunction: express.NextFunction,
     ): void => {
       response.setHeader(
+        "X-Commit",
+        `#${ gitInfoPartial.hash }`,
+      );
+      response.setHeader(
+        "X-Package-Version",
+        packageVersion,
+      );
+      response.setHeader(
         "X-Powered-By",
         "Bowstring",
+      );
+      response.setHeader(
+        "X-Project-Name",
+        project.name,
       );
 
       const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
@@ -132,6 +147,6 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
       if (error)
         throw error;
 
-      console.log(`Node Express server listening on http://localhost:${ process.env["PORT"] || 4000 }`);
+      console.log(`Bowstring ${ packageVersion.split(" Beta ")[0] }-mini (${ packageVersion.split(" Beta ")[1] ? `Beta ${ packageVersion.split(" Beta ")[1] } • ` : "" }Commit #${ gitInfoPartial.hash } • Project "${ project.name }")`);
     },
   );

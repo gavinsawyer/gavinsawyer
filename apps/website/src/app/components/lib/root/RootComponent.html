@@ -6,6 +6,44 @@
   <div class="between"><ng-container *ngTemplateOutlet="contentTemplate" /></div>
 </div>
 
+<bowstring--sheet #infoSheetComponent>
+  @defer {<bowstring--heading-group>
+    <bowstring--header>
+      <bowstring--header>
+        <h6 style="text-align: center;">{{ configLib.brand.title }}</h6>
+      </bowstring--header>
+    </bowstring--header>
+    <bowstring--section
+      flexDirection="row"
+      justifyContent="center">
+      <bowstring--link
+        (output)="infoSheetComponent.openModel$.set(false);"
+        [route]="projectRoutes | bowstringFindRouteByPath:'privacy'" />
+      <bowstring--link
+        (output)="infoSheetComponent.openModel$.set(false);"
+        [route]="projectRoutes | bowstringFindRouteByPath:'terms'" />
+    </bowstring--section>
+  </bowstring--heading-group>
+  <bowstring--divider />
+  <bowstring--heading-group>
+    <bowstring--header fontSizeExponent="-1">
+      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: Anybody, var(--bowstring--root--brand-font-family); font-weight: 300; text-align: center;"><bowstring--logo
+        inline
+        [input]="logo" /> {{ packageVersion.split(" Beta ")[0] }}&hyphen;mini</h6>
+    </bowstring--header>
+    <bowstring--section
+      flexDirection="row"
+      flexWrap="wrap"
+      justifyContent="center">
+      @if (packageVersion.split(" Beta ")[1]; as beta) {<bowstring--caption>Beta&nbsp;{{ beta }}</bowstring--caption>}
+      <bowstring--caption>Commit&nbsp;&num;<bowstring--link
+        inline
+        [url]="packageRepositoryUrl + '/tree/' + gitInfoPartial.hash + '/apps/' + projectName">
+        <bowstring--label [input]="gitInfoPartial.hash || ''" />
+      </bowstring--link></bowstring--caption>
+    </bowstring--section>
+  </bowstring--heading-group>}
+</bowstring--sheet>
 <bowstring--sheet #localeSheetComponent>
   @defer {<bowstring--header>
     <h6 i18n>Select your locale.</h6>
@@ -19,39 +57,6 @@
       <bowstring--symbol input="Globe" />
       <bowstring--label [input]="localeDisplayNames[localeIds[$index]]" />
     </bowstring--button>}
-  </bowstring--section>}
-</bowstring--sheet>
-<bowstring--sheet #versionSheetComponent>
-  @defer {<bowstring--heading-group>
-    <bowstring--header>
-      <h6 style="/*noinspection CssNoGenericFontName,CssUnresolvedCustomProperty*/font-family: Anybody, var(--bowstring--root--brand-font-family); font-weight: 300;"><bowstring--logo
-        inline
-        [input]="logo" /> {{ packageVersion.split(" Beta ")[0] }}</h6>
-    </bowstring--header>
-    <bowstring--caption>
-      <bowstring--flexbox-container
-        flexDirection="row"
-        flexWrap="wrap">
-        @if (packageVersion.split(" Beta ")[1]; as beta) {<span>Beta&nbsp;{{ beta }}</span>}
-        <span>Commit&nbsp;&num;<bowstring--link
-          inline
-          [url]="packageRepositoryUrl + '/commit/' + gitInfoPartial.hash">
-          <bowstring--label [input]="gitInfoPartial.hash || ''" />
-        </bowstring--link></span>
-        <span i18n>Project &ldquo;{{ projectName | titlecase }}&rdquo;</span>
-      </bowstring--flexbox-container>
-    </bowstring--caption>
-  </bowstring--heading-group>
-  <bowstring--divider />
-  <bowstring--section>
-    <bowstring--button
-      level="2"
-      [url]="packageRepositoryUrl + '/issues/new'">
-      <bowstring--symbol input="ExclamationmarkBubbleFill" />
-      <bowstring--label
-        i18n-input
-        input="Send feedback" />
-    </bowstring--button>
   </bowstring--section>}
 </bowstring--sheet>
 
@@ -75,18 +80,10 @@
         </h1>
       </bowstring--header>
       @if ((projectRoutes | bowstringFindRouteByPath:"gallery") || (projectRoutes | bowstringFindRouteByPath:"shop") || (projectRoutes | bowstringFindRouteByPath:"account") || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--nav>
-        @if (projectRoutes | bowstringFindRouteByPath:"gallery"; as route) {<bowstring--link [url]="'/' + route.path">
-          <bowstring--label [input]="route.data?.['title']" />
-        </bowstring--link>}
-        @if (projectRoutes | bowstringFindRouteByPath:"shop"; as route) {<bowstring--link [url]="'/' + route.path">
-          <bowstring--label [input]="route.data?.['title']" />
-        </bowstring--link>}
-        @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [url]="'/' + route.path">
-          <bowstring--label [input]="route.data?.['title']" />
-        </bowstring--link>}
-        @if (projectRoutes | bowstringFindRouteByPath:"account"; as route) {<bowstring--link [url]="'/' + route.path">
-          <bowstring--label [input]="route.data?.['title']" />
-        </bowstring--link>}
+        @if (projectRoutes | bowstringFindRouteByPath:"gallery"; as route) {<bowstring--link [route]="route" />}
+        @if (projectRoutes | bowstringFindRouteByPath:"shop"; as route) {<bowstring--link [route]="route" />}
+        @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [route]="route" />}
+        @if (projectRoutes | bowstringFindRouteByPath:"account"; as route) {<bowstring--link [route]="route" />}
       </bowstring--nav>}
     </bowstring--flexbox-container>
     <bowstring--flexbox-container
@@ -113,42 +110,21 @@
   </bowstring--main>
   @defer {@if (belowTemplateRef$(); as belowTemplateRef) {<ng-container *ngTemplateOutlet="belowTemplateRef" />}}
   <bowstring--footer>
-    <bowstring--header>
-      <h6>
-        <bowstring--link
-          exact
-          url="/">
-          <bowstring--label [input]="configLib.brand.title" />
-        </bowstring--link>
-      </h6>
-    </bowstring--header>
     <bowstring--section
       flexDirection="row"
       flexWrap="wrap"
       justifyContent="space-between">
-      <bowstring--flexbox-container flexDirection="row">
-        @if ((projectRoutes | bowstringFindRouteByPath:"gallery") || (projectRoutes | bowstringFindRouteByPath:"shop") || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--flexbox-container alignItems="flex-start">
-          @if (projectRoutes | bowstringFindRouteByPath:"gallery"; as route) {<bowstring--link [url]="'/' + route.path">
-            <bowstring--label [input]="route.data?.['title']" />
-          </bowstring--link>}
-          @if (projectRoutes | bowstringFindRouteByPath:"shop"; as route) {<bowstring--link [url]="'/' + route.path">
-            <bowstring--label [input]="route.data?.['title']" />
-          </bowstring--link>}
-          @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [url]="'/' + route.path">
-            <bowstring--label [input]="route.data?.['title']" />
-          </bowstring--link>}
-        </bowstring--flexbox-container>}
+      @if ((projectRoutes | bowstringFindRouteByPath:"gallery") || (projectRoutes | bowstringFindRouteByPath:"shop") || projectRoutes.slice(1).slice(0, -3).length) {<bowstring--flexbox-container flexDirection="row">
         <bowstring--flexbox-container alignItems="flex-start">
-          @if (projectRoutes | bowstringFindRouteByPath:"privacy"; as route) {<bowstring--link [url]="'/' + route.path">
-            <bowstring--label [input]="route.data?.['title']" />
-          </bowstring--link>}
-          @if (projectRoutes | bowstringFindRouteByPath:"terms"; as route) {<bowstring--link [url]="'/' + route.path">
-            <bowstring--label [input]="route.data?.['title']" />
-          </bowstring--link>}
+          @if (projectRoutes | bowstringFindRouteByPath:"gallery"; as route) {<bowstring--link [route]="route" />}
+          @if (projectRoutes | bowstringFindRouteByPath:"shop"; as route) {<bowstring--link [route]="route" />}
+          @for (route of projectRoutes.slice(1).slice(0, -3); track $index) {<bowstring--link [route]="route" />}
         </bowstring--flexbox-container>
-      </bowstring--flexbox-container>
+      </bowstring--flexbox-container>}
       <bowstring--flexbox-container flexDirection="row">
-        <bowstring--flexbox-container alignItems="flex-start">
+        <bowstring--flexbox-container
+          alignItems="flex-start"
+          [flexDirection]="((projectRoutes | bowstringFindRouteByPath:'gallery') || (projectRoutes | bowstringFindRouteByPath:'shop') || projectRoutes.slice(1).slice(0, -3).length) ? 'column' : 'row'">
           <bowstring--link url="https://github.com/gavinsawyer">
             <bowstring--symbol input="ArrowUpForwardAppFill" />
             <bowstring--label input="GitHub" />
@@ -194,21 +170,23 @@
         flexDirection="row"
         flexGrow="1"
         flexWrap="wrap">
-        <span style="white-space: nowrap;">&copy;&nbsp;<div id="copyrightYear">2026&nbsp;</div><bowstring--link
+        <span style="white-space: nowrap;">&copy;&nbsp;2026&nbsp;<bowstring--link
           inline
           [url]="configLib.brand.copyrightHolderUrl">
           <bowstring--label [input]="configLib.brand.copyrightHolder" />
-        </bowstring--link></span>
-        <span style="white-space: nowrap;">&num;<bowstring--link
-          [disabled]="versionSheetComponent.openModelWithTransform$()"
-          inline
-          (output)="versionSheetComponent.openModel$.set(true);">
-          <bowstring--label [input]="gitInfoPartial.hash || ''" />
         </bowstring--link></span>
       </bowstring--flexbox-container>
       <bowstring--flexbox-container
         flexDirection="row"
         justifyContent="center">
+        <bowstring--link
+          [disabled]="infoSheetComponent.openModelWithTransform$()"
+          (output)="infoSheetComponent.openModel$.set(true);">
+          <bowstring--symbol input="InfoCircleFill" />
+          <bowstring--label
+            i18n-input
+            input="Info" />
+        </bowstring--link>
         <bowstring--link
           [disabled]="localeSheetComponent.openModelWithTransform$()"
           (output)="localeSheetComponent.openModel$.set(true);">

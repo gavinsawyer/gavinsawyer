@@ -1,6 +1,6 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 111",
+  "version":         "2026.0 Beta 113",
   "homepage":        "https://gavinsawyer.us",
   "author":          {
     "name":  "Gavin William Sawyer",
@@ -66,6 +66,7 @@
     "browser-sync":                           "3",
     "compression":                            "1",
     "cookie-parser":                          "1",
+    "firebase-admin":                         "14",
     "firebase-functions":                     "7",
     "firebase-tools":                         "13",
     "git-describe":                           "4",

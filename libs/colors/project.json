@@ -1,8 +1,10 @@
 {
-  "name":        "colors",
   "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+
+  "name":        "colors",
   "projectType": "library",
   "sourceRoot":  "libs/colors/src",
+
   "targets":     {
     "build": {
       "dependsOn": [ "lint" ],

@@ -2,7 +2,7 @@
   ~ Copyright © 2026 Gavin William Sawyer. All rights reserved.
   -->
 
-@if (urlInput$(); as url) {@if (url.includes(":") || url.match("\\.[a-z]")) {<a class="harness" #externalLinkHtmlAnchorElement
+@if (url$(); as url) {@if (url.includes(":") || url.match("\\.[a-z]")) {<a class="harness" #externalLinkHtmlAnchorElement
   [attr.href]="url"
   [attr.tabindex]="disabledInput$() ? -1 : 0"
   (click)="$event.stopPropagation(); output.emit();"
@@ -33,6 +33,6 @@
   </div>}
 </ng-template>
 <ng-template #contentTemplate>
-  <ng-content />
+  @if (routeInput$()?.data?.["title"]; as title) {{{ title }}} @else {<ng-content />}
   <ng-container *ngTemplateOutlet="badgeSymbolTemplate" />
 </ng-template>

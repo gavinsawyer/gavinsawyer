@@ -1,6 +1,16 @@
 {
   "locale":       "es-ES",
   "translations": {
+    "1508929967555030486":                                                               "Issue refund.",
+    "305753529389651498":                                                                "reason",
+    "314315645942131479":                                                                "Info",
+    "3336682057311020015":                                                               "status",
+    "4043049091728011235":                                                               "Cancelled",
+    "5332802124021799756":                                                               "tracking number",
+    "5977967483305728457":                                                               "Update order status.",
+    "666089932147382824":                                                                "The customer requested a refund.",
+    "794037646018293642":                                                                "amount",
+
     "1001640858604676234":                                                               "Una verificación está guardada en su cuenta.",
     "102408375548589662":                                                                "Actualizar contraseña",
     "1292737233370901804":                                                               "Enviar correo",
@@ -144,7 +154,6 @@
     "7312736531749978109":                                                               "Emitir reembolso",
     "7315714079098881460":                                                               "correo electrónico",
     "7334954130474448124":                                                               "Seleccione su moneda.",
-    "7353956071611354344":                                                               "Proyecto “{$INTERPOLATION}”",
     "7391095217463651906":                                                               "Añada su dirección de envío.",
     "7419704019640008953":                                                               "Compartir",
     "7435652511747833024":                                                               "método de pago",

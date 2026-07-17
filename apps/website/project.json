@@ -1,6 +1,11 @@
 {
-  "name":        "website",
   "$schema":     "../../node_modules/nx/schemas/project-schema.json",
+
+  "name":        "website",
+  "projectType": "application",
+  "sourceRoot":  "apps/website/src",
+  "tags":        [ "app" ],
+
   "i18n":        {
     "locales":      {
       "en-GB": {
@@ -18,8 +23,6 @@
     },
     "sourceLocale": "en-US"
   },
-  "projectType": "application",
-  "sourceRoot":  "apps/website/src",
   "targets":     {
     "angular--browser":        {
       "configurations":       {
@@ -142,7 +145,7 @@
       "executor":  "nx:noop",
       "outputs":   [ "{workspaceRoot}/dist/apps/website" ]
     },
-    "build--server--prod":           {
+    "build--server--prod":     {
       "dependsOn": [ "esbuild--server--prod" ],
       "executor":  "nx:run-commands",
       "options":   { "commands": [ "mv dist/apps/website/server/main.server.prod.cjs dist/apps/website/server/main.js" ] },
@@ -191,7 +194,7 @@
         "target":               "website"
       }
     },
-    "esbuild--server--prod":         {
+    "esbuild--server--prod":   {
       "dependsOn": [
         "lint",
         "prebuild"

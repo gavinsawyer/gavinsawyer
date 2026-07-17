@@ -18,21 +18,28 @@ export const redirect: HttpsFunction = onRequest(
   (
     request: Request,
     response: Response,
-  ): void => void getAppCheck(getApp()).verifyToken(
-    `${ request.query["appCheckToken"] }`,
-    { consume: true },
-  ).then<void | Response>(
-    ({ alreadyConsumed }: VerifyAppCheckTokenResponse): void | Response => {
-      if (alreadyConsumed)
-        return response.status(403).send("The App Check token has already been consumed.").end();
+  ): void => {
+    response.setHeader(
+      "X-Powered-By",
+      "Bowstring",
+    );
 
-      response.redirect(`${ request.query["url"] }`);
-    },
-  ).catch<never>(
-    (error: Error): never => {
-      response.status(500).send("Something went wrong.").end();
+    getAppCheck(getApp()).verifyToken(
+      `${ request.query["appCheckToken"] }`,
+      { consume: true },
+    ).then<void | Response>(
+      ({ alreadyConsumed }: VerifyAppCheckTokenResponse): void | Response => {
+        if (alreadyConsumed)
+          return response.status(403).send("The App Check token has already been consumed.").end();
 
-      throw error;
-    },
-  ),
+        response.redirect(`${ request.query["url"] }`);
+      },
+    ).catch<never>(
+      (error: Error): never => {
+        response.status(500).send("Something went wrong.").end();
+
+        throw error;
+      },
+    );
+  },
 );

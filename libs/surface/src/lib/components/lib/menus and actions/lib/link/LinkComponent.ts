@@ -5,7 +5,7 @@
 import { NgTemplateOutlet }                                                                                                                                                            from "@angular/common";
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, type InputSignal, type InputSignalWithTransform, output, type OutputEmitterRef, type Signal, viewChild } from "@angular/core";
 import { toObservable, toSignal }                                                                                                                                                      from "@angular/core/rxjs-interop";
-import { RouterLink, RouterLinkActive }                                                                                                                                                from "@angular/router";
+import { type Route, RouterLink, RouterLinkActive }                                                                                                                                    from "@angular/router";
 import { combineLatestWith, map, type Observable, of, startWith, switchMap }                                                                                                           from "rxjs";
 import { CanvasDirective, ContainerDirective, FlexboxContainerDirective, InlinableDirective, PrimaryDirective, SecondaryDirective, WarningDirective }                                  from "../../../../../directives";
 
@@ -59,6 +59,29 @@ export class LinkComponent {
 
   protected readonly containerDirective: ContainerDirective = inject<ContainerDirective>(ContainerDirective);
 
+  public readonly routeInput$: InputSignal<Route | undefined> = input<Route | undefined>(
+    undefined,
+    { alias: "route" },
+  );
+  public readonly urlInput$: InputSignal<string | undefined>  = input<string | undefined>(
+    undefined,
+    { alias: "url" },
+  );
+
+  protected readonly url$: Signal<string | undefined> = toSignal<string | undefined>(
+    toObservable<string | undefined>(this.urlInput$).pipe<[ string | undefined, string | undefined ], string | undefined>(
+      combineLatestWith<string | undefined, [ string | undefined ]>(toObservable<Route | undefined>(this.routeInput$).pipe<string | undefined>(map<Route | undefined, string | undefined>((routeInput?: Route): string | undefined => routeInput?.path && `/${ routeInput.path }`))),
+      map<[ string | undefined, string | undefined ], string | undefined>(
+        (
+          [
+            urlInput,
+            routeInputUrl,
+          ]: [ string | undefined, string | undefined ],
+        ): string | undefined => urlInput || routeInputUrl,
+      ),
+    ),
+  );
+
   public readonly disabledInput$: InputSignalWithTransform<boolean | undefined, "" | boolean | `${ boolean }` | undefined> = input<boolean | undefined, "" | boolean | `${ boolean }` | undefined>(
     undefined,
     {
@@ -94,10 +117,6 @@ export class LinkComponent {
   public readonly typeInput$: InputSignal<"reset" | "submit" | undefined>                                                  = input<"reset" | "submit" | undefined>(
     undefined,
     { alias: "type" },
-  );
-  public readonly urlInput$: InputSignal<string | undefined>                                                               = input<string | undefined>(
-    undefined,
-    { alias: "url" },
   );
 
 }
