@@ -8,5 +8,8 @@
     "src/app/main.service-worker.ts",
     "src/environment.prod.ts"
   ],
-  "include":         [ "../../libs/symbols/src/lib/_*.ts" ]
+  "include":         [
+    "src/app/components/lib/routes/**/*.ts",
+    "../../libs/symbols/src/lib/_*.ts"
+  ]
 }

@@ -1,6 +1,7 @@
 {
   "name":         "@bowstring/i18n",
   "homepage":     "https://bowstr.ing",
+  "license":      "Apache-2.0",
   "author":       {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",

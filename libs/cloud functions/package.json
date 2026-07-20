@@ -13,7 +13,7 @@
   },
   "private":      true,
   "engines":      { "node": "22" },
-  "main":         "./main.cjs",
+  "main":         "./main.js",
   "type":         "module",
   "dependencies": {
     "@gavinsawyer/shortcuts-api": "3",

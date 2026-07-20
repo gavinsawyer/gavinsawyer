@@ -1,6 +1,7 @@
 {
   "name":         "@bowstring/core--cloud-functions",
   "homepage":     "https://bowstr.ing",
+  "license":      "Apache-2.0",
   "author":       {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",
@@ -13,7 +14,7 @@
   },
   "private":      true,
   "engines":      { "node": "22" },
-  "main":         "./main.cloud-functions.cjs",
+  "main":         "./main.cloud-functions.js",
   "type":         "module",
   "dependencies": {
     "@angular/localize":  "18",

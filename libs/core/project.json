@@ -24,6 +24,7 @@
         "metafile":         true,
         "minify":           true,
         "outputPath":       "dist/libs/core",
+        "platform":         "neutral",
         "splitting":        true,
         "treeShaking":      true,
         "tsConfig":         "libs/core/tsconfig.lib.json"
@@ -63,12 +64,13 @@
             "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n */\n"
           }
         },
-        "format":           [ "cjs" ],
         "main":             "libs/core/src/lib/main.cloud-functions.ts",
         "metafile":         true,
         "minify":           true,
         "outputPath":       "dist/libs/core/cloud functions",
         "platform":         "node",
+        "splitting":        true,
+        "treeShaking":      true,
         "tsConfig":         "libs/core/tsconfig.lib.cloud-functions.json"
       },
       "outputs":   [ "{workspaceRoot}/dist/libs/core/cloud functions" ]

@@ -22,6 +22,7 @@
         "metafile":       true,
         "minify":         true,
         "outputPath":     "dist/libs/symbols",
+        "platform":       "browser",
         "splitting":      true,
         "treeShaking":    true,
         "tsConfig":       "libs/symbols/tsconfig.lib.json"

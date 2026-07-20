@@ -22,6 +22,7 @@
         "metafile":       true,
         "minify":         true,
         "outputPath":     "dist/libs/config",
+        "platform":       "neutral",
         "splitting":      true,
         "treeShaking":    true,
         "tsConfig":       "libs/config/tsconfig.lib.json"

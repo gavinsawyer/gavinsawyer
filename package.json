@@ -1,7 +1,8 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 113",
+  "version":         "2026.0 Beta 114",
   "homepage":        "https://gavinsawyer.us",
+  "license":         "Apache-2.0",
   "author":          {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",

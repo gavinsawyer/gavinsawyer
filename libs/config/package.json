@@ -1,6 +1,7 @@
 {
   "name":         "@gavinsawyer/config",
   "homepage":     "https://gavinsawyer.us",
+  "license":      "Apache-2.0",
   "author":       {
     "name":  "Gavin William Sawyer",
     "email": "g@vinsawyer.us",

@@ -21,12 +21,13 @@
             "js":  "/*\n * Copyright © 2026 Gavin William Sawyer. All rights reserved.\n */\n"
           }
         },
-        "format":           [ "cjs" ],
         "main":             "libs/cloud functions/src/lib/main.ts",
         "metafile":         true,
         "minify":           true,
         "outputPath":       "dist/libs/cloud functions",
         "platform":         "node",
+        "splitting":        true,
+        "treeShaking":      true,
         "tsConfig":         "libs/cloud functions/tsconfig.lib.json"
       },
       "outputs":   [ "{workspaceRoot}/dist/libs/cloud functions" ]
