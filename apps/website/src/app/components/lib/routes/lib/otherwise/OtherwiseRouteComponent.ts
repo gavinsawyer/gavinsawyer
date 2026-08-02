@@ -8,7 +8,7 @@ import { CONFIG_LIB, type ConfigLib }                                           
 import { ENVIRONMENT, type Environment, FindRouteByPathPipe, PathService, RESPONSE } from "@bowstring/core";
 import { HeaderComponent, HeadingGroupComponent, RouteHeaderDirective }              from "@bowstring/surface";
 import { type Response }                                                             from "express";
-import { RouteComponent }                                                            from "../../../../";
+import { RouteComponent }                                                            from "../../../route/RouteComponent";
 
 
 @Component(
@@ -48,3 +48,5 @@ export class OtherwiseRouteComponent
   }
 
 }
+
+export default OtherwiseRouteComponent;

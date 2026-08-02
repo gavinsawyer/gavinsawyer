@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, inject }                           
 import { CONFIG_LIB, type ConfigLib }                                                                                                              from "@bowstring/config";
 import { DateFormat, DatePipe, type Environment, ENVIRONMENT }                                                                                     from "@bowstring/core";
 import { ArticleComponent, CapsuleComponent, FlexboxContainerComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, SectionComponent } from "@bowstring/surface";
-import { RouteComponent }                                                                                                                          from "../../../../";
+import { RouteComponent }                                                                                                                          from "../../../route/RouteComponent";
 
 
 @Component(
@@ -37,3 +37,5 @@ export class TermsRouteComponent
   protected readonly updatedDate: Date             = new Date("2025-04-13T00:00:00.000Z");
 
 }
+
+export default TermsRouteComponent;

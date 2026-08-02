@@ -14,7 +14,7 @@ import { LOCALE_ID, LOCALE_IDS, type LocaleId, type LocaleIds }                 
 import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, CanvasDirective, FlexboxContainerDirective, type FooterComponent, type HeaderComponent, type InspectorComponent }                                                  from "@bowstring/surface";
 import { type GitInfo }                                                                                                                                                                                                                                          from "git-describe";
 import { map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic }                                                                                                                                                                          from "rxjs";
-import { type RouteComponent }                                                                                                                                                                                                                                   from "../../";
+import { type RouteComponent }                                                                                                                                                                                                                                   from "../route/RouteComponent";
 
 
 @Component(

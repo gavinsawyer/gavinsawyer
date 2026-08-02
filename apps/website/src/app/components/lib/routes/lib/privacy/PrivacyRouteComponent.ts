@@ -5,7 +5,7 @@
 import { ChangeDetectionStrategy, Component }                                                                                                                                                       from "@angular/core";
 import { DateFormat, DatePipe }                                                                                                                                                                     from "@bowstring/core";
 import { ArticleComponent, CapsuleComponent, FlexboxContainerComponent, HeaderComponent, HeadingGroupComponent, LabelComponent, LinkComponent, ListComponent, ListItemDirective, SectionComponent } from "@bowstring/surface";
-import { RouteComponent }                                                                                                                                                                           from "../../../../";
+import { RouteComponent }                                                                                                                                                                           from "../../../route/RouteComponent";
 
 
 @Component(
@@ -37,3 +37,5 @@ export class PrivacyRouteComponent
   protected readonly updatedDate: Date             = new Date("2026-01-19T00:00:00.000Z");
 
 }
+
+export default PrivacyRouteComponent;
