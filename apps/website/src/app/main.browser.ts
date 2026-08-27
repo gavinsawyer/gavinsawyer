@@ -5,10 +5,10 @@
 import { platformBrowserDynamic }      from "@angular/platform-browser-dynamic";
 import { SERVICE_WORKER_REGISTRATION } from "@bowstring/core";
 import { firstValueFrom, fromEvent }   from "rxjs";
-import project                         from "../../project.json";
 import { gitInfoPartial }              from "../.gitInfoPartial";
 import { packageRepositoryUrl }        from "../.packageRepositoryUrl";
 import { packageVersion }              from "../.packageVersion";
+import { environment }                 from "../environment";
 import { ProjectBrowserModule }        from "./modules";
 
 
@@ -52,8 +52,8 @@ void (async (): Promise<ServiceWorkerRegistration | undefined> => {
     ).then<void>(
       (): void => console.log(
         [
-          `Bowstring ${ packageVersion.split(" Beta ")[0] }-mini (${ packageVersion.split(" Beta ")[1] ? `Beta ${ packageVersion.split(" Beta ")[1] } • ` : "" }Commit #${ gitInfoPartial.hash } • Project "${ project.name }")`,
-          `${ packageRepositoryUrl }/tree/${ gitInfoPartial.hash }/apps/${ project.name }`,
+          `Bowstring ${ packageVersion.split(" Beta ")[0] }-mini (${ packageVersion.split(" Beta ")[1] ? `Beta ${ packageVersion.split(" Beta ")[1] } • ` : "" }Commit #${ gitInfoPartial.hash })`,
+          `${ packageRepositoryUrl }/tree/${ gitInfoPartial.hash }/apps/${ environment.app }`,
         ].join("\n"),
       ),
     ),

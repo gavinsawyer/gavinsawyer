@@ -1,6 +1,6 @@
 {
-  "analytics":          true,
-  "namedInputs":        {
+  "analytics":      true,
+  "namedInputs":    {
     "default":       [
       "{projectRoot}/**/*",
       "sharedGlobals"
@@ -8,10 +8,9 @@
     "production":    [ "default" ],
     "sharedGlobals": [ ]
   },
-  "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
-  "nxCloudId":          "${NX_CLOUD_ID}",
-  "parallel":           7,
-  "targetDefaults":     {
+  "nxCloudId":      "640ae4656582ba2771a1d26e",
+  "parallel":       8,
+  "targetDefaults": {
     "angular--browser":       { "cache": true },
     "angular--server":        { "cache": true },
     "build":                  {

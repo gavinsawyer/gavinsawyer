@@ -28,7 +28,7 @@ import { RouteComponent }                                                       
     standalone: true,
   },
 )
-export class TermsRouteComponent
+export default class TermsRouteComponent
   extends RouteComponent {
 
   protected readonly configLib: ConfigLib          = inject<ConfigLib>(CONFIG_LIB);
@@ -36,6 +36,4 @@ export class TermsRouteComponent
   protected readonly environment: Environment      = inject<Environment>(ENVIRONMENT);
   protected readonly updatedDate: Date             = new Date("2025-04-13T00:00:00.000Z");
 
-}
-
-export default TermsRouteComponent;
+};

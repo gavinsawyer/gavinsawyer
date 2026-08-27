@@ -30,12 +30,10 @@ import { RouteComponent }                                                       
     standalone: true,
   },
 )
-export class PrivacyRouteComponent
+export default class PrivacyRouteComponent
   extends RouteComponent {
 
   protected readonly DateFormat: typeof DateFormat = DateFormat;
   protected readonly updatedDate: Date             = new Date("2026-01-19T00:00:00.000Z");
 
-}
-
-export default PrivacyRouteComponent;
+};

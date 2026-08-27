@@ -26,7 +26,7 @@ const projectRoutes: Routes = [
     },
     loadComponent: (): Promise<DefaultExport<Type<unknown>>> => import("./privacy/PrivacyRouteComponent"),
     path:          "privacy",
-    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
+    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } ${ inject<ConfigLib>(CONFIG_LIB).titleSeparator } ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
   },
   {
     data:          {
@@ -35,7 +35,7 @@ const projectRoutes: Routes = [
     },
     loadComponent: (): Promise<DefaultExport<Type<unknown>>> => import("./terms/TermsRouteComponent"),
     path:          "terms",
-    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
+    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } ${ inject<ConfigLib>(CONFIG_LIB).titleSeparator } ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
   },
   {
     data:          {
@@ -44,7 +44,7 @@ const projectRoutes: Routes = [
     },
     loadComponent: (): Promise<DefaultExport<Type<unknown>>> => import("./otherwise/OtherwiseRouteComponent"),
     path:          "**",
-    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } - ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
+    title:         ({ data: { title: routeTitle } }: ActivatedRouteSnapshot): string => `${ routeTitle } ${ inject<ConfigLib>(CONFIG_LIB).titleSeparator } ${ inject<ConfigLib>(CONFIG_LIB).brand.title }`,
   },
 ];
 

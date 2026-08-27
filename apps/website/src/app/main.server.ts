@@ -12,7 +12,6 @@ import express                                                                  
 import { type App as AdminFirebaseApp, cert as adminCert, getApps as adminGetApps, initializeApp as adminInitializeApp } from "firebase-admin/app";
 import { type AppCheck as AdminAppCheck, getAppCheck as adminGetAppCheck }                                               from "firebase-admin/app-check";
 import { type Auth as AdminAuth, type DecodedIdToken as AdminDecodedIdToken, getAuth as adminGetAuth }                   from "firebase-admin/auth";
-import project                                                                                                           from "../../project.json";
 import { gitInfoPartial }                                                                                                from "../.gitInfoPartial";
 import { packageVersion }                                                                                                from "../.packageVersion";
 import { environment }                                                                                                   from "../environment";
@@ -102,10 +101,6 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
         "X-Powered-By",
         "Bowstring",
       );
-      response.setHeader(
-        "X-Project-Name",
-        project.name,
-      );
 
       const idToken: string | undefined = request.headersDistinct["authorization"]?.[0]?.split("Bearer ")?.[1];
 
@@ -147,6 +142,6 @@ if (((moduleFilename: string): boolean => moduleFilename === __filename || modul
       if (error)
         throw error;
 
-      console.log(`Bowstring ${ packageVersion.split(" Beta ")[0] }-mini (${ packageVersion.split(" Beta ")[1] ? `Beta ${ packageVersion.split(" Beta ")[1] } • ` : "" }Commit #${ gitInfoPartial.hash } • Project "${ project.name }")`);
+      console.log(`Bowstring ${ packageVersion.split(" Beta ")[0] }-mini (${ packageVersion.split(" Beta ")[1] ? `Beta ${ packageVersion.split(" Beta ")[1] } • ` : "" }Commit #${ gitInfoPartial.hash })`);
     },
   );

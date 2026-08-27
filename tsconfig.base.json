@@ -8,7 +8,6 @@
   },
   "compileOnSave":          false,
   "compilerOptions":        {
-    "allowSyntheticDefaultImports":       true,
     "baseUrl":                            ".",
     "emitDecoratorMetadata":              true,
     "experimentalDecorators":             true,
@@ -34,7 +33,6 @@
       "@bowstring/surface": [ "libs/surface/src/index.ts" ],
       "@bowstring/symbols": [ "libs/symbols/src/index.ts" ]
     },
-    "resolveJsonModule":                  true,
     "rootDir":                            ".",
     "skipDefaultLibCheck":                true,
     "skipLibCheck":                       true,

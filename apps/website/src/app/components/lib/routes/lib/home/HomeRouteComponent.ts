@@ -49,7 +49,7 @@ import { RouteComponent }                                                       
     standalone: true,
   },
 )
-export class HomeRouteComponent
+export default class HomeRouteComponent
   extends RouteComponent {
 
   constructor() {
@@ -211,6 +211,4 @@ export class HomeRouteComponent
     }
   };
 
-}
-
-export default HomeRouteComponent;
+};

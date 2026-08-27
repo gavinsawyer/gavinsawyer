@@ -186,7 +186,7 @@
         "firebaseHostingSite":  "gavinsawyer-44c46",
         "firebaseProject":      "gavinsawyer-44c46",
         "functionName":         "ssr-website",
-        "functionsNodeVersion": "22.22",
+        "functionsNodeVersion": "22",
         "outputPath":           "dist/apps/website/run",
         "region":               "us-central1",
         "serverTarget":         "website:angular--server:production",

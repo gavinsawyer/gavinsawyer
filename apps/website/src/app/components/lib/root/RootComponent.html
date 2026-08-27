@@ -38,7 +38,7 @@
       @if (packageVersion.split(" Beta ")[1]; as beta) {<bowstring--caption>Beta&nbsp;{{ beta }}</bowstring--caption>}
       <bowstring--caption>Commit&nbsp;&num;<bowstring--link
         inline
-        [url]="packageRepositoryUrl + '/tree/' + gitInfoPartial.hash + '/apps/' + projectName">
+        [url]="packageRepositoryUrl + '/tree/' + gitInfoPartial.hash + '/apps/' + environment.app">
         <bowstring--label [input]="gitInfoPartial.hash || ''" />
       </bowstring--link></bowstring--caption>
     </bowstring--section>

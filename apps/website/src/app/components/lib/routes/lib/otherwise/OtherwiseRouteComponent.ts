@@ -26,7 +26,7 @@ import { RouteComponent }                                                       
     standalone: true,
   },
 )
-export class OtherwiseRouteComponent
+export default class OtherwiseRouteComponent
   extends RouteComponent
   implements OnInit {
 
@@ -47,6 +47,4 @@ export class OtherwiseRouteComponent
       this.response?.status(404);
   }
 
-}
-
-export default OtherwiseRouteComponent;
+};

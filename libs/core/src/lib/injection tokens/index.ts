@@ -11,7 +11,6 @@ export * from "./lib/LOGO";
 export * from "./lib/ORIGIN";
 export * from "./lib/PACKAGE_REPOSITORY_URL";
 export * from "./lib/PACKAGE_VERSION";
-export * from "./lib/PROJECT_NAME";
 export * from "./lib/PROJECT_ROUTES";
 export * from "./lib/REQUEST";
 export * from "./lib/RESPONSE";

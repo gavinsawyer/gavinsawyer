@@ -2,19 +2,21 @@
  * Copyright © 2026 Gavin William Sawyer. All rights reserved.
  */
 
-import { DOCUMENT, isPlatformBrowser }                                                                                                                                                                                                                           from "@angular/common";
-import { ChangeDetectionStrategy, Component, effect, inject, Injector, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild }                                                                                                                           from "@angular/core";
-import { toObservable, toSignal }                                                                                                                                                                                                                                from "@angular/core/rxjs-interop";
-import { Analytics }                                                                                                                                                                                                                                             from "@angular/fire/analytics";
-import { AppCheck, type AppCheckTokenResult, getLimitedUseToken }                                                                                                                                                                                                from "@angular/fire/app-check";
-import { RouterOutlet, type Routes }                                                                                                                                                                                                                             from "@angular/router";
-import { CONFIG_LIB, type ConfigLib }                                                                                                                                                                                                                            from "@bowstring/config";
-import { AuthenticationService, ConnectivityService, DateFormat, DatePipe, ENVIRONMENT, type Environment, ErrorsService, GIT_INFO_PARTIAL, type Logo, LOGO, PACKAGE_REPOSITORY_URL, PACKAGE_VERSION, PROJECT_NAME, PROJECT_ROUTES, SERVICE_WORKER_REGISTRATION } from "@bowstring/core";
-import { LOCALE_ID, LOCALE_IDS, type LocaleId, type LocaleIds }                                                                                                                                                                                                  from "@bowstring/i18n";
-import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, CanvasDirective, FlexboxContainerDirective, type FooterComponent, type HeaderComponent, type InspectorComponent }                                                  from "@bowstring/surface";
-import { type GitInfo }                                                                                                                                                                                                                                          from "git-describe";
-import { map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic }                                                                                                                                                                          from "rxjs";
-import { type RouteComponent }                                                                                                                                                                                                                                   from "../route/RouteComponent";
+import { DOCUMENT, isPlatformBrowser }                                                                                                                                                                                                                                   from "@angular/common";
+import { ChangeDetectionStrategy, Component, effect, inject, Injector, PLATFORM_ID, signal, type Signal, type TemplateRef, viewChild }                                                                                                                                   from "@angular/core";
+import { takeUntilDestroyed, toObservable, toSignal }                                                                                                                                                                                                                    from "@angular/core/rxjs-interop";
+import { Analytics }                                                                                                                                                                                                                                                     from "@angular/fire/analytics";
+import { AppCheck, type AppCheckTokenResult, getLimitedUseToken }                                                                                                                                                                                                        from "@angular/fire/app-check";
+import { type User }                                                                                                                                                                                                                                                     from "@angular/fire/auth";
+import { doc, docSnapshots, type DocumentReference, type DocumentSnapshot, Firestore, updateDoc }                                                                                                                                                                        from "@angular/fire/firestore";
+import { RouterOutlet, type Routes }                                                                                                                                                                                                                                     from "@angular/router";
+import { CONFIG_LIB, type ConfigLib }                                                                                                                                                                                                                                    from "@bowstring/config";
+import { type AccountDocument, AuthenticationService, ConnectivityService, DateFormat, DatePipe, ENVIRONMENT, type Environment, ErrorsService, GIT_INFO_PARTIAL, LOGO, type Logo, PACKAGE_REPOSITORY_URL, PACKAGE_VERSION, PROJECT_ROUTES, SERVICE_WORKER_REGISTRATION } from "@bowstring/core";
+import { LOCALE_ID, LOCALE_IDS, type LocaleId, type LocaleIds }                                                                                                                                                                                                          from "@bowstring/i18n";
+import { type AboveComponent, type AsideComponent, type BannerComponent, type BelowComponent, CanvasDirective, FlexboxContainerDirective, type FooterComponent, type HeaderComponent, type InspectorComponent }                                                          from "@bowstring/surface";
+import { type GitInfo }                                                                                                                                                                                                                                                  from "git-describe";
+import { catchError, distinctUntilChanged, map, Observable, type Observer, of, startWith, switchMap, type TeardownLogic }                                                                                                                                                from "rxjs";
+import { type RouteComponent }                                                                                                                                                                                                                                           from "../route/RouteComponent";
 
 
 @Component(
@@ -45,26 +47,69 @@ import { type RouteComponent }                                                  
 export class RootComponent {
 
   constructor() {
-    effect(
-      (): void => {
-        const idToken: string | undefined = this.authenticationService.idToken$();
+    if (isPlatformBrowser(this.platformId)) {
+      this.authenticationService.userObservable.pipe<DocumentSnapshot<AccountDocument, AccountDocument> | undefined, DocumentSnapshot<AccountDocument, AccountDocument> | undefined, DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(
+        switchMap<User, Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>>(
+          ({ uid: userId }: User): Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined> => (docSnapshots<AccountDocument>(
+            doc(
+              this.firestore,
+              `/accounts/${ userId }`,
+            ) as DocumentReference<AccountDocument, AccountDocument>,
+          ) as Observable<DocumentSnapshot<AccountDocument, AccountDocument>>).pipe<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(catchError<DocumentSnapshot<AccountDocument, AccountDocument>, Observable<undefined>>((): Observable<undefined> => of<undefined>(undefined))),
+        ),
+        distinctUntilChanged<DocumentSnapshot<AccountDocument, AccountDocument> | undefined, string | undefined>(
+          (
+            previousAccountDocumentId?: string,
+            currentAccountDocumentId?: string,
+          ): boolean => currentAccountDocumentId === previousAccountDocumentId,
+          (accountDocumentSnapshot?: DocumentSnapshot<AccountDocument, AccountDocument>): string | undefined => accountDocumentSnapshot?.id,
+        ),
+        takeUntilDestroyed<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(),
+      ).subscribe(
+        (accountDocumentSnapshot?: DocumentSnapshot<AccountDocument, AccountDocument>): void => {
+          if (!accountDocumentSnapshot)
+            return void (0);
 
-        if (idToken)
-          this.serviceWorkerRegistration?.active?.postMessage(
-            {
-              data:      { idToken },
-              eventType: "idTokenChanged",
-            },
-          );
-      },
-    );
+          const accountDocument: AccountDocument | undefined = accountDocumentSnapshot.data();
+
+          if (!accountDocument)
+            return void (0);
+
+          if (accountDocument.localeId !== this.localeId)
+            updateDoc<AccountDocument, AccountDocument>(
+              accountDocumentSnapshot.ref,
+              { localeId: this.localeId },
+            ).catch<never>(
+              (error: Error): never => {
+                console.error("Something went wrong.");
+
+                throw error;
+              },
+            );
+        },
+      );
+
+      effect(
+        (): void => {
+          const idToken: string | undefined = this.authenticationService.idToken$();
+
+          if (idToken)
+            this.serviceWorkerRegistration?.active?.postMessage(
+              {
+                data:      { idToken },
+                eventType: "idTokenChanged",
+              },
+            );
+        },
+      );
+    }
   }
 
   private readonly analytics: Analytics                                        = inject<Analytics>(Analytics);
   private readonly appCheck: AppCheck                                          = inject<AppCheck>(AppCheck);
   private readonly datePipe: DatePipe                                          = inject<DatePipe>(DatePipe);
   private readonly document: Document                                          = inject<Document>(DOCUMENT);
-  private readonly environment: Environment                                    = inject<Environment>(ENVIRONMENT);
+  private readonly firestore: Firestore                                        = inject<Firestore>(Firestore);
   private readonly injector: Injector                                          = inject<Injector>(Injector);
   private readonly platformId: NonNullable<unknown>                            = inject<NonNullable<unknown>>(PLATFORM_ID);
   private readonly routerOutlet$: Signal<RouterOutlet>                         = viewChild.required<RouterOutlet>(RouterOutlet);
@@ -170,6 +215,7 @@ export class RootComponent {
     ),
   ) : signal<undefined>(undefined);
   protected readonly connectivityService: ConnectivityService                                   = inject<ConnectivityService>(ConnectivityService);
+  protected readonly environment: Environment                                                   = inject<Environment>(ENVIRONMENT);
   protected readonly errorsService: ErrorsService                                               = inject<ErrorsService>(ErrorsService);
   protected readonly footerTemplateRef$: Signal<TemplateRef<FooterComponent> | undefined>       = toSignal<TemplateRef<FooterComponent> | undefined>(
     toObservable<RouterOutlet>(this.routerOutlet$).pipe<TemplateRef<FooterComponent> | undefined>(
@@ -231,7 +277,6 @@ export class RootComponent {
   ) as Record<LocaleId, string>;
   protected readonly localeId: LocaleId                                                         = inject<LocaleId>(LOCALE_ID);
   protected readonly logo: Logo                                                                 = inject<Logo>(LOGO);
-  protected readonly projectName: string                                                        = inject<string>(PROJECT_NAME);
   protected readonly projectRoutes: Routes                                                      = inject<Routes>(PROJECT_ROUTES);
   protected readonly packageRepositoryUrl: string                                               = inject<string>(PACKAGE_REPOSITORY_URL);
   protected readonly packageVersion: string                                                     = inject<string>(PACKAGE_VERSION);

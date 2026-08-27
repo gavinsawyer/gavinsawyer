@@ -3,14 +3,13 @@
  */
 
 import { inject, Injectable, type Signal }                                                                              from "@angular/core";
-import { takeUntilDestroyed, toSignal }                                                                                 from "@angular/core/rxjs-interop";
+import { toSignal }                                                                                                     from "@angular/core/rxjs-interop";
 import { type FirebaseError }                                                                                           from "@angular/fire/app";
 import { Auth, EmailAuthProvider, linkWithCredential, reauthenticateWithCredential, unlink, updatePassword, type User } from "@angular/fire/auth";
 import { doc, docSnapshots, type DocumentReference, type DocumentSnapshot, Firestore, updateDoc }                       from "@angular/fire/firestore";
 import { Functions }                                                                                                    from "@angular/fire/functions";
-import { LOCALE_ID, type LocaleId }                                                                                     from "@bowstring/i18n";
 import { type FirebaseWebAuthnError, linkWithPasskey, unlinkPasskey }                                                   from "@firebase-web-authn/browser";
-import { catchError, distinctUntilChanged, filter, map, Observable, of, shareReplay, switchMap }                        from "rxjs";
+import { catchError, map, Observable, of, shareReplay, switchMap }                                                      from "rxjs";
 import { getAuthErrorMessage }                                                                                          from "../../getAuthErrorMessage";
 import { type AccountDocument }                                                                                         from "../../interfaces";
 import { AuthenticationService }                                                                                        from "./AuthenticationService";
@@ -21,41 +20,8 @@ import { RxSsrService }                                                         
 @Injectable({ providedIn: "root" })
 export class AccountService {
 
-  constructor() {
-    this.documentSnapshotObservable.pipe<DocumentSnapshot<AccountDocument, AccountDocument>, DocumentSnapshot<AccountDocument, AccountDocument>, DocumentSnapshot<AccountDocument, AccountDocument>>(
-      filter<DocumentSnapshot<AccountDocument, AccountDocument> | undefined, DocumentSnapshot<AccountDocument, AccountDocument>>((documentSnapshot?: DocumentSnapshot<AccountDocument, AccountDocument>): documentSnapshot is DocumentSnapshot<AccountDocument, AccountDocument> => !!documentSnapshot),
-      distinctUntilChanged<DocumentSnapshot<AccountDocument, AccountDocument>, string>(
-        (
-          previousDocumentId: string,
-          currentDocumentId: string,
-        ): boolean => currentDocumentId === previousDocumentId,
-        ({ id: documentId }: DocumentSnapshot<AccountDocument, AccountDocument>): string => documentId,
-      ),
-      takeUntilDestroyed<DocumentSnapshot<AccountDocument, AccountDocument>>(),
-    ).subscribe(
-      (documentSnapshot: DocumentSnapshot<AccountDocument, AccountDocument>): void => {
-        const accountDocument: AccountDocument | undefined = documentSnapshot.data();
-
-        if (!accountDocument || accountDocument.localeId === this.localeId)
-          return void (0);
-
-        return void updateDoc<AccountDocument, AccountDocument>(
-          documentSnapshot.ref,
-          { localeId: this.localeId },
-        ).catch<never>(
-          (error: Error): never => {
-            console.error("Something went wrong.");
-
-            throw error;
-          },
-        );
-      },
-    );
-  }
-
   private readonly auth: Auth                                                                                             = inject<Auth>(Auth);
   private readonly authenticationService: AuthenticationService                                                           = inject<AuthenticationService>(AuthenticationService);
-  private readonly errorsService: ErrorsService                                                                           = inject<ErrorsService>(ErrorsService);
   private readonly firestore: Firestore                                                                                   = inject<Firestore>(Firestore);
   private readonly documentSnapshotObservable: Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined> = this.authenticationService.userObservable.pipe<DocumentSnapshot<AccountDocument, AccountDocument> | undefined, DocumentSnapshot<AccountDocument, AccountDocument> | undefined>(
     switchMap<User, Observable<DocumentSnapshot<AccountDocument, AccountDocument> | undefined>>(
@@ -73,8 +39,8 @@ export class AccountService {
       },
     ),
   );
+  private readonly errorsService: ErrorsService                                                                           = inject<ErrorsService>(ErrorsService);
   private readonly functions: Functions                                                                                   = inject<Functions>(Functions);
-  private readonly localeId: LocaleId                                                                                     = inject<LocaleId>(LOCALE_ID);
   private readonly rxSsrService: RxSsrService                                                                             = inject<RxSsrService>(RxSsrService);
 
   public readonly accountDocument$: Signal<AccountDocument | undefined>                                              = toSignal<AccountDocument | undefined>(

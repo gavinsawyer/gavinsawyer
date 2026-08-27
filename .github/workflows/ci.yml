@@ -10,12 +10,12 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22.22
+          node-version: 22
       - id:   cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: node_modules
           key:  node-modules-cache-${{ hashFiles('package-lock.json') }}
@@ -26,16 +26,16 @@ jobs:
     runs-on: ubuntu-latest
     if:      github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22.22
-      - uses: actions/cache@v4
+          node-version: 22
+      - uses: actions/cache@v5
         with:
           path: node_modules
           key:  node-modules-cache-${{ hashFiles('package-lock.json') }}
       - id:   auth
-        uses: google-github-actions/auth@v2
+        uses: google-github-actions/auth@v3
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GAVINSAWYER_44C46 }}
           token_format:     access_token
@@ -52,7 +52,7 @@ jobs:
     outputs:
       apps: ${{ steps.echo.outputs.apps }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id:  echo
         run: echo "apps=$(jq -sc '[.[].name]' apps/*/project.json)" >> "$GITHUB_OUTPUT"
   deploy:
@@ -64,16 +64,16 @@ jobs:
         include:
           - project: cloud-functions,tag:has-cloud-functions
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22.22
-      - uses: actions/cache@v4
+          node-version: 22
+      - uses: actions/cache@v5
         with:
           path: node_modules
           key:  node-modules-cache-${{ hashFiles('package-lock.json') }}
       - id:   auth
-        uses: google-github-actions/auth@v2
+        uses: google-github-actions/auth@v3
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_GAVINSAWYER_44C46 }}
           token_format:     access_token

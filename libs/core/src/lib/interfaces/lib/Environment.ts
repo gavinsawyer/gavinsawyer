@@ -4,7 +4,7 @@
 
 /** Represents the contents of an environment file for an app. */
 export interface Environment {
-  "app": "console" | "website";
+  "app": "console" | "studio" | "website";
   "apis": {
     "firebase": {
       "apiKey": string;

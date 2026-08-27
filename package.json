@@ -1,6 +1,6 @@
 {
   "name":            "@gavinsawyer/source",
-  "version":         "2026.0 Beta 115",
+  "version":         "2026.0 Beta 116",
   "homepage":        "https://gavinsawyer.us",
   "license":         "Apache-2.0",
   "author":          {
@@ -51,9 +51,9 @@
     "@eslint/js":                             "9",
     "@firebase-web-authn/extension":          "10",
     "@gavinsawyer/shortcuts-api":             "3",
-    "@nx/angular":                            "22.2.0",
-    "@nx/esbuild":                            "22.2.0",
-    "@nx/eslint-plugin":                      "22.2.0",
+    "@nx/angular":                            "22.2",
+    "@nx/esbuild":                            "22.2",
+    "@nx/eslint-plugin":                      "22.2",
     "@sendgrid/eventwebhook":                 "8",
     "@sendgrid/mail":                         "8",
     "@types/body-scroll-lock":                "3",
@@ -73,7 +73,7 @@
     "git-describe":                           "4",
     "jsonc-eslint-parser":                    "3",
     "jsonwebtoken":                           "9",
-    "nx":                                     "22.2.0",
+    "nx":                                     "22.2",
     "url":                                    "0"
   }
 }
